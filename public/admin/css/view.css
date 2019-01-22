@@ -1,0 +1,57 @@
+.view .title{
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.cboxLoad{
+    overflow: hidden;
+}
+
+.cboxLoad li:nth-child(1),.cboxLoad li:nth-child(2){
+    float: left;
+    width: 50%;
+}
+
+.cboxLoad li:nth-child(3){
+    clear: both;
+    border-top: 1px solid #ebebeb;
+    padding-top: 10px;
+}
+
+.cboxLoad li h3{
+    font-size: 16px;
+    color: #383838;
+    margin-bottom: 15px;
+}
+
+.cboxLoad li p{
+    margin-bottom: 5px;
+}
+
+.cboxLoad li p span{
+    width: 135px;
+    display: inline-block;
+}
+
+.box-product .box-img{
+    float: left;
+    margin-right: 15px;
+}
+
+.btn-cancel{
+    margin-top: 20px;
+    background-color: #9f352b;
+    color: #fff;
+    display: inline-block;
+    padding: 5px 25px;
+    border-radius: 4px;
+}
+.btn-cancel:hover{
+    color: #fff;
+}
+
+.view p{
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
