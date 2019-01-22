@@ -35,6 +35,28 @@
                         </select>
                     </div>  
                 </div>
+                
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Nội dung thi đấu</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <?php if ($noi_dung){ ?>
+                                <?php foreach ($noi_dung as $row) { ?>
+                                   <div class="col">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" <?= @$info->is_new == 1 ? 'checked' : '' ?> value="1" name="noi_dung[]" id="is_new<?= $row->id ?>">
+                                            <label class="custom-control-label" for="is_new<?= $row->id ?>"><?= $row->vn_name ?></label>
+                                            <input  name="total_member[]" class="content-page-all-member" type="number" placeholder="Tổng thành viên" />
+                                        </div>
+                                    </div>
+                                 <?php }?>
+                            <?php } ?>
+                            
+                            
+
+                        </div>
+                    </div>
+                </div>
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Tên giải đấu</label>
@@ -130,6 +152,8 @@
                         <textarea class="form-control" rows="10" id="editor" name="vn_detail"><?= isset($info->vn_detail) ? $info->vn_detail : set_value('vn_detail') ?></textarea>
                     </div>
                 </div>
+                
+              
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Hình Ảnh</label>

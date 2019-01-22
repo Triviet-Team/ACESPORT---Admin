@@ -87,6 +87,11 @@ class Tournament extends MY_Controller {
     }
 
     public function detail($id = 0) {
+        $this->load->model('playing_category_m');
+        
+        $input = array();
+        $input['where'] = array('status' => 1);
+        $this->data['noi_dung'] = $this->playing_category_m->get_list($input);       
         
         $input = array();
         $input['where'] = array('pid' => 0, 'status' => 1);

@@ -235,7 +235,7 @@
                 <div class="widgetsTitle">
                     <button type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseOne">
                         <img src="<?= base_url() ?>public/admin/img/icon/quan-li-lien-he.png" alt="">
-                        Quản lí liên hệ
+                        Quản người chơi
                     </button>
                 </div>
     
@@ -245,7 +245,7 @@
                             <li>
                                 <a href="<?= base_url('admincp/contact') ?>">
                                     <img src="<?= base_url() ?>public/admin/img/icon/thu-muc.png" alt="">
-                                    Danh sách liên hệ
+                                    Thêm cặp đấu mới
                                 </a>
                             </li>
     <!--                        <li>
@@ -260,7 +260,7 @@
 
                                 <img src="<?= base_url() ?>public/admin/img/icon/thu-muc.png" alt=""/>
 
-                                Đăng kí nhận email
+                                Danh sách cặp đấu
 
                             </a>
 
