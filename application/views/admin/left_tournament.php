@@ -235,7 +235,7 @@
                 <div class="widgetsTitle">
                     <button type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseOne">
                         <img src="<?= base_url() ?>public/admin/img/icon/quan-li-lien-he.png" alt="">
-                        Quản người chơi
+                        Quản lí người chơi
                     </button>
                 </div>
     
@@ -243,7 +243,7 @@
                     <div id="collapseSix" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <ul>
                             <li>
-                                <a href="<?= base_url('admincp/contact') ?>">
+                                <a href="<?= base_url('admincp/tournament/fixture') ?>">
                                     <img src="<?= base_url() ?>public/admin/img/icon/thu-muc.png" alt="">
                                     Thêm cặp đấu mới
                                 </a>
@@ -256,7 +256,7 @@
                             </li>-->
                             <li>
 
-                            <a href="<?= base_url('admincp/emailregister') ?>">
+                            <a href="<?= base_url('admincp/tournament/fixture') ?>">
 
                                 <img src="<?= base_url() ?>public/admin/img/icon/thu-muc.png" alt=""/>
 

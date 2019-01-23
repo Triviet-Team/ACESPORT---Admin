@@ -255,11 +255,11 @@ class MY_Model extends CI_Model {
         }
     }
     
-    public function getId($obj){
+    public function getId($obj, $field = 'id'){
         $id = array();
         if ($obj){
             foreach ($obj as $row){
-                $id[] = $row->id;
+                $id[] = $row->$field;
             }
             if ($id) {
                 return $id;

@@ -191,3 +191,57 @@ function position(id, position, url) {
         }
     });
 }
+
+function getInfo(id, position, url) {
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {id: id, position: position},
+        dataType: 'JSON',
+        success: function (data) {
+            $('.messages').html('<div class="alert alert-success" role="alert">' + data.msg + '</div>');
+        }
+    });
+}
+
+// Lọc các giải đấu
+$(document).ready(function () {
+	var tournament_type = '';
+    $("#tournament_type").change(function(){
+    	tournament_type = $("#tournament_type option:selected").val();
+    	if(tournament_type != 0) {
+    		
+    	}else {
+    		$("#tournament").html('<option value="0">Chọn giải đấu</option>');
+    		$("#noi_dung").html('<option value="0">Chọn nội dung</option>');
+    		$("#round").html('<option value="0">Chọn vòng đấu</option>');
+    	}
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

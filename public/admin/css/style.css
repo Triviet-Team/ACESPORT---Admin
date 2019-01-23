@@ -305,12 +305,17 @@ footer p{
 .image_thumb{
     float: left;
     margin-right: 10px;
-    width: 100px;
+    width: 60px;
     overflow: hidden;
 }
 
+.image_thumb img {
+	width: 60px;
+}
+
 .info_products{
-    padding-top: 1px;
+    padding-top: 5px;
+	margin-left: 10px
 }
 
 .info_products b{
@@ -411,8 +416,7 @@ footer p{
     display: block;
     width: 100%;
     padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
+    line-height: 2;
     color: #495057;
     background-color: #fff;
     background-clip: padding-box;
