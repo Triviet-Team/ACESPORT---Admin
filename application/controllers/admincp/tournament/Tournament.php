@@ -9,6 +9,8 @@ class Tournament extends MY_Controller {
 
         $this->load->model('tournament_m');
         $this->load->model('tournament_category_m', 'category');
+        $this->load->model('tournament_playing_category_m');
+        $this->load->model('playing_category_m');
     }
 
     public function index() {
@@ -61,16 +63,28 @@ class Tournament extends MY_Controller {
         $segment = intval($segment);
 
         $input['limit'] = array($config['per_page'], $segment);
-
-        $this->data['list'] = $this->tournament_m->get_list($input);
+        $list = $this->tournament_m->get_list($input);
+        
+        foreach ($list as $row){
+            // mảng cid của product
+            $inputNoiDung          = array();
+            $inputNoiDung['where'] = array('tournament_id' => $row->id);
+            $idNoidung         = $this->tournament_playing_category_m->get_list($inputNoiDung);
+            
+            foreach ($idNoidung as $row_1){
+                $infoNoiDung = $this->playing_category_m->get_info($row_1->playing_category_id);
+                $row_1->name = $infoNoiDung->vn_name;
+            }
+           if ($idNoidung) {
+               $row->arrNoiDung = $idNoidung;
+           } 
+        }
+        
+        $this->data['list'] = $list;
 
         $input = array();
         $input['where'] = array('pid' => 0, 'status' => 1);
         $catalogs = $this->category->get_list($input);
-
-        
-        // echo '<pre>';
-        // print_r($catalogs);
 
         foreach ($catalogs as $row) {
             $input['where'] = array('pid' => $row->id, 'status' => 1);
@@ -87,7 +101,7 @@ class Tournament extends MY_Controller {
     }
 
     public function detail($id = 0) {
-        $this->load->model('playing_category_m');
+        $this->load->model('tournament_type_m');
         
         $input = array();
         $input['where'] = array('status' => 1);
@@ -99,12 +113,13 @@ class Tournament extends MY_Controller {
         $input['order'][0] = 'position';
         $input['order'][1] = 'ASC';
         
-        $catalogs = $this->category->get_list($input);
-        foreach ($catalogs as $row) {
-            $input['where'] = array('pid' => $row->id, 'status' => 1);
-            $subs = $this->category->get_list($input);
-            $row->subs = $subs;
-        }
+        $catalogs = $this->tournament_type_m->get_list($input);
+
+//         foreach ($catalogs as $row) {
+//             $input['where'] = array('pid' => $row->id, 'status' => 1);
+//             $subs = $this->tournament_m->get_list($input);
+//             $row->subs = $subs;
+//         }
         $this->data['catalogs'] = $catalogs;
         if($id){
             $info = $this->tournament_m->get_info($id);
@@ -115,12 +130,24 @@ class Tournament extends MY_Controller {
                 redirect(base_url() . 'admincp/tournament/tournament/index/');
             }
         }
+        
+        // mảng cid của product
+        $input          = array();
+        $input['where'] = array('tournament_id' => $id);
+        $arrPid         = $this->tournament_playing_category_m->get_list($input);
+        $this->data['arrPid'] = $arrPid;
 
         if ($this->input->post()) {
+            
+//             echo '<pre>';
+//             print_r($_POST);
+//             echo '<pre>';die();
 
             $this->form_validation->set_rules('vn_name', 'Tên sản phẩm', 'required');
 
-            //$this->form_validation->set_rules('cid', 'Danh mục sản phẩm', 'required');
+            $this->form_validation->set_rules('start_date', 'Ngày bắt đầu', 'required');
+            
+            $this->form_validation->set_rules('end_date', 'Ngày bắt kết thúc', 'required');
 
             if ($this->form_validation->run()) {
 
@@ -195,47 +222,84 @@ class Tournament extends MY_Controller {
                 $cid = $this->input->post('cid', true);
 
 
-                $price = $this->input->post('price');
-                $price = str_replace(',', '', $price);
+//                 $price = $this->input->post('price');
+//                 $price = str_replace(',', '', $price);
                 
-                $sale_price = $this->input->post('sale_price');
-                $sale_price = str_replace(',', '', $sale_price);
+//                 $sale_price = $this->input->post('sale_price');
+//                 $sale_price = str_replace(',', '', $sale_price);
 
                 $data = array(
-                    'cid' => $cid,
+                    'pid' => $cid,
                     'vn_name' => $this->input->post('vn_name', true),
                     'vn_slug' => $slug,
                     'vn_keyword' => $this->input->post('vn_keyword', true),
                     'vn_title' => $this->input->post('vn_title', true),
                     'vn_description' => $this->input->post('vn_description', true),
-                    'price' => $price,
-                    'sale_price' => $sale_price,
-                    'code' => $this->input->post('code', true),
+                    //'price' => $price,
+                    //'sale_price' => $sale_price,
+                    //'code' => $this->input->post('code', true),
                     'vn_sapo' => $this->input->post('vn_sapo', true),
                     'vn_detail' => $this->input->post('vn_detail', true),
                     'image_link' => $image_link,
                     'image_list' => $image_list,
-                    'is_home' => $this->input->post('is_home', true),
-                    'is_pay' => $this->input->post('is_pay', true),
-                    'is_new' => $this->input->post('is_new', true),
+                    'start_date' => strtotime($this->input->post('start_date', true)),
+                    'end_date' => strtotime($this->input->post('end_date', true)),
+                    //'is_home' => $this->input->post('is_home', true),
+                    //'is_pay' => $this->input->post('is_pay', true),
+                    //'is_new' => $this->input->post('is_new', true),
                     //'is_like' => $this->input->post('is_like', true),
                     //'is_special' => $this->input->post('is_special', true),
-                    'is_hight' => $this->input->post('is_hight', true),
+                    //'is_hight' => $this->input->post('is_hight', true),
                     'status' => $this->input->post('status', true),
                     'created' => now(),
                 );
 
+                $noi_dung = $this->input->post('noi_dung[]', true);
+                
+                $total_member = $this->input->post('total_member[]', true);
+                
+                $loai_choi = $this->input->post('loai_choi[]', true);
+
                 if (!$id) {
                     if ($this->tournament_m->create($data)) {
-                        $this->session->set_flashdata('message', 'Thêm sản phẩm thành công');
+
+                        $tournament_id = $this->db->insert_id();
+                        if ($noi_dung && $tournament_id) {
+                            foreach ($noi_dung as $key => $val) {
+                                $item = array(  
+                                    'tournament_id' => $tournament_id,
+                                    'playing_category_id' => $val,
+                                    'total_member' => $total_member[$key],
+                                    'type_play' => $loai_choi[$key] ? 2 : 1
+                                );
+
+                                $this->tournament_playing_category_m->create($item);
+                            }
+                        }
+
+                        $this->session->set_flashdata('message', 'Thêm dự án thành công');
                     } else {
-                        $this->session->set_flashdata('message', 'Thêm sản phẩm thất bại');
+                        $this->session->set_flashdata('message', 'Thêm dự án thất bại');
                     }
                 } else {
                     if ($this->tournament_m->update($id, $data)) {
-                        $this->session->set_flashdata('message', 'Cập nhật sản phẩm thành công');
+                        if ($this->tournament_playing_category_m->del_rule("tournament_id = " . $id)) {
+                            if ($noi_dung) {
+                                 foreach ($noi_dung as $key => $val) {
+                                    $item = array(  
+                                        'tournament_id' => $id,
+                                        'playing_category_id' => $val,
+                                        'total_member' => $total_member[$key],
+                                        'type_play' => $loai_choi[$key] ? 2 : 1
+                                    );
+    
+                                    $this->tournament_playing_category_m->create($item);
+                                }
+                            }
+                        }
+                        $this->session->set_flashdata('message', 'Cập nhật dự án thành công');
                     } else {
-                        $this->session->set_flashdata('message', 'Cập nhật sản phẩm thất bại');
+                        $this->session->set_flashdata('message', 'Cập nhật dự án thất bại');
                     }
                 }
 
@@ -330,8 +394,21 @@ class Tournament extends MY_Controller {
         $where['where'] = array(
             'status' => 3
         );
+        
         $check_del = $this->tournament_m->get_list($where);
-
+        
+        $ids = $this->tournament_m->getId($check_del);
+        
+        
+        if ($ids) {
+            $array_id = implode(',', $ids);
+        
+           $input = 'tournament_id IN (' . $array_id . ')';
+           if ($input){
+               $this->tournament_playing_category_m->del_rule($input);
+           }
+        }
+        
         if ($check_del) {
 
             if ($this->tournament_m->del_rule("status = 3")) {

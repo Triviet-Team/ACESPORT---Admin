@@ -96,7 +96,6 @@ class MY_Model extends CI_Model {
 
         $this->db->where($where);
         $this->db->delete($this->table);
-
         return TRUE;
     }
 
@@ -252,6 +251,22 @@ class MY_Model extends CI_Model {
         if ($query->num_rows() > 0) {
             return TRUE;
         } else {
+            return FALSE;
+        }
+    }
+    
+    public function getId($obj){
+        $id = array();
+        if ($obj){
+            foreach ($obj as $row){
+                $id[] = $row->id;
+            }
+            if ($id) {
+                return $id;
+            }else {
+                return FALSE;
+            }
+        }else {
             return FALSE;
         }
     }

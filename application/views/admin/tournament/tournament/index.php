@@ -95,10 +95,9 @@
                         <th scope="col" width=5%>STT</th>
                         <th scope="col" width=5%>Mã Số</th>
                         <th scope="col">Tên</th>
-                        <th scope="col" width=10%>Giá sản phẩm</th>
-                        <th scope="col" width=10%>Giảm giá</th>
-                        <th scope="col" width=10%>Trạng thái</th>
-                        <th scope="col" width=10%>Ngày taọ</th>
+                        <th scope="col" width=35%>Tóm tắt giải đấu</th>
+                        <th scope="col" width=5%>Trạng thái</th>
+                        <th scope="col" width=8%>Ngày taọ</th>
                         <th scope="col"style="width: 140px" class="text-center">Hành động</th>
                     </tr>
                 </thead>
@@ -131,11 +130,26 @@
 
                                 </td>
                                 <td class="text-center">
-                                    <b class="redB"><?= number_format($row->price) ?> đ</b>
+                                <?php if($row->arrNoiDung){ ?>
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td>Nội dung</td>
+                                            <td>Thành viên tham gia</td>
+                                            <td>Loại đấu</td>
+                                        </tr>
+                                    
+                                    	<?php foreach ($row->arrNoiDung as $row_1) { ?>
+                                        <tr>
+                                            <td><?= $row_1->name ?></td>
+                                            <td><?= $row_1->total_member ?  $row_1->total_member : 0?> Vận động viên</td>
+                                            <td><?= $row_1->type_play == 2 ? 'Đấu đôi' : 'Đấu đơn' ?></td>
+                                        </tr>
+                                        <?php } ?>
+
+                                    </table>
+                                <?php } ?>
                                 </td>
-                                <td class="text-center">
-                                    <b class="redB"><?= number_format($row->sale_price) ?> đ</b>
-                                </td>
+
                                 <td class="text-center" id="status_<?= $row->id ?>">
                                     <img src="<?= base_url() ?>public/admin/img/icon/action_<?= $row->status ?>.png" alt=""/>
                                 </td>

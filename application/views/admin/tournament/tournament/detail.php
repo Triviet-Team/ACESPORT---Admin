@@ -25,11 +25,11 @@
                                 <?php if ($row->subs) { ?>
                                     <optgroup label="<?php echo $row->vn_name ?>">
                                         <?php foreach ($row->subs as $sub) { ?>
-                                            <option value="<?php echo $sub->id ?>" <?= @$info->cid == $sub->id ? 'selected' : '' ?>><?php echo $sub->vn_name ?> </option>
+                                            <option value="<?php echo $sub->id ?>" <?= @$info->pid == $sub->id ? 'selected' : '' ?>><?php echo $sub->vn_name ?> </option>
                                         <?php } ?>
                                     </optgroup>
                                 <?php } else { ?>
-                                    <option value="<?php echo $row->id ?>"  <?= @$info->cid == $row->id ? 'selected' : '' ?>><?php echo $row->vn_name ?></option>
+                                    <option value="<?php echo $row->id ?>"  <?= @$info->pid == $row->id ? 'selected' : '' ?>><?php echo $row->vn_name ?></option>
                                 <?php } ?>
                             <?php } ?>
                         </select>
@@ -44,9 +44,36 @@
                                 <?php foreach ($noi_dung as $row) { ?>
                                    <div class="col">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" <?= @$info->is_new == 1 ? 'checked' : '' ?> value="1" name="noi_dung[]" id="is_new<?= $row->id ?>">
+                                            <!-- <input type="checkbox" class="custom-control-input" <?= @$info->is_new == 1 ? 'checked' : '' ?> value="1" name="noi_dung[]" id="is_new<?= $row->id ?>">
                                             <label class="custom-control-label" for="is_new<?= $row->id ?>"><?= $row->vn_name ?></label>
-                                            <input  name="total_member[]" class="content-page-all-member" type="number" placeholder="Tổng thành viên" />
+                                            <input min="1"  name="total_member[]" class="content-page-all-member" type="number" placeholder="Tổng thành viên" />
+                                            
+                                            <input type="checkbox" class="custom-control-input" <?= @$info->is_new == 1 ? 'checked' : '' ?> value="1" name="noi_dung[]" id="is_new<?= $row->id ?><?= $row->id ?>">
+                                            <label class="custom-control-label" for="is_new<?= $row->id ?><?= $row->id ?>">Đôi</label>-->
+                                            <?php 
+                                                if(@$arrPid){ 
+                                                    $checkedNoiDung = '';
+                                                    $checkedLoaiChoi = '';
+                                                    $total_member    = '';
+                                                    foreach ($arrPid as $k => $row_1) {
+                                                        if ($row->id == $row_1->playing_category_id){
+                                                            $checkedNoiDung = 'checked';
+                                                            $checkedLoaiChoi = $row_1->type_play == 2 ? 'checked' : '';
+                                                            $total_member    = $row_1->total_member;
+                                                        }
+                                                    }
+                                                } 
+                                            ?>
+                                        	 <label class="checkbox-container"><?= $row->vn_name ?>
+                                              <input type="checkbox" <?= $checkedNoiDung ?> value="<?= $row->id ?>" " name="noi_dung[]" />
+                                              <span class="checkmark"></span>
+                                            </label>
+                                            <input min="1"  name="total_member[]" class="content-page-all-member" type="number" value="<?= $total_member ?>" placeholder="Tổng thành viên" />
+                                             <label class="checkbox-container">Đôi
+                                              <input type="checkbox" value="1" <?= $checkedLoaiChoi ?> name="loai_choi[]" />
+                                              <span class="checkmark"></span>
+                                            </label>
+                                            
                                         </div>
                                     </div>
                                  <?php }?>
@@ -55,6 +82,22 @@
                             
 
                         </div>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Ngày bắt đầu giải đấu</label>
+                    <div class="col-sm-10">
+                        <input type="date" name="start_date" value="" class="form-control">
+                        <div class="error"><?= form_error('start_date') ?></div>
+                    </div>
+                </div>
+                
+               <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Ngày kết thúc giải đấu</label>
+                    <div class="col-sm-10">
+                        <input type="date" name="end_date" value=""class="form-control">
+                        <div class="error"><?= form_error('end_date') ?></div>
                     </div>
                 </div>
 
