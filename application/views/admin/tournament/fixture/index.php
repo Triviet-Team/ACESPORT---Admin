@@ -59,28 +59,28 @@
                                                 <?php if ($row->subs) { ?>
                                                     <optgroup label="<?php echo $row->vn_name ?>">
                                                         <?php foreach ($row->subs as $sub) { ?>
-                                                            <option value="<?php echo $sub->id ?>" <?= @$info->cid == $sub->id ? 'selected' : '' ?>><?php echo $sub->vn_name ?> </option>
+                                                            <option value="<?php echo $sub->id ?>" <?= @$tournament_type == $sub->id ? 'selected' : '' ?>><?php echo $sub->vn_name ?> </option>
                                                         <?php } ?>
                                                     </optgroup>
                                                 <?php } else { ?>
-                                                    <option value="<?php echo $row->id ?>"  <?= @$info->cid == $row->id ? 'selected' : '' ?>><?php echo $row->vn_name ?></option>
+                                                    <option value="<?php echo $row->id ?>"  <?= @$tournament_type == $row->id ? 'selected' : '' ?>><?php echo $row->vn_name ?></option>
                                                 <?php } ?>
                                             <?php } ?>
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <select class="custom-select" id="tournament" name="tournament">
+                                        <select tournament="<?= @$tournament ? $tournament : ''?>" class="custom-select" id="tournament" name="tournament">
                                             <option value="0">Chọn giải đấu</option>
                                         </select>
                                     </div>
                                     
                                     <div class="col">
-                                        <select class="custom-select" id="noi_dung" name="noi_dung">
+                                        <select noi_dung="<?= @$noi_dung ? $noi_dung : ''?>" class="custom-select" id="noi_dung" name="noi_dung">
                                             <option value="0">Chọn nội dung</option>
                                         </select>
                                     </div>
                                      <div class="col">
-                                        <select class="custom-select" id="round" name="round">
+                                        <select round="<?= @$round ? $round : ''?>" class="custom-select" id="round" name="round">
                                             <option value="0">Chọn vòng đấu</option>
                                         </select>
                                     </div>

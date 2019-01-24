@@ -6,7 +6,8 @@ class Fixture extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
-
+        
+        $this->load->model('users_m');
         $this->load->model('tournament_m');
         $this->load->model('tournament_category_m', 'category');
         $this->load->model('tournament_playing_category_m');
@@ -14,30 +15,105 @@ class Fixture extends MY_Controller {
         $this->load->model('fixture_m');
         $this->load->model('registration_player_m');
     }
+    
+    public function getInfoUsers() {
+        $data = $this->users_m->get_list();
+        $result = null;
+        
+        foreach ($data as $row) {
+            $result['result'][] = array('id' => $row->id, 'name' => $row->username);
+        }
+        
+        echo json_encode($result);
+    }
+    
+    public function getInfo() {
+        $result = null;
+        if ($_POST) {
+            $type = $_POST['type'];
+            if ($type == 'tournament_type'){
+               $val = $_POST['tournament_type'];
+               $input = array();
+               $input['where'] = array('pid', $val);
+               $result = $this->tournament_m->get_list($input);  
+            }
+            
+            if ($type == 'tournament'){
+                $val = $_POST['tournament'];
+                $result = $this->fixture_m->getInfoTable($val);
+            }
+            
+            if ($type == 'noi_dung'){
+                $val = $_POST['noi_dung'];
+                $active = $_POST['active'];
+                $info = $this->tournament_playing_category_m->get_info($val);
+                $total_member = $info->total_member;
+                $type_play = $info->type_play;
+                $cap_dau = ($total_member/(2*$type_play));
+                $n = $this->fixture_m->getMu($cap_dau);
+                $str = '<option value="0">Chọn vòng đấu</option>';
+                for ($i = $n; $i >= 1; $i--) {
+                    if ($i == $active) {
+                        $selected = 'selected';
+                    }else {
+                        $selected = '';
+                    }
+                    if ($i == 1) {
+                        $str .= '<option '.$selected.' value="'. $i .'">Vòng chung kết</option>';
+                    }elseif ($i == 2) {
+                        $str .= '<option '.$selected.' value="'. $i .'">Vòng bán kết</option>';
+                    }elseif ($i == 3) {
+                        $str .= '<option '.$selected.' value="'. $i .'">Vòng tứ kết</option>';
+                    }else {
+                        $str .= '<option '.$selected.' value="'. $i .'">Vòng 1/'. (pow(2, $i)/2).'</option>';
+                    }
+                }
+                $result['type'] = $type_play;
+                $result['content'] = $str;
+                echo json_encode($result);die();
+            }
+        }        
+        if ($result) { 
+            echo json_encode($result);
+        }else {
+            echo 0;
+        }
+    }
 
     public function index() {
 
-//         //kiem tra co thuc hien loc du lieu hay khong
-//         $input = array();
-//         $id = $this->input->get('id');
-//         $id = intval($id);
-//         if ($id > 0) {
-//             $input['where']['id'] = $id;
-//         }
-//         $vn_name = $this->input->get('vn_name');
-//         if ($vn_name) {
-//             $input['where']['vn_name'] = $vn_name;
-//         }
+        //kiem tra co thuc hien loc du lieu hay khong
+        $filter = array();
+        $tournament_type = $this->input->get('tournament_type');
+        $tournament_type = intval($tournament_type);
+        if ($tournament_type > 0) {
+            $this->data['tournament_type'] = $tournament_type;
+            $filter[] = array('name' => '`tournament_type`.`id`', 'val' => $tournament_type);
+        }
+        
+        $tournament = $this->input->get('tournament');
+        $tournament = intval($tournament);
+        if ($tournament > 0) {
+             $this->data['tournament'] = $tournament;
+             $filter[] = array('name' => '`tournament`.`id`', 'val' => $tournament);
+        }
 
-//         $cid = $this->input->get('cid');
-//         $cid = intval($cid);
-//         if ($cid > 0) {
-//             $input['where']['cid'] = $cid;
-//         }
+        $noi_dung = $this->input->get('noi_dung');
+        $noi_dung = intval($noi_dung);
+        if ($noi_dung > 0) {
+            $this->data['noi_dung'] = $noi_dung;
+            $filter[] = array('name' => '`tournament_playing_category`.`id`', 'val' => $noi_dung);
+        }
+        $round = $this->input->get('round');
+        $round = intval($round);
+        if ($round > 0) {
+            $this->data['round'] = $round;
+            $filter[] = array('name' => '`fixture`.`round`', 'val' => $round);
+        }
 
        
 
-        $total_rows = $this->fixture_m->get_total($input);
+        //$total_rows = $this->fixture_m->get_total($input);
 
         //$this->data['total_rows'] = $total_rows;
 
@@ -62,7 +138,7 @@ class Fixture extends MY_Controller {
 
         //$input['limit'] = array($config['per_page'], $segment);
         
-        $list = $this->fixture_m->getList();
+        $list = $this->fixture_m->getList($filter);
         
         foreach ($list as $row) {
              $row->doi_1 = $this->fixture_m->getPlayer($row->code_doi_1);
@@ -308,7 +384,7 @@ class Fixture extends MY_Controller {
         if($id){
             $this->data['title'] = 'Chỉnh sản phẩm';
         }else{
-            $this->data['title'] = 'Thêm sản phẩm';
+            $this->data['title'] = 'Thêm cặp đấu mới';
         }
 
         $this->data['temp'] = 'tournament/fixture/detail';

@@ -4,7 +4,14 @@ Class Fixture_m extends MY_Model {
 
     var $table = 'fixture';
     
-    public function getList($where = ''){
+    public function getList($filter){
+        $strFilter = '';
+        if ($filter) {
+            foreach ($filter as $value) {
+                $strFilter .= ' AND ' . $value['name'] . ' = ' . $value['val'];
+            }
+        }
+
         $query = "SELECT 
             `fixture`.`id` AS `id`,
             `tournament_type`.`vn_name` AS `tournament_type`, `tournament`.`vn_name` AS `tournament`, 
@@ -18,7 +25,9 @@ Class Fixture_m extends MY_Model {
             AND `tournament`.`id` = `tournament_playing_category`.`tournament_id` 
             AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
             AND `tournament_playing_category`.`id` = `fixture`.`tournament_playing_category_id` 
-            AND `set_score`.`fixture_id` = `fixture`.`id` ORDER BY `id` DESC";
+            AND `set_score`.`fixture_id` = `fixture`.`id` 
+            ". $strFilter ."
+            ORDER BY `id` DESC";
         
         $result = $this->db->query($query);
         if ($result) {   
@@ -48,5 +57,61 @@ Class Fixture_m extends MY_Model {
             }
         }
     }
+    
+    public function getIdsForTable($id, $name_col = '',  $table = '', $name_id) {
+        $model = $table . '_m';
+        $this->load->model($model);
+        if ($id) {
+            $input = array();
+            $input['where'] = array($name_col => $id);
+            $obj = $this->$model->get_list($input);
+            $arrId = $this->getId($obj, $name_id);
+            if ($arrId) {
+                return $arrId;
+            }else {
+                return FALSE;
+            }
+        }
+    }
+    
+    public function getInfoTable($id) {
+            $query = "SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = $id";
+        
+            $result = $this->db->query($query);
+            if ($result) {
+                return $result->result();
+            }else {
+                return FALSE;
+            }
+    }
+    
+    public function getMu($val) {
+        $i = 0;
+        if ($val){
+            while ($val > 1) {
+                if ($val % 2 == 0) {
+                    $val = $val/2;
+                    $i = $i + 1;
+                }else {
+                    return FALSE;
+                }
+            }
+        }
+        return $i;
+    }
 
+    
+    
+    
+    
+    
+    
 }

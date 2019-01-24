@@ -17,6 +17,8 @@
         <link href="<?= base_url() ?>public/admin/css/style.css" rel="stylesheet" type="text/css"/>  
         
         <link href="<?= base_url() ?>public/admin/css/responsive.css" rel="stylesheet" type="text/css"/>
+        
+        <script> var url = '<?= base_url() ?>'; </script>
 
     </head>
     <body>

@@ -192,31 +192,185 @@ function position(id, position, url) {
     });
 }
 
-function getInfo(id, position, url) {
+function getInfo(data, id = '', title = '', active = '') {
     $.ajax({
-        url: url,
+        url: url + 'admincp/tournament/fixture/getInfo',
         type: 'POST',
-        data: {id: id, position: position},
+        data: data,
         dataType: 'JSON',
-        success: function (data) {
-            $('.messages').html('<div class="alert alert-success" role="alert">' + data.msg + '</div>');
+        success: function (result) {
+        	var str = '<option value="0">' + title + '</option>';
+        	if(result != 0){
+        		$.each(result, function(i, value){
+        			if(active == value.id ) {
+        				str += '<option selected value="'+ value.id +'">'  + ' ' + value.vn_name + '</option>';
+        			}else {
+        				str += '<option value="'+ value.id +'">'  + ' ' + value.vn_name + '</option>';
+        			}
+        		});
+        	}
+        	$(id).html(str);
         }
     });
 }
 
 // Lọc các giải đấu
 $(document).ready(function () {
-	var tournament_type = '';
+	var tournament_type = $("#tournament_type option:selected").val();
+	var tournament = '';
+	var noi_dung = '';
+	var activeTournament = $("#tournament").attr('tournament');
+	var activeNoiDung = $("#noi_dung").attr('noi_dung');
+	var activeRound = $("#round").attr('round');
+	
+	if(tournament_type != 0) {
+		getInfo({tournament_type: tournament_type, type: 'tournament_type'}, '#tournament', 'Chọn giải đấu', activeTournament);
+		tournament = $("#tournament option:selected").val();
+	}
+	
+	if(activeTournament != 0) {
+		getInfo({tournament: activeTournament, type: 'tournament'}, '#noi_dung', 'Chọn nội dung', activeNoiDung);
+		 $.ajax({
+		        url: url + 'admincp/tournament/fixture/getInfo',
+		        type: 'POST',
+		        data: {noi_dung: activeNoiDung, type: 'noi_dung', active: activeRound},
+		        dataType: 'JSON',
+		        success: function (result) {
+		        	$('#round').html(result.content);
+		        }
+		    });
+	}
+
+	
     $("#tournament_type").change(function(){
     	tournament_type = $("#tournament_type option:selected").val();
     	if(tournament_type != 0) {
-    		
+    		var data = {tournament_type: tournament_type, type: 'tournament_type'};
+    		getInfo(data, '#tournament', 'Chọn giải đấu');
     	}else {
     		$("#tournament").html('<option value="0">Chọn giải đấu</option>');
     		$("#noi_dung").html('<option value="0">Chọn nội dung</option>');
     		$("#round").html('<option value="0">Chọn vòng đấu</option>');
     	}
     });
+    
+    $("#tournament").change(function(){
+    	tournament = $("#tournament option:selected").val();
+    	if(tournament != 0) {
+    		var data = {tournament: tournament, type: 'tournament'};
+    		getInfo(data, '#noi_dung', 'Chọn nội dung');
+    	}else {
+    		$("#noi_dung").html('<option value="0">Chọn nội dung</option>');
+    		$("#round").html('<option value="0">Chọn vòng đấu</option>');
+    	}
+    });
+    
+    $("#noi_dung").change(function(){
+    	noi_dung = $("#noi_dung option:selected").val();
+    	if(noi_dung != 0) {
+    		var data = {noi_dung: noi_dung, type: 'noi_dung'};
+    		 $.ajax({
+    		        url: url + 'admincp/tournament/fixture/getInfo',
+    		        type: 'POST',
+    		        data: data,
+    		        dataType: 'JSON',
+    		        success: function (result) {
+    		        	$('#round').html(result.content);
+    		        	if(result.type) {
+    		        		var listSelect = $('#user .col-sm-5 select');
+    		        		$.each(listSelect, function(i, val){
+    		        			if(i % 2 != 0) {
+    		        				if(result.type == 1) {
+    		        					$(this).attr('disabled', 'disabled');
+    		        				}
+    		        				
+    		        				if(result.type == 2) {
+    		        					$(this).removeAttr('disabled');
+    		        				}
+    		        			}
+    		        		});
+    		        	}
+    		        }
+    		    });
+    	}else {
+    		$("#round").html('<option value="0">Chọn vòng đấu</option>');
+    	}
+    });
+//    function formatState (state) {
+//    	  if (!state.id) {
+//    	    return state.text;
+//    	  }
+//    	  var baseUrl = "/user/pages/images/flags";
+//    	  var $state = $(
+//    	    '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+//    	  );
+//    	  return $state;
+//    	  console.log(state);
+//    	};
+//
+//    $('.tour-select').select2({
+//    	templateSelection: formatState,
+//        ajax: {
+//          url: 'http://5c497fe094e8a70014b331f3.mockapi.io/ajax',
+//          dataType: 'json',
+//          delay: 360,
+//          
+//          data: function (params) {	
+//            
+//            var query = {
+//              search: params.term,
+//              page: params.page || 1
+//            }
+//
+//            // Query parameters will be ?search=[term]&type=public
+//            return query;
+//
+//          },
+//          processResults: function (data) {
+//
+//            let dataValue = [];
+//            
+//            for (let value of data) {
+//              let newObj = {
+//                id: value.id,
+//                text: value.name,
+//                avt: value.avatar
+//              }
+//              dataValue.push(newObj);
+//              
+//              for(let obj of dataValue) {
+//
+//              }
+////              console.log(dataValue);
+//            }
+//
+//            return {
+//              results: dataValue,
+//              pagination: {
+//                more: true,
+//              },
+//            };
+//            
+//          }
+//        }
+//      });
+//    
+
+    $(".js-example-data-ajax").select2({
+    	  ajax: {
+    		url: 'http://localhost/project-hao/tenis/tennis/admincp/tournament/fixture/getInfoUsers',
+    	    dataType: 'json',
+    	    delay: 250,
+    	    data: function (params) {
+    	      return {
+    	        q: params.term// search term
+    	      };
+    	    }
+    	  },
+    	  placeholder: 'Search for a repository',
+    	  minimumInputLength: 1
+    	});
+
 });
 
 

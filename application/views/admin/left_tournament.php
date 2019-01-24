@@ -243,7 +243,7 @@
                     <div id="collapseSix" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <ul>
                             <li>
-                                <a href="<?= base_url('admincp/tournament/fixture') ?>">
+                                <a href="<?= base_url('admincp/tournament/fixture/detail') ?>">
                                     <img src="<?= base_url() ?>public/admin/img/icon/thu-muc.png" alt="">
                                     Thêm cặp đấu mới
                                 </a>
