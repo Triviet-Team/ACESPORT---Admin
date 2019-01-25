@@ -801,3 +801,273 @@ ERROR - 2019-01-25 16:46:57 --> Query error: Unknown column 'tournament' in 'whe
             WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
             AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
             AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:56:35 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:58:22 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 16:58:25 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 17:10:15 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 17:10:24 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 17:16:00 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:16:24 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:16:40 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:16:50 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:17:01 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:17:48 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:18:06 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:18:30 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:18:49 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:18:53 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:19:17 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:22:31 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 17:23:55 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:28:22 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:28:34 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:28:43 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:28:55 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:29:34 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:29:48 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:30:12 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:31:18 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:31:39 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:31:53 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 17:33:40 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 17:34:29 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament

@@ -376,6 +376,173 @@ class Fixture extends MY_Controller {
         $this->data['temp'] = 'tournament/fixture/detail';
         $this->load->view('admin/main', $this->data);
     }
+    
+    public function update($id = 0) {
+        $this->load->model('tournament_type_m');
+        $this->load->model('registration_m');
+        $this->load->model('playing_in_m');
+    
+        $input = array();
+        $input['where'] = array('status' => 1);
+        $this->data['noi_dung'] = $this->playing_category_m->get_list($input);
+    
+        $input = array();
+        $input['where'] = array('pid' => 0, 'status' => 1);
+    
+        $input['order'][0] = 'position';
+        $input['order'][1] = 'ASC';
+    
+        $catalogs = $this->tournament_type_m->get_list($input);
+    
+        //         foreach ($catalogs as $row) {
+        //             $input['where'] = array('pid' => $row->id, 'status' => 1);
+        //             $subs = $this->tournament_m->get_list($input);
+        //             $row->subs = $subs;
+        //         }
+        $this->data['catalogs'] = $catalogs;
+        if($id){
+            $info = $this->fixture_m->get_info($id);
+            if(!empty($info)){
+                $this->data['info'] = $info;
+            }else{
+                $this->session->set_flashdata('message', 'Dịch vụ muốn chỉnh sửa không tồn tại');
+                redirect(base_url() . 'admincp/tournament/fixture/index/');
+            }
+        }
+    
+        // mảng cid của product
+        $input          = array();
+        $input['where'] = array('tournament_id' => $id);
+        $arrPid         = $this->tournament_playing_category_m->get_list($input);
+        $this->data['arrPid'] = $arrPid;
+    
+        if ($this->input->post()) {
+    
+            $this->form_validation->set_rules('tournament', 'Tên sản phẩm', 'required');
+    
+            //             $this->form_validation->set_rules('start_date', 'Ngày bắt đầu', 'required');
+    
+            //             $this->form_validation->set_rules('end_date', 'Ngày bắt kết thúc', 'required');
+    
+            if ($this->form_validation->run()) {
+    
+                //                 echo '<pre>';
+                //                 print_r($_POST);
+                //                 echo '<pre>';die();
+    
+                $noi_dung = $this->input->post('noi_dung', true);
+                $arrPlayer = $this->input->post('doi_choi[]', true);
+    
+                $n = count($arrPlayer)/2;
+                $ids_registration = array();
+                $k = 0;
+                for ($i = 1; $i <= 2; $i++) {
+                    $registration = array(
+                        'date' => date('Y-m-d h:m:s', now()),
+                    );
+                    if ($this->registration_m->create($registration)) {
+                        $id = $this->db->insert_id();
+                        $ids_registration[] = $id;
+                        $playing_in = array(
+                            'registration_id' => $id,
+                            'tournament_playing_category_id' => $noi_dung
+                        );
+                        $this->playing_in_m->create($playing_in);
+                        if ($n == 1) {
+                            $registration_player = array(
+                                'registration_id' => $id,
+                                'player_id' => $arrPlayer[$i - 1]
+                            );
+                            $this->registration_player_m->create($registration_player);
+                        }
+    
+                        if ($n == 2) {
+                            for ($j = 1; $j <= 2; $j++) {
+                                $registration_player = array(
+                                    'registration_id' => $id,
+                                    'player_id' => $arrPlayer[$k]
+                                );
+                                $this->registration_player_m->create($registration_player);
+                                $k++;
+                            }
+                        }
+                    }
+                }
+    
+                if ($ids_registration) {
+                    $fixture = array(
+                        'tournament_playing_category_id' => $noi_dung,
+                        'first_registration_id' => $ids_registration[0],
+                        'second_registration_id' => $ids_registration[1],
+                        'round' => 1
+                    );
+                    $this->fixture_m->create($fixture);
+                }
+    
+    
+    
+    
+    
+                //                 if (!$id) {
+                //                     if ($this->fixture_m->create($data)) {
+    
+                //                         $tournament_id = $this->db->insert_id();
+                //                         if ($noi_dung && $tournament_id) {
+                //                             foreach ($noi_dung as $key => $val) {
+                //                                 $item = array(
+                //                                     'tournament_id' => $tournament_id,
+                //                                     'playing_category_id' => $val,
+                //                                     'total_member' => $total_member[$key],
+                //                                     'type_play' => $loai_choi[$key] ? 2 : 1
+                //                                 );
+    
+                //                                 $this->tournament_playing_category_m->create($item);
+                //                             }
+                //                         }
+    
+                //                         $this->session->set_flashdata('message', 'Thêm dự án thành công');
+                //                     } else {
+                //                         $this->session->set_flashdata('message', 'Thêm dự án thất bại');
+                //                     }
+                //                 } else {
+                //                     if ($this->tournament_m->update($id, $data)) {
+                //                         if ($this->tournament_playing_category_m->del_rule("tournament_id = " . $id)) {
+                //                             if ($noi_dung) {
+                //                                  foreach ($noi_dung as $key => $val) {
+                //                                     $item = array(
+                //                                         'tournament_id' => $id,
+                //                                         'playing_category_id' => $val,
+                //                                         'total_member' => $total_member[$key],
+                //                                         'type_play' => $loai_choi[$key] ? 2 : 1
+                //                                     );
+    
+                //                                     $this->tournament_playing_category_m->create($item);
+                //                                 }
+                //                             }
+                //                         }
+                //                         $this->session->set_flashdata('message', 'Cập nhật dự án thành công');
+                //                     } else {
+                //                         $this->session->set_flashdata('message', 'Cập nhật dự án thất bại');
+                //                     }
+                //                 }
+    
+                if ($pid) {
+                    redirect(base_url('admincp/tournament/fixture?id=&vn_name=&cid=' . $cid));
+                } else {
+                    redirect(base_url() . 'admincp/tournament/fixture/index/');
+                }
+            }
+        }
+    
+        if($id){
+            $this->data['title'] = 'Chỉnh sản phẩm';
+        }else{
+            $this->data['title'] = 'Thêm cặp đấu mới';
+        }
+    
+        $this->data['temp'] = 'tournament/fixture/update';
+        $this->load->view('admin/main', $this->data);
+    }
 
     public function config() {
 

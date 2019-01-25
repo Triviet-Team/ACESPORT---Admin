@@ -117,7 +117,7 @@
                             <tr>
                                 <td class="text-center"><?= $row->id ?></td>
                                 <td><?= $row->tournament_type ?>/<?= $row->tournament ?></td>
-                                <td>
+                                <td class="text-center">
                                 	<?php if($row->doi_1){ ?>
                                 		<?php foreach ($row->doi_1 as $k => $row_doi) { ?>
                                 			<div class="d-inline-block">
@@ -138,10 +138,10 @@
                                         <?php } ?>
 									<?php }?>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                		<?php if($row->doi_2){ ?>
                                 		<?php foreach ($row->doi_2 as $k => $row_doi) { ?>
-                                			<div>
+                                			<div class="d-inline-block">
             									<div style="float: none; margin-left:10px" class="image_thumb">
                                                     <?php 
                                                             $link_img = base_url().'public/admin/img/default-534x534.png';
@@ -167,7 +167,7 @@
                                 <td class="text-center"><?= get_date($row->created) ?></td>
                                 <td class="button_action text-center">
                                     <a href="<?= base_url('admincp/tournament/fixture/detail/' . $row->id) ?>" class="edit_item" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa"></a>
-                                    <a href="<?= base_url('admincp/tournament/fixture/detail/' . $row->id) ?>"  class="enable_item" data-toggle="tooltip" data-placement="top" title="Cập nhật tỉ số"></a>
+                                    <a href="<?= base_url('admincp/tournament/fixture/update/' . $row->id) ?>"  class="enable_item" data-toggle="tooltip" data-placement="top" title="Cập nhật tỉ số"></a>
                                     <!--<a href="javascript:(0)" onclick="action_item(<?= $row->id ?>, 'disable', '<?= base_url('admincp/tournament/fixture/config') ?>')" class="disable_item" data-toggle="tooltip" data-placement="top" title="Ẩn"></a>
                                     <a href="javascript:(0)" onclick="action_item(<?= $row->id ?>, 'del', '<?= base_url('admincp/tournament/fixture/config') ?>')" class="menu_item_delete" data-toggle="tooltip" data-placement="top" title="Xóa"></a>  -->
                                 </td>
