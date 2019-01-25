@@ -15,13 +15,53 @@ class Fixture extends MY_Controller {
         $this->load->model('fixture_m');
         $this->load->model('registration_player_m');
     }
+    // hàm xử lý ajax thống kê cặp đấu
+    public function ajaxTotal() {
+        if ($_POST) {
+            $type = $_POST['type'];
+            $total = null;
+            if ($type == 'get-total') {
+                //kiem tra co thuc hien loc du lieu hay khong
+                $filter = array();
+                $tournament_type = $this->input->post('tournament_type');
+                $tournament_type = intval($tournament_type);
+                if ($tournament_type > 0) {
+                    $this->data['tournament_type'] = $tournament_type;
+                    $filter[] = array('name' => '`tournament_type`.`id`', 'val' => $tournament_type);
+                }
+                
+                $tournament = $this->input->post('tournament');
+                $tournament = intval($tournament);
+                if ($tournament > 0) {
+                    $this->data['tournament'] = $tournament;
+                    $filter[] = array('name' => '`tournament`.`id`', 'val' => $tournament);
+                }
+                
+                $noi_dung = $this->input->post('noi_dung');
+                $noi_dung = intval($noi_dung);
+                if ($noi_dung > 0) {
+                    $this->data['noi_dung'] = $noi_dung;
+                    $filter[] = array('name' => '`tournament_playing_category`.`id`', 'val' => $noi_dung);
+                    $info = $this->tournament_playing_category_m->get_info($noi_dung);
+                    $total_member = $info->total_member;
+                    $type_play = $info->type_play;
+                    $cap_dau = ($total_member/(2*$type_play)); 
+                } 
+                $this->data['round'] = 1;
+                $filter[] = array('name' => '`fixture`.`round`', 'val' => 1);
+                $total['curent'] = $this->fixture_m->countTotal($filter);
+                $total['conlai'] = $cap_dau - $total['curent'];
+                echo json_encode($total);
+            }
+        }
+    }
     
     public function getInfoUsers() {
         $data = $this->users_m->get_list();
         $result = null;
         
         foreach ($data as $row) {
-            $result['result'][] = array('id' => $row->id, 'name' => $row->username);
+            $result['result'][] = array('id' => intval($row->id), 'text' => $row->username);
         }
         
         echo json_encode($result);
@@ -172,6 +212,8 @@ class Fixture extends MY_Controller {
 
     public function detail($id = 0) {
         $this->load->model('tournament_type_m');
+        $this->load->model('registration_m');
+        $this->load->model('playing_in_m');
         
         $input = array();
         $input['where'] = array('status' => 1);
@@ -208,170 +250,114 @@ class Fixture extends MY_Controller {
         $this->data['arrPid'] = $arrPid;
 
         if ($this->input->post()) {
-            
-//             echo '<pre>';
-//             print_r($_POST);
-//             echo '<pre>';die();
 
-            $this->form_validation->set_rules('vn_name', 'Tên sản phẩm', 'required');
+             $this->form_validation->set_rules('tournament', 'Tên sản phẩm', 'required');
 
-            $this->form_validation->set_rules('start_date', 'Ngày bắt đầu', 'required');
+//             $this->form_validation->set_rules('start_date', 'Ngày bắt đầu', 'required');
             
-            $this->form_validation->set_rules('end_date', 'Ngày bắt kết thúc', 'required');
+//             $this->form_validation->set_rules('end_date', 'Ngày bắt kết thúc', 'required');
 
             if ($this->form_validation->run()) {
-
-                #Tạo folder upload theo ngày truoc khi upload
-                $upload_path = 'uploads/images/product/';
-
-                $upload_data = $this->system_library->upload($upload_path, 'image_link');
-
-                $image_link = '';
-
-                //Xử lý hình ảnh của sản phẩm và sản phẩm kèm theo
-                if ($upload_data != NULL && !isset($info->image_link)) {
-                    $image_link = $upload_data;
-                    $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '421_561/' . $image_link, 507, 676);
-                    $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '400_400/' . $image_link, 800, 1067);
-                    @unlink($upload_path . $image_link);
-                } elseif ($upload_data != NULL && $info->image_link) {
-                    $image_link = $upload_data;
-                    @unlink($upload_path . '400_400/' . $info->image_link);
-                    @unlink($upload_path . '421_561/' . $info->image_link);
-                    $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '421_561/' . $image_link, 507, 676);
-                    $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '400_400/' . $image_link, 800, 1067);
-                    @unlink($upload_path . $image_link);
-                } else {
-                    $image_link = $info->image_link;
-                }
                 
-                //upload cac anh kem theo
-                $image_list = array();
-                $image_list = $this->system_library->upload_file($upload_path, 'image_list');
+//                 echo '<pre>';
+//                 print_r($_POST);
+//                 echo '<pre>';die();
                 
-                if ($image_list != NULL && !isset($info->image_list)) {
+                $noi_dung = $this->input->post('noi_dung', true);
+                $arrPlayer = $this->input->post('doi_choi[]', true);
                 
-                    foreach ($image_list as $img) {
-                        //$this->system_library->resize_image('crop', $upload_path . $img, $upload_path . '421_561/' . $img, 507, 676);
-                        $this->system_library->resize_image('crop', $upload_path . $img, $upload_path . '400_400/' . $img, 800, 1067);
-                
-                        @unlink($upload_path . $img);
-                    }
-                
-                    $image_list = json_encode($image_list);
-                } elseif ($image_list != NULL && $info->image_list) {
-                
-                    $image = json_decode($info->image_list);
-                    foreach ($image as $img) {
-                        //@unlink($upload_path . '421_561/' . $img);
-                        @unlink($upload_path . '400_400/' . $img);
-                        @unlink($upload_path . $img);
-                    }
-                
-                    foreach ($image_list as $img) {
-                        //$this->system_library->resize_image('crop', $upload_path . $img, $upload_path . '421_561/' . $img, 507, 676);
-                        $this->system_library->resize_image('crop', $upload_path . $img, $upload_path . '400_400/' . $img, 800, 1067);
-                        @unlink($upload_path . $img);
-                    }
-                
-                    $image_list = json_encode($image_list);
-                } else {
-                    $image_list = $info->image_list;
-                }
-                
-                //Kết thúc xử lý hình ảnh
-                $slug = $this->input->post('vn_slug', true);
-                $i = 0;
-                $dup = 1;
-                while ($dup) {
-                    $dup = $this->fixture_m->check_exists(array('id <>' => $id, 'vn_slug' => $slug . ($i ? '-' . $i : '')));
-                    if ($dup)
-                        $i++;
-                }
-                $slug .= $i ? '-' . $i : '';
-                $cid = $this->input->post('cid', true);
-
-
-//                 $price = $this->input->post('price');
-//                 $price = str_replace(',', '', $price);
-                
-//                 $sale_price = $this->input->post('sale_price');
-//                 $sale_price = str_replace(',', '', $sale_price);
-
-                $data = array(
-                    'pid' => $cid,
-                    'vn_name' => $this->input->post('vn_name', true),
-                    'vn_slug' => $slug,
-                    'vn_keyword' => $this->input->post('vn_keyword', true),
-                    'vn_title' => $this->input->post('vn_title', true),
-                    'vn_description' => $this->input->post('vn_description', true),
-                    //'price' => $price,
-                    //'sale_price' => $sale_price,
-                    //'code' => $this->input->post('code', true),
-                    'vn_sapo' => $this->input->post('vn_sapo', true),
-                    'vn_detail' => $this->input->post('vn_detail', true),
-                    'image_link' => $image_link,
-                    'image_list' => $image_list,
-                    'start_date' => strtotime($this->input->post('start_date', true)),
-                    'end_date' => strtotime($this->input->post('end_date', true)),
-                    //'is_home' => $this->input->post('is_home', true),
-                    //'is_pay' => $this->input->post('is_pay', true),
-                    //'is_new' => $this->input->post('is_new', true),
-                    //'is_like' => $this->input->post('is_like', true),
-                    //'is_special' => $this->input->post('is_special', true),
-                    //'is_hight' => $this->input->post('is_hight', true),
-                    'status' => $this->input->post('status', true),
-                    'created' => now(),
-                );
-
-                $noi_dung = $this->input->post('noi_dung[]', true);
-                
-                $total_member = $this->input->post('total_member[]', true);
-                
-                $loai_choi = $this->input->post('loai_choi[]', true);
-
-                if (!$id) {
-                    if ($this->fixture_m->create($data)) {
-
-                        $tournament_id = $this->db->insert_id();
-                        if ($noi_dung && $tournament_id) {
-                            foreach ($noi_dung as $key => $val) {
-                                $item = array(  
-                                    'tournament_id' => $tournament_id,
-                                    'playing_category_id' => $val,
-                                    'total_member' => $total_member[$key],
-                                    'type_play' => $loai_choi[$key] ? 2 : 1
+                $n = count($arrPlayer)/2;
+                $ids_registration = array();
+                $k = 0;
+                for ($i = 1; $i <= 2; $i++) {
+                    $registration = array(
+                        'date' => date('Y-m-d h:m:s', now()),
+                    );
+                    if ($this->registration_m->create($registration)) {
+                        $id = $this->db->insert_id();
+                        $ids_registration[] = $id;
+                        $playing_in = array(
+                            'registration_id' => $id,
+                            'tournament_playing_category_id' => $noi_dung
+                        );
+                        $this->playing_in_m->create($playing_in);
+                        if ($n == 1) {
+                            $registration_player = array(
+                                'registration_id' => $id,
+                                'player_id' => $arrPlayer[$i - 1]
+                            );
+                            $this->registration_player_m->create($registration_player);
+                        }
+                        
+                        if ($n == 2) {
+                            for ($j = 1; $j <= 2; $j++) {
+                                $registration_player = array(
+                                    'registration_id' => $id,
+                                    'player_id' => $arrPlayer[$k]
                                 );
-
-                                $this->tournament_playing_category_m->create($item);
+                                $this->registration_player_m->create($registration_player);
+                                $k++;
                             }
                         }
-
-                        $this->session->set_flashdata('message', 'Thêm dự án thành công');
-                    } else {
-                        $this->session->set_flashdata('message', 'Thêm dự án thất bại');
-                    }
-                } else {
-                    if ($this->tournament_m->update($id, $data)) {
-                        if ($this->tournament_playing_category_m->del_rule("tournament_id = " . $id)) {
-                            if ($noi_dung) {
-                                 foreach ($noi_dung as $key => $val) {
-                                    $item = array(  
-                                        'tournament_id' => $id,
-                                        'playing_category_id' => $val,
-                                        'total_member' => $total_member[$key],
-                                        'type_play' => $loai_choi[$key] ? 2 : 1
-                                    );
-    
-                                    $this->tournament_playing_category_m->create($item);
-                                }
-                            }
-                        }
-                        $this->session->set_flashdata('message', 'Cập nhật dự án thành công');
-                    } else {
-                        $this->session->set_flashdata('message', 'Cập nhật dự án thất bại');
                     }
                 }
+
+                if ($ids_registration) {
+                    $fixture = array(
+                        'tournament_playing_category_id' => $noi_dung,
+                        'first_registration_id' => $ids_registration[0],
+                        'second_registration_id' => $ids_registration[1],
+                        'round' => 1
+                    );
+                    $this->fixture_m->create($fixture);
+                }
+                
+
+
+                
+
+//                 if (!$id) {
+//                     if ($this->fixture_m->create($data)) {
+
+//                         $tournament_id = $this->db->insert_id();
+//                         if ($noi_dung && $tournament_id) {
+//                             foreach ($noi_dung as $key => $val) {
+//                                 $item = array(  
+//                                     'tournament_id' => $tournament_id,
+//                                     'playing_category_id' => $val,
+//                                     'total_member' => $total_member[$key],
+//                                     'type_play' => $loai_choi[$key] ? 2 : 1
+//                                 );
+
+//                                 $this->tournament_playing_category_m->create($item);
+//                             }
+//                         }
+
+//                         $this->session->set_flashdata('message', 'Thêm dự án thành công');
+//                     } else {
+//                         $this->session->set_flashdata('message', 'Thêm dự án thất bại');
+//                     }
+//                 } else {
+//                     if ($this->tournament_m->update($id, $data)) {
+//                         if ($this->tournament_playing_category_m->del_rule("tournament_id = " . $id)) {
+//                             if ($noi_dung) {
+//                                  foreach ($noi_dung as $key => $val) {
+//                                     $item = array(  
+//                                         'tournament_id' => $id,
+//                                         'playing_category_id' => $val,
+//                                         'total_member' => $total_member[$key],
+//                                         'type_play' => $loai_choi[$key] ? 2 : 1
+//                                     );
+    
+//                                     $this->tournament_playing_category_m->create($item);
+//                                 }
+//                             }
+//                         }
+//                         $this->session->set_flashdata('message', 'Cập nhật dự án thành công');
+//                     } else {
+//                         $this->session->set_flashdata('message', 'Cập nhật dự án thất bại');
+//                     }
+//                 }
 
                 if ($pid) {
                     redirect(base_url('admincp/tournament/fixture?id=&vn_name=&cid=' . $cid));

@@ -1,0 +1,803 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2019-01-25 08:03:07 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 08:03:21 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 08:03:24 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 08:04:17 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 08:09:32 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 08:21:46 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 08:21:47 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 08:22:44 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 08:29:35 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 08:30:04 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 08:36:48 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 08:36:56 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 08:39:53 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 08:40:51 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 11:37:30 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 11:38:02 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 11:38:25 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 11:39:05 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 11:39:21 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 11:44:46 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 11:45:05 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 11:46:46 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 11:47:13 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 11:48:59 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 11:49:47 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 11:51:23 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 11:51:25 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 11:54:43 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 11:54:46 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 11:54:48 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 11:59:13 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:05:10 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 14:05:21 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:05:30 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:06:05 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 14:06:14 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:09:30 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:17:41 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:17:49 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:20:18 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:21:53 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:28:47 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:29:47 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:30:10 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:30:46 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:53:03 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:54:57 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:56:28 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:56:44 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 14:57:01 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 15:03:49 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 15:20:58 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 15:21:00 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 15:21:23 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 15:23:10 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 15:23:14 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 15:46:59 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:15:55 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:16:11 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:17:16 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:24:18 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:26:11 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:27:55 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:29:39 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:30:19 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:30:56 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:31:38 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 16:31:44 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 16:31:59 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:32:53 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 16:35:14 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:36:05 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:36:27 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:37:05 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:37:10 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:37:45 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:38:33 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:39:08 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:39:10 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:39:38 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:39:48 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:40:12 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:40:15 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:40:37 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:40:42 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:41:27 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:43:59 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-25 16:46:20 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament
+ERROR - 2019-01-25 16:46:57 --> Query error: Unknown column 'tournament' in 'where clause' - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = tournament

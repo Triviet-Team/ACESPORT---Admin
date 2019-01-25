@@ -44,27 +44,21 @@
 			<div class="row" id="user">
 				<div class="col-sm-5">
 					<h6 class="mb-2">Đội chơi 1</h6>
-					<select class="form-control mb-2" name="user_1[]" id="">
-						<option value="">123</option>
-						<option value="">123</option>
-					</select> <select class="form-control mb-2" name="user_1[]" id="">
-						<option value="">123</option>
-						<option value="">123</option>
+					<select class="form-control mb-2" name="doi_choi[]" id="user1">
+
+					</select> <select class="form-control mb-2" name="doi_choi[]" id="user2">
+
 					</select>
 				</div>
 
 				<div class="col-sm-5 mb-3">
 					<h6 class="mb-2">Đội chơi 2</h6>
-					<select class="form-control mb-2" name="user_2[]" id="">
-						<option value="">123</option>
-						<option value="">123</option>
-					</select> <select class="form-control mb-2" name="user_2[]" id="">
-						<option value="">123</option>
-						<option value="">123</option>
+					<select class="form-control mb-2" name="doi_choi[]" id="user3">
+
+					</select> <select class="form-control mb-2" name="doi_choi[]" id="user4">
+
 					</select>
 					<select class="form-control tour-select"></select>
-					
-					<select class="form-control js-example-data-ajax"></select>
 					
 					
 				</div>
@@ -77,8 +71,8 @@
 				</div>
 
 			<div class="text-center">
-                <h6 class="mb-2">Số cặp đấu còn lại 6 cặp / Đã thêm 10 cặp</h6>
-                <button class="pl-4 pr-4 mb-5 btn btn-primary">Lưu</button>
+                <h6 class="mb-2" id="cap-dau"></h6>
+                <button class="eSave pl-4 pr-4 mb-5 btn btn-primary">Lưu</button>
                 <button class="pl-4 pr-4 mb-5 btn btn-danger">Hủy</button>
             </div>
             </form>

@@ -214,8 +214,22 @@ function getInfo(data, id = '', title = '', active = '') {
     });
 }
 
-// Lọc các giải đấu
+function formatState (state) {
+	
+	  if (!state.id) {
+	    return state.text;
+	  }
+	  var baseUrl = "/user/pages/images/flags";
+	  var $state = $(
+	    '<span><img src="' + baseUrl + '.png" class="img-flag" /> ' + state.text + '</span>'
+	 );
+	  //console.log($state);
+	 return $state;
+}
+
+
 $(document).ready(function () {
+	// Lọc các giải đấu (danh sách các cặp đấu)
 	var tournament_type = $("#tournament_type option:selected").val();
 	var tournament = '';
 	var noi_dung = '';
@@ -296,80 +310,72 @@ $(document).ready(function () {
     		$("#round").html('<option value="0">Chọn vòng đấu</option>');
     	}
     });
-//    function formatState (state) {
-//    	  if (!state.id) {
-//    	    return state.text;
-//    	  }
-//    	  var baseUrl = "/user/pages/images/flags";
-//    	  var $state = $(
-//    	    '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
-//    	  );
-//    	  return $state;
-//    	  console.log(state);
-//    	};
-//
-//    $('.tour-select').select2({
-//    	templateSelection: formatState,
-//        ajax: {
-//          url: 'http://5c497fe094e8a70014b331f3.mockapi.io/ajax',
-//          dataType: 'json',
-//          delay: 360,
-//          
-//          data: function (params) {	
-//            
-//            var query = {
-//              search: params.term,
-//              page: params.page || 1
-//            }
-//
-//            // Query parameters will be ?search=[term]&type=public
-//            return query;
-//
-//          },
-//          processResults: function (data) {
-//
-//            let dataValue = [];
-//            
-//            for (let value of data) {
-//              let newObj = {
-//                id: value.id,
-//                text: value.name,
-//                avt: value.avatar
-//              }
-//              dataValue.push(newObj);
-//              
-//              for(let obj of dataValue) {
-//
-//              }
-////              console.log(dataValue);
-//            }
-//
-//            return {
-//              results: dataValue,
-//              pagination: {
-//                more: true,
-//              },
-//            };
-//            
-//          }
-//        }
-//      });
-//    
-
-    $(".js-example-data-ajax").select2({
-    	  ajax: {
-    		url: 'http://localhost/project-hao/tenis/tennis/admincp/tournament/fixture/getInfoUsers',
-    	    dataType: 'json',
-    	    delay: 250,
-    	    data: function (params) {
-    	      return {
-    	        q: params.term// search term
-    	      };
-    	    }
-    	  },
-    	  placeholder: 'Search for a repository',
-    	  minimumInputLength: 1
-    	});
+// chọn người chơi (thêm cặp đấu mới)
+	 $.ajax({
+		  url: "http://localhost/project-hao/tenis/tennis/admincp/tournament/fixture/getInfoUsers",
+		  type: 'POST',
+		  dataType: "json",
+		  contentType: 'application/json; charset=utf-8'
+		}).then(function (response) {
+			//console.log(response);
+		  $("#user1").select2({
+		    placeholder: "Select a Review",
+		    minimumInputLength: 0,
+		    data: response.result
+		    ,
+		    templateResult: formatState
+		  });  
+		  
+		  $("#user2").select2({
+			    placeholder: "Select a Review",
+			    minimumInputLength: 0,
+			    data: response.result
+			    ,
+			    templateResult: formatState
+			  });  
+		  
+		  $("#user3").select2({
+			    placeholder: "Select a Review",
+			    minimumInputLength: 0,
+			    data: response.result
+			    ,
+			    templateResult: formatState
+			  });  
+		  
+		  $("#user4").select2({
+			    placeholder: "Select a Review",
+			    minimumInputLength: 0,
+			    data: response.result
+			    ,
+			    templateResult: formatState
+			  });  
+	});
+	 
+    $("#noi_dung").change(function(){
+    	tournament_type = $("#tournament_type option:selected").val();
+    	tournament = $("#tournament option:selected").val();
+    	noi_dung = $("#noi_dung option:selected").val();
+    	
+    	console.log(tournament_type + tournament + noi_dung);
+    	if(noi_dung != 0 && tournament != 0 && tournament_type != 0 ) {
+    		var data = {tournament_type: tournament_type, tournament: tournament, noi_dung: noi_dung, type: 'get-total'};
+    		 $.ajax({
+    		        url: url + 'admincp/tournament/fixture/ajaxTotal',
+    		        type: 'POST',
+    		        data: data,
+    		        dataType: 'JSON',
+    		        success: function (result) {
+    		        	if(result) {
+    		        		$("#cap-dau").hide().html('Số cặp đấu còn lại <b>'+result.conlai+'</b> cặp / Đã thêm <b>'+result.curent+'</b> cặp').fadeIn(500);
+    		        		
+    		        	}
+    		        }
+    		    });
+    	}else {
+    		$("#round").html('<option value="0">Chọn vòng đấu</option>');
+    	}
+    });
+	
 
 });
 
