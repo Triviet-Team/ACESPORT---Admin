@@ -42,23 +42,24 @@
 			</div>
 
 			<div class="row" id="user">
-				<div class="col-sm-5">
-					<h6 class="mb-2">Đội chơi 1</h6>
-					<select class="form-control mb-2" name="doi_choi[]" id="user1">
+				<div class="col-sm-6">
+					<h6 class="mb-2 text-center">Đội chơi 1</h6>
+					<select class=" mb-2" name="doi_choi[]" id="user1">
 
-					</select> <select class="form-control mb-2" name="doi_choi[]" id="user2">
+					</select> <select class="mb-2" name="doi_choi[]" id="user2">
 
 					</select>
 				</div>
 
-				<div class="col-sm-5 mb-3">
-					<h6 class="mb-2">Đội chơi 2</h6>
-					<select class="form-control mb-2" name="doi_choi[]" id="user3">
-
-					</select> <select class="form-control mb-2" name="doi_choi[]" id="user4">
+				<div class="col-sm-6 mb-3">
+					<h6 class="mb-2 text-center">Đội chơi 2</h6>
+					<select class=" mb-2" name="doi_choi[]" id="user3">
 
 					</select>
-					<select class="form-control tour-select"></select>
+					<select class="mb-2" name="doi_choi[]" id="user4">
+
+					</select>
+
 					
 					
 				</div>
@@ -66,9 +67,9 @@
 			</div>
 			
 			
-				<div class="col-sm-2">
-					<button class="mt-5 btn btn-primary">Thêm người chơi</button>
-				</div>
+				
+					<button class="btn btn-primary">Thêm người chơi</button>
+				
 
 			<div class="text-center">
                 <h6 class="mb-2" id="cap-dau"></h6>

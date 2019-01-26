@@ -412,6 +412,10 @@ footer p{
     border: none;
 }
 
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+	height: 40px!important;
+}
+
 .select2-container--default .select2-selection--single .select2-selection__rendered{
     display: block;
     width: 100%;
@@ -427,6 +431,16 @@ footer p{
 .select2-container--open .select2-dropdown{
     margin-top: 8px;
     border-color: #ced4da;
+}
+
+.select2-container {
+    width: 100%!important;
+    height: 50px;
+    margin-bottom: 10px!important;
+}
+
+.select2-container--default .select2-selection--single {
+	border: 0!important;
 }
 
 .form-control,.custom-select,.bootstrap-tagsinput{
@@ -519,3 +533,20 @@ footer p{
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.date-time {
+    margin-top: 20px;
+}
+
+.date-time i{
+    display: block;
+	font-size: 13px;
+}
+
+
+
+
+
+
+
+

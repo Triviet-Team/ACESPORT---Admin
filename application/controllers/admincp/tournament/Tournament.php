@@ -27,16 +27,10 @@ class Tournament extends MY_Controller {
             $input['where']['vn_name'] = $vn_name;
         }
 
-        $cid = $this->input->get('cid');
+        $cid = $this->input->get('pid');
         $cid = intval($cid);
         if ($cid > 0) {
-            $input['where']['cid'] = $cid;
-        }
-
-        $trademark_id = $this->input->get('trademark_id');
-        $trademark_id = intval($trademark_id);
-        if ($trademark_id > 0) {
-            $input['where']['trademark_id'] = $trademark_id;
+            $input['where']['pid'] = $cid;
         }
 
         $total_rows = $this->tournament_m->get_total($input);
@@ -63,6 +57,7 @@ class Tournament extends MY_Controller {
         $segment = intval($segment);
 
         $input['limit'] = array($config['per_page'], $segment);
+
         $list = $this->tournament_m->get_list($input);
         
         foreach ($list as $row){
@@ -259,6 +254,8 @@ class Tournament extends MY_Controller {
                 $total_member = $this->input->post('total_member[]', true);
                 
                 $loai_choi = $this->input->post('loai_choi[]', true);
+                
+                $set = $this->input->post('set[]', true);
 
                 if (!$id) {
                     if ($this->tournament_m->create($data)) {
@@ -269,8 +266,9 @@ class Tournament extends MY_Controller {
                                 $item = array(  
                                     'tournament_id' => $tournament_id,
                                     'playing_category_id' => $val,
-                                    'total_member' => $total_member[$key],
-                                    'type_play' => $loai_choi[$key] ? 2 : 1
+                                    'total_member' => $total_member[$val],
+                                    'type_play' => $loai_choi[$key] ? 2 : 1,
+                                    'set' => $set[$val] ? $set[$val] : 1
                                 );
 
                                 $this->tournament_playing_category_m->create($item);
@@ -289,8 +287,9 @@ class Tournament extends MY_Controller {
                                     $item = array(  
                                         'tournament_id' => $id,
                                         'playing_category_id' => $val,
-                                        'total_member' => $total_member[$key],
-                                        'type_play' => $loai_choi[$key] ? 2 : 1
+                                        'total_member' => $total_member[$val],
+                                        'type_play' => $loai_choi[$key] ? 2 : 1,
+                                        'set' => $set[$val] ? $set[$val] : 1
                                     );
     
                                     $this->tournament_playing_category_m->create($item);

@@ -12,7 +12,7 @@ Class MY_Controller extends CI_Controller {
         $controller = $this->uri->segment(1);
         switch ($controller) {
             case 'admincp' : {
-                    $this->data['tournament'] = $this->uri->segment(2);
+                    $this->data['tour'] = $this->uri->segment(2);
                     $this->_check_login();
                     break;
                 }

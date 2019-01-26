@@ -71,6 +71,45 @@ Class Fixture_m extends MY_Model {
         }
     }
     
+
+    public function getUpdate($filter){
+        $strFilter = '';
+        if ($filter) {
+            foreach ($filter as $value) {
+                $strFilter .= ' AND ' . $value['name'] . ' = ' . $value['val'];
+            }
+        }
+    
+        $query = "SELECT
+            `fixture`.`id` AS `id`,
+            `tournament_type`.`vn_name` AS `tournament_type`, `tournament`.`vn_name` AS `tournament`,
+            `playing_category`.`vn_name` AS `noi_dung`,
+            `fixture`.`first_registration_id` AS `code_doi_1`, `fixture`.`second_registration_id` AS `code_doi_2`,
+            
+            `fixture`.`round` AS `round`, `tournament_playing_category`.`set`
+    
+            FROM `tournament_type`, `tournament`, `tournament_playing_category`, `playing_category`, `fixture`
+    
+            WHERE `tournament_type`.`id` = `tournament`.`pid`
+            AND `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id`
+            AND `tournament_playing_category`.`id` = `fixture`.`tournament_playing_category_id`
+      
+            ". $strFilter ."
+            ORDER BY `id` DESC";
+    
+        //AND `set_score`.`fixture_id` = `fixture`.`id`, `set_score` , `set_score`.`set_number` AS `set`,
+        //`set_score`.`first_registration_games` AS `game_doi_1`, `set_score`.`second_registration_games` AS `game_doi_2`
+    
+        $result = $this->db->query($query);
+        if ($result) {
+            return $result->result();
+        }else {
+            return FALSE;
+        }
+    }
+    
+    
     public function getPlayer($registerId) {
         $this->load->model('registration_player_m');
         $this->load->model('users_m');

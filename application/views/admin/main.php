@@ -30,7 +30,7 @@
         <div class="wrap">
             <div class="row">
                 <?php 
-                    if ($tournament == 'tournament'){
+                    if ($tour == 'tournament'){
                         $this->load->view('admin/left_tournament');
                     }else {
                         $this->load->view('admin/left');

@@ -60,7 +60,7 @@
                                     </div>
                                     
                                     <div class="col">
-                                        <select class="custom-select" id="select" name="cid">
+                                        <select class="custom-select" id="select" name="pid">
                                             <option value="0">Chọn Danh Mục</option>
                                             <?php foreach ($catalogs as $row) { ?>
                                                 <?php if ($row->subs) { ?>
@@ -96,7 +96,7 @@
                         <th scope="col" width=5%>Mã Số</th>
                         <th scope="col">Tên</th>
                         <th scope="col" width=35%>Tóm tắt giải đấu</th>
-                        <th scope="col" width=5%>Trạng thái</th>
+                        <th scope="col" width=7%>Trạng thái</th>
                         <th scope="col" width=8%>Ngày taọ</th>
                         <th scope="col"style="width: 140px" class="text-center">Hành động</th>
                     </tr>
@@ -120,14 +120,17 @@
                                                     $link_img = base_url().'uploads/images/product/421_561/'.$row->image_link;
                                                 }
                                         ?>
-                                        <img src="<?= $link_img ?>" alt=""/>
+                                    <img src="<?= $link_img ?>" alt=""/>
                                     </div>
                                     <div class="info_products">
                                         <b><?= $row->vn_name ?></b>
                                         <span>Slug: <?= $row->vn_slug ?></span>
                                         <div>Xem: <?= number_format($row->view) ?></div>
                                     </div>
-
+                                    <div class="date-time">
+                                    	<i>Ngày bắt đầu: <?= date('d-m-Y', @$row->start_date)?></i>
+                                    	<i>Ngày kết thúc: <?= date('d-m-Y', @$row->end_date)?></i>
+                                    </div>
                                 </td>
                                 <td class="text-center">
                                 <?php if($row->arrNoiDung){ ?>

@@ -291,7 +291,7 @@ $(document).ready(function () {
     		        success: function (result) {
     		        	$('#round').html(result.content);
     		        	if(result.type) {
-    		        		var listSelect = $('#user .col-sm-5 select');
+    		        		var listSelect = $('#user .col-sm-6 select');
     		        		$.each(listSelect, function(i, val){
     		        			if(i % 2 != 0) {
     		        				if(result.type == 1) {
@@ -356,7 +356,7 @@ $(document).ready(function () {
     	tournament = $("#tournament option:selected").val();
     	noi_dung = $("#noi_dung option:selected").val();
     	
-    	console.log(tournament_type + tournament + noi_dung);
+    	//console.log(tournament_type + tournament + noi_dung);
     	if(noi_dung != 0 && tournament != 0 && tournament_type != 0 ) {
     		var data = {tournament_type: tournament_type, tournament: tournament, noi_dung: noi_dung, type: 'get-total'};
     		 $.ajax({

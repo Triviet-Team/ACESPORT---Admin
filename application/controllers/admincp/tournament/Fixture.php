@@ -74,7 +74,7 @@ class Fixture extends MY_Controller {
             if ($type == 'tournament_type'){
                $val = $_POST['tournament_type'];
                $input = array();
-               $input['where'] = array('pid', $val);
+               $input['where'] = array('pid' => $val);
                $result = $this->tournament_m->get_list($input);  
             }
             
@@ -90,7 +90,7 @@ class Fixture extends MY_Controller {
                 $total_member = $info->total_member;
                 $type_play = $info->type_play;
                 $cap_dau = ($total_member/(2*$type_play));
-                $n = $this->fixture_m->getMu($cap_dau);
+                $n = $this->fixture_m->getMu($cap_dau) + 1;
                 $str = '<option value="0">Chọn vòng đấu</option>';
                 for ($i = $n; $i >= 1; $i--) {
                     if ($i == $active) {
@@ -380,51 +380,42 @@ class Fixture extends MY_Controller {
     public function update($id = 0) {
         $this->load->model('tournament_type_m');
         $this->load->model('registration_m');
-        $this->load->model('playing_in_m');
-    
-        $input = array();
-        $input['where'] = array('status' => 1);
-        $this->data['noi_dung'] = $this->playing_category_m->get_list($input);
-    
-        $input = array();
-        $input['where'] = array('pid' => 0, 'status' => 1);
-    
-        $input['order'][0] = 'position';
-        $input['order'][1] = 'ASC';
-    
-        $catalogs = $this->tournament_type_m->get_list($input);
+        $this->load->model('playing_in_m');    
+        
+        $filter[] = array('name' => '`fixture`.`id`', 'val' => $id);
+        
+        $infoPlayer = $this->fixture_m->getUpdate($filter);
+        
+        foreach ($infoPlayer as $row) {
+            $row->doi_1 = $this->fixture_m->getPlayer($row->code_doi_1);
+            $row->doi_2 = $this->fixture_m->getPlayer($row->code_doi_2);
+        }
+        $this->data['infoPlayer'] = $infoPlayer[0];
+//         echo '<pre>';
+//         print_r($this->data['infoPlayer'] );
+//         echo '<pre>';die();
     
         //         foreach ($catalogs as $row) {
         //             $input['where'] = array('pid' => $row->id, 'status' => 1);
         //             $subs = $this->tournament_m->get_list($input);
         //             $row->subs = $subs;
         //         }
-        $this->data['catalogs'] = $catalogs;
-        if($id){
-            $info = $this->fixture_m->get_info($id);
-            if(!empty($info)){
-                $this->data['info'] = $info;
-            }else{
-                $this->session->set_flashdata('message', 'Dịch vụ muốn chỉnh sửa không tồn tại');
-                redirect(base_url() . 'admincp/tournament/fixture/index/');
-            }
-        }
-    
-        // mảng cid của product
-        $input          = array();
-        $input['where'] = array('tournament_id' => $id);
-        $arrPid         = $this->tournament_playing_category_m->get_list($input);
-        $this->data['arrPid'] = $arrPid;
+//         $this->data['catalogs'] = $catalogs;
+//         if($id){
+//             $info = $this->fixture_m->get_info($id);
+//             if(!empty($info)){
+//                 $this->data['info'] = $info;
+//             }else{
+//                 $this->session->set_flashdata('message', 'Dịch vụ muốn chỉnh sửa không tồn tại');
+//                 redirect(base_url() . 'admincp/tournament/fixture/index/');
+//             }
+//         }
     
         if ($this->input->post()) {
-    
-            $this->form_validation->set_rules('tournament', 'Tên sản phẩm', 'required');
-    
-            //             $this->form_validation->set_rules('start_date', 'Ngày bắt đầu', 'required');
-    
-            //             $this->form_validation->set_rules('end_date', 'Ngày bắt kết thúc', 'required');
-    
-            if ($this->form_validation->run()) {
+            
+            echo '<pre>';
+            print_r($_POST);
+            echo '<pre>';die();
     
                 //                 echo '<pre>';
                 //                 print_r($_POST);
@@ -531,13 +522,12 @@ class Fixture extends MY_Controller {
                 } else {
                     redirect(base_url() . 'admincp/tournament/fixture/index/');
                 }
-            }
         }
     
         if($id){
-            $this->data['title'] = 'Chỉnh sản phẩm';
+            $this->data['title'] = 'Cập nhật tỉ số trận đấu';
         }else{
-            $this->data['title'] = 'Thêm cặp đấu mới';
+            $this->data['title'] = 'Cập nhật tỉ số trận đấu';
         }
     
         $this->data['temp'] = 'tournament/fixture/update';
