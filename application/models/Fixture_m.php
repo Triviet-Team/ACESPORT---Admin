@@ -17,13 +17,16 @@ Class Fixture_m extends MY_Model {
             `tournament_type`.`vn_name` AS `tournament_type`, `tournament`.`vn_name` AS `tournament`, 
             `playing_category`.`vn_name` AS `noi_dung`,
             `fixture`.`first_registration_id` AS `code_doi_1`, `fixture`.`second_registration_id` AS `code_doi_2` 
+            , `set_score`.`first_registration_games` AS `game_1` 
+            , `set_score`.`second_registration_games` AS `game_2` 
             
-            FROM `tournament_type`, `tournament`, `tournament_playing_category`, `playing_category`, `fixture`
+            FROM `tournament_type`, `tournament`, `tournament_playing_category`, `playing_category`, `fixture`, `set_score`
             
             WHERE `tournament_type`.`id` = `tournament`.`pid` 
             AND `tournament`.`id` = `tournament_playing_category`.`tournament_id` 
             AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
             AND `tournament_playing_category`.`id` = `fixture`.`tournament_playing_category_id` 
+            AND `fixture`.`id` =  `set_score`.`fixture_id`
            
             ". $strFilter ."
             ORDER BY `id` DESC";
@@ -82,18 +85,22 @@ Class Fixture_m extends MY_Model {
     
         $query = "SELECT
             `fixture`.`id` AS `id`,
-            `tournament_type`.`vn_name` AS `tournament_type`, `tournament`.`vn_name` AS `tournament`,
+            `tournament_type`.`vn_name` AS `tournament_type`, `tournament_type`.`id` AS `tournament_type_id`, `tournament`.`vn_name` AS `tournament`, `tournament`.`id` AS `tournament_id`,
             `playing_category`.`vn_name` AS `noi_dung`,
             `fixture`.`first_registration_id` AS `code_doi_1`, `fixture`.`second_registration_id` AS `code_doi_2`,
             
-            `fixture`.`round` AS `round`, `tournament_playing_category`.`set`
+            `fixture`.`round` AS `round`, `tournament_playing_category`.`set`, `tournament_playing_category`.`id` AS `noi_dung_id`,
+            `fixture_result`.`id` AS `fixture_result_id`,
+            `set_score`.`id` AS `set_score_id`
     
-            FROM `tournament_type`, `tournament`, `tournament_playing_category`, `playing_category`, `fixture`
+            FROM `tournament_type`, `tournament`, `tournament_playing_category`, `playing_category`, `fixture`, `fixture_result`, `set_score`
     
             WHERE `tournament_type`.`id` = `tournament`.`pid`
             AND `tournament`.`id` = `tournament_playing_category`.`tournament_id`
             AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id`
             AND `tournament_playing_category`.`id` = `fixture`.`tournament_playing_category_id`
+            AND `set_score`.`fixture_id` = `fixture`.`id`
+            AND `fixture`.`id` = `fixture_result`.`fixture_id`
       
             ". $strFilter ."
             ORDER BY `id` DESC";
@@ -106,6 +113,120 @@ Class Fixture_m extends MY_Model {
             return $result->result();
         }else {
             return FALSE;
+        }
+    }
+    
+    public function countNumberRound($filter){
+        $strFilter = '';
+        if ($filter) {
+            foreach ($filter as $value) {
+                $strFilter .= ' AND ' . $value['name'] . ' = ' . $value['val'];
+            }
+        }
+    
+        $query = "SELECT
+            `fixture`.`id` AS `id`,
+            `tournament_type`.`vn_name` AS `tournament_type`, `tournament`.`vn_name` AS `tournament`, `tournament`.`id` AS `tournament_id`,
+            `playing_category`.`vn_name` AS `noi_dung`,
+            `fixture`.`first_registration_id` AS `code_doi_1`, `fixture`.`second_registration_id` AS `code_doi_2`,
+    
+            `fixture`.`round` AS `round`, `tournament_playing_category`.`set`, `tournament_playing_category`.`id` AS `noi_dung_id`
+            
+            FROM `tournament_type`, `tournament`, `tournament_playing_category`, `playing_category`, `fixture`, `fixture_result`
+    
+            WHERE `tournament_type`.`id` = `tournament`.`pid`
+            AND `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id`
+            AND `tournament_playing_category`.`id` = `fixture`.`tournament_playing_category_id`
+            AND `fixture`.`id` = `fixture_result`.`fixture_id`
+    
+            ". $strFilter ."
+            AND `fixture_result`.`winner_registration_id` > 0
+            ORDER BY `id` DESC";
+    
+        //AND `set_score`.`fixture_id` = `fixture`.`id`, `set_score` , `set_score`.`set_number` AS `set`,
+        //`set_score`.`first_registration_games` AS `game_doi_1`, `set_score`.`second_registration_games` AS `game_doi_2`
+    
+        $result = $this->db->query($query);
+        if ($result) {
+            return count($result->result());
+        }else {
+            return FALSE;
+        }
+    }
+    
+    public function getFixtureWiner($filter){
+        $ids = null;
+        $strFilter = '';
+        if ($filter) {
+            foreach ($filter as $value) {
+                $strFilter .= ' AND ' . $value['name'] . ' = ' . $value['val'];
+            }
+        }
+    
+        $query = "SELECT
+            `fixture_result`.`winner_registration_id` AS `id`
+    
+            FROM `tournament_type`, `tournament`, `tournament_playing_category`, `playing_category`, `fixture`, `fixture_result`
+    
+            WHERE `tournament_type`.`id` = `tournament`.`pid`
+            AND `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id`
+            AND `tournament_playing_category`.`id` = `fixture`.`tournament_playing_category_id`
+            AND `fixture`.`id` = `fixture_result`.`fixture_id`
+    
+            ". $strFilter ."
+            AND `fixture_result`.`winner_registration_id` > 0
+            ";
+    
+        //AND `set_score`.`fixture_id` = `fixture`.`id`, `set_score` , `set_score`.`set_number` AS `set`,
+        //`set_score`.`first_registration_games` AS `game_doi_1`, `set_score`.`second_registration_games` AS `game_doi_2`
+    
+        $result = $this->db->query($query);
+        if ($result) {
+            foreach ($result->result() as $row) {
+                $ids[] = $row->id;
+            }
+            return $ids;
+        }else {
+            return FALSE;
+        }
+    }
+    
+
+    public function createRound($n, $active = '', $m = 1){
+        $str = '';
+        $nameRount = '';
+        if ($n > 0) {
+             $str = '<option value="0">Chọn vòng đấu</option>';
+                    for ($i = $n; $i >= 1; $i--) {
+                        if ($i == $active) {
+                            $selected = 'selected';
+                        }else {
+                            $selected = '';
+                        }
+                        if ($i == 1) {
+                            $str .= '<option '.$selected.' value="'. $i .'">Vòng chung kết</option>';
+                            if ($i == $m) $nameRount = 'Vòng chung kết';
+                        }elseif ($i == 2) {
+                            $str .= '<option '.$selected.' value="'. $i .'">Vòng bán kết</option>';
+                            if ($i == $m) $nameRount = 'Vòng bán kết';
+                        }elseif ($i == 3) {
+                            $str .= '<option '.$selected.' value="'. $i .'">Vòng tứ kết</option>';
+                            if ($i == $m) $nameRount = 'Vòng tứ kết';
+                        }else {
+                            $str .= '<option '.$selected.' value="'. $i .'">Vòng 1/'. (pow(2, $i)/2).'</option>';
+                            if ($i == $m) $nameRount = 'Vòng 1/'. (pow(2, $i)/2);
+                        }
+                    }
+        }
+       return array('str' => $str, 'nameRound' => $nameRount);       
+    }
+    
+
+    public function registrationPlayer($idNoiDung, $arrUser, $round = 3, $option = null){
+        if ($option == null) {
+            
         }
     }
     

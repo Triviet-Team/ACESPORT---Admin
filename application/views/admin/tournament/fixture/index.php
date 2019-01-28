@@ -116,7 +116,7 @@
                             ?>
                             <tr>
                                 <td class="text-center"><?= $row->id ?></td>
-                                <td><?= $row->tournament_type ?>/<?= $row->tournament ?></td>
+                                <td><?= $row->tournament_type ?>/<?= $row->tournament ?>/<?= $row->noi_dung ?></td>
                                 <td class="text-center">
                                 	<?php if($row->doi_1){ ?>
                                 		<?php foreach ($row->doi_1 as $k => $row_doi) { ?>
@@ -161,7 +161,7 @@
                                 </td>
 
                                 <td class="text-center">
-                                    Set <?= $row->set ?>:   <?= $row->game_doi_1?>-<?= $row->game_doi_2?>
+                                    Game <?= $row->set ?>:   <?= $row->game_1?>-<?= $row->game_2?>
                                 </td>
                                 
                                 <td class="text-center"><?= get_date($row->created) ?></td>
