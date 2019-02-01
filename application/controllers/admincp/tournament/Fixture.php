@@ -48,9 +48,10 @@ class Fixture extends MY_Controller {
                     $total_member = $info->total_member;
                     $type_play = $info->type_play;
                     $cap_dau = ($total_member/(2*$type_play)); 
+                    $n = $this->fixture_m->getMu($cap_dau) + 1;
                 } 
                 $this->data['round'] = 1;
-                $filter[] = array('name' => '`fixture`.`round`', 'val' => 1);
+                $filter[] = array('name' => '`fixture`.`round`', 'val' => $n);
                 $total['curent'] = $this->fixture_m->countTotal($filter);
                 $total['conlai'] = $cap_dau - $total['curent'];
                 echo json_encode($total);
@@ -59,11 +60,26 @@ class Fixture extends MY_Controller {
     }
     
     public function getInfoUsers() {
-        $data = $this->users_m->get_list();
+        $input = array();
+        $input['where'] = array('status' => 1);
+        if ($_GET) {
+            foreach ($_GET as $val) {
+                if ($val != '') {
+                    $arrIdUser[] = $val;
+                }
+            }
+        
+            if ($arrIdUser) {
+                $input['where_not_in'] = array('id', $arrIdUser);
+            }
+        }
+        
+        $data = $this->users_m->get_list($input);
+        
         $result = null;
         
         foreach ($data as $row) {
-            $result['result'][] = array('id' => intval($row->id), 'text' => $row->username);
+            $result[] = array('id' => intval($row->id), 'text' => $row->username);
         }
         
         echo json_encode($result);
@@ -140,9 +156,9 @@ class Fixture extends MY_Controller {
 
        
 
-        //$total_rows = $this->fixture_m->get_total($input);
+        $total_rows = $this->fixture_m->getTotalList($filter);
 
-        //$this->data['total_rows'] = $total_rows;
+        $this->data['total_rows'] = $total_rows;
 
         $getData = array('id' => $id, 'vn_name' => $vn_name, 'cid' => $cid);
 
@@ -202,6 +218,10 @@ class Fixture extends MY_Controller {
         $this->load->model('tournament_type_m');
         $this->load->model('registration_m');
         $this->load->model('playing_in_m');
+        $tournament_type = '';
+        $tournament = '';
+        $noi_dung = '';
+        $round = '';
         
         $input = array();
         $input['where'] = array('status' => 1);
@@ -215,175 +235,178 @@ class Fixture extends MY_Controller {
         
         $catalogs = $this->tournament_type_m->get_list($input);
 
-//         foreach ($catalogs as $row) {
-//             $input['where'] = array('pid' => $row->id, 'status' => 1);
-//             $subs = $this->tournament_m->get_list($input);
-//             $row->subs = $subs;
-//         }
         $this->data['catalogs'] = $catalogs;
         if($id){
             $info = $this->fixture_m->get_info($id);
             if(!empty($info)){
-                $this->data['info'] = $info;
+                $filter[] = array('name' => '`fixture`.`id`', 'val' => $id);
+                
+                $infoPlayer = $this->fixture_m->getUpdate($filter);
+                
+                $tournament_type = $infoPlayer[0]->tournament_type_id;
+                $tournament = $infoPlayer[0]->tournament_id;
+                $noi_dung = $infoPlayer[0]->noi_dung_id;
+                $round = $infoPlayer[0]->round;
+                
+                $infoNoiDung = $this->tournament_playing_category_m->get_info($infoPlayer[0]->noi_dung_id);
+                if ($infoNoiDung) {
+                    $this->data['infoNoiDung'] = $infoNoiDung;
+                }
             }else{
                 $this->session->set_flashdata('message', 'Dịch vụ muốn chỉnh sửa không tồn tại');
                 redirect(base_url() . 'admincp/tournament/fixture/index/');
             }
         }
         
-        // mảng cid của product
-        $input          = array();
-        $input['where'] = array('tournament_id' => $id);
-        $arrPid         = $this->tournament_playing_category_m->get_list($input);
-        $this->data['arrPid'] = $arrPid;
 
         if ($this->input->post()) {
-
-             $this->form_validation->set_rules('tournament', 'Tên sản phẩm', 'required');
-
-//             $this->form_validation->set_rules('start_date', 'Ngày bắt đầu', 'required');
             
-//             $this->form_validation->set_rules('end_date', 'Ngày bắt kết thúc', 'required');
-
-            if ($this->form_validation->run()) {
-                
-//                 echo '<pre>';
-//                 print_r($_POST);
-//                 echo '<pre>';die();
-                
-                $noi_dung = $this->input->post('noi_dung', true);
-                
-                $info = $this->tournament_playing_category_m->get_info($noi_dung);
-                $total_member = $info->total_member;
-                $type_play = $info->type_play;
-                $cap_dau = ($total_member/(2*$type_play));
-               // $cap_dau = $doi_choi / 2;
-                
-                $round = $this->fixture_m->getMu($cap_dau) + 1;
-                
-                $arrPlayer = $this->input->post('doi_choi[]', true);
-                
-                $n = count($arrPlayer)/2;
-                $ids_registration = array();
-                $k = 0;
-                for ($i = 1; $i <= 2; $i++) {
-                    $registration = array(
-                        'date' => date('Y-m-d h:m:s', now()),
-                    );
-                    if ($this->registration_m->create($registration)) {
-                        $id = $this->db->insert_id();
-                        $ids_registration[] = $id;
-                        $playing_in = array(
-                            'registration_id' => $id,
-                            'tournament_playing_category_id' => $noi_dung
-                        );
-                        $this->playing_in_m->create($playing_in);
-                        if ($n == 1) {
+            if ($_POST['user1']) {
+                $arrPlayer[] = $_POST['user1'];
+            }
+            
+            if ($_POST['user2']) {
+                $arrPlayer[] = $_POST['user2'];
+            }
+            
+            if ($_POST['user3']) {
+                $arrPlayer[] = $_POST['user3'];
+            }
+            
+            if ($_POST['user4']) {
+                $arrPlayer[] = $_POST['user4'];
+            }
+            
+            if ($id > 0) {
+                if ($infoPlayer) {
+                    $infoNoiDung = $this->tournament_playing_category_m->get_info($infoPlayer[0]->noi_dung_id);
+                    $arrRegistration[] = $info->first_registration_id;
+                    $arrRegistration[] = $info->second_registration_id;
+                    if ($infoNoiDung->type_play == 1) {
+                    
+                        for ($i = 0; $i <= 1; $i++) {
                             $registration_player = array(
-                                'registration_id' => $id,
-                                'player_id' => $arrPlayer[$i - 1]
+                                'player_id' => $arrPlayer[$i]
                             );
-                            $this->registration_player_m->create($registration_player);
+                            $where = array('registration_id' => $arrRegistration[$i]);
+                            $this->registration_player_m->update_rule($where, $registration_player);
                         }
-                        
-                        if ($n == 2) {
-                            for ($j = 1; $j <= 2; $j++) {
+                    }
+                    
+                    if ($infoNoiDung->type_play == 2) {   
+                        $k = 0;
+                        for ($i = 0; $i <= 1; $i++) {
+                            $inputIdPlayer = array();
+                            $inputIdPlayer['where'] = array('registration_id' => $arrRegistration[$i]);
+                            $inputIdPlayer['order'] = array('id', 'ASC');
+                            $data = $this->registration_player_m->get_list($inputIdPlayer);
+                            foreach ($data as $row) {
                                 $registration_player = array(
-                                    'registration_id' => $id,
                                     'player_id' => $arrPlayer[$k]
                                 );
-                                $this->registration_player_m->create($registration_player);
+                                $where = array('id' => $row->id);
+                                $this->registration_player_m->update_rule($where, $registration_player);
                                 $k++;
                             }
                         }
                     }
                 }
-
-                if ($ids_registration) {
-                    $fixture = array(
-                        'tournament_playing_category_id' => $noi_dung,
-                        'first_registration_id' => $ids_registration[0],
-                        'second_registration_id' => $ids_registration[1],
-                        'round' => $round
-                    );
-                    $this->fixture_m->create($fixture);
+            }else {
+                
+                $noi_dung = $this->input->post('noi_dung', true);
+                
+                $infoNoiDung = $this->tournament_playing_category_m->get_info($noi_dung);                
+                
+                if ($infoNoiDung) {
+                    $total_member = $infoNoiDung->total_member;
+                    $type_play = $infoNoiDung->type_play;
+                    $cap_dau = ($total_member/(2*$type_play));
+                    // $cap_dau = $doi_choi / 2;
+                
+                    $round = $this->fixture_m->getMu($cap_dau) + 1;
                     
-                    $idFixture = $this->db->insert_id();
-                    
-                    if ($idFixture) {
-                        $set_score = array(
-                            'fixture_id' => $idFixture,
-                            'set_number' => 1,
-                            'first_registration_games' => 0,
-                            'second_registration_games' => 0
+                    $tournament_type = $this->input->post('tournament_type', true);
+                    $tournament = $this->input->post('tournament', true);
+                    $noi_dung = $noi_dung;
+                        
+                    $n = count($arrPlayer)/2;
+                    $ids_registration = array();
+                    $k = 0;
+                    for ($i = 1; $i <= 2; $i++) {
+                        $registration = array(
+                            'date' => date('Y-m-d h:m:s', now()),
                         );
-                        $this->set_score_m->create($set_score);
-                        $fixture_result = array(
-                            'fixture_id' => $idFixture,
-                            'winner_registration_id' => 0,
-                            'number_of_sets_played	' => 1
+                        if ($this->registration_m->create($registration)) {
+                            $id = $this->db->insert_id();
+                            $ids_registration[] = $id;
+                            $playing_in = array(
+                                'registration_id' => $id,
+                                'tournament_playing_category_id' => $noi_dung
+                            );
+                            $this->playing_in_m->create($playing_in);
+                            if ($n == 1) {
+                                $registration_player = array(
+                                    'registration_id' => $id,
+                                    'player_id' => $arrPlayer[$i - 1]
+                                );
+                                $this->registration_player_m->create($registration_player);
+                            }
+                
+                            if ($n == 2) {
+                                for ($j = 1; $j <= 2; $j++) {
+                                    $registration_player = array(
+                                        'registration_id' => $id,
+                                        'player_id' => $arrPlayer[$k]
+                                    );
+                                    $this->registration_player_m->create($registration_player);
+                                    $k++;
+                                }
+                            }
+                        }
+                    }
+                
+                    if ($ids_registration) {
+                        $fixture = array(
+                            'tournament_playing_category_id' => $noi_dung,
+                            'first_registration_id' => $ids_registration[0],
+                            'second_registration_id' => $ids_registration[1],
+                            'round' => $round
                         );
-                        $this->fixture_result_m->create($fixture_result);
+                        $this->fixture_m->create($fixture);
+                
+                        $idFixture = $this->db->insert_id();
+                
+                        if ($idFixture) {
+                            $set_score = array(
+                                'fixture_id' => $idFixture,
+                                'set_number' => 1,
+                                'first_registration_games' => 0,
+                                'second_registration_games' => 0
+                            );
+                            $this->set_score_m->create($set_score);
+                            $fixture_result = array(
+                                'fixture_id' => $idFixture,
+                                'winner_registration_id' => 0,
+                                'number_of_sets_played	' => 1
+                            );
+                            $this->fixture_result_m->create($fixture_result);
+                        }
                     }
                 }
-                
-
-
-                
-
-//                 if (!$id) {
-//                     if ($this->fixture_m->create($data)) {
-
-//                         $tournament_id = $this->db->insert_id();
-//                         if ($noi_dung && $tournament_id) {
-//                             foreach ($noi_dung as $key => $val) {
-//                                 $item = array(  
-//                                     'tournament_id' => $tournament_id,
-//                                     'playing_category_id' => $val,
-//                                     'total_member' => $total_member[$key],
-//                                     'type_play' => $loai_choi[$key] ? 2 : 1
-//                                 );
-
-//                                 $this->tournament_playing_category_m->create($item);
-//                             }
-//                         }
-
-//                         $this->session->set_flashdata('message', 'Thêm dự án thành công');
-//                     } else {
-//                         $this->session->set_flashdata('message', 'Thêm dự án thất bại');
-//                     }
-//                 } else {
-//                     if ($this->tournament_m->update($id, $data)) {
-//                         if ($this->tournament_playing_category_m->del_rule("tournament_id = " . $id)) {
-//                             if ($noi_dung) {
-//                                  foreach ($noi_dung as $key => $val) {
-//                                     $item = array(  
-//                                         'tournament_id' => $id,
-//                                         'playing_category_id' => $val,
-//                                         'total_member' => $total_member[$key],
-//                                         'type_play' => $loai_choi[$key] ? 2 : 1
-//                                     );
-    
-//                                     $this->tournament_playing_category_m->create($item);
-//                                 }
-//                             }
-//                         }
-//                         $this->session->set_flashdata('message', 'Cập nhật dự án thành công');
-//                     } else {
-//                         $this->session->set_flashdata('message', 'Cập nhật dự án thất bại');
-//                     }
-//                 }
-
-                if ($pid) {
-                    redirect(base_url('admincp/tournament/fixture?id=&vn_name=&cid=' . $cid));
-                } else {
-                    redirect(base_url() . 'admincp/tournament/fixture/index/');
-                }
             }
+                
+
+                if ($id > 0) {
+                    $this->session->set_flashdata('message', 'Cập nhật cặp đấu thành công');
+                    redirect(base_url('admincp/tournament/fixture?tournament_type='.$tournament_type.'&tournament='.$tournament.'&noi_dung='.$noi_dung.'&round='.$round));
+                } else {
+                    $this->session->set_flashdata('message', 'Thêm cặp đấu thành công');
+                    redirect(base_url('admincp/tournament/fixture?tournament_type='.$tournament_type.'&tournament='.$tournament.'&noi_dung='.$noi_dung.'&round='.$round));
+                }
         }
 
         if($id){
-            $this->data['title'] = 'Chỉnh sản phẩm';
+            $this->data['title'] = 'Chỉnh sửa cặp đấu';
         }else{
             $this->data['title'] = 'Thêm cặp đấu mới';
         }
@@ -444,6 +467,13 @@ class Fixture extends MY_Controller {
                 $this->data['noi_dung'] = $noi_dung;
                 $filter[] = array('name' => '`tournament_playing_category`.`id`', 'val' => $noi_dung);
             }
+            
+            $listFixture = $this->fixture_m->getList($filter);
+            $arrIdFixture = array();
+            foreach ($listFixture as $row) {
+                $arrIdFixture[] = $row->id;
+            }
+
             $round = $round;
             $round = intval($round);
             if ($round > 0) {
@@ -451,7 +481,8 @@ class Fixture extends MY_Controller {
                 $filter[] = array('name' => '`fixture`.`round`', 'val' => $round);
             }            
             
-            
+            $game_user_1 = $set[1][0];
+            $game_user_2 = $set[1][1];           
             
             $set_score = array(
                 'set_number' => $infoPlayer[0]->set,
@@ -467,58 +498,111 @@ class Fixture extends MY_Controller {
             
             $numberRound = $this->fixture_m->countNumberRound($filter);
             
-            if ($numberRound == $tran_dau) {
-                $arrFixtureWiner = $this->fixture_m->getFixtureWiner($filter);
-
-                //echo $n = $tran_dau / 2;die();
-                $j = 0;
-                for ($i = 1; $i <= $tran_dau / 2; $i++) {
-
-                    $fixture = array(
-                        'tournament_playing_category_id' => $noi_dung,
-                        'first_registration_id' => $arrFixtureWiner[$j]
-                    );
-                    unset($arrFixtureWiner[$j]);
-                    $j++;
-                    $fixture['second_registration_id'] = $arrFixtureWiner[$j];
-                    $fixture['round'] = $round - 1;
-                    unset($arrFixtureWiner[$j]);
-                    $j++;
-                    
-                    $this->fixture_m->create($fixture);
-                    
-                    $idFixture = $this->db->insert_id();
-                    
-                    if ($idFixture) {
-                        $set_score = array(
-                            'fixture_id' => $idFixture,
-                            'set_number' => 1,
-                            'first_registration_games' => 0,
-                            'second_registration_games' => 0
-                        );
-                        $this->set_score_m->create($set_score);
-                        $fixture_result = array(
-                            'fixture_id' => $idFixture,
-                            'winner_registration_id' => 0,
-                            'number_of_sets_played	' => 1
-                        );
-                        $this->fixture_result_m->create($fixture_result);
-                    }                    
-                }
-
-                $round = $round - 1;
-                if ($round > 0) {
-                    $this->session->set_flashdata('message', 'Cập nhật tỉ số trận đấu thành công');
-                    redirect(base_url('admincp/tournament/fixture?tournament_type='.$tournament_type.'&tournament='.$tournament.'&noi_dung='.$noi_dung.'&round='.$round));
+            $filter[2] = array('name' => '`fixture`.`round`', 'val' => $round - 1);
+            
+            $numberRound_1 = $this->fixture_m->countNumberRound($filter);
+            
+            if ($numberRound_1 <= 0) {
+                if ($numberRound == $tran_dau) {
+                                    $arrFixtureWiner = $this->fixture_m->getFixtureWiner($filter);
+                
+                                    //echo $n = $tran_dau / 2;die();
+                                    $j = 0;
+                                    for ($i = 1; $i <= $tran_dau / 2; $i++) {
+                
+                                        $fixture = array(
+                                            'tournament_playing_category_id' => $noi_dung,
+                                            'first_registration_id' => $arrFixtureWiner[$j]
+                                        );
+                                        unset($arrFixtureWiner[$j]);
+                                        $j++;
+                                        $fixture['second_registration_id'] = $arrFixtureWiner[$j];
+                                        $fixture['round'] = $round - 1;
+                                        unset($arrFixtureWiner[$j]);
+                                        $j++;
+                
+                                        $this->fixture_m->create($fixture);
+                
+                                        $idFixture = $this->db->insert_id();
+                
+                                        if ($idFixture) {
+                                            $set_score = array(
+                                                'fixture_id' => $idFixture,
+                                                'set_number' => 1,
+                                                'first_registration_games' => 0,
+                                                'second_registration_games' => 0
+                                            );
+                                            $this->set_score_m->create($set_score);
+                                            $fixture_result = array(
+                                                'fixture_id' => $idFixture,
+                                                'winner_registration_id' => 0,
+                                                'number_of_sets_played	' => 1
+                                            );
+                                            $this->fixture_result_m->create($fixture_result);
+                                        }
+                                    }
+                
+                    $round = $round - 1;
+                    if ($round > 0) {
+                        $this->session->set_flashdata('message', 'Cập nhật tỉ số trận đấu thành công');
+                        redirect(base_url('admincp/tournament/fixture?tournament_type='.$tournament_type.'&tournament='.$tournament.'&noi_dung='.$noi_dung.'&round='.$round));
+                    }else {
+                        $this->session->set_flashdata('message', 'Tất cả trận đấu trong nội dung đã được cập nhật thành công');
+                        redirect(base_url('admincp/tournament/fixture?tournament_type='.$tournament_type.'&tournament='.$tournament.'&noi_dung='.$noi_dung));
+                    }
+                
+                
                 }else {
-                    $this->session->set_flashdata('message', 'Tất cả trận đấu trong nội dung đã được cập nhật thành công');
-                    redirect(base_url('admincp/tournament/fixture?tournament_type='.$tournament_type.'&tournament='.$tournament.'&noi_dung='.$noi_dung));
+                    redirect(base_url('admincp/tournament/fixture?tournament_type='.$tournament_type.'&tournament='.$tournament.'&noi_dung='.$noi_dung.'&round='.$round));
                 }
+            }else {
+                  
+                $fixture_result = array(
+                    'winner_registration_id' => $set[1][0] > $set[1][1] ? $infoPlayer[0]->code_doi_1 : $infoPlayer[0]->code_doi_2,
+                );
+                
+                $where = array(
+                                'winner_registration_id' => $infoPlayer[0]->winner_registration_id   
+                            );
+                $where_in = array();
+                $where_in = array('fixture_id', $arrIdFixture);
+
+                $this->fixture_result_m->update_rule($where, $fixture_result, $where_in);                
+                
+                $fixture = array(
+                    'first_registration_id' => $set[1][0] > $set[1][1] ? $infoPlayer[0]->code_doi_1 : $infoPlayer[0]->code_doi_2
+                );
                 
 
-            }else {
+                
+                $where = array(
+                    'id <>' => $infoPlayer[0]->id,
+                    'first_registration_id' => $infoPlayer[0]->winner_registration_id
+                );
+                
+                $where_in = array('id', $arrIdFixture);
+                
+                $this->fixture_m->update_rule($where, $fixture, $where_in);
+                
+                $fixture = array(
+                    'second_registration_id' => $set[1][0] > $set[1][1] ? $infoPlayer[0]->code_doi_1 : $infoPlayer[0]->code_doi_2
+                );
+                
+                $where = array(
+                    'id <>' => $infoPlayer[0]->id,
+                    'second_registration_id' => $infoPlayer[0]->winner_registration_id
+                );
+                
+                $where_in = array('id', $arrIdFixture);
+                
+                $this->fixture_m->update_rule($where, $fixture, $where_in);
+                  
+                $this->session->set_flashdata('message', 'Cập nhật tỉ số trận đấu thành công');
                 redirect(base_url('admincp/tournament/fixture?tournament_type='.$tournament_type.'&tournament='.$tournament.'&noi_dung='.$noi_dung.'&round='.$round));
+   
             }
+            
+
 
 
         }

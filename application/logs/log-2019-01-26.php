@@ -1625,3 +1625,143 @@ ERROR - 2019-01-26 11:49:37 --> Query error: You have an error in your SQL synta
             WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
             AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
             AND `tournament`.`id` = 
+ERROR - 2019-01-26 19:53:30 --> Query error: Table 'tenis_db.configs' doesn't exist - Invalid query: SELECT *
+FROM `configs`
+WHERE `key` = 'general'
+ERROR - 2019-01-26 19:55:12 --> Query error: Unknown column 'tournament.pid' in 'where clause' - Invalid query: SELECT 
+            `fixture`.`id` AS `id`,
+            `tournament_type`.`vn_name` AS `tournament_type`, `tournament`.`vn_name` AS `tournament`, 
+            `playing_category`.`vn_name` AS `noi_dung`,
+            `fixture`.`first_registration_id` AS `code_doi_1`, `fixture`.`second_registration_id` AS `code_doi_2` 
+            
+            FROM `tournament_type`, `tournament`, `tournament_playing_category`, `playing_category`, `fixture`
+            
+            WHERE `tournament_type`.`id` = `tournament`.`pid` 
+            AND `tournament`.`id` = `tournament_playing_category`.`tournament_id` 
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament_playing_category`.`id` = `fixture`.`tournament_playing_category_id` 
+           
+            
+            ORDER BY `id` DESC
+ERROR - 2019-01-26 19:55:17 --> Query error: Unknown column 'tournament.pid' in 'where clause' - Invalid query: SELECT 
+            `fixture`.`id` AS `id`,
+            `tournament_type`.`vn_name` AS `tournament_type`, `tournament`.`vn_name` AS `tournament`, 
+            `playing_category`.`vn_name` AS `noi_dung`,
+            `fixture`.`first_registration_id` AS `code_doi_1`, `fixture`.`second_registration_id` AS `code_doi_2` 
+            
+            FROM `tournament_type`, `tournament`, `tournament_playing_category`, `playing_category`, `fixture`
+            
+            WHERE `tournament_type`.`id` = `tournament`.`pid` 
+            AND `tournament`.`id` = `tournament_playing_category`.`tournament_id` 
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament_playing_category`.`id` = `fixture`.`tournament_playing_category_id` 
+           
+            
+            ORDER BY `id` DESC
+ERROR - 2019-01-26 19:55:20 --> Query error: Unknown column 'pid' in 'where clause' - Invalid query: SELECT *
+FROM `tournament`
+WHERE `pid` = '2'
+ORDER BY `tournament`.`id` DESC
+ERROR - 2019-01-26 19:55:23 --> Query error: Unknown column 'pid' in 'where clause' - Invalid query: SELECT *
+FROM `tournament`
+WHERE `pid` = '1'
+ORDER BY `tournament`.`id` DESC
+ERROR - 2019-01-26 19:55:29 --> Query error: Unknown column 'pid' in 'where clause' - Invalid query: SELECT *
+FROM `tournament`
+WHERE `pid` IS NULL
+ORDER BY `tournament`.`id` DESC
+ERROR - 2019-01-26 19:55:29 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-26 19:55:33 --> Query error: Unknown column 'pid' in 'where clause' - Invalid query: SELECT *
+FROM `tournament`
+WHERE `pid` IS NULL
+ORDER BY `tournament`.`id` DESC
+ERROR - 2019-01-26 19:55:33 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-26 19:55:36 --> Query error: Unknown column 'pid' in 'where clause' - Invalid query: SELECT *
+FROM `tournament`
+WHERE `pid` IS NULL
+ORDER BY `tournament`.`id` DESC
+ERROR - 2019-01-26 19:55:36 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-26 19:55:41 --> Query error: Unknown column 'pid' in 'where clause' - Invalid query: SELECT *
+FROM `tournament`
+WHERE `pid` IS NULL
+ORDER BY `tournament`.`id` DESC
+ERROR - 2019-01-26 19:55:41 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-26 19:55:49 --> Query error: Unknown column 'tournament.pid' in 'where clause' - Invalid query: SELECT 
+            `fixture`.`id` AS `id`,
+            `tournament_type`.`vn_name` AS `tournament_type`, `tournament`.`vn_name` AS `tournament`, 
+            `playing_category`.`vn_name` AS `noi_dung`,
+            `fixture`.`first_registration_id` AS `code_doi_1`, `fixture`.`second_registration_id` AS `code_doi_2` 
+            
+            FROM `tournament_type`, `tournament`, `tournament_playing_category`, `playing_category`, `fixture`
+            
+            WHERE `tournament_type`.`id` = `tournament`.`pid` 
+            AND `tournament`.`id` = `tournament_playing_category`.`tournament_id` 
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament_playing_category`.`id` = `fixture`.`tournament_playing_category_id` 
+           
+            
+            ORDER BY `id` DESC
+ERROR - 2019-01-26 19:56:09 --> Query error: Unknown column 'pid' in 'where clause' - Invalid query: SELECT *
+FROM `tournament`
+WHERE `pid` = '1'
+ORDER BY `tournament`.`id` DESC
+ERROR - 2019-01-26 19:56:16 --> Query error: Unknown column 'tournament.pid' in 'where clause' - Invalid query: SELECT 
+            `fixture`.`id` AS `id`,
+            `tournament_type`.`vn_name` AS `tournament_type`, `tournament`.`vn_name` AS `tournament`, 
+            `playing_category`.`vn_name` AS `noi_dung`,
+            `fixture`.`first_registration_id` AS `code_doi_1`, `fixture`.`second_registration_id` AS `code_doi_2` 
+            
+            FROM `tournament_type`, `tournament`, `tournament_playing_category`, `playing_category`, `fixture`
+            
+            WHERE `tournament_type`.`id` = `tournament`.`pid` 
+            AND `tournament`.`id` = `tournament_playing_category`.`tournament_id` 
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament_playing_category`.`id` = `fixture`.`tournament_playing_category_id` 
+           
+            
+            ORDER BY `id` DESC
+ERROR - 2019-01-26 20:02:53 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 9 - Invalid query: SELECT
+            `tournament_playing_category`.`id` AS `id`,
+            `playing_category`.`vn_name` AS `vn_name`
+        
+            FROM `tournament`, `tournament_playing_category`, `playing_category`
+        
+            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
+            AND `tournament`.`id` = 
+ERROR - 2019-01-26 20:02:53 --> Query error: Unknown column 'pid' in 'where clause' - Invalid query: SELECT *
+FROM `tournament`
+WHERE `pid` IS NULL
+ORDER BY `tournament`.`id` DESC

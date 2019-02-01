@@ -60,10 +60,10 @@
         						<tr>
         							<td class="border-0">Set <?= $i ?></td>
         							<td class="border-0">
-        								<input class="form-control" type="number" min="0" name="set[<?= $i ?>][]" value="" placeholder="Game" />
+        								<input class="form-control" type="number" min="0" name="set[<?= $i ?>][]" value="<?= $infoPlayer->first_registration_games ?  $infoPlayer->first_registration_games : '' ?>" placeholder="Game" />
         							</td>
         							<td class="border-0">
-        								<input class="form-control" type="number"min="0"  name="set[<?= $i ?>][]" value="" placeholder="Game" />
+        								<input class="form-control" type="number"min="0"  name="set[<?= $i ?>][]" value="<?= $infoPlayer->first_registration_games ?  $infoPlayer->second_registration_games : '' ?>" placeholder="Game" />
         							</td>
         						</tr>
 							<?php } ?>

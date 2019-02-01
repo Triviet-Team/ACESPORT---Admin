@@ -221,7 +221,7 @@ function formatState (state) {
 	  }
 	  var baseUrl = "/user/pages/images/flags";
 	  var $state = $(
-	    '<span><img src="' + baseUrl + '.png" class="img-flag" /> ' + state.text + '</span>'
+	    '<span><img style="width=10px!important; height=10px!important" src="http://localhost/project-tenis/ACESPORT---Admin.git/public/admin/img/default-534x534.png" class="img-flag" /> ' + state.text + '</span>'
 	 );
 	  //console.log($state);
 	 return $state;
@@ -310,47 +310,101 @@ $(document).ready(function () {
     		$("#round").html('<option value="0">Chọn vòng đấu</option>');
     	}
     });
-// chọn người chơi (thêm cặp đấu mới)
-	 $.ajax({
-		  url: "http://localhost/project-hao/tenis/tennis/admincp/tournament/fixture/getInfoUsers",
-		  type: 'POST',
-		  dataType: "json",
-		  contentType: 'application/json; charset=utf-8'
-		}).then(function (response) {
-			//console.log(response);
-		  $("#user1").select2({
-		    placeholder: "Select a Review",
-		    minimumInputLength: 0,
-		    data: response.result
-		    ,
-		    templateResult: formatState
-		  });  
-		  
-		  $("#user2").select2({
-			    placeholder: "Select a Review",
-			    minimumInputLength: 0,
-			    data: response.result
-			    ,
-			    templateResult: formatState
-			  });  
-		  
-		  $("#user3").select2({
-			    placeholder: "Select a Review",
-			    minimumInputLength: 0,
-			    data: response.result
-			    ,
-			    templateResult: formatState
-			  });  
-		  
-		  $("#user4").select2({
-			    placeholder: "Select a Review",
-			    minimumInputLength: 0,
-			    data: response.result
-			    ,
-			    templateResult: formatState
-			  });  
-	});
-	 
+
+// chọn người chơi (thêm cặp đấu mới)	 
+      var valUser1 = $("#user1 option:selected").val();
+      var valUser2 = $("#user2 option:selected").val();
+      var valUser3 = $("#user3 option:selected").val();
+      var valUser4 = $("#user4 option:selected").val();
+
+	  $("#user1").on("click change", function(){
+		  valUser1 = $("#user2 option:selected").val();
+	      valUser2 = $("#user2 option:selected").val();
+	      valUser3 = $("#user3 option:selected").val();
+	      valUser4 = $("#user4 option:selected").val();
+		  $.ajax({
+			  url: 'http://localhost/project-tenis/ACESPORT---Admin.git/admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
+			  type: 'POST',
+			  dataType: "json",
+			  success: function(result){
+				  $("#user1").select2({
+					    //placeholder: "Select a Review",
+					    //minimumInputLength: 0,
+					    data: result
+					    ,
+					    //templateResult: formatState
+					  }); 
+
+			  }
+		  });
+	  });
+	  
+	  $("#user2").on("click change", function(){
+	      valUser1 = $("#user2 option:selected").val();
+	      valUser2 = $("#user3 option:selected").val();
+	      valUser3 = $("#user3 option:selected").val();
+	      valUser4 = $("#user4 option:selected").val();
+		  $.ajax({
+			  url: 'http://localhost/project-tenis/ACESPORT---Admin.git/admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
+			  type: 'POST',
+			  dataType: "json",
+			  success: function(result){
+				  $("#user2").select2({
+					    //placeholder: "Select a Review",
+					    //minimumInputLength: 0,
+					    data: result
+					    ,
+					    //templateResult: formatState
+					  }); 
+
+			  }
+		  });
+	  });
+	  
+	  $("#user3").on("click change", function(){
+	      valUser1 = $("#user2 option:selected").val();
+	      valUser2 = $("#user3 option:selected").val();
+	      valUser3 = $("#user3 option:selected").val();
+	      valUser4 = $("#user4 option:selected").val();
+		  $.ajax({
+			  url: 'http://localhost/project-tenis/ACESPORT---Admin.git/admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
+			  type: 'POST',
+			  dataType: "json",
+			  success: function(result){
+				  $("#user3").select2({
+					    //placeholder: "Select a Review",
+					    //minimumInputLength: 0,
+					    data: result
+					    ,
+					    //templateResult: formatState
+					  }); 
+
+			  }
+		  });
+	  });
+	  
+	  $("#user4").on("click change", function(){
+	      valUser1 = $("#user2 option:selected").val();
+	      valUser2 = $("#user3 option:selected").val();
+	      valUser3 = $("#user3 option:selected").val();
+	      valUser4 = $("#user4 option:selected").val();
+		  $.ajax({
+			  url: 'http://localhost/project-tenis/ACESPORT---Admin.git/admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
+			  type: 'POST',
+			  dataType: "json",
+			  success: function(result){
+				  $("#user4").select2({
+					    //placeholder: "Select a Review",
+					    //minimumInputLength: 0,
+					    data: result
+					    ,
+					    //templateResult: formatState
+					  }); 
+
+			  }
+		  });
+	  });;
+
     $("#noi_dung").change(function(){
     	tournament_type = $("#tournament_type option:selected").val();
     	tournament = $("#tournament option:selected").val();
@@ -365,9 +419,14 @@ $(document).ready(function () {
     		        data: data,
     		        dataType: 'JSON',
     		        success: function (result) {
+    		        	//console.log(result);
     		        	if(result) {
     		        		$("#cap-dau").hide().html('Số cặp đấu còn lại <b>'+result.conlai+'</b> cặp / Đã thêm <b>'+result.curent+'</b> cặp').fadeIn(500);
-    		        		
+    		        		if(result.conlai == 0) {
+    		        			$("#full_person").val(1);
+    		        		}else {
+    		        			$("#full_person").val(" ");
+    		        		}
     		        	}
     		        }
     		    });
@@ -375,9 +434,87 @@ $(document).ready(function () {
     		$("#round").html('<option value="0">Chọn vòng đấu</option>');
     	}
     });
+
 	
 
 });
+// validate thêm cặp đấu mới
+$(document).ready(function() {
+	$.validator.addMethod("validateFullPerson", function (value, element) {
+		if(value == 1) {
+			return false;
+		}else {
+			return true;
+		}
+    }, "Số cặp đấu trong giải đã đủ không thể thêm cặp đấu mới");
+	
+	$(".eSave1").click(function(){
+	    $("#frmSubmit").validate({
+	    	  ignore: [],
+		      rules: {
+		    	  tournament_type: {
+		          required: true
+		    	  },
+		    	  tournament: {
+			          required: true
+			      },
+			      noi_dung: {
+			          required: true
+			        },
+			     doi_choi: {
+			          required: true
+			        },
+			     full_person: {
+			    	 	validateFullPerson: true
+			        },
+			     user1: {
+		        	required: true
+			     }
+		         ,
+		         user2: {
+		        	required: true
+			     }
+		         ,
+		         user3: {
+		        	required: true
+			     }
+		         ,
+		         user4: {
+		        	required: true
+			     }
+		      },
+		      messages: {
+		    	  tournament_type: {
+			          required: "Danh mục giải đấu không được trống"
+		        },
+		        tournament: {
+			          required: "Giải đấu không được trống"
+		        },
+		        noi_dung: {
+			          required: "Nội dung không được trống"
+		        },
+		        user1: {
+			          required: "Người chơi không được trống"
+		        }
+		        ,
+		        user2: {
+			          required: "Người chơi không được trống"
+		        }
+		        ,
+		        user3: {
+			          required: "Người chơi không được trống"
+		        }
+		        ,
+		        user4: {
+			          required: "Người chơi không được trống"
+		        }
+		      }
+
+	    });
+	});
+
+});
+
 
 
 

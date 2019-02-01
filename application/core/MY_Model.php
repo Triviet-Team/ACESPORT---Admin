@@ -52,12 +52,16 @@ class MY_Model extends CI_Model {
      * $where : dieu kien
      * $data : mang du lieu can cap nhat
      */
-    function update_rule($where, $data) {
+    function update_rule($where, $data, $where_in = array()) {
         if (!$where) {
             return FALSE;
         }
         if ($where) {
             $this->db->where($where);
+        }
+        
+        if ($where_in) {
+            $this->db->where_in($where_in[0], $where_in[1]);
         }
 
         $this->db->update($this->table, $data);
@@ -200,6 +204,12 @@ class MY_Model extends CI_Model {
      * $input : mang du lieu dau vao
      */
     protected function get_list_set_input($input = array()) {
+        
+        // Thêm điều kiện cho câu truy vấn truyền qua biến $input['where_not_in']
+        //(vi du: $input['where_not_in'] = array('cid', array(1,2,3))
+        if ((isset($input['where_not_in'])) && $input['where_not_in']) {
+            $this->db->where_not_in($input['where_not_in'][0], $input['where_not_in'][1]);
+        }
 
         // Thêm điều kiện cho câu truy vấn truyền qua biến $input['where_in'] 
         //(vi du: $input['where_in'] = array('cid', array(1,2,3))

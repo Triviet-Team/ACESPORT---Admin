@@ -5,11 +5,12 @@
         </div>
         <div class="form-mid">
             <form action="" method="POST" id="frmSubmit" enctype="multipart/form-data">
+            <?php if(!$infoNoiDung) {?>
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Chọn danh mục giải đấu</label>
 				<div class="col-sm-10">
 					<select class="custom-select" id="tournament_type" name="tournament_type">
-                        <option value="0">Chọn danh mục giải đấu</option>
+                        <option value="">Chọn danh mục giải đấu</option>
                         <?php foreach ($catalogs as $row) { ?>
                             <?php if ($row->subs) { ?>
                                 <optgroup label="<?php echo $row->vn_name ?>">
@@ -28,7 +29,7 @@
 				<label class="col-sm-2 col-form-label">Chọn giải đấu</label>
 				<div class="col-sm-10">
                     <select tournament="<?= @$tournament ? $tournament : ''?>" class="custom-select" id="tournament" name="tournament">
-                        <option value="0">Chọn giải đấu</option>
+                        <option value="">Chọn giải đấu</option>
                     </select>
 				</div>
 			</div>
@@ -36,45 +37,81 @@
 				<label class="col-sm-2 col-form-label">Chọn nội dung</label>
 				<div class="col-sm-10">
                     <select noi_dung="<?= @$noi_dung ? $noi_dung : ''?>" class="custom-select" id="noi_dung" name="noi_dung">
-                        <option value="0">Chọn nội dung</option>
+                        <option value="">Chọn nội dung</option>
                     </select>
 				</div>
 			</div>
 
 			<div class="row" id="user">
-				<div class="col-sm-6">
+			   <div class="col-sm-6">
 					<h6 class="mb-2 text-center">Đội chơi 1</h6>
-					<select class=" mb-2" name="doi_choi[]" id="user1">
-
-					</select> <select class="mb-2" name="doi_choi[]" id="user2">
-
+					<select class=" mb-2" name="user1" id="user1">					
+						<option value="">Người chơi thứ nhất của đội 1</option>
+					</select> 
+					
+					<select class="mb-2" name="user2" id="user2">
+						<option value="">Người chơi thứ hai của đội 1</option>
 					</select>
 				</div>
 
 				<div class="col-sm-6 mb-3">
 					<h6 class="mb-2 text-center">Đội chơi 2</h6>
-					<select class=" mb-2" name="doi_choi[]" id="user3">
-
+					<select class=" mb-2" name="user3" id="user3">
+						<option value="">Người chơi thứ nhất của đội 2</option>
 					</select>
-					<select class="mb-2" name="doi_choi[]" id="user4">
-
+					<select class="mb-2" name="user4" id="user4">
+						<option value="">Người chơi thứ hai của đội 2</option>
 					</select>
-
-					
-					
 				</div>
-
 			</div>
-			
-			
-				
-					<button class="btn btn-primary">Thêm người chơi</button>
-				
-
+		<?php }else { ?>
+			<?php if ($infoNoiDung->type_play == 1) { ?>
+        		<div class="row" id="user">
+    			  <div class="col-sm-6">
+    					<h6 class="mb-2 text-center">Đội chơi 1</h6>
+    					<select class=" mb-2" name="user1" id="user1">					
+    						<option value="">Người chơi thứ nhất của đội 1</option>
+    					</select> 
+    				</div>
+    
+    				<div class="col-sm-6 mb-3">
+    					<h6 class="mb-2 text-center">Đội chơi 2</h6>
+    					<select class=" mb-2" name="user3" id="user3">
+    						<option value="">Người chơi thứ nhất của đội 2</option>
+    					</select>
+    				</div>
+        		</div>
+        		<?php }else {?>
+        			<div class="row" id="user">
+        			   <div class="col-sm-6">
+        					<h6 class="mb-2 text-center">Đội chơi 1</h6>
+        					<select class=" mb-2" name="user1" id="user1">					
+        						<option value="">Người chơi thứ nhất của đội 1</option>
+        					</select> 
+        					
+        					<select class="mb-2" name="user2" id="user2">
+        						<option value="">Người chơi thứ hai của đội 1</option>
+        					</select>
+        				</div>
+        
+        				<div class="col-sm-6 mb-3">
+        					<h6 class="mb-2 text-center">Đội chơi 2</h6>
+        					<select class=" mb-2" name="user3" id="user3">
+        						<option value="">Người chơi thứ nhất của đội 2</option>
+        					</select>
+        					<select class="mb-2" name="user4" id="user4">
+        						<option value="">Người chơi thứ hai của đội 2</option>
+        					</select>
+        				</div>
+        			</div>
+        		<?php } ?>
+		<?php } ?>
+			<button class="btn btn-primary">Thêm người chơi</button>				
 			<div class="text-center">
+				<input id="full_person" type=hidden name="full_person" value="">
                 <h6 class="mb-2" id="cap-dau"></h6>
-                <button class="eSave pl-4 pr-4 mb-5 btn btn-primary">Lưu</button>
-                <button class="pl-4 pr-4 mb-5 btn btn-danger">Hủy</button>
+                <button class="eSave1 pl-4 pr-4 mb-5 btn btn-primary">Lưu</button>
+                <a " href="javascript:(0)" onclick="location.href = '<?= base_url('admincp/tournament/fixture') ?>'" class="pl-4 pr-4 mb-5 btn btn-danger">Hủy</a>
             </div>
             </form>
         </div>
