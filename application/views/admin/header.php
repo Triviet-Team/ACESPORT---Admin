@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-3">
             <div class="name-cpanel">
-                <h1>Admin Cpanel</h1>
+                <h1><a style="color: #fff" href="<?= base_url('admincp') ?>">Admin Cpanel</a></h1>
             </div>
         </div>
         <div class="col-lg-3">

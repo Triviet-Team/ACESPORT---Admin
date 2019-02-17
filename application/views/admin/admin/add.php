@@ -75,6 +75,20 @@
                         <div class="error"><?= form_error('phone') ?></div>
                     </div>
                 </div>
+                
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Ngày tháng năm sinh</label>
+                    <div class="col-sm-10">
+                        <input type="date" name="birthday" class="form-control"  value="<?= $filter['birthday'] ? date('Y-m-d', $filter['birthday']) : ''?>">
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Đơn vị/Tổ chức</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="organization" class="form-control" placeholder="Đơn vị/Tổ chức" value="<?= isset($filter['organization']) ? $filter['organization'] : ''?>">
+                    </div>
+                </div>
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Địa chỉ</label>

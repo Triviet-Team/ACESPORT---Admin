@@ -105,7 +105,7 @@ class Product extends MY_Controller {
             if ($category->pid == 0){
                 $subcat     = $this->product_category_m->get_list(array('where'=>array('pid'=>$category->id)));               
                 $id_cate    = array();
-                
+
                 foreach ($subcat as $row){
                     $id_cate[] = $row->id;                
                 }
@@ -240,7 +240,9 @@ class Product extends MY_Controller {
             $input['id'] = $object->cid;
             
             $category = $this->product_category_m->get_info_rule($input);
-
+echo "<pre>";
+print_r();
+echo "</pre>";
             
             if ($category){
 

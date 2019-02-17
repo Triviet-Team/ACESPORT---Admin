@@ -47,7 +47,7 @@ class Fixture extends MY_Controller {
                     $info = $this->tournament_playing_category_m->get_info($noi_dung);
                     $total_member = $info->total_member;
                     $type_play = $info->type_play;
-                    $cap_dau = ($total_member/(2*$type_play)); 
+                    $cap_dau = ($total_member/(2*$type_play));
                     $n = $this->fixture_m->getMu($cap_dau) + 1;
                 } 
                 $this->data['round'] = 1;
@@ -236,7 +236,7 @@ class Fixture extends MY_Controller {
         $catalogs = $this->tournament_type_m->get_list($input);
 
         $this->data['catalogs'] = $catalogs;
-        if($id){
+        if($id) {
             $info = $this->fixture_m->get_info($id);
             if(!empty($info)){
                 $filter[] = array('name' => '`fixture`.`id`', 'val' => $id);
@@ -277,6 +277,9 @@ class Fixture extends MY_Controller {
                 $arrPlayer[] = $_POST['user4'];
             }
             
+            $start_date = strtotime($this->input->post('start_date', true));
+            $end_date = strtotime($this->input->post('end_date', true));
+            
             if ($id > 0) {
                 if ($infoPlayer) {
                     $infoNoiDung = $this->tournament_playing_category_m->get_info($infoPlayer[0]->noi_dung_id);
@@ -310,9 +313,14 @@ class Fixture extends MY_Controller {
                             }
                         }
                     }
+                    $fixture = array(
+                        'start_date' => $start_date,
+                        'end_date' => $end_date
+                    );
+                    $this->fixture_m->update($id, $fixture);
                 }
-            }else {
                 
+            }else {
                 $noi_dung = $this->input->post('noi_dung', true);
                 
                 $infoNoiDung = $this->tournament_playing_category_m->get_info($noi_dung);                
@@ -337,16 +345,16 @@ class Fixture extends MY_Controller {
                             'date' => date('Y-m-d h:m:s', now()),
                         );
                         if ($this->registration_m->create($registration)) {
-                            $id = $this->db->insert_id();
-                            $ids_registration[] = $id;
+                            $id_registration = $this->db->insert_id();
+                            $ids_registration[] = $id_registration;
                             $playing_in = array(
-                                'registration_id' => $id,
+                                'registration_id' => $id_registration,
                                 'tournament_playing_category_id' => $noi_dung
                             );
                             $this->playing_in_m->create($playing_in);
                             if ($n == 1) {
                                 $registration_player = array(
-                                    'registration_id' => $id,
+                                    'registration_id' => $id_registration,
                                     'player_id' => $arrPlayer[$i - 1]
                                 );
                                 $this->registration_player_m->create($registration_player);
@@ -355,7 +363,7 @@ class Fixture extends MY_Controller {
                             if ($n == 2) {
                                 for ($j = 1; $j <= 2; $j++) {
                                     $registration_player = array(
-                                        'registration_id' => $id,
+                                        'registration_id' => $id_registration,
                                         'player_id' => $arrPlayer[$k]
                                     );
                                     $this->registration_player_m->create($registration_player);
@@ -370,7 +378,9 @@ class Fixture extends MY_Controller {
                             'tournament_playing_category_id' => $noi_dung,
                             'first_registration_id' => $ids_registration[0],
                             'second_registration_id' => $ids_registration[1],
-                            'round' => $round
+                            'round' => $round,
+                            'start_date' => $start_date,
+                            'end_date' => $end_date
                         );
                         $this->fixture_m->create($fixture);
                 
@@ -437,10 +447,6 @@ class Fixture extends MY_Controller {
         if ($this->input->post()) {
             $set = $this->input->post('set', true);
             
-//             echo '<pre>';
-//             print_r($set);
-//             echo '<pre>';die();
-            
             $round = $infoPlayer[0]->round;
             $tran_dau = pow(2, $round-1);
             
@@ -504,6 +510,7 @@ class Fixture extends MY_Controller {
             
             if ($numberRound_1 <= 0) {
                 if ($numberRound == $tran_dau) {
+                                    $filter[2] = array('name' => '`fixture`.`round`', 'val' => $round);
                                     $arrFixtureWiner = $this->fixture_m->getFixtureWiner($filter);
                 
                                     //echo $n = $tran_dau / 2;die();

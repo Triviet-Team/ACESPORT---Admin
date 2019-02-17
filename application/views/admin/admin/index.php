@@ -6,6 +6,27 @@
         <div class="form-mid">
 
             <?php $this->load->view('admin/message'); ?>
+            
+            <div class="horControlA">
+                <div class="form-row">
+                    <div class="col">
+                        <input type="button" onclick="location.href = '<?= base_url('admincp/admin/add') ?>'" class="form-control hand btn-primary" value="Thêm mới">
+                    </div>
+                    <div class="col">
+                        <input type="button" onclick="action_item_all('enable_all', '<?= base_url('admincp/admin/config') ?>')" class="form-control hand btn-success" value="Hiển thị toàn bộ">
+                    </div>
+                    <div class="col">
+                        <input type="button" onclick="action_item_all('disable_all', '<?= base_url('admincp/admin/config') ?>')" class="form-control hand btn-warning" value="Ẩn toàn bộ">
+                    </div>
+                    <div class="col">
+                        <input type="button" onclick="action_item_all('del_all', '<?= base_url('admincp/admin/config') ?>')" class="form-control hand btn-danger" value="Xóa toàn bộ">
+                    </div>
+                    <div class="col">
+                        <input type="button" onclick="location.href = '<?= base_url('admincp/admin/clean_trash') ?>'" class="form-control hand btn btn-info" value="Dọn rác">
+                    </div>
+                </div>
+            </div>
+            
             <div class="title">
                 <div class="titleicon">
                     <span>
@@ -60,40 +81,52 @@
                 <?php if (!empty($list_user)) { ?>
                     <thead>
                         <tr>
-                            <th scope="col" style="width: 57px">STT</th>
+                            <th scope="col" style="width: 10px">
+                                <input id="checkAll" type="checkbox">
+                            </th>
                             <th scope="col" style="width: 61px">Mã Số</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Họ tên</th>
+                            <th scope="col">Thông tin</th>                            
+                            <th scope="col" style="width: 130px;">Điểm</th>
                             <th scope="col" style="width: 130px;">Chức vụ</th>
                             <th scope="col" style="width: 83px;">Trạng thái</th>
-                            <th scope="col" style="width: 97px;">Ngày taọ</th>
                             <th scope="col" style="width: 137px;">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($list_user as $k => $row) { ?>
                             <tr>
-                                <td class="text-center"><?= $k ?></td>
+                            	<th><input class="checkItem" name="id[]" value="<?= $row->id ?>" type="checkbox"></th>
                                 <td class="text-center"><?= $row->id ?></td>
-                                <td class="text-center"><?= $row->username ?></td>
                                 <td>
-                                    <div class="info_products text-center">
-                                        <b><?= $row->name ?></b>
+                                    <div class="image_thumb">
+                                        <?php 
+                                                $link_img = base_url().'public/admin/img/default-534x534.png';
+                                                if(!empty($row->image_link)){
+                                                    $link_img = base_url().'uploads/images/product/421_561/'.$row->image_link;
+                                                }
+                                        ?>
+                                        <img src="<?= $link_img ?>" alt=""/>
                                     </div>
-
+                                    <div class="info_products">
+                                        <div>Username: <?= $row->username ?></div>
+                                        <span>Tên: <?= $row->name ?></span>
+                                        <div>Đơn vị/Tổ chức: <?= $row->organization ?></div>
+                                    </div>
                                 </td>
+                                <td class="text-center"><input class="form-control iptPostion" onchange="position('<?= $row->id ?>', this.value, '<?= base_url('admincp/admin/position') ?>')" value="<?= $row->point ? $row->point : 0 ?>"/></td>
                                 <td class="text-center">
                                     <b class="redB">
                                         <?= lang('tid_' . $row->tid) ?>
                                     </b>
+                                </td>                                
+                                <td class="text-center" id="status_<?= $row->id ?>">
+                                    <img src="<?= base_url() ?>public/admin/img/icon/action_<?= $row->status ?>.png" alt="Xóa"/>
                                 </td>
-                                <td class="text-center">
-                                    <img src="<?= base_url() ?>public/admin/img/icon/action_<?= $row->status ?>.png" alt=""/>
-                                </td>
-                                <td><?= get_date($row->created) ?></td>
                                 <td class="button_action text-center">
                                     <a href="<?= base_url('admincp/admin/edit/' . $row->id) ?>" class="edit_item" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa"></a>
-                                    <a href="<?= base_url('admincp/admin/del/' . $row->id) ?>" class="menu_item_delete" data-toggle="tooltip" data-placement="top" title="Xóa"></a>
+                                    <a href="javascript:(0)" onclick="action_item(<?= $row->id ?>, 'enable', '<?= base_url('admincp/admin/config') ?>')" class="enable_item" data-toggle="tooltip" data-placement="top" title="Hiển thị"></a>
+                                    <a href="javascript:(0)" onclick="action_item(<?= $row->id ?>, 'disable', '<?= base_url('admincp/admin/config') ?>')" class="disable_item" data-toggle="tooltip" data-placement="top" title="Ẩn"></a>
+                                    <a href="javascript:(0)" onclick="action_item(<?= $row->id ?>, 'del', '<?= base_url('admincp/admin/config') ?>')" class="menu_item_delete" data-toggle="tooltip" data-placement="top" title="Xóa"></a>
                                 </td>
                             </tr>
                         <?php } ?>

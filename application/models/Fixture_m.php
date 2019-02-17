@@ -302,6 +302,22 @@ Class Fixture_m extends MY_Model {
        return array('str' => $str, 'nameRound' => $nameRount);       
     }
     
+    public function getNameRound($i){
+        $str = '';
+        if ($i > 0) {
+            if ($i == 1) {
+                $str = 'Vòng chung kết';
+            }elseif ($i == 2) {
+                $str = 'Vòng bán kết';
+            }elseif ($i == 3) {
+                $str .= 'Vòng tứ kết';
+            }else {
+                $str = 'Vòng 1/'. (pow(2, $i)/2);
+            }
+        }
+        return $str;
+    }
+    
 
     public function registrationPlayer($idNoiDung, $arrUser, $round = 3, $option = null){
         if ($option == null) {

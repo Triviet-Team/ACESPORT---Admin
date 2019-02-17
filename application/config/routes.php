@@ -16,7 +16,14 @@ $route['gioi-thieu.html'] = 'staticpage/index/gioi-thieu';
 
 $route['doi-tac.html'] = 'staticpage/index/doi-tac';
 
+#Đăng nhập đăng ký user
 
+$route['login.html'] = 'user/login';
+$route['logout.html'] = 'user/logout';
+$route['user/thong-tin-ca-nhan.html'] = 'user/index';
+$route['user/doi-mat-khau.html'] = 'user/change_password';
+
+$route['doi-tac.html'] = 'staticpage/index/doi-tac';
 
 
 #News
@@ -49,20 +56,21 @@ $route['dich-vu/(:any).html'] = 'service/detail/$1';
 
 #Product
 
- $route['san-pham.html'] = 'product/index';
+ $route['giai-dau.html'] = 'tournament/index';
 
- $route['san-pham/page/(:num)'] = 'product/index/$1';
+ $route['giai-dau/page/(:num)'] = 'tournament/index/$1';
 
- $route['danh-muc/(:any).html'] = 'product/category/$1';
+//  $route['danh-muc/(:any).html'] = 'product/category/$1';
 
- $route['danh-muc/(:any)/page/(:num)'] = 'product/category/$1';
+//  $route['danh-muc/(:any)/page/(:num)'] = 'product/category/$1';
 
- $route['danh-muc/(:any)/(:any).html'] = 'product/category/$2';
+//  $route['danh-muc/(:any)/(:any).html'] = 'product/category/$2';
 
- $route['danh-muc/(:any)/(:any)/page/(:num)'] = 'product/category/$2';
+//  $route['danh-muc/(:any)/(:any)/page/(:num)'] = 'product/category/$2';
 
- $route['chi-tiet-san-pham/(:any).html'] = 'product/detail/$1';
-
+ $route['chi-tiet-giai-dau/(:any).html'] = 'tournament/detail/$1';
+ $route['chi-tiet-giai-dau/(:any)/(:any)'] = 'tournament/detail/$1/$2';
+ 
  $route['tim-kiem.html'] = 'product/search';
 
 

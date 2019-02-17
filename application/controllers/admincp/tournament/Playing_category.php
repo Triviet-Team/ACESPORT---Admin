@@ -8,6 +8,13 @@ class Playing_category extends MY_Controller {
         parent::__construct();
 
         $this->load->model('playing_category_m');
+        $this->load->model('tournament_playing_category_m');
+        $this->load->model('playing_in_m');
+        $this->load->model('registration_m');
+        $this->load->model('registration_player_m');
+        $this->load->model('fixture_m');
+        $this->load->model('set_score_m');
+        $this->load->model('fixture_result_m');
     }
 
     public function index() {
@@ -286,9 +293,61 @@ class Playing_category extends MY_Controller {
         $check_del = $this->playing_category_m->get_list($where);
 
         if ($check_del) {
+            
+            foreach ($check_del as $row) {
+                $input = array();
+                $input['where'] = array('playing_category_id' => $row->id);
+                $obj_tournament_playing_category = $this->tournament_playing_category_m->get_list($input);
+                $arr_registration_id = array();
+                $arr_fixture_id = array();
+                foreach ($obj_tournament_playing_category as $row_1) {
+                    $input = array();
+                    $input['where'] = array('tournament_playing_category_id' => $row_1->id);
+                    $obj_playing_in= $this->playing_in_m->get_list($input);
+
+                    $obj_fixture= $this->fixture_m->get_list($input);
+                    // xóa bảng registration_player_m,  playing_in_m, registration_m theo id
+                    if ($obj_playing_in) {
+                        foreach ($obj_playing_in as $row_2) {
+                            $arr_registration_id[] = $row_2->registration_id;
+                        }
+            
+                        if ($arr_registration_id) {
+                            $where_in = array();
+                            $where_in = array('registration_id', $arr_registration_id);
+                            if ($this->registration_player_m->del_in($where_in)) {
+                                if ($this->playing_in_m->del_in($where_in)) {
+                                    $where_in = array();
+                                    $where_in = array('id', $arr_registration_id);
+                                    $this->registration_m->del_in($where_in);
+                                }
+                            }
+                        }
+                    }
+                    // xóa bảng set_score_m,  fixture_result_m, fixture_m theo id
+                    if ($obj_fixture) {
+                        foreach ($obj_fixture as $row_3) {
+                            $arr_fixture_id[] = $row_3->id;
+                        }
+            
+                        if ($arr_fixture_id) {
+                            $where_in = array();
+                            $where_in = array('fixture_id', $arr_fixture_id);
+                            if ($this->set_score_m->del_in($where_in)) {
+                                if ($this->fixture_result_m->del_in($where_in)) {
+                                    $this->fixture_m->del_rule(array('tournament_playing_category_id' => $row_1->id));
+                                }
+                            }
+                        }
+                    }
+                    // xóa bảng tournament_playing_category theo id
+                    $this->tournament_playing_category_m->del_rule(array('id' => $row_1->id));
+                }
+   
+            }
 
             if ($this->playing_category_m->del_rule("status = 3")) {
-                $this->session->set_flashdata('message', 'Dọn rác thành công');
+                $this->session->set_flashdata('message', 'Tất cả nội dung và các trận đấu trong nội dung này đã được dọn rác thành công');
             }
         } else {
             $this->session->set_flashdata('message', 'Không có gì trong thùng rác');
@@ -296,61 +355,6 @@ class Playing_category extends MY_Controller {
 
         redirect(base_url('admincp/tournament/playing_category'));
     }
-    
-    function search() {
-    
-        if ($this->uri->rsegment('3') == 1) {
-            //lay du lieu tu autocomplete
-            $key = $this->input->get('term');
-        } else {
-            $key = $this->input->get('key-search');
-        }
-    
-        $this->data['key'] = trim($key);
-        $input = array();
-        $input['like'] = array('vn_name', $key);
-    
-        $province_id = $this->input->get('province_id');
-        if ($province_id) {
-            $input['where'] = array('province_id' => $province_id);
-        }
-        $cid = $this->input->get('cid');
-        if ($cid) {
-            $input['where'] = array('cid' => $cid);
-        }
-    
-        $list = $this->playing_category_m->get_list($input);
-        $this->data['list_tournament/playing_category'] = $list;
-    
-        $breadcrumb = array(
-            array(
-                'url' => '#',
-                'name' => 'Tìm kiếm'
-            )
-        );
-    
-        $this->data['breadcrumb'] = $breadcrumb;
-    
-        if ($this->uri->rsegment('3') == 1) {
-            //xu ly autocomplete
-            $result = array();
-            foreach ($list as $row) {
-                $item = array();
-                $item['id'] = $row->id;
-                $item['label'] = $row->name;
-                $item['value'] = $row->name;
-                $result[] = $item;
-            }
-            //du lieu tra ve duoi dang json
-            die(json_encode($result));
-        } else {
-            //load view
-            $this->data['temp'] = 'tournament/playing_category/search';
-            $this->one_col($this->data);
-        }
-    }
-    
-    
-    
+  
 
 }

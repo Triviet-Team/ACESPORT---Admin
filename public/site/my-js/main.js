@@ -313,6 +313,64 @@ $(document).ready(function() {
 
 });
 
+$(document).ready(function() {
+	//check login
+	var options = { 
+		    //target:     '#divToUpdate', 
+		    url:        base_url + 'login.html', 
+		    type: 'POST',
+		    dataType: 'JSON',
+		    success:    function(data) { 
+		    	console.log(data);
+		        if(data.username) {
+		        	$("#error-username").html('Email hoặc tên đăng nhập không được rỗng');
+		        	$("#divToUpdate").html('');
+		        }else {
+		        	$("#error-username").html('');
+		        }
+		        
+		        if(data.password) {
+		        	if(data.password != '') $("#error-password").html(data.password);
+		        	$("#divToUpdate").html('');
+		        }else {
+		        	$("#error-password").html('');
+		        }
+		        
+		        if(data.success == 0) {
+		        	$("#divToUpdate").delay(500).html('Tên đăng nhập hoặc mật khẩu không đúng');
+		        }else if(data.success == 1) {
+		        	location.reload();
+		        }
+		        
+		    } 
+		}; 
+    $('#signin-form').ajaxForm(options); 
+
+	
+	
+});
+
+//Choose file show one
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#profile-img-tag').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$(document).ready(function() {
+	$("#avatar-file").change(function () {
+	    readURL(this);
+	});
+});
+
+
+
 
 
 

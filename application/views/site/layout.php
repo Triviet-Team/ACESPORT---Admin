@@ -21,22 +21,17 @@
     <meta property="og:image"         content="<?= @$img_site ? $img_site : $img_page ?>" />
     <meta property="og:site_name" content="CÔNG TY CỔ PHẦN AN NINH DHS VIỆT NAM">
     
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/owl.carousel.min.css">
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/xzoom.css">
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/magnific-popup.css">
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/animate.min.css">
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/swiper.min.css">
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/sweetalert2.min.css">
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/layout.css">
-    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/cart.css">
-    <link rel="shortcut icon" href="<?=base_url('public/site/')?>img/favicon.png">
+    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/bootstrap-grid.min.css"/>
+    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/bootstrap-reboot.min.css"/>
+    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/mdb.min.css"/>
+    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/materialdesignicons.min.css"/>
+    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/sweetalert2.min.css"/>
+    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/dataTables.bootstrap4.min.css"/>
+    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/jquery.fancybox.min.css"/>
+    <link rel="stylesheet" href="<?=base_url('public/site/')?>css/layout.css"/>
+    <link rel="shortcut icon" href="<?=base_url('public/site/')?>img/favicon.png"/>
 
     <script type="text/javascript">
 		window.base_url = <?php echo json_encode(base_url()); ?>;
@@ -53,51 +48,23 @@
     <!-- footer -->
     <?php $this->load->view('site/footer')?>
     
-    
     <script src="<?=base_url('public/site/')?>js/jquery-3.3.1.min.js"></script>
     <script src="<?=base_url('public/site/')?>js/jquery.touchSwipe.min.js"></script>
     <script src="<?=base_url('public/site/')?>js/jquery.slideandswipe.min.js"></script>
     <script src="<?=base_url('public/site/')?>js/bootstrap.min.js"></script>
     <script src="<?=base_url('public/site/')?>js/bootstrap.bundle.min.js"></script>
-    <script src="<?=base_url('public/site/')?>js/owl.carousel.min.js"></script>
-    <script src="<?=base_url('public/site/')?>js/wow.min.js"></script>
-    <script src="<?=base_url('public/site/')?>js/xzoom.min.js"></script>
-    <script src="<?=base_url('public/site/')?>js/magnific-popup.js"></script>
-    <script src="<?=base_url('public/site/')?>js/jquery.fancybox.min.js"></script>
-    <script src="<?=base_url('public/site/')?>js/swiper.min.js"></script>
+    <script src="<?=base_url('public/site/')?>js/mdb.min.js"></script>
     <script src="<?=base_url('public/site/')?>js/sweetalert2.min.js"></script>
-    
+    <script src="<?=base_url('public/site/')?>js/jquery.validate.min.js"></script>
+    <script src="<?=base_url('public/site/')?>js/jquery.dataTables.min.js"></script>
+    <script src="<?=base_url('public/site/')?>js/dataTables.bootstrap4.min.js"></script>
+    <script src="<?=base_url('public/site/')?>js/jquery.fancybox.min.js"></script>
     <script src="<?=base_url('public/site/')?>js/layout.js"></script>
-    
-    
-    <script src="<?=base_url('public/site/')?>my-js/jquery.validate.min.js"></script>
 
-
+	<script type="text/javascript" src="<?=base_url()?>public/site/my-js/jquery.form.min.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>public/site/my-js/main.js"></script>
 	
-	  <script>
-    $('#submitEmail').click(function () {
-        let email = $('#email').val();
 
-        if (email) {
-            $.ajax({
-                method: "POST",
-                url: "<?= base_url('home/email') ?>",
-                data: {email: email}
-            })
-                    .done(function (msg) {
-
-                        alert("Đăng kí email thành công! Cảm ơn bạn");
-                        return false;
-                    });
-        }
-    })
-</script>
-<audio controls autoplay loop>
-  <source src="horse.ogg" type="audio/ogg">
-  <source src="<?=base_url('nhacnen/Sinh Vien Hanh Khuc.mp3')?>" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio>
 </body>
 </html>
 

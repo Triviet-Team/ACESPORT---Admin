@@ -69,13 +69,22 @@ Class MY_Controller extends CI_Controller {
     }
 
     public function one_col($data) {
-
-        //load sản phẩm nổi bật
-        $this->load->model('product_m');
-        $input['where'] = array('is_hight' => 1, 'status' => 1);
+        
+        $this->load->model('tournament_m');
+        //load giải đấu sidebar
+        $objTournamentSidebar = array();
+        $input = array();
+        $input['where'] = array('start_date >' => now(), 'status' => 1);
         $input['limit'] = array(6 ,0);
-        $data['sp_noi_bat'] =   $this->product_m->get_list($input);        
-
+        $objTournamentSidebar['gd_sap_dien_ra'] = $this->tournament_m->get_list($input);
+        
+        $input = array();
+        $input['where'] = array('start_date <=' => now(), 'end_date >=' => now(), 'status' => 1);
+        $input['limit'] = array(6 ,0);
+        $objTournamentSidebar['gd_dang_dien_ra'] = $this->tournament_m->get_list($input);
+        
+        $data['objTournamentSidebar'] = $objTournamentSidebar;     
+       
         $this->load->view('site/layout', $data);
     }
 
@@ -83,18 +92,24 @@ Class MY_Controller extends CI_Controller {
      * Kiem tra trang thai dang nhap cua admin
      */
 
-    private function _check_login() {
-
+    private function _check_login() {        
         $controller = $this->uri->rsegment('1');
+        $module = $this->uri->segment(1);
         $controller = strtolower($controller);
 
         $login = $this->session->userdata('isCheckLogin');
+        $tid = $this->session->userdata('tid');
         //neu ma chua dang nhap,ma truy cap 1 controller khac login
         if (!$login && $controller != 'login') {
             redirect(base_url('admincp/login'));
         }
+        //neu user co tinh vào trang quan trị sẽ không được
+        if ($login && $module == 'admincp' && $tid < 2) {
+            $this->session->set_flashdata('message', 'Bạn không có quyền truy cập vào nội dung này');
+            redirect(base_url('user/message'));
+        }
         //neu ma admin da dang nhap thi khong cho phep vao trang login nua.
-        if ($login && $controller == 'login') {
+        if ($login && $controller == 'login' && $tid >= 2) {
             redirect(base_url('admincp/home'));
         }
     }

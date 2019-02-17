@@ -6,6 +6,21 @@
         <div class="form-mid">
             <form action="" method="POST" id="frmSubmit" enctype="multipart/form-data">
             <?php if(!$infoNoiDung) {?>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Ngày bắt đầu trận đấu</label>
+                <div class="col-sm-10">
+                    <input type="datetime-local" name="start_date" value="<?= @$infoNoiDung->start_date ? date('Y-m-d', @$infoNoiDung->start_date) : ''?>" class="form-control">
+                    <div class="error"><?= form_error('start_date') ?></div>
+                </div>
+            </div>
+            
+           <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Ngày kết thúc trận đấu</label>
+                <div class="col-sm-10">
+                    <input type="datetime-local" name="end_date" value="<?= @$infoNoiDung->end_date ? date('Y-m-d', @$infoNoiDung->end_date) : ''?>" class="form-control">
+                    <div class="error"><?= form_error('end_date') ?></div>
+                </div>
+            </div>
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Chọn danh mục giải đấu</label>
 				<div class="col-sm-10">
@@ -65,6 +80,21 @@
 				</div>
 			</div>
 		<?php }else { ?>
+			<div class="form-group row">
+                <label class="col-sm-2 col-form-label">Ngày bắt đầu trận đấu</label>
+                <div class="col-sm-10">
+                    <input type="datetime-local" name="start_date" value="<?= @$infoNoiDung->start_date ? date('Y-m-d', @$infoNoiDung->start_date) : ''?>" class="form-control">
+                    <div class="error"><?= form_error('start_date') ?></div>
+                </div>
+            </div>
+            
+           <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Ngày kết thúc trận đấu</label>
+                <div class="col-sm-10">
+                    <input type="datetime-local" name="end_date" value="<?= @$infoNoiDung->end_date ? date('Y-m-d', @$infoNoiDung->end_date) : ''?>" class="form-control">
+                    <div class="error"><?= form_error('end_date') ?></div>
+                </div>
+            </div>
 			<?php if ($infoNoiDung->type_play == 1) { ?>
         		<div class="row" id="user">
     			  <div class="col-sm-6">
@@ -106,7 +136,7 @@
         			</div>
         		<?php } ?>
 		<?php } ?>
-			<button class="btn btn-primary">Thêm người chơi</button>				
+			<a href="<?= base_url('admincp/admin/add') ?>" target="_blank" class="btn btn-primary">Thêm người chơi</a>				
 			<div class="text-center">
 				<input id="full_person" type=hidden name="full_person" value="">
                 <h6 class="mb-2" id="cap-dau"></h6>

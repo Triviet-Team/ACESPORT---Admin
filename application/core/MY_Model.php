@@ -93,12 +93,27 @@ class MY_Model extends CI_Model {
      * Xoa row tu dieu kien
      * $where : mang dieu kien de xoa
      */
-    function del_rule($where) {
+    function del_rule($where, $where_in = array()) {
         if (!$where) {
             return FALSE;
         }
+        
+        if ($where_in) {
+            $this->db->where_in($where_in[0], $where_in[1]);
+        }
 
         $this->db->where($where);
+        $this->db->delete($this->table);
+        return TRUE;
+    }
+    function del_in($where_in = array()) {
+        if (!$where_in) {
+            return FALSE;
+        }
+    
+        if ($where_in) {
+            $this->db->where_in($where_in[0], $where_in[1]);
+        }
         $this->db->delete($this->table);
         return TRUE;
     }

@@ -71,7 +71,7 @@
                                               <span class="checkmark"></span>
                                             </label>
                                              <label class="checkbox-container">Đôi
-                                              <input type="checkbox" value="1" <?= $checkedLoaiChoi ?> name="loai_choi[]" />
+                                              <input type="checkbox" value="1" <?= $checkedLoaiChoi ?> name="loai_choi[<?= $row->id ?>]" />
                                               <span class="checkmark"></span>
                                             </label>
                                             <input min="1"  name="total_member[<?= $row->id ?>]" class="content-page-all-member" type="number" value="<?= $total_member ?>" placeholder="Tổng thành viên" />

@@ -86,7 +86,7 @@
             <div class="widgetsTitle">
                 <button type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
                     <img src="<?= base_url() ?>public/admin/img/icon/quan-li-san-pham.png" alt="Danh"/>
-                    Quản lí sản phẩm
+                    Quản lí giải đấu và cặp đấu
                 </button>
             </div>
 
@@ -94,28 +94,15 @@
                 <div id="collapseThree" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <ul>
                         <li>
-                            <a href="<?= base_url('admincp/product_category') ?>">
+                            <a href="<?= base_url('admincp/tournament/tournament') ?>">
                                 <img src="<?= base_url() ?>public/admin/img/icon/thu-muc.png" alt="Danh mục sản phẩm"/>
-                                Danh mục sản phẩm
+                                Quản lí giải đấu
                             </a>
                         </li>
                         <li>
-                            <a href="<?= base_url('admincp/product_category/detail') ?>">
+                            <a href="<?= base_url('admincp/tournament/fixture') ?>">
                                 <img src="<?= base_url() ?>public/admin/img/icon/them.png" alt="Thêm danh mục"/>
-                                Thêm danh mục
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="<?= base_url('admincp/product') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/danh-sach.png" alt="Danh sách sản phẩm"/>
-                                Danh sách sản phẩm
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('admincp/product/detail') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/them.png" alt="Thêm sản phẩm"/>
-                                Thêm sản phẩm
+                               Quản lí cặp đấu
                             </a>
                         </li>
                     </ul>

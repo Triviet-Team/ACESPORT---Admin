@@ -183,7 +183,6 @@ class Tournament_category extends MY_Controller {
         $id = $this->input->post('id', true);
 
         $ids = $this->input->post('ids', true); //array(4, 5, 6);
-
         if ($ids) {
             $array_id = implode(',', $ids);
             $where_in = 'id in (' . $array_id . ')';
@@ -203,12 +202,12 @@ class Tournament_category extends MY_Controller {
                     }
                     $id_object = implode(',', $id_array);
 
-                    $check_product_sub = $this->tournament_m->check_exists('cid in (' . $id_object . ')');
+                    $check_product_sub = $this->tournament_m->check_exists('pid in (' . $id_object . ')');
                     $input = 'id in(' . $id_object . ')';
                     //Check danh mục có tồn tại sản phẩm k
                     if ($check_product_sub) {
                         // Xóa toàn bộ sản phẩm của danh mục con đó xong xóa danh mục
-                        if ($this->tournament_m->update_rule('cid in (' . $id_object . ')', array('status' => 3))) {
+                        if ($this->tournament_m->update_rule('pid in (' . $id_object . ')', array('status' => 3))) {
                             if ($this->category->update_rule($input, array('status' => 3))) {
                                 if ($this->category->update($id, array('status' => 3))) {
                                     $msg = 'Xóa thành công tất cả sản phẩm của danh mục con, danh mục con, danh mục';
@@ -226,11 +225,11 @@ class Tournament_category extends MY_Controller {
                         }
                     }
                 } else {
-                    $check_product = $this->tournament_m->check_exists('cid = ' . $id . '');
+                    $check_product = $this->tournament_m->check_exists('pid = ' . $id . '');
                     //Check xem danh muc co san pham k
                     if ($check_product) {
                         //Xóa toàn bộ sản phẩm của danh mục đó xong xóa danh mục
-                        $input = 'cid = ' . $id;
+                        $input = 'pid = ' . $id;
                         if ($this->tournament_m->update_rule($input, array('status' => 3))) {
                             if ($this->category->update($id, array('status' => 3))) {
                                 $msg = 'Xóa thành công danh mục và sản phẩm của danh mục đó';
@@ -261,13 +260,13 @@ class Tournament_category extends MY_Controller {
                     }
 
                     $id_object_all = implode(',', $id_array_all);
-                    $check_product_sub = $this->tournament_m->check_exists('cid in (' . $id_object_all . ')');
+                    $check_product_sub = $this->tournament_m->check_exists('pid in (' . $id_object_all . ')');
                     $input = 'id in(' . $id_object_all . ')';
 
                     //Check danh mục có tồn tại sản phẩm k
                     if ($check_product_sub) {
                         // Xóa toàn bộ sản phẩm của danh mục con đó xong xóa danh mục
-                        if ($this->tournament_m->update_rule('cid in (' . $id_object_all . ')', array('status' => 3))) {
+                        if ($this->tournament_m->update_rule('pid in (' . $id_object_all . ')', array('status' => 3))) {
                             if ($this->category->update_rule($input, array('status' => 3))) {
                                 if ($this->category->update_rule($where_in, array('status' => 3))) {
                                     $msg = 'Xóa toàn bộ các danh mục đã chọn bao gồm các danh mục con và sản phẩm';
@@ -285,11 +284,11 @@ class Tournament_category extends MY_Controller {
                         }
                     }
                 } else {
-                    $check_product_all = $this->tournament_m->check_exists('cid in (' . $array_id . ')');
+                    $check_product_all = $this->tournament_m->check_exists('pid in (' . $array_id . ')');
                     //Check xem danh muc co san pham k
                     if ($check_product_all) {
                         //Xóa toàn bộ sản phẩm của danh mục đó xong xóa danh mục
-                        $input = 'cid in (' . $array_id . ')';
+                        $input = 'pid in (' . $array_id . ')';
                         if ($this->tournament_m->update_rule($input, array('status' => 3))) {
                             if ($this->category->update_rule($where_in, array('status' => 3))) {
                                 $msg = 'Xóa thành công tất danh mục và sản phẩm của tất cả danh mục đó';
@@ -331,12 +330,12 @@ class Tournament_category extends MY_Controller {
                         $id_array[] = $row->id;
                     }
                     $id_object = implode(',', $id_array);
-                    $check_product_sub = $this->tournament_m->check_exists('cid in (' . $id_object . ')');
+                    $check_product_sub = $this->tournament_m->check_exists('pid in (' . $id_object . ')');
                     $input = 'id in(' . $id_object . ')';
 
                     if ($check_product_sub) {
 
-                        if ($this->tournament_m->update_rule('cid in (' . $id_object . ')', array('status' => 2))) {
+                        if ($this->tournament_m->update_rule('pid in (' . $id_object . ')', array('status' => 2))) {
                             if ($this->category->update_rule($input, array('status' => 2))) {
                                 if ($this->category->update($id, array('status' => 2))) {
                                     $msg = 'Ẩn thành công tất cả sản phẩm của danh mục con, danh mục con, danh mục';
@@ -355,11 +354,11 @@ class Tournament_category extends MY_Controller {
                     }
                 } else {
 
-                    $check_product = $this->tournament_m->check_exists('cid = ' . $id . '');
+                    $check_product = $this->tournament_m->check_exists('pid = ' . $id . '');
 
                     if ($check_product) {
 
-                        $input = 'cid = ' . $id;
+                        $input = 'pid = ' . $id;
                         if ($this->tournament_m->update_rule($input, array('status' => 2))) {
                             if ($this->category->update($id, array('status' => 2))) {
                                 $msg = 'Ẩn thành công danh mục và sản phẩm của danh mục đó';
@@ -390,13 +389,13 @@ class Tournament_category extends MY_Controller {
                     }
 
                     $id_object_all = implode(',', $id_array_all);
-                    $check_product_sub = $this->tournament_m->check_exists('cid in (' . $id_object_all . ')');
+                    $check_product_sub = $this->tournament_m->check_exists('pid in (' . $id_object_all . ')');
                     $input = 'id in(' . $id_object_all . ')';
 
                     //Check danh mục có tồn tại sản phẩm k
                     if ($check_product_sub) {
                         // Xóa toàn bộ sản phẩm của danh mục con đó xong xóa danh mục
-                        if ($this->tournament_m->update_rule('cid in (' . $id_object_all . ')', array('status' => 2))) {
+                        if ($this->tournament_m->update_rule('pid in (' . $id_object_all . ')', array('status' => 2))) {
                             if ($this->category->update_rule($input, array('status' => 2))) {
                                 if ($this->category->update_rule($where_in, array('status' => 2))) {
                                     $msg = 'Ẩn toàn bộ các danh mục đã chọn bao gồm các danh mục con và sản phẩm';
@@ -415,11 +414,11 @@ class Tournament_category extends MY_Controller {
                     }
                 } else {
 
-                    $check_product_all = $this->tournament_m->check_exists('cid in (' . $array_id . ')');
+                    $check_product_all = $this->tournament_m->check_exists('pid in (' . $array_id . ')');
                     //Check xem danh muc co san pham k
                     if ($check_product_all) {
                         //Xóa toàn bộ sản phẩm của danh mục đó xong xóa danh mục
-                        $input = 'cid in (' . $id . ')';
+                        $input = 'pid in (' . $id . ')';
                         if ($this->tournament_m->update_rule($input, array('status' => 2))) {
                             if ($this->category->update_rule($where_in, array('status' => 2))) {
                                 $msg = 'Ẩn thành công tất danh mục và sản phẩm của tất cả danh mục đó';
@@ -452,7 +451,7 @@ class Tournament_category extends MY_Controller {
     }
 
     public function clean_trash() {
-
+        $this->load->model('tournament_playing_category_m');
         $this->load->model('tournament_m');
 
         $where['where'] = 'status = 3';
@@ -463,16 +462,35 @@ class Tournament_category extends MY_Controller {
         }
         $object_id_del = implode(',', $id_del);
         if ($object_id_del) {
-            $input['where'] = 'cid in (' . $object_id_del . ')';
+            
+            $input['where'] = 'pid in (' . $object_id_del . ')';
 
             $check_del_product = $this->tournament_m->get_list($input);
 
             if ($check_del_product) {
-                if ($this->tournament_m->del_rule('cid in (' . $object_id_del . ')')) {
-                    foreach ($check_del_product as $item) {
-                        @unlink('uploads/images/product/' . $item->image_link);
-                        @unlink('uploads/images/product/242_200/' . $item->image_link);
+//                 if ($this->tournament_m->del_rule('pid in (' . $object_id_del . ')')) {
+//                     foreach ($check_del_product as $item) {
+//                         @unlink('uploads/images/product/' . $item->image_link);
+//                         @unlink('uploads/images/product/242_200/' . $item->image_link);
+//                     }
+//                     if ($this->category->del_rule('status = 3')) {
+//                         $this->session->set_flashdata('message', 'Dọn rác thành công');
+//                     }
+//                 }
+                
+                foreach ($check_del_product as $row_1) {
+                    $input = array();
+                    $input['where'] = array('tournament_id' => $row_1->id);
+                    $obj_tournament_playing_category = $this->tournament_playing_category_m->get_list($input);
+
+                    if ($obj_tournament_playing_category) {
+                        foreach ($obj_tournament_playing_category as $row_2) {
+                            $this->tournament_m->del_noidung_id($row_2->id);
+                            // xóa bảng tournament_playing_category theo id
+                            $this->tournament_playing_category_m->del_rule(array('id' => $row_2->id));
+                        }
                     }
+                    $this->tournament_m->del_rule("id = " . $row_1->id);
                     if ($this->category->del_rule('status = 3')) {
                         $this->session->set_flashdata('message', 'Dọn rác thành công');
                     }

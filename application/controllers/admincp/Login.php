@@ -27,7 +27,7 @@ Class Login extends MY_Controller {
                 );
 
                 $info = $this->users_m->get_info_rule($where);
-
+                
                 if ($info) {
                     $username = array(
                         'id' => $info->id,
@@ -36,7 +36,7 @@ Class Login extends MY_Controller {
                         'email' => $info->email,
                         'phone' => $info->phone,
                         'address' => $info->address,
-                        'isCheckLogin' => TRUE,
+                        'isCheckLogin' => TRUE
                     );
                     $this->session->set_userdata($username);
                     

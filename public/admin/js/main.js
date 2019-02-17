@@ -57,7 +57,6 @@ function action_item(id, key, url) {
         data: {id: id, key: key},
         dataType: 'JSON',
         success: function (data) {
-            console.log(data);
             $('.messages').html('<div class="alert alert-success" role="alert">' + data.msg + '</div>');
             if (data.success) {
                 $('#status_' + id).html('<img src="' + base + 'public/admin/img/icon/action_' + data.status + '.png" alt="Xóa"/>');
@@ -85,8 +84,7 @@ function action_item_all(key, url) {
         type: 'POST',
         data: {'ids': ids, key: key},
         dataType: 'JSON',
-        success: function (data) {
-
+        success: function (data) {        			
             $('.messages').html('<div class="alert alert-success" role="alert">' + data.msg + '</div>');
             if (data.success) {
                 $(ids).each(function (id, val) {
@@ -199,7 +197,7 @@ function getInfo(data, id = '', title = '', active = '') {
         data: data,
         dataType: 'JSON',
         success: function (result) {
-        	var str = '<option value="0">' + title + '</option>';
+        	var str = '<option value="">' + title + '</option>';
         	if(result != 0){
         		$.each(result, function(i, value){
         			if(active == value.id ) {
@@ -263,7 +261,7 @@ $(document).ready(function () {
     		getInfo(data, '#tournament', 'Chọn giải đấu');
     	}else {
     		$("#tournament").html('<option value="0">Chọn giải đấu</option>');
-    		$("#noi_dung").html('<option value="0">Chọn nội dung</option>');
+    		$("#noi_dung").html('<option value="">Chọn nội dung</option>');
     		$("#round").html('<option value="0">Chọn vòng đấu</option>');
     	}
     });
@@ -274,7 +272,7 @@ $(document).ready(function () {
     		var data = {tournament: tournament, type: 'tournament'};
     		getInfo(data, '#noi_dung', 'Chọn nội dung');
     	}else {
-    		$("#noi_dung").html('<option value="0">Chọn nội dung</option>');
+    		$("#noi_dung").html('<option value="">Chọn nội dung</option>');
     		$("#round").html('<option value="0">Chọn vòng đấu</option>');
     	}
     });
@@ -452,8 +450,14 @@ $(document).ready(function() {
 	    $("#frmSubmit").validate({
 	    	  ignore: [],
 		      rules: {
+		    	  start_date: {
+		    		  required: true
+		    	  },
+		    	  end_date: {
+		    		  required: true
+		    	  },
 		    	  tournament_type: {
-		          required: true
+		    		  required: true
 		    	  },
 		    	  tournament: {
 			          required: true
@@ -484,6 +488,12 @@ $(document).ready(function() {
 			     }
 		      },
 		      messages: {
+		    	start_date: {
+			          required: "Ngày bắt đầu trận đấu không được trống"
+		        },
+		        end_date: {
+			          required: "Ngày kết thúc trận đấu không được trống"
+		        },
 		    	  tournament_type: {
 			          required: "Danh mục giải đấu không được trống"
 		        },

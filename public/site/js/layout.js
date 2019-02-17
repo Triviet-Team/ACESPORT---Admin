@@ -1,371 +1,337 @@
-// Slider 
-$('.slider-carousel').owlCarousel({
-  loop:true,
-  autoplay: true,
-  autoplayTimeout: 5000,
-  autoplayHoverPause: true,
-  dots: true,
-  nav: true,
-  autoHeight:true,
-  navText: ["<i class='fa fa-angle-left' aria-hidden='true'></i>","<i class='fa fa-angle-right' aria-hidden='true'></i>" ] ,
-  autoplaySpeed: 1000,
-  responsive: {
-      0: {
-          items:1
-      },
-      600: {
-          items:1
-      },
-      1000: {
-          items:1
-      }
-  }
-});
-
-$('.slider-carousel').on('changed.owl.carousel', function(event) {
-  var item = event.item.index-2;
-
-  $('h1').removeClass('animated bounceIn');
-  $('.owl-item').not('.cloned').eq(item).find('h1').addClass('animated bounceIn');
-
-  $('.slider-text-content-dash').removeClass('animated fadeInLeftBig');
-  $('.owl-item').not('.cloned').eq(item).find('.slider-text-content-dash').addClass('animated fadeInLeftBig');
-
-  $('h3').removeClass('animated bounceInUp');
-  $('.owl-item').not('.cloned').eq(item).find('h3').addClass('animated bounceInUp');
-  
-  $('.slider-text-btn').removeClass('animated flipInX');
-  $('.owl-item').not('.cloned').eq(item).find('.slider-text-btn').addClass('animated flipInX');
-});
-
-// Slide modal
-$('.xzoom-carousel').owlCarousel({
-  loop:false,
-  autoplay: false,
-  dots: false,
-  margin:10,
-  nav: true,
-  navText: ["<i class='fa fa-angle-left' aria-hidden='true'></i>","<i class='fa fa-angle-right' aria-hidden='true'></i>" ] ,
-  autoplaySpeed: 1000,
-  responsive: {
-      0: {
-          items:4
-      },
-      600: {
-          items:4
-      },
-      1000: {
-          items:4
-      },
-      1200: {
-          items:4
-      }
-  }
-});
-
-var swiper = new Swiper('.swiper-product-1', {
-  slidesPerView: 4,
-  spaceBetween: 15,
-  breakpoints: {
-    1400: {
-      slidesPerView: 4,
-    },
-    1024: {
-        slidesPerView: 2,
-    },
-    575: {
-        slidesPerView: 1,
-        spaceBetween: 0,
-    },
-},
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-}
-);
-
-var swiper2 = new Swiper('.swiper-product-2', {
-  slidesPerView: 4,
-  spaceBetween: 15,
-  breakpoints: {
-    1400: {
-      slidesPerView: 4,
-    },
-    1024: {
-        slidesPerView: 2,
-    },
-    575: {
-        slidesPerView: 1,
-        spaceBetween: 0,
-    },
-},
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-}
-);
-
-var swiper3 = new Swiper('.swiper-product-3', {
-  slidesPerView: 4,
-  spaceBetween: 15,
-  breakpoints: {
-    1400: {
-      slidesPerView: 4,
-    },
-    1024: {
-        slidesPerView: 2,
-    },
-    575: {
-        slidesPerView: 1,
-        spaceBetween: 0,
-    },
-},
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-}
-);
-
-var swiper4 = new Swiper('.swiper-product-hot', {
-  slidesPerView: 5,
-  spaceBetween: 15,
-  breakpoints: {
-    1400: {
-      slidesPerView: 5,
-    },
-    1024: {
-        slidesPerView: 3,
-    },
-    575: {
-        slidesPerView: 1,
-        spaceBetween: 0,
-    },
-},
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-}
-);
-
-// $(".nav-tabs li").on("click",function(){ 
-//   reinitializeSwiper(swiper);
-// });
-
-// function reinitializeSwiper(swiper) {
-//    setTimeout(function () {
-          
-//    }, 400);
-// };
-
-$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-  var paneTarget = $(e.target).attr('href');
-  var $thePane = $('.tab-pane' + paneTarget);
-  var paneIndex = $thePane.index();
-  if ($thePane.find('.swiper-container').length > 0 && 0 === $thePane.find('.swiper-slide-active').length) {
-      swiper[paneIndex].update();
-  }
-});
-
-$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-  var paneTarget = $(e.target).attr('href');
-  var $thePane = $('.tab-pane' + paneTarget);
-  var paneIndex = $thePane.index();
-  if ($thePane.find('.swiper-container').length > 0 && 0 === $thePane.find('.swiper-slide-active').length) {
-      swiper2[paneIndex].update();
-  }
-});
-
-$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-  var paneTarget = $(e.target).attr('href');
-  var $thePane = $('.tab-pane' + paneTarget);
-  var paneIndex = $thePane.index();
-  if ($thePane.find('.swiper-container').length > 0 && 0 === $thePane.find('.swiper-slide-active').length) {
-      swiper3[paneIndex].update();
-  }
-});
-
-$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-  var paneTarget = $(e.target).attr('href');
-  var $thePane = $('.tab-pane' + paneTarget);
-  var paneIndex = $thePane.index();
-  if ($thePane.find('.swiper-container').length > 0 && 0 === $thePane.find('.swiper-slide-active').length) {
-      swiper4[paneIndex].update();
-  }
-});
-
-// XZOOM
-$(".xzoom, .xzoom-gallery").xzoom({tint: '#333', Xoffset: 15});
-$('.main-image').bind('click', function () {
-  var xzoom = $(this).data('xzoom');
-  xzoom.closezoom();
-  var gallery = xzoom.gallery().cgallery;
-  var i, images = new Array();
-  for (i in gallery) {
-    images[i] = {
-      src: gallery[i]
-    };
-  }
-  $.magnificPopup.open({
-    items: images,
-    type: 'image',
-    gallery: {
-      enabled: true
-    }
-  });
-  event.preventDefault();
-});
-
-
-
-
-$('document').ready(function () {
-  // MENU
-  var url = window.location.href;
-  $(".main-menu a").each(function () {
+$('document').ready(function() {
+  // ACTIVE MENU
+  let url = window.location.href;
+  $(".main-menu a").each( function() {
     if (url == (this.href)) {
       $(this).closest("li a").addClass("active");
       $(this).closest("li li a").removeClass("active");
     }
   });
-  
-  var ww = document.body.clientWidth;
+  // END ACTIVE MENU
 
-  if (ww < 600) {
-    $('.custom-header a').click(function() {
-      $('.menu .nav').css('transform', 'translateX(-250%)');
-      $('.toggleMenu').css('transform', 'scale(1) rotate(0)');
-      $('.menu-close').css('transform', 'scale(0) rotate(-180deg)').css('position','absolute').css('right','80px');
-    });
-
-    $('.menu .main-menu .nav li .btn-menu-up').css('display','none');
-
-    $('.menu .main-menu .nav li .btn-menu-down').click(function() {
-      $(this).css('display','none');
-      $('.menu .main-menu .nav li .btn-menu-up').css('display','block');
-      $('.menu .main-menu .nav li .menu-bottom').css('display','block');
-    });
-
-    $('.menu .main-menu .nav li .btn-menu-up').click(function() {
-      $(this).css('display','none');
-      $('.menu .main-menu .nav li .btn-menu-down').css('display','inline-block');
-      $('.menu .main-menu .nav li .menu-bottom').css('display','none');
-    });
-  
-    $('.btn-menu-down').removeClass('mdi-chevron-down').addClass('mdi-plus')
-
-    $('.overlay-menu').click(function() {
-      $(this).css('display', 'none')
-      $('.menu .nav').css('transform', 'translateX(-250%)');
-      $('.toggleMenu').css('transform', 'scale(1) rotate(0)');
-      $('.menu-close').css('transform', 'scale(0) rotate(-180deg)').css('position','absolute').css('right','80px');
-    });
-  }
+  $(".score-board a").each( function() {
+    if (url == (this.href)) {
+      $(this).closest("li a").addClass("active");
+      $(this).closest("li li a").removeClass("active");
+    }
+  });
 
   $('.menu .nav').slideAndSwipe();
 
-  if (ww > 992) {
-    $(window).scroll(function () {
-      if ($(this).scrollTop() > 50) {
-        $('.menu')
-          .css('height','70px')
-          .addClass('animated slideInDown')
+  let ww = document.body.clientWidth;
 
-        $('.menu .logo').css('margin', '10px 0'); 
-        $('.menu .logo img').css('height', '50px'); 
-        $('.menu .nav').css('margin', '2px 0');
+  // GO TOP
+  $(window).scroll( function() {
+    if ($(this).scrollTop() > 400) {
+      $('.go-top').fadeIn().css('transform', 'translateY(0)');
 
-        $('.menu .nav .menu-bottom').css('margin-top', '18px');
-        $('.menu .custom-header').css('padding', '15px 0');
-        $('.cart-form').css('margin-top','9px');
-
-      } else {
-        $('.menu')
-          .css('height','120px')
-          .removeClass('animated slideInDown');
-
-        $('.menu .logo').css('margin', '20px 0'); 
-        $('.menu .logo img').css('height', '80px'); 
-        $('.menu .nav').css('margin', '20px 0');
-
-        $('.menu .nav .menu-bottom').css('margin-top', '50px');
-        $('.menu .custom-header').css('padding', '35px 0');
-        $('.cart-form').css('margin-top','38px');
-      }
-    });
-  } 
-
-  //FOOTER
-  if (ww < 767) {
-    $('.footer-mid .collapse').removeClass('show');
-  } 
-});
-
-$(document).ready(function(){ 
-  //GOTOP
-  $(window).scroll(function(){ 
-      if ($(this).scrollTop() > 400) { 
-          $('.go-top').fadeIn(); 
-      } else { 
-          $('.go-top').fadeOut(); 
-      } 
-  }); 
-  $('.go-top').click(function(){ 
-      $("html, body").animate({ scrollTop: 0 }, 600); 
-      return false; 
-  }); 
-
-  // WOW - ANIMATED
-  var wow = new WOW(
-    {
-      mobile: false,
+    } else {
+      $('.go-top').fadeOut().css('transform', 'translateY(100px)');;
     }
-  );
-  wow.init();
+  });
 
-  
-  // SETTING SEARCH FORM
-   $('.search-btn').click(function() {
-     $('.overlay').css('display', 'block')
-   });
+  $('.go-top').click(() => {
+    $("html, body").animate({
+      scrollTop: 0
+    }, 600);
+    return false;
+  });
+  // end
+
+  //NAVTABS ACTIVE
+  $('.navbar-nav .nav-item').on('click', function(){
+    let itemParent = $(this)
+      .parent()
+      .parent()
+      .parent()
+        .find('.navbar-toggler');
+
+    $('.navbar-nav .nav-item').removeClass('active')
+    $(this).addClass('active')
+
+    let text = $(this).text();
+    $(itemParent).text(text);
+    $('.navbar-collapse').removeClass('show');
+  });
+  // end
+
+  // Setting menu mobile
+  $('.nav-close').click(() => {
+    $('.menu .nav')
+      .css('transform', ' translate(-300px, 0px)')
+      .removeClass('ssm-nav-visible');
+
+    $('.ssm-overlay').css('display', 'none');
+    $('html').removeClass('is-navOpen');
+  });
+  // end
+
+  //INDEX SETTING
+  for(let i = 0; i < 4; i++) {
+    $('.intro-home-box').eq(i).hover(function() {
+      $('.intro-home').removeClass('intro0 intro1 intro2 intro3');
+      $(this).parent().addClass(`intro${i}`);
+    });
+  }
+
+  if (ww < 575) {
+    $('.link-intro').removeAttr('href');
+  }
+  // end
+
+  // Khi chưa đăng nhập
+  $('.login-btn').click(function() {
+    $('.box-login').toggleClass('box-login-show');
+    $('.login-btn span i').toggleClass('mdi-chevron-down mdi-chevron-up');
+    $('.overlay').toggleClass('overlay-in');
+  });
+
+  $('.login-close').click(function() {
+    $('.box-login').removeClass('box-login-show');
+    $('.login-btn span i').removeClass('mdi-chevron-up')
+    $('.overlay').removeClass('overlay-in');
+  });
 
   $('.overlay').click(function() {
-    $(this).css('display', 'none')
-    $('#search').removeClass('show');
+    $(this).removeClass('overlay-in');
+    $('.box-login').removeClass('box-login-show');
+  })
+  // end
+
+  // Khi đã đăng nhập
+  $('.login-complete-btn').click(function() {
+    $('.login-complete').toggleClass('box-login-show');
+    $('.login-complete-btn span i').toggleClass('mdi-chevron-down mdi-chevron-up');
   });
 
-  // SETTING MODAL
-  $('.modal-footer button , .modal-header button , .modal').click(function() {
-    $('.xzoom-preview , .xzoom-source').css('opacity', '0')
+  $('.login-close').click(function() {
+    $('.login-complete').removeClass('box-login-show');
+    $('.login-complete-btn span i').remove('mdi-chevron-up');
+  });
+  // end
+
+  // Setting login form
+  $('.link-signup').click(function() {
+    $('#signin-tab').removeClass('active');
+    $('#signup-tab').addClass('active');
+    $('#signin').removeClass('show active');
+    $('#signup').addClass('show active');
+    $('.box-login').addClass('box-login-show');
+    console.log('hello')
   });
 
-//$('.cart-btn').click(function() {
-//    Swal({
-//      title: 'Thông báo',
-//      type: 'success',
-//      html: 'Bạn đã thêm vào giỏ thành công',
-//      showCloseButton: true,
-//      showCancelButton: true,
-//      focusConfirm: false,
-//      confirmButtonText:
-//        '<a href="cart.php">Vào giỏ hàng</a>',
-//      cancelButtonText:
-//        'Tiếp tục mua sắm',
-//    })
-//  });
-  
-  $('.banner-product').eq(0).addClass('banner-product-1');
-  $('.banner-product').eq(1).addClass('banner-product-2');
-  $('.banner-product').eq(2).addClass('banner-product-3');
+  $('.link-signin').click(function() {
+    $('#signup-tab').removeClass('active');
+    $('#signin-tab').addClass('active');
+    $('#signup').removeClass('show active');
+    $('#signin').addClass('show active');
+  });
+  // end
 
-  var ww = document.body.clientWidth;
-  if (ww > 1025) {
-    $('.box-cate-bot-detail').eq(0).css('left', '30px').css('transform','translateY(-50%)');
-    $('.box-cate-bot-detail').eq(1).css('left', '50%').css('transform','translate(-50%, -50%)');
-    $('.box-cate-bot-detail').eq(2).css('right', '30px').css('left','auto').css('transform','translateY(-50%)');
-  } 
+  // setting navtabs TOUR page
+  $(window).scroll( function() {
+    if ($(this).scrollTop() > 400) {
+      $('.tour-left').addClass('tour-left-down')
+
+    } else {
+      $('.tour-left').removeClass('tour-left-down')
+    }
+  });
   
+  $('.tour-search .nav-tabs li, .tour-search .navbar li').click(() => {
+    $("html, body").animate({
+      scrollTop: 0
+    }, 600);
+  });
+  // end
+
+  // Append comment
+  $('.comment-first-box').keyup(function() {
+    let keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == '13'){ 
+      $('.comment-first-box input').val('');
+
+      $('.comment-area').append(
+        `
+          <div class="box-comment">
+            <div class="box-comment-author text-center"><a title="Nhấp để xem hồ sơ" href="chi-tiet-thanh-vien.html"><img src="../img/avatar.jpeg" /></a>
+              <h5> <a title="Nhấp để xem hồ sơ" href="chi-tiet-thanh-vien.html">Kemmie</a></h5>
+              <p>Điểm: 500</p>
+              <p>Hạng: 10</p>
+            </div>
+            <div class="box-comment-detail">
+              <div class="box-comment-detail-date">
+                <h5>15/01/2019 - 17:30</h5>
+                <button class="btn btn-light waves-effect waves-light delete-comment text-right">Xóa bình luận</button>
+              </div>
+              <div class="box-comment-detail-content">
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat magnam repudiandae, natus velit ab nulla magni cumque quidem maiores sapiente sequi fugit. Nulla cupiditate impedit, dolorum placeat nisi ipsa enim?</p>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat magnam repudiandae, natus velit ab nulla magni cumque quidem maiores sapiente sequi fugit. Nulla cupiditate impedit, dolorum placeat nisi ipsa enim?</p>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat magnam repudiandae, natus velit ab nulla magni cumque quidem maiores sapiente sequi fugit. Nulla cupiditate impedit, dolorum placeat nisi ipsa enim?</p>
+                <div class="sub-comment"></div>
+                <div class="comment-reply">
+                  <button class="btn btn-indigo waves-effect waves-light">Trả lời</button>
+                  <div class="comment-reply-form"><img src="../img/avatar.jpeg" />
+                    <input class="form-control" type="text" placeholder="Viết phản hồi. . ." />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      );
+    };
+  });
+
+  $(document).on('click', '.comment-reply button', function () {
+    $(this)
+      .parent()
+      .find('.comment-reply-form')
+      .css('display', 'flex');
+
+    $(this).parent().find('input').focus();
+  });
+
+  $(document).on('keyup', '.comment-reply-form', function() {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    let subComment = $(this).parent().parent().find('.sub-comment');
+
+    if(keycode == '13'){
+      $('.comment-reply-form input').val('');
+
+      subComment.append(
+        `
+          <div class="box-sub-comment">
+            <div class="box-sub-comment-img">
+              <a href="chi-tiet-thanh-vien.html">
+                <img src="../img/avatar.jpeg" />
+              </a>
+              <h5>
+                <a href="chi-tiet-thanh-vien.html">Kemmie</a>
+              </h5>
+            </div>
+            <div class="box-sub-comment-content">
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat maga enim?</p>
+              <button class="sub-comment-del">Xóa bình luận</button>
+            </div>
+            <div class="box-sub-comment-date text-center">
+              <h5>17:30</h5>
+              <h5>15/01/2018</h5>
+            </div>
+          </div>
+        `
+      );
+    };
+  });
+  // end
+  
+  // popup delete
+  $(document).on('click', '.delete-comment', function() {
+    let url = $(this).parent().parent().parent();
+
+    Swal({
+      title: 'Bạn chắc chắn chứ?',
+      text: "Xóa sẽ không phục hồi lại được!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Tôi đồng ý, Xóa!',
+      cancelButtonText: 'Hủy bỏ'
+    }).then((result) => {
+      if (result.value) {
+        Swal(
+          'Xóa thành công!',
+          'Bạn đã xóa bình luận thành công.',
+          'success'
+        ).then(function(res) {
+          if (res) {
+            url.empty();
+          }
+        });
+      }
+    })
+  });
+
+  $(document).on('click', '.sub-comment-del', function() {
+    let url = $(this).parent().parent();
+
+    Swal({
+      title: 'Bạn chắc chắn chứ?',
+      text: "Xóa sẽ không phục hồi lại được!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Tôi đồng ý, Xóa!',
+      cancelButtonText: 'Hủy bỏ'
+    }).then((result) => {
+      if (result.value) {
+        Swal(
+          'Xóa thành công!',
+          'Bạn đã xóa bình luận thành công.',
+          'success'
+        ).then(function(res) {
+          if (res) {
+            url.empty();
+          }
+        });
+      }
+    })
+  });
+  // end
 });
+
+
+// validate login
+$(document).ready(function(){
+  jQuery.validator.addMethod("noSpace", function(value, element) { 
+    return value.indexOf(" ") < 0 && value != ""; 
+  }, "Không được phép có khoảng trắng");
+});
+
+$("#signup-form").validate({
+  rules: {
+    email_signup: {
+      required: true,
+      email: true,
+    },
+    nick_signup:{
+      required: true,
+      noSpace: true,
+      minlength: 6,
+    },
+    password_signup:{
+      required: true,
+      noSpace: true,
+      minlength: 6,
+    },
+    passwordEq_signup:{
+      equalTo: "#password_signup"
+    },
+  },
+  messages: {
+    email_signup: {
+      required: "Vui lòng điền email",
+      email: "Vui lòng điền đúng định dạng email"
+    },
+    nick_signup:{
+      required: "Vui lòng tên đăng nhập",
+      minlength: "Tên đăng nhập phải trên 6 ký tự",
+    },
+    password_signup:{
+      required: "Vui lòng điền mật khẩu",
+      minlength: "Mật khẩu phải trên 6 ký tự",
+    },
+    passwordEq_signup:{
+      equalTo: "Mật khẩu không khớp"
+    }
+  },
+  errorPlacement: function(error, element) {
+    $(error).addClass('text-danger mt-2');
+    $(element).addClass('form-control-danger');
+
+    error.insertAfter(element);
+  }
+});
+// end
