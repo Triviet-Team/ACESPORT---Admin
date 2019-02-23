@@ -197,28 +197,102 @@
                             break;
                         default:
                             $xhtml .= '<div>     
-                                          <div class="box-post">
-                                            <div class="box-post-author text-center"><img src="'. base_url('public/site/').'img/avatar.jpeg"/>
-                                              <h5>Admin</h5>
-                                            </div>
-                                            <div class="box-post-detail">
-                                              <div class="box-post-detail-date">
-                                                <h5>Thời gian: '.date('d/m/Y',$dataTournament->start_date).' - '.date('d/m/Y',$dataTournament->end_date).'</h5>
-                                              </div>
-                                              <div class="box-post-detail-content">
-                                                   <h3 class="mb-3 text-center"><b>'.$dataTournament->vn_name.'</b></h3>
-                                                   '.$dataTournament->vn_detail.'
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="comment-first">
-                                            <div class="comment-first-img"><img src="'.base_url('public/site/').'img/avatar.jpeg"/></div>
-                                            <div class="comment-first-box">
-                                              <input class="form-control" type="text" placeholder="Viết bình luận. . ."/>
-                                            </div>
-                                          </div>
-                                          <div class="comment-area"></div>
-                                        </div>';
+                                            <div class="box-post">
+                                            	<div class="box-post-author text-center">
+                                            		<img src="'.base_url('public/site/').'img/avatar.jpeg">
+                                            		<h5>Admin</h5>
+                                            	</div>
+                                            	<div class="box-post-detail">
+                                            		<div class="box-post-detail-date">
+                                            			<h5>15/01/2019 - 17:30</h5>
+                                            		</div>
+                                            		<div class="box-post-detail-content">
+                                            			<h3 class="mb-3 text-center">
+                                            				<b>'.$dataTournament->vn_name.'</b>
+                                            			</h3>
+                                                        <div>'.$dataTournament->vn_detail.'</div>
+                                            		</div>
+                                            		<div class="box-post-detail-tags">
+                                            			<h5>
+                                            				Tags: <span> <a href="#">Giải đấu vui vẻ,</a></span><span> <a
+                                            					href="#">Giải đấu khô máu</a></span>
+                                            			</h5>
+                                            		</div>
+                                            	</div>
+                                            </div>';
+                                    $xhtml .= '<div class="comment-first">
+                                                    	<div class="comment-first-img">
+                                                    		<img src="'.base_url('public/site/').'img/avatar.jpeg">
+                                                    	</div>
+                                                    	<div class="comment-first-box">
+                                                            <textarea style="width: 100%;"></textarea>
+                                                            <button type="button" id-tournament="'.$dataTournament->id.'" id="btn-send" class="btn btn-indigo waves-effect waves-light">Gửi bình luận</button>
+                                                    	</div>
+                                                    </div>';                            
+                                    $xhtml .= '<div class="comment-area-'.$dataTournament->id.'">';
+                                            // list comment
+                                            if ($dataTournament->comment) {
+                                                foreach ($dataTournament->comment as $row) {
+                                                    $xhtml .= '<div class="box-comment">
+                                                            		<div class="box-comment-author text-center">
+                                                            			<a title="Nhấp để xem hồ sơ" href="chi-tiet-thanh-vien.html"><img
+                                                            				src="'.base_url('public/site/').'img/avatar.jpeg"></a>
+                                                            			<h5>
+                                                            				<a title="Nhấp để xem hồ sơ" href="chi-tiet-thanh-vien.html">Kemmie</a>
+                                                            			</h5>
+                                                            			<p>Điểm: 500</p>
+                                                            			<p>Hạng: 10</p>
+                                                            		</div>
+                                                            		<div class="box-comment-detail">
+                                                            			<div class="box-comment-detail-date">
+                                                            				<h5>15/01/2019 - 17:30</h5>
+                                                            				<button
+                                                            					class="btn btn-light waves-effect waves-light delete-comment text-right">Xóa
+                                                            					bình luận</button>
+                                                            			</div>
+                                                            			<div class="box-comment-detail-content">
+                                                            				<div>'.$row->vn_detail.'</div>';
+                                                                            // list sub comment
+                                                                            $xhtml .= '<div class="sub-comment sub-comment-'.$row->id.'">';
+                                                                            if ($row->sub_comment) {
+                                                                                foreach ($row->sub_comment as $row_1) {
+                                                                                    $xhtml .= '<div class="box-sub-comment">
+                                                                            						<div class="box-sub-comment-img">
+                                                                            							<a href="chi-tiet-thanh-vien.html"> <img
+                                                                            								src="'.base_url('public/site/').'img/avatar.jpeg">
+                                                                            							</a>
+                                                                            							<h5>
+                                                                            								<a href="chi-tiet-thanh-vien.html">Kemmie</a>
+                                                                            							</h5>
+                                                                            						</div>
+                                                                            						<div class="box-sub-comment-content">
+                                                                                                        <div>'.$row_1->vn_detail.'</div>
+                                                                            							<button class="sub-comment-del">Xóa bình luận</button>
+                                                                            						</div>
+                                                                            						<div class="box-sub-comment-date text-center">
+                                                                            							<h5>17:30</h5>
+                                                                            							<h5>15/01/2018</h5>
+                                                                            						</div>
+                                                                            					</div>';
+                                                                                }
+                                                                            }
+                                                                            $xhtml .= '</div>';
+                                                                            $xhtml .= '<div class="comment-reply comment-reply-'.$row->id.'">
+                                                                            					<button class="btn btn-indigo waves-effect waves-light">Trả
+                                                                            						lời</button>
+                                                                            					<div class="comment-reply-form" style="display: flex;">
+                                                                            						<img src="'.base_url('public/site/').'img/avatar.jpeg"> 
+                                                            			                            <textarea style="width: 100%;"></textarea>
+                                                                                                    <button comment-id="'.$row->id.'" type="button" id-tournament="'.$dataTournament->id.'" class="btn-send-reply btn btn-indigo waves-effect waves-light">Gửi bình luận</button>
+                                                                            					</div>
+                                                                            				</div>';
+                                                     $xhtml .=       '</div>
+                                                            		</div>
+                                                            	</div>';
+                                                }
+                                            }   
+                                  $xhtml .= '</div>';                             
+                               $xhtml .= '</div>';
                             break;
                     }
                 }
@@ -248,3 +322,5 @@
         </div>
       </section>
     </article>
+    
+    

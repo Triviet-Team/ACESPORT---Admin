@@ -5,14 +5,9 @@
 			<h5>bảng điểm</h5>
 		</div>
 		<ul>
-			<li><a href="bang-diem.html"> <i class="mdi mdi-tennis"></i>Tất cả
-			</a></li>
-			<li><a class="score-btn-male" href="bang-diem-nam.html"> <i
-					class="mdi mdi-tennis"></i>Nam
-			</a></li>
-			<li><a class="score-btn-female" href="bang-diem-nu.html"> <i
-					class="mdi mdi-tennis"></i>Nữ
-			</a></li>
+			<li><a href="<?= base_url('bang-diem.html') ?>"> <i class="mdi mdi-tennis"></i>Tất cả</a></li>
+			<li><a class="score-btn-male" href="<?= base_url('bang-diem/nam') ?>"> <i class="mdi mdi-tennis"></i>Nam</a></li>
+			<li><a class="score-btn-female" href="<?= base_url('bang-diem/nu') ?>"> <i class="mdi mdi-tennis"></i>Nữ</a></li>
 		</ul>
 	</div>
 	<?php if ($objTournamentSidebar){ ?>

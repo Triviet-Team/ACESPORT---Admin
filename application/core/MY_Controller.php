@@ -78,6 +78,15 @@ Class MY_Controller extends CI_Controller {
         $input['limit'] = array(6 ,0);
         $objTournamentSidebar['gd_sap_dien_ra'] = $this->tournament_m->get_list($input);
         
+        $this->load->model('users_m');
+        //Lấy thông tin user
+        if ($this->session->userdata('isCheckLogin')) {
+            $id = $this->session->userdata('id');
+            $where = array('status' => 1, 'id' => $id);
+            $data['info_user'] = $this->users_m->get_info_rule($where);
+        }
+
+        
         $input = array();
         $input['where'] = array('start_date <=' => now(), 'end_date >=' => now(), 'status' => 1);
         $input['limit'] = array(6 ,0);

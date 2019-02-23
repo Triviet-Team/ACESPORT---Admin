@@ -321,7 +321,7 @@ $(document).ready(function () {
 	      valUser3 = $("#user3 option:selected").val();
 	      valUser4 = $("#user4 option:selected").val();
 		  $.ajax({
-			  url: 'http://localhost/project-tenis/ACESPORT---Admin.git/admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
+			  url: url + 'admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
 			  type: 'POST',
 			  dataType: "json",
 			  success: function(result){
@@ -343,7 +343,7 @@ $(document).ready(function () {
 	      valUser3 = $("#user3 option:selected").val();
 	      valUser4 = $("#user4 option:selected").val();
 		  $.ajax({
-			  url: 'http://localhost/project-tenis/ACESPORT---Admin.git/admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
+			  url: url + 'admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
 			  type: 'POST',
 			  dataType: "json",
 			  success: function(result){
@@ -365,7 +365,7 @@ $(document).ready(function () {
 	      valUser3 = $("#user3 option:selected").val();
 	      valUser4 = $("#user4 option:selected").val();
 		  $.ajax({
-			  url: 'http://localhost/project-tenis/ACESPORT---Admin.git/admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
+			  url: url + 'admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
 			  type: 'POST',
 			  dataType: "json",
 			  success: function(result){
@@ -387,7 +387,7 @@ $(document).ready(function () {
 	      valUser3 = $("#user3 option:selected").val();
 	      valUser4 = $("#user4 option:selected").val();
 		  $.ajax({
-			  url: 'http://localhost/project-tenis/ACESPORT---Admin.git/admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
+			  url: url + 'admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
 			  type: 'POST',
 			  dataType: "json",
 			  success: function(result){

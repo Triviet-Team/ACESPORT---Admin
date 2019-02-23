@@ -17,14 +17,19 @@ $route['gioi-thieu.html'] = 'staticpage/index/gioi-thieu';
 $route['doi-tac.html'] = 'staticpage/index/doi-tac';
 
 #Đăng nhập đăng ký user
-
 $route['login.html'] = 'user/login';
 $route['logout.html'] = 'user/logout';
 $route['user/thong-tin-ca-nhan.html'] = 'user/index';
 $route['user/doi-mat-khau.html'] = 'user/change_password';
+$route['quen-mat-khau.html'] = 'user/forget_password';
+$route['dang-ky-tai-khoan.html'] = 'user/registration';
 
 $route['doi-tac.html'] = 'staticpage/index/doi-tac';
 
+#Bảng điểm
+$route['chi-tiet-thanh-vien-(:num).html'] = 'table_point/user/$1';
+$route['bang-diem.html'] = 'table_point/table';
+$route['bang-diem/(:any)'] = 'table_point/table/$1';
 
 #News
 $route['tin-tuc.html'] = 'articles/index/tin-tuc';
@@ -98,6 +103,8 @@ $route['admincp/tournament/playing_category/(:num)'] = 'admincp/tournament/playi
 $route['admincp/product_category/(:num)'] = 'admincp/product_category/index/';
 
 $route['admincp/product/(:num)'] = 'admincp/product/index/';
+
+$route['admincp/admin/user/(:num)'] = 'admincp/admin/user/$1';
 
 $route['admincp/staticpage/(:num)'] = 'admincp/staticpage/index';
 

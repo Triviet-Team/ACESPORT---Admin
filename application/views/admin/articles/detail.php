@@ -108,7 +108,7 @@
                                 <img id="profile-img-tag" src="<?= base_url() ?>public/admin/img/no-img.png" alt="No-Img">
                                 <?php
                             } else { ?>
-                                <img id="profile-img-tag" src="<?= base_url('uploads/images/news/1024_512/' . $info->image_link) ?>" alt="No-Img">
+                                <img id="profile-img-tag" src="<?= base_url('uploads/images/news/1024_1024/' . $info->image_link) ?>" alt="No-Img">
                             <?php } ?>
                         </div>
                     </div>

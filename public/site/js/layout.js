@@ -145,86 +145,6 @@ $('document').ready(function() {
   });
   // end
 
-  // Append comment
-  $('.comment-first-box').keyup(function() {
-    let keycode = (event.keyCode ? event.keyCode : event.which);
-    if(keycode == '13'){ 
-      $('.comment-first-box input').val('');
-
-      $('.comment-area').append(
-        `
-          <div class="box-comment">
-            <div class="box-comment-author text-center"><a title="Nhấp để xem hồ sơ" href="chi-tiet-thanh-vien.html"><img src="../img/avatar.jpeg" /></a>
-              <h5> <a title="Nhấp để xem hồ sơ" href="chi-tiet-thanh-vien.html">Kemmie</a></h5>
-              <p>Điểm: 500</p>
-              <p>Hạng: 10</p>
-            </div>
-            <div class="box-comment-detail">
-              <div class="box-comment-detail-date">
-                <h5>15/01/2019 - 17:30</h5>
-                <button class="btn btn-light waves-effect waves-light delete-comment text-right">Xóa bình luận</button>
-              </div>
-              <div class="box-comment-detail-content">
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat magnam repudiandae, natus velit ab nulla magni cumque quidem maiores sapiente sequi fugit. Nulla cupiditate impedit, dolorum placeat nisi ipsa enim?</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat magnam repudiandae, natus velit ab nulla magni cumque quidem maiores sapiente sequi fugit. Nulla cupiditate impedit, dolorum placeat nisi ipsa enim?</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat magnam repudiandae, natus velit ab nulla magni cumque quidem maiores sapiente sequi fugit. Nulla cupiditate impedit, dolorum placeat nisi ipsa enim?</p>
-                <div class="sub-comment"></div>
-                <div class="comment-reply">
-                  <button class="btn btn-indigo waves-effect waves-light">Trả lời</button>
-                  <div class="comment-reply-form"><img src="../img/avatar.jpeg" />
-                    <input class="form-control" type="text" placeholder="Viết phản hồi. . ." />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `
-      );
-    };
-  });
-
-  $(document).on('click', '.comment-reply button', function () {
-    $(this)
-      .parent()
-      .find('.comment-reply-form')
-      .css('display', 'flex');
-
-    $(this).parent().find('input').focus();
-  });
-
-  $(document).on('keyup', '.comment-reply-form', function() {
-    var keycode = (event.keyCode ? event.keyCode : event.which);
-    let subComment = $(this).parent().parent().find('.sub-comment');
-
-    if(keycode == '13'){
-      $('.comment-reply-form input').val('');
-
-      subComment.append(
-        `
-          <div class="box-sub-comment">
-            <div class="box-sub-comment-img">
-              <a href="chi-tiet-thanh-vien.html">
-                <img src="../img/avatar.jpeg" />
-              </a>
-              <h5>
-                <a href="chi-tiet-thanh-vien.html">Kemmie</a>
-              </h5>
-            </div>
-            <div class="box-sub-comment-content">
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat maga enim?</p>
-              <button class="sub-comment-del">Xóa bình luận</button>
-            </div>
-            <div class="box-sub-comment-date text-center">
-              <h5>17:30</h5>
-              <h5>15/01/2018</h5>
-            </div>
-          </div>
-        `
-      );
-    };
-  });
-  // end
-  
   // popup delete
   $(document).on('click', '.delete-comment', function() {
     let url = $(this).parent().parent().parent();
@@ -290,48 +210,33 @@ $(document).ready(function(){
   }, "Không được phép có khoảng trắng");
 });
 
-$("#signup-form").validate({
-  rules: {
-    email_signup: {
-      required: true,
-      email: true,
-    },
-    nick_signup:{
-      required: true,
-      noSpace: true,
-      minlength: 6,
-    },
-    password_signup:{
-      required: true,
-      noSpace: true,
-      minlength: 6,
-    },
-    passwordEq_signup:{
-      equalTo: "#password_signup"
-    },
-  },
-  messages: {
-    email_signup: {
-      required: "Vui lòng điền email",
-      email: "Vui lòng điền đúng định dạng email"
-    },
-    nick_signup:{
-      required: "Vui lòng tên đăng nhập",
-      minlength: "Tên đăng nhập phải trên 6 ký tự",
-    },
-    password_signup:{
-      required: "Vui lòng điền mật khẩu",
-      minlength: "Mật khẩu phải trên 6 ký tự",
-    },
-    passwordEq_signup:{
-      equalTo: "Mật khẩu không khớp"
-    }
-  },
-  errorPlacement: function(error, element) {
-    $(error).addClass('text-danger mt-2');
-    $(element).addClass('form-control-danger');
-
-    error.insertAfter(element);
-  }
-});
+//$("#signup-form").validate({
+//  rules: {
+//    email_signup: {
+//      required: true,
+//      email: true,
+//    },
+//    nick_signup:{
+//      required: true,
+//      noSpace: true,
+//      minlength: 6,
+//    }
+//  },
+//  messages: {
+//    email_signup: {
+//      required: "Vui lòng điền email",
+//      email: "Vui lòng điền đúng định dạng email"
+//    },
+//    nick_signup:{
+//      required: "Vui lòng tên đăng nhập",
+//      minlength: "Tên đăng nhập phải trên 6 ký tự",
+//    }
+//  },
+//  errorPlacement: function(error, element) {
+//    $(error).addClass('text-danger mt-2');
+//    $(element).addClass('form-control-danger');
+//
+//    error.insertAfter(element);
+//  }
+//});
 // end

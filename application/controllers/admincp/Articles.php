@@ -15,25 +15,20 @@ class Articles extends MY_Controller {
 
         //kiem tra co thuc hien loc du lieu hay khong
         $input = array();
-        $data  = array(); 
         $id = $this->input->get('id');
-        $data['id'] = $id;
         $id = intval($id);
         if ($id > 0) {
             $input['where']['id'] = $id;
         }
-        $input['where']['cid <>'] = 4;
+        $vn_name = $this->input->get('vn_name');
+        if ($vn_name) {
+            $input['where']['vn_name'] = $vn_name;
+        }
+
         $cid = $this->input->get('cid');
-        $data['cid'] = $cid;
         $cid = intval($cid);
         if ($cid > 0) {
             $input['where']['cid'] = $cid;
-        }
-
-        $name = $this->input->get('vn_title');
-        $data['vn_title']       = $name;
-        if($name){
-            $input['like']      = array('vn_title', $name );
         }
 
         $total_rows = $this->articles_m->get_total($input);
@@ -46,7 +41,7 @@ class Articles extends MY_Controller {
         $config['base_url'] = base_url('admincp/articles');
         $config['suffix'] = '?' . http_build_query($getData, '', "&amp;");
         $config['first_url'] = $config['base_url'] . '?' . http_build_query($getData, '', "&amp;");
-        $config['per_page'] = 20; //so luong san pham hien thi tren 1 trang
+        $config['per_page'] = 10; //so luong san pham hien thi tren 1 trang
         $config['num_links'] = $total_rows;
 
         $config = array_merge($config, $this->system_library->pagination());
@@ -63,7 +58,6 @@ class Articles extends MY_Controller {
 
 
         $where = array();
-
         $where['where'] = array('pid' => 0, 'status' => 1);
         $catalogs = $this->category->get_list($where);
         foreach ($catalogs as $row) {
@@ -72,10 +66,9 @@ class Articles extends MY_Controller {
             $row->subs = $subs;
         }
 
-        $this->data['filter'] = $data;
         $this->data['categorys'] = $catalogs;
 
-        $this->data['title'] = 'Danh sách chung';
+        $this->data['title'] = 'Danh sách bài viết';
 
         $this->data['temp'] = 'articles/index';
         $this->load->view('admin/main', $this->data);
@@ -83,10 +76,8 @@ class Articles extends MY_Controller {
 
     public function detail($id = 0) {
 
-        // echo '<pre>';
-        // print_r($_SERVER);
         $input = array();
-        $input['where'] = array('pid' => 0, 'status' => 1, 'id' => 3);
+        $input['where'] = array('pid' => 0, 'status' => 1);
         $catalogs = $this->category->get_list($input);
         foreach ($catalogs as $row) {
             $input['where'] = array('pid' => $row->id, 'status' => 1);
@@ -117,56 +108,23 @@ class Articles extends MY_Controller {
                 $image_link = '';
 
                 $cid = $this->input->post('cid', true);
-                if($cid == 3){
-                    //echo $cid; die();
-                    if ($upload_data != NULL && !isset($info->image_link)) {
-                    
-                        $image_link = $upload_data;
-                        // $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '360_257/' . $image_link, 360, 257);
-                        // $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '700_500/' . $image_link, 700, 500);
-                        $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '1024_512/' . $image_link, 1024, 731);
-                        @unlink($upload_path . $image_link);
-                    
-                    } elseif ($upload_data != NULL && $info->image_link) {
-                    
-                        $image_link = $upload_data;
-                        // @unlink($upload_path . '360_257/' . $info->image_link);
-                        // @unlink($upload_path . '700_500/' . $info->image_link);
-                        @unlink($upload_path . '1024_512/' . $info->image_link);
-                        // $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '360_257/' . $image_link, 360, 257);
-                        // $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '700_500/' . $image_link, 700, 500);
-                        $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '1024_512/' . $image_link, 1024, 731);
-                        @unlink($upload_path . $image_link);
-                    
-                    } else {
-                        $image_link = $info->image_link;
-                    }
-                }else {
-                    //echo $cid; die();
-                    if ($upload_data != NULL && !isset($info->image_link)) {
-                    
-                        $image_link = $upload_data;
-                        // $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '360_257/' . $image_link, 360, 257);
-                        // $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '700_500/' . $image_link, 700, 500);
-                        $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '1024_1024/' . $image_link, 1024, 731);
-                        @unlink($upload_path . $image_link);
-                    
-                    } elseif ($upload_data != NULL && $info->image_link) {
-                    
-                        $image_link = $upload_data;
-                        // @unlink($upload_path . '360_257/' . $info->image_link);
-                        // @unlink($upload_path . '700_500/' . $info->image_link);
-                        @unlink($upload_path . '1024_1024/' . $info->image_link);
-                        // $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '360_257/' . $image_link, 360, 257);
-                        // $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '700_500/' . $image_link, 700, 500);
-                        $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '1024_1024/' . $image_link, 1024, 731);
-                        @unlink($upload_path . $image_link);
-                    
-                    } else {
-                        $image_link = $info->image_link;
-                    }
-                }
 
+                if ($upload_data != NULL && !isset($info->image_link)) {
+                    
+                    $image_link = $upload_data;
+                    $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '1024_1024/' . $image_link, 500, 500);
+                    @unlink($upload_path . $image_link);
+                    
+                } elseif ($upload_data != NULL && $info->image_link) {
+                    
+                    $image_link = $upload_data;
+                    @unlink($upload_path . '1024_1024/' . $info->image_link);
+                    $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '1024_1024/' . $image_link, 500, 500);
+                    @unlink($upload_path . $image_link);
+                    
+                } else {
+                    $image_link = $info->image_link;
+                }
 
                 $slug = $this->input->post('vn_slug', true);
 
@@ -196,7 +154,9 @@ class Articles extends MY_Controller {
                     'created' => now(),
                 );
 
-
+                if ($id > 0) {
+                    unset($data['created']);
+                }
 
                 if (!$id) {
                     if ($this->articles_m->create($data)) {
@@ -220,7 +180,7 @@ class Articles extends MY_Controller {
             }
         }
 
-        $this->data['title'] = 'Thêm bài mới';
+        $this->data['title'] = 'Thêm bài viết';
 
         $this->data['temp'] = 'articles/detail';
         $this->load->view('admin/main', $this->data);

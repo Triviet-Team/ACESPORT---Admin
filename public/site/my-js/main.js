@@ -369,6 +369,78 @@ $(document).ready(function() {
 	});
 });
 
+function ajaxComment(data, url, option) {
+	//console.log(data);
+	if(option != '') {
+	    $.ajax({	    	
+	        url: base_url + url,
+	        type: 'POST',
+	        data: data,
+	        //dataType: 'JSON',
+	        success: function (data) {
+	        	console.log(data);
+	        }
+	    });
+	}
+}
+
+// Comment
+$(document).ready(function() {
+	// Send message cha
+	$("#btn-send").delay(3000).click(function () {
+		var contentMessage = $(".comment-first .nicEdit-main").html();
+		var idTournament = $("#btn-send").attr('id-tournament');		
+		var dataAdd = {content: contentMessage, id_tournament: idTournament, option: 'add-message'};
+		ajaxComment(dataAdd, 'comment/ajax_message', 'add-message');	
+	});	
+	
+	$('body').on('click', '.btn-send-reply', function() {
+		var idTournament = $("#btn-send").attr('id-tournament');
+		var commentId = $(this).attr('comment-id');
+		var contentMessageReply = $('.comment-reply-' + commentId + ' .nicEdit-main').html();
+		var dataAdd = {content: contentMessageReply, id_tournament: idTournament, id_comment: commentId, option: 'add-message-reply'};
+		ajaxComment(dataAdd, 'comment/ajax_message', 'add-message-reply');
+	});
+	
+    // Enable pusher logging - don't include this in production
+    //Pusher.logToConsole = true;
+    
+    var pusher = new Pusher('9665dd394af39ba953c4', {
+        cluster: 'ap1',
+        forceTLS: true
+      });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+    	if(data.content != '') {
+    		var objCommentArea = $('.comment-area-' + data.tournament_id);
+    		if(objCommentArea.length > 0) {
+    			objCommentArea.append(data.content);
+    		}
+    	}
+    });
+    var channelReply = pusher.subscribe('result-reply');
+    channelReply.bind('event-reply', function(data) {
+    	if(data.content != '') {
+    		var objCommentArea = $('.comment-area-' + data.tournament_id + ' .sub-comment-' + data.comment_id);
+    		if(objCommentArea.length > 0) {    			
+    			objCommentArea.append(data.content).delay( 800 ); 
+    		}
+    	}
+    });
+
+    // đăng ký editor nic
+    bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+//ed.addEvent("blur", function() { alert('test') });
+    $('#btn-send').click(function() {
+        $('.box-login').toggleClass('box-login-show');
+        $('.login-btn span i').toggleClass('mdi-chevron-down mdi-chevron-up');
+        $('.overlay').toggleClass('overlay-in');
+    });
+});
+
+
+
 
 
 

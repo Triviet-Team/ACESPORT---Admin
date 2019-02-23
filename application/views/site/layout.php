@@ -21,6 +21,9 @@
     <meta property="og:image"         content="<?= @$img_site ? $img_site : $img_page ?>" />
     <meta property="og:site_name" content="CÔNG TY CỔ PHẦN AN NINH DHS VIỆT NAM">
     
+	
+
+    
     <link rel="stylesheet" href="<?=base_url('public/site/')?>css/bootstrap-grid.min.css"/>
     <link rel="stylesheet" href="<?=base_url('public/site/')?>css/bootstrap-reboot.min.css"/>
     <link rel="stylesheet" href="<?=base_url('public/site/')?>css/bootstrap.min.css"/>
@@ -32,10 +35,13 @@
     <link rel="stylesheet" href="<?=base_url('public/site/')?>css/jquery.fancybox.min.css"/>
     <link rel="stylesheet" href="<?=base_url('public/site/')?>css/layout.css"/>
     <link rel="shortcut icon" href="<?=base_url('public/site/')?>img/favicon.png"/>
+    
+    
 
     <script type="text/javascript">
 		window.base_url = <?php echo json_encode(base_url()); ?>;
 	</script>
+	
 
 
 </head>
@@ -59,12 +65,17 @@
     <script src="<?=base_url('public/site/')?>js/jquery.dataTables.min.js"></script>
     <script src="<?=base_url('public/site/')?>js/dataTables.bootstrap4.min.js"></script>
     <script src="<?=base_url('public/site/')?>js/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="<?=base_url()?>public/site/my-js/data.js"></script>
     <script src="<?=base_url('public/site/')?>js/layout.js"></script>
+    
 
+	<script type="text/javascript" src="<?=base_url()?>public/site/my-js/pusher.min.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>public/site/my-js/jquery.form.min.js"></script>
+
+	<script type="text/javascript" src="<?=base_url()?>public/site/my-js/nicEdit.js"></script>
+	
 	<script type="text/javascript" src="<?=base_url()?>public/site/my-js/main.js"></script>
 	
-
 </body>
 </html>
 

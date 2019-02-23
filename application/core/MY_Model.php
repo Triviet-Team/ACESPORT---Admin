@@ -64,9 +64,12 @@ class MY_Model extends CI_Model {
             $this->db->where_in($where_in[0], $where_in[1]);
         }
 
-        $this->db->update($this->table, $data);
+        if ($this->db->update($this->table, $data)){
+            return TRUE;
+        }else {
+            return FALSE;
+        }
 
-        return TRUE;
     }
 
     /**
@@ -245,6 +248,12 @@ class MY_Model extends CI_Model {
 
         if ((isset($input['or_like'])) && $input['or_like']) {
             $this->db->or_like($input['or_like'][0], $input['or_like'][1]);
+        }
+        
+        if ((isset($input['or_like_arr'])) && $input['or_like_arr']) {
+            foreach ($input['or_like_arr'] as $val) {
+                $this->db->or_like($val[0], $val[1]);
+            }            
         }
 
         // Thêm sắp xếp dữ liệu thông qua biến $input['order'] 

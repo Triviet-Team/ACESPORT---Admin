@@ -16,112 +16,9 @@ class Tournament extends MY_Controller {
         $this->load->model('set_score_m');
         $this->load->model('fixture_result_m');
         $this->load->model('users_m');
+        $this->load->model('comment_m');
     }
-    // hàm xử lý ajax thống kê cặp đấu
-    public function ajaxTotal() {
-        if ($_POST) {
-            $type = $_POST['type'];
-            $total = null;
-            if ($type == 'get-total') {
-                //kiem tra co thuc hien loc du lieu hay khong
-                $filter = array();
-                $tournament_type = $this->input->post('tournament_type');
-                $tournament_type = intval($tournament_type);
-                if ($tournament_type > 0) {
-                    $this->data['tournament_type'] = $tournament_type;
-                    $filter[] = array('name' => '`tournament_type`.`id`', 'val' => $tournament_type);
-                }
-                
-                $tournament = $this->input->post('tournament');
-                $tournament = intval($tournament);
-                if ($tournament > 0) {
-                    $this->data['tournament'] = $tournament;
-                    $filter[] = array('name' => '`tournament`.`id`', 'val' => $tournament);
-                }
-                
-                $noi_dung = $this->input->post('noi_dung');
-                $noi_dung = intval($noi_dung);
-                if ($noi_dung > 0) {
-                    $this->data['noi_dung'] = $noi_dung;
-                    $filter[] = array('name' => '`tournament_playing_category`.`id`', 'val' => $noi_dung);
-                    $info = $this->tournament_playing_category_m->get_info($noi_dung);
-                    $total_member = $info->total_member;
-                    $type_play = $info->type_play;
-                    $cap_dau = ($total_member/(2*$type_play));
-                    $n = $this->fixture_m->getMu($cap_dau) + 1;
-                } 
-                $this->data['round'] = 1;
-                $filter[] = array('name' => '`fixture`.`round`', 'val' => $n);
-                $total['curent'] = $this->fixture_m->countTotal($filter);
-                $total['conlai'] = $cap_dau - $total['curent'];
-                echo json_encode($total);
-            }
-        }
-    }
-    
-    public function getInfoUsers() {
-        $input = array();
-        $input['where'] = array('status' => 1);
-        if ($_GET) {
-            foreach ($_GET as $val) {
-                if ($val != '') {
-                    $arrIdUser[] = $val;
-                }
-            }
-        
-            if ($arrIdUser) {
-                $input['where_not_in'] = array('id', $arrIdUser);
-            }
-        }
-        
-        $data = $this->users_m->get_list($input);
-        
-        $result = null;
-        
-        foreach ($data as $row) {
-            $result[] = array('id' => intval($row->id), 'text' => $row->username);
-        }
-        
-        echo json_encode($result);
-    }
-    
-    public function getInfo() {
-        $result = null;
-        if ($_POST) {
-            $type = $_POST['type'];
-            if ($type == 'tournament_type'){
-               $val = $_POST['tournament_type'];
-               $input = array();
-               $input['where'] = array('pid' => $val);
-               $result = $this->tournament_m->get_list($input);  
-            }
-            
-            if ($type == 'tournament'){
-                $val = $_POST['tournament'];
-                $result = $this->fixture_m->getInfoTable($val);
-            }
-            
-            if ($type == 'noi_dung'){
-                $val = $_POST['noi_dung'];
-                $active = $_POST['active'];
-                $info = $this->tournament_playing_category_m->get_info($val);
-                $total_member = $info->total_member;
-                $type_play = $info->type_play;
-                $cap_dau = ($total_member/(2*$type_play));
-                //$cap_dau = $doi_choi / 2;
-                $n = $this->fixture_m->getMu($cap_dau) + 1;
-                $arrGetRount = $this->fixture_m->createRound($n, $active);
-                $result['type'] = $type_play;
-                $result['content'] = $arrGetRount['str'];
-                echo json_encode($result);die();
-            }
-        }        
-        if ($result) { 
-            echo json_encode($result);
-        }else {
-            echo 0;
-        }
-    }
+
 
     public function index() {
 
@@ -190,6 +87,23 @@ class Tournament extends MY_Controller {
         $input['order'] = array('id', 'ASC');
         $list_related = $this->tournament_m->get_list($input);
         
+        $input = array();
+        $input['where'] = array('pid' => 0, 'tournament_id' => $objTournament->id);   
+        $input['order'] = array('created', 'ASC');
+        $listComment = $this->comment_m->get_list($input);
+        
+        if ($listComment) {
+            foreach ($listComment as $row) {
+                $input = array();
+                $input['where'] = array('pid' => $row->id);
+                $input['order'] = array('created', 'ASC');
+                $row->sub_comment = $this->comment_m->get_list($input);
+            }
+            $objTournament->comment = $listComment;
+        }
+// echo '<pre>';
+// print_r($objTournament);
+// echo '<pre>';die();
         if ($objTournament) {
             $arr_fixture_id = array();
             $input = array();
@@ -228,21 +142,23 @@ class Tournament extends MY_Controller {
                         
                         $nameRound = $this->fixture_m->getNameRound($i);                        
                         $row->list_fixture[$nameRound] = $obj_fixture;
-                        
-                        $input = array();
-                        $input['where_in'] = array('registration_id', $arr_fixture_id);
-                        $obj_registration_player = $this->registration_player_m->get_list($input);
-                        foreach ($obj_registration_player as $row_2) {
-                           $arr_player_id[] = $row_2->player_id;
-                        }
-                        
-                        if ($arr_player_id) {
+                        if ($arr_fixture_id) {
                             $input = array();
-                            $input['where_in'] = array('id', $arr_player_id);
-                            $input['order'] = array('name', 'ASC');
-                            $list_player = $this->users_m->get_list($input);
-                            $row->list_player = $list_player;
+                            $input['where_in'] = array('registration_id', $arr_fixture_id);
+                            $obj_registration_player = $this->registration_player_m->get_list($input);
+                            foreach ($obj_registration_player as $row_2) {
+                                $arr_player_id[] = $row_2->player_id;
+                            }
+                            
+                            if ($arr_player_id) {
+                                $input = array();
+                                $input['where_in'] = array('id', $arr_player_id);
+                                $input['order'] = array('name', 'ASC');
+                                $list_player = $this->users_m->get_list($input);
+                                $row->list_player = $list_player;
+                            }
                         }
+
                     }
                 }
             }
@@ -473,161 +389,5 @@ class Tournament extends MY_Controller {
         $this->data['temp'] = 'tournament/fixture/update';
         $this->load->view('admin/main', $this->data);
     }
-
-    public function config() {
-
-        $action = $this->input->post('key', true); //'del_all';
-
-        $id = $this->input->post('id', true);
-
-        $ids = $this->input->post('ids', true); //array(4, 5, 6);
-
-        if ($ids) {
-            $array_id = implode(',', $ids);
-
-            $input = 'id IN (' . $array_id . ')';
-        }
-
-        switch ($action) {
-            case 'del':
-                if ($this->fixture_m->update($id, array('status' => 3))) {
-                    $msg = 'Xóa sản phẩm thành công';
-                    echo json_encode(array('msg' => $msg, 'success' => true, 'status' => 3));
-                }
-                break;
-
-            case 'del_all':
-
-                if ($this->fixture_m->update_rule($input, array('status' => 3))) {
-
-                    $msg = 'Xóa thành công tất cả các sản phẩm có id (' . $array_id . ')';
-                    echo json_encode(array('msg' => $msg, 'success' => true, 'status' => 3));
-                }
-
-                break;
-            case 'enable':
-                if ($this->fixture_m->update($id, array('status' => 1))) {
-                    $msg = 'Hiển thị sản phẩm thành công';
-                    echo json_encode(array('msg' => $msg, 'success' => true, 'status' => 1));
-                }
-
-                break;
-            case 'enable_all':
-
-                if ($this->fixture_m->update_rule($input, array('status' => 1))) {
-
-                    $msg = 'Hiển thị thành công tất cả các sản phẩm có id (' . $array_id . ')';
-                    echo json_encode(array('msg' => $msg, 'success' => true, 'status' => 1));
-                }
-
-                break;
-            case 'disable':
-
-                if ($this->fixture_m->update($id, array('status' => 2))) {
-                    $msg = 'Ẩn sản phẩm thành công';
-                    echo json_encode(array('msg' => $msg, 'success' => true, 'status' => 2));
-                }
-
-                break;
-
-            case 'disable_all':
-
-                if ($this->fixture_m->update_rule($input, array('status' => 2))) {
-
-                    $msg = 'Ẩn thành công tất cả các sản phẩm có id (' . $array_id . ')';
-                    echo json_encode(array('msg' => $msg, 'success' => true, 'status' => 2));
-                }
-
-                break;
-        }
-    }
-
-    public function clean_trash() {
-
-        $where['where'] = array(
-            'status' => 3
-        );
-        
-        $check_del = $this->fixture_m->get_list($where);
-        
-        $ids = $this->fixture_m->getId($check_del);
-        
-        
-        if ($ids) {
-            $array_id = implode(',', $ids);
-        
-           $input = 'tournament_id IN (' . $array_id . ')';
-           if ($input){
-               $this->tournament_playing_category_m->del_rule($input);
-           }
-        }
-        
-        if ($check_del) {
-
-            if ($this->fixture_m->del_rule("status = 3")) {
-                $this->session->set_flashdata('message', 'Dọn rác thành công');
-            }
-        } else {
-            $this->session->set_flashdata('message', 'Không có gì trong thùng rác');
-        }
-
-        redirect(base_url('admincp/tournament/fixture'));
-    }
-    
-    function search() {
-    
-        if ($this->uri->rsegment('3') == 1) {
-            //lay du lieu tu autocomplete
-            $key = $this->input->get('term');
-        } else {
-            $key = $this->input->get('key-search');
-        }
-    
-        $this->data['key'] = trim($key);
-        $input = array();
-        $input['like'] = array('vn_name', $key);
-    
-        $province_id = $this->input->get('province_id');
-        if ($province_id) {
-            $input['where'] = array('province_id' => $province_id);
-        }
-        $cid = $this->input->get('cid');
-        if ($cid) {
-            $input['where'] = array('cid' => $cid);
-        }
-    
-        $list = $this->tournament_m->get_list($input);
-        $this->data['list_tournament/tournament'] = $list;
-    
-        $breadcrumb = array(
-            array(
-                'url' => '#',
-                'name' => 'Tìm kiếm'
-            )
-        );
-    
-        $this->data['breadcrumb'] = $breadcrumb;
-    
-        if ($this->uri->rsegment('3') == 1) {
-            //xu ly autocomplete
-            $result = array();
-            foreach ($list as $row) {
-                $item = array();
-                $item['id'] = $row->id;
-                $item['label'] = $row->name;
-                $item['value'] = $row->name;
-                $result[] = $item;
-            }
-            //du lieu tra ve duoi dang json
-            die(json_encode($result));
-        } else {
-            //load view
-            $this->data['temp'] = 'tournament/tournament/search';
-            $this->one_col($this->data);
-        }
-    }
-    
-    
-    
 
 }

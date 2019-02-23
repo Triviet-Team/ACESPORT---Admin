@@ -117,7 +117,7 @@
                                         <?php 
                                             $link_img = base_url().'public/admin/img/default-1024x512.png';
                                             if(!empty($row->image_link)){
-                                                $link_img = base_url().'uploads/images/news/1024_512/'.$row->image_link;
+                                                $link_img = base_url().'uploads/images/news/1024_1024/'.$row->image_link;
                                             }
                                         ?>
                                         <img src="<?= $link_img  ?>" alt="<?= $row->vn_name ?>"/>

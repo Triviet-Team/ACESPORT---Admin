@@ -15,6 +15,17 @@
                         </select>
                     </div>
                 </div>
+                
+               <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Giới tính</label>
+                    <div class="col-sm-10">
+                        <select class="custom-select" name="tid">
+                        	<option value="2" <?= (isset($filter['tid']) && $filter['tid'] == 3) ? 'selected' : '' ?>>Chưa xác định</option>
+                            <option value="1" <?= (isset($filter['tid']) && $filter['tid'] == 1) ? 'selected' : '' ?>>Nam</option>
+                            <option value="0" <?= (isset($filter['tid']) && $filter['tid'] == 2) ? 'selected' : '' ?>>Nữ</option>                            
+                        </select>
+                    </div>
+                </div>
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Họ tên</label>
@@ -53,7 +64,7 @@
                     <label class="col-sm-2 col-form-label">Chức vụ</label>
                     <div class="col-sm-10">
                         <select class="custom-select" name="tid">
-                            <option value="1" <?= (isset($filter['tid']) && $filter['tid'] == 1) ? 'selected' : '' ?>>Customer</option>
+                            <option value="1" <?= (isset($filter['tid']) && $filter['tid'] == 1) ? 'selected' : '' ?>>Thành viên</option>
                             <option value="2" <?= (isset($filter['tid']) && $filter['tid'] == 2) ? 'selected' : '' ?>>Manager</option>
                             <option value="3" <?= (isset($filter['tid']) && $filter['tid'] == 3) ? 'selected' : '' ?>>Admin</option>
                             <option value="4" <?= (isset($filter['tid']) && $filter['tid'] == 4) ? 'selected' : '' ?>>Founder</option>

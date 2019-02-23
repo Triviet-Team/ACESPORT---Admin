@@ -21,7 +21,7 @@
                 <div class="row">
                   <div class="col-md-4">
                       <?php 
-                          $link_img = base_url().'public/site/img/default-user.png';
+                          $link_img = base_url().'public/site/img/default-user.jpg';
                           if(!empty($objUser->image_link)){
                               $link_img = base_url().'uploads/images/user/200_200/'.$objUser->image_link;
                           }
@@ -40,7 +40,7 @@
                       <p><?= $objUser->username ?></p>
                       <ul>
                         <li>
-                          <label>Giới tính:</label><?= $objUser->sex == 1 ? 'Nam' : 'Nữ' ?>
+                          <label>Giới tính:</label><?= $objUser->sex == 1 ? 'Nam' : ($objUser->sex == 0 ? 'Nũ' : 'Chưa xác định') ?>
                         </li>
                         <li>
                           <label>Đơn vị/Tổ chức:</label><?= $objUser->organization ?>
@@ -58,7 +58,7 @@
             </div>
             <div class="tab-pane fade" id="setting" role="tabpanel" aria-labelledby="setting-tab"> 
               <div class="box-member">
-                <form method="POST" action="">
+                <form method="POST" action="" enctype="multipart/form-data">
                   <div class="row">
                     <div class="col-md-4">
                       <div class="box-member-setting-img">
@@ -67,7 +67,7 @@
                           <label for="avatar-file">Cập nhật</label>
                            <div class="showFile">
                                 <?php if (!isset($objUser->image_link)) { ?>
-                                    <img id="profile-img-tag" src="<?= base_url() ?>public/site/img/default-user.png" alt="No-Img">
+                                    <img id="profile-img-tag" src="<?= base_url() ?>public/site/img/default-user.jpg" alt="No-Img">
                                 <?php } else { ?>
                                     <img id="profile-img-tag" src="<?= base_url('uploads/images/user/200_200/' . $objUser->image_link) ?>" alt="No-Img">
                                 <?php } ?>
@@ -94,6 +94,9 @@
                             <label class="check-gender">Nữ
                               <input type="radio" <?= $objUser->sex == 0 ? 'checked="checked"' : '' ?> name="sex" value="0"/><span class="checkmark"></span>
                             </label>
+                            <label class="check-gender">Chưa xác định
+                              <input type="radio" <?= $objUser->sex == 2 ? 'checked="checked"' : '' ?> name="sex" value="2"/><span class="checkmark"></span>
+                            </label>
                           </div>
                           <div class="col-sm-6">
                             <label for="birth-setting">Ngày sinh:</label>
@@ -110,10 +113,6 @@
                           <div class="col-sm-6">
                             <label for="phone-setting">Số điện thoại:</label>
                             <input class="form-control" id="phone-setting" type="number" name="phone" value="<?= $objUser->phone ?>"/>
-                          </div>
-                          <div class="col-sm-6">
-                            <label for="email-setting">Email:</label>
-                            <input class="form-control" id="email-setting" type="text" name="email" value="<?= $objUser->email ?>"/>
                           </div>
                         </div>
                       </div>

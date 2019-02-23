@@ -16,10 +16,10 @@ class System_library {
         //SMTP & mail configuration
         $config = array(
             'protocol' => 'smtp',
-            'smtp_host' => 'ssl://mail.mayvesinhcongnghiep.com',
+            'smtp_host' => 'smtp.gmail.com',
             'smtp_port' => 465,
-            'smtp_user' => 'no-reply@mayvesinhcongnghiep.com',
-            'smtp_pass' => 'qffUL1iBZ+iI',
+            'smtp_user' => 'vuvanhao122995@gmail.com',
+            'smtp_pass' => '@96689@@64',
             'mailtype' => 'html',
             'charset' => 'utf-8'
         );
@@ -28,7 +28,7 @@ class System_library {
         $this->CI->email->set_newline("\r\n");
 
         $this->CI->email->to($to);
-        $this->CI->email->from('no-reply@mayvesinhcongnghiep.com', 'CÔNG TY TNHH ĐT TM DV HOÀNG GIA');
+        $this->CI->email->from('vuvanhao122995@gmail.com', 'ACE corp');
         $this->CI->email->subject($subject);
         $this->CI->email->message($body);
 
@@ -36,12 +36,12 @@ class System_library {
 
         $this->CI->email->send();
 
-//        if($this->CI->email->send()){
-//            echo 'Gửi email thành công'; exit;
-//        }else{
-//            echo $this->CI->email->print_debugger();
-//            echo 'Gửi email thất bại'; exit;
-//        }
+       if($this->CI->email->send()){
+           echo 'Gửi email thành công'; exit;
+       }else{
+           echo $this->CI->email->print_debugger();
+           echo 'Gửi email thất bại'; exit;
+       }
     }
 
     function pagination() {
@@ -384,5 +384,7 @@ class System_library {
         return $str;
     
     }
+    
+    
 
 }

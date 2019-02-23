@@ -12,6 +12,7 @@ Class Admin extends MY_Controller {
 
     public function index() {
         $input      = array();
+        $input['where']['tid >']   = 1;
         $id         = $this->input->get('id');
         $data['id'] = $id;
         if($id){
@@ -67,6 +68,70 @@ Class Admin extends MY_Controller {
         $this->data['temp'] = 'admin/index';
         $this->load->view('admin/main', $this->data);
     }
+    
+    public function user() {
+        $input      = array();
+        $input['where']['tid']   = 1;
+        $id         = $this->input->get('id');
+        $data['id'] = $id;
+        if($id){
+            $input['where']['id']   = $id;
+        }
+        $status = $this->input->get('status');
+        $data['status'] = $status;
+        if($status){
+            $input['where']['status']   = $status;
+        }
+    
+        $name = $this->input->get('name');
+        $data['name']       = $name;
+        if($name){
+            $input['like']      = array('username', $name);
+            $input['or_like_arr'][]  = array('email',  $name);
+            $input['or_like_arr'][]  = array('name', $name);            
+            $input['or_like_arr'][]  = array('address', $name);
+            $input['or_like_arr'][]  = array('phone', $name);
+            $input['or_like_arr'][]  = array('organization', $name);
+        }
+    
+        //lay tong so luong ta ca cac giao dich trong websit
+        $total_item = $this->users_m->get_total($input);
+    
+        //load ra thu vien phan trang
+        $config = array();
+        $config['total_rows'] = $total_item; //tong tat ca cac san pham tren website
+        $config['base_url'] = base_url('admincp/admin/user'); //link hien thi ra danh sach san pham
+        $config['per_page'] = 20; //so luong san pham hien thi tren 1 trang
+        $config['uri_segment'] = 4; //phan doan hien thi ra so trang tren url
+        $config['first_tag_open'] = '<div>';
+        $config['first_tag_close'] = '</div>';
+        $config['next_link'] = '<span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span>';
+        $config['next_tag_open'] = '<li class="page-item">';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_link'] = '<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span>';
+        $config['prev_tag_open'] = '<li class="page-item">';
+        $config['prev_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="page-item"><a class="page-link">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li class="page-item">';
+        $config['num_tag_close'] = '</li>';
+        $config['attributes'] = array('class' => 'page-link');
+        $getData = array('id' => $id, 'name' => $vn_name, 'status' => $status);
+        $config['suffix'] = '?' . http_build_query($getData, '', "&amp;");
+    
+        $this->pagination->initialize($config);
+        $segment = $this->uri->segment(4);
+        $segment = intval($segment);
+    
+        $input['limit'] = array($config['per_page'], $segment);
+    
+        $this->data['list_user'] = $this->users_m->get_list($input);
+        $this->data['filter'] = $data;
+    
+        $this->data['title'] = 'Danh sách thành viên';
+        $this->data['temp'] = 'admin/user';
+        $this->load->view('admin/main', $this->data);
+    }
 
     function check_username() {
         $username = $this->input->post('username');
@@ -97,13 +162,14 @@ Class Admin extends MY_Controller {
             $this->form_validation->set_rules('phone', 'Điện thoại', 'numeric');
 
             if($this->form_validation->run()){
-                
+                $tid = $this->input->post('tid', true);
                 $data = array(
                     'status' => $this->input->post('status', true),
                     'name' => $this->input->post('name', true),
                     'username' => $this->input->post('username', true),
                     'password' => md5($this->input->post('password', true)),
-                    'tid' => $this->input->post('tid', true),
+                    'sex' => $this->input->post('sex', true),
+                    'tid' => $tid,
                     'email' => $this->input->post('email', true),
                     'phone' => $this->input->post('phone', true),
                     'address' => $this->input->post('address', true),
@@ -117,7 +183,11 @@ Class Admin extends MY_Controller {
                 }else{
                     $this->session->set_flashdata('message', 'Tạo tài khoản thất bại');
                 }
-                redirect(base_url() . 'admincp/admin');
+                if ($tid == 1) {
+                    redirect(base_url() . 'admincp/admin/user');
+                }else {
+                    redirect(base_url() . 'admincp/admin');
+                }                
             }
          }
 
@@ -295,13 +365,13 @@ Class Admin extends MY_Controller {
         redirect(base_url('admincp/admin'));
     }
     
-    public function position() {    
-        $position = $this->input->post('position');
-    
+    public function position($type = '') {    
+        $position = $this->input->post('position');    
         $id = $this->input->post('id');
     
         if ($this->input->post()) {
-            if ($this->users_m->update($id, array('point' => $position))) {
+            $col = $type == 'don' ? 'point_don' : 'point_doi';
+            if ($this->users_m->update($id, array($col => $position))) {
                 $msg = 'Cập nhật điểm thành công';
                 echo json_encode(array('msg' => $msg, 'success' => true));
             }

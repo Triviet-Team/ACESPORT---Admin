@@ -1,59 +1,49 @@
 
-
-
- <article>
-    <section class="bread-crumb">
-      <div class="container">
-		<?php $this->load->view('site/breadcrumb'); ?>
-      </div>
-    </section>
-<?php if(isset($object)){?>
-    <section class="page-detail">
-      <div class="container">
-        <div class="box-page-detail">
-          <h3><?=$object->vn_name?></h3>
-          <h5><i class="mdi mdi-calendar-clock"></i><?=date("d/m/Y", $object->created)?></h5>
-          <h4><?=$object->vn_sapo?></h4>
-		  <div><?=$object->vn_detail?></div>
+  <article>
+      <section class="bread-crumb">
+        <div class="container">
+			<?php $this->load->view('site/breadcrumb'); ?>
         </div>
-	<?php if(!empty($related_news)){?>
-        <div class="similar">
-          <div class="title-page text-center">
-            <h1>tin tức liên quan</h1>
-          </div>
-
-          <div class="row">                      
-			<?php    
+      </section>
+      <section class="page-content">
+        <div class="container">
+          <div class="grid-box">
+            <div class="left">
+				<!-- left -->
+				<?php $this->load->view('site/sidebar'); ?>
+				<!-- end left -->
+            </div>
+            <div class="main">
+          <?php if(isset($object)){?>
+              <div class="news-detail">
+                <h2><?=$object->vn_name?></h2>
+                <h5><i class="mdi mdi-account"></i><span class="user-post">Admin</span><i class="mdi mdi-clock-outline"></i><span><?=date("d/m/Y", $object->created)?></span></h5>
+                <h4><?=$object->vn_sapo?></h4>
+				<div><?=$object->vn_detail?></div>
+              </div>
+           <?php if(!empty($related_news)){?>
+              <div class="similar">
+                <div class="title-page text-center">
+                  <h1> <a>tin tức liên quan</a></h1>
+                </div>
+                <?php    
                     $xhtmlListNews = '';  
                         foreach($related_news as $row){
                             $link_img = base_url().'public/site/img/default-1024x731.png';
                             if(!empty($row->image_link)){
-                                $link_img = base_url().'uploads/images/news/1024_512/'.$row->image_link;
+                                $link_img = base_url().'uploads/images/news/1024_1024/'.$row->image_link;
                             }
-                            $day    = date('d', $row->created);
-                            $month  = date('m', $row->created);
                             
-                            $xhtmlListNews .= '<div class="col-lg-4 col-md-6 col-sm-6">
-                                                  <div class="box-news">
-                                                    <div class="box-news-img">
-                                                      <div class="box-news-img-date text-center">
-                                                        <h5>'.$day.'</h5>
-                                                        <h5>Th'.$month.'</h5>
-                                                      </div>
-                                    
-                                                      <a href="'.base_url('tin-tuc/') . $row->vn_slug.'.html"><img src="'.$link_img.'" alt=""></a>
+                            $xhtmlListNews .= '<div class="box-news">
+                                                  <div class="row">
+                                                    <div class="col-md-4">
+                                                      <div class="box-news-img"><a href="'.base_url('tin-tuc/') . $row->vn_slug.'.html" title="Nhấp để xem chi tiết"><img src="'.$link_img.'"/></a></div>
                                                     </div>
-                                    
-                                                    <div class="box-news-detail">
-                                                      <h4>
-                                                        <a href="'.base_url('tin-tuc/') . $row->vn_slug.'.html">'.$row->vn_name.'</a>
-                                                      </h4>
-                                                      <h5>'.$row->vn_sapo.'</h5>
-                                    
-                                                      <div class="box-news-detail-btn">
-                                                        <a href="'.base_url('tin-tuc/') . $row->vn_slug.'.html">
-                                                          đọc thêm <i class="mdi mdi-transfer"></i>
-                                                        </a>
+                                                    <div class="col-md-8">
+                                                      <div class="box-news-detail">
+                                                        <h4><a href="'.base_url('tin-tuc/') . $row->vn_slug.'.html" title="'.$row->vn_name.'">'.$row->vn_name.'</a></h4>
+                                                        <h6><i class="mdi mdi-account"></i><span class="user-post">Admin</span><i class="mdi mdi-clock-outline"></i><span>'.date('d/m/Y', $row->created).'</span></h6>
+                                                        <h5>'.$row->vn_sapo.'</h5>
                                                       </div>
                                                     </div>
                                                   </div>
@@ -62,14 +52,15 @@
                    echo $xhtmlListNews;
                 ?>								
 <!-- 		end list related -->
+              </div>
+              <?php } //end tin liên quan?>
+          <?php 
+                }else{
+                    echo '<div class="news-detail">Dữ liệu đang cập nhật</div>';
+                }//end if $object
+           ?>
+            </div>
           </div>
         </div>
-        <?php } //end tin liên quan?>
-      </div>
-    </section>
-    <?php 
-    }else{
-        echo 'Dữ liệu đang cập nhật';
-    }//end if $object
-    ?>
-  </article>
+      </section>
+    </article>
