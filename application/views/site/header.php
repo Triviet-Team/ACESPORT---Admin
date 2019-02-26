@@ -29,9 +29,11 @@
                           }
                ?>
                       	<?php if ($tid > 1) {?>
-                      		<div class="login-btn"><span><a href="<?= base_url('admincp')?>">Control panel</a></span></div>
-                      	<?php }else {?>
                       		<div class="login-complete-btn"><span><img class="img-circle d-inline block" src="<?= $link_img ?>" /> <?= $info_user->name ?><i class="mdi mdi-chevron-down"></i></span></div>
+                      	<?php }else {?>
+                      		<i class="thong-bao-dkm" style="color: #fff;">10</i>
+                      		<div class="login-complete-btn"><span><img class="img-circle d-inline block" src="<?= $link_img ?>" /> <?= $info_user->name ?><i class="mdi mdi-chevron-down"></i></span></div>
+                      		
                       	<?php }?>
                 <?php }else {?>
     				<div class="login-btn"><i class="mdi mdi-account-circle"></i><span>Tài khoản </span><i class="mdi mdi-chevron-down"></i></div>
@@ -46,7 +48,7 @@
                 <li class="nav-item"><a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">
                      Đăng nhập</a></li>
               </ul>
-              <div class="tab-content">
+              <div class="tab-content">              	
                 <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab"> 
                   <form id="signin-form" method="POST">
                     <div class="md-form mt-5"><i class="mdi mdi-email prefix grey-text"></i>
@@ -58,7 +60,7 @@
                       <label for="password-signin">Mật khẩu</label>
                     </div>
                     <div class="login-submit text-center mb-4 pb-5 border-bottom border-light">
-                      <i id="divToUpdate" style="color: red"></i>
+                      <p id="divToUpdate" style="color: red; font-size:13px;"></p>
                       <button class="btn btn-indigo">Đăng nhập</button>
                     </div>
                     <div class="login-footer">
@@ -78,13 +80,22 @@
             </div>
           </div>
           <?php }else { ?>
-          <div class="login-complete">
-            <ul>
-              <li><a href="<?= base_url('user/thong-tin-ca-nhan.html')?>"><i class="mdi mdi-account-edit"></i>thông tin cá nhân</a></li>
-              <li><a href="<?= base_url('thong-tin-ca-nhan.html')?>"><i class="mdi mdi-chart-areaspline"></i>thống kê giải đấu</a></li>
-              <li><a href="<?= base_url('logout.html')?>"><i class="mdi mdi-logout"></i>đăng xuất</a></li>
-            </ul>
-          </div>
+          	<?php if($tid == 1) {?>
+              <div class="login-complete">
+                <ul>
+                  <li><a href="<?= base_url('user/thong-tin-ca-nhan.html')?>"><i class="mdi mdi-account-edit"></i>thông tin cá nhân</a></li>
+                  <li><a href="<?= base_url('thong-tin-ca-nhan.html')?>"><i class="mdi mdi-chart-areaspline"></i>thống kê giải đấu</a></li>
+                  <li><a href="<?= base_url('logout.html')?>"><i class="mdi mdi-logout"></i>đăng xuất</a></li>
+                </ul>
+              </div>
+          	<?php }else {?>
+          	  <div class="login-complete">
+                <ul>
+                  <li><a href="<?= base_url('admincp')?>"><i class="mdi mdi-chart-areaspline"></i>Control panel</a></li>
+                  <li><a href="<?= base_url('logout.html')?>"><i class="mdi mdi-logout"></i>đăng xuất</a></li>
+                </ul>
+              </div>
+          	<?php }?>
           <?php } ?>
         </div>
       </section>

@@ -45,9 +45,7 @@ $(document).ready( function () {
     			                  "data": "name",
     			                  "render": function(data, type, row) {
     			                    return (
-    			                      `<a title="Nhấp để xem chi tiết" href="chi-tiet-thanh-vien.html">
-    			                        ${row.name}
-    			                      </a>`
+    			                      `${row.name}`
     			                    );
     			                  },
     			                },
@@ -86,7 +84,7 @@ $(document).ready( function () {
 	        			            "previous":   "Trước"
 	        			        },
 	        			      },
-	        			      "order": [[ 0, "asc" ]],
+	        			      "order": [[ 2, "desc" ]],
 	        			      "pagingType": "full_numbers",
 	        			      "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "Tất cả"]],
 	        			  });

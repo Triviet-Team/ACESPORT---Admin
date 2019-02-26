@@ -46,13 +46,16 @@
 
 </head>
 <body>
-    <!-- header -->
-
-    <?php $this->load->view('site/header')?>
-    <!-- content -->
-    <?php $this->load->view('site/' . $temp)?>
-    <!-- footer -->
-    <?php $this->load->view('site/footer')?>
+	<?php if ($action == 'home') {?>
+		<?php $this->load->view('site/' . $temp)?>
+	<?php }else { ?>
+        <!-- header -->
+        <?php $this->load->view('site/header')?>
+        <!-- content -->
+        <?php $this->load->view('site/' . $temp)?>
+        <!-- footer -->
+        <?php $this->load->view('site/footer')?>
+    <?php } ?>
     
     <script src="<?=base_url('public/site/')?>js/jquery-3.3.1.min.js"></script>
     <script src="<?=base_url('public/site/')?>js/jquery.touchSwipe.min.js"></script>

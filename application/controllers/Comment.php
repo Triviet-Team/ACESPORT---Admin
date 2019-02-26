@@ -8,6 +8,31 @@ class Comment extends MY_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->model('comment_m');
+        $this->load->model('users_m');
+    }
+    public function del_message() {
+        $login = $this->session->userdata('isCheckLogin');
+        $tid = $this->session->userdata('tid');
+        $success = array();
+        if ($login && $tid > 1) {
+            $id_comment = $_POST['id_comment'];
+            $where = array('id' => $id_comment);
+            $objComment = $this->comment_m->get_info_rule($where);
+            if ($objComment->pid == 0) {
+                if($this->comment_m->del_rule(array('pid' => $objComment->id))) {
+                    if($this->comment_m->delete($objComment->id)) {
+                        $success['del'] = 1;
+                    }
+                };
+            }else {
+                if($this->comment_m->delete($objComment->id)) {
+                    $success['del'] = 1;
+                }
+            }
+        }else {
+            $success['del'] = 0;
+        }
+        echo json_encode($success);
     }
     public function ajax_message() {  
         $options = array(
@@ -20,6 +45,7 @@ class Comment extends MY_Controller {
             '716621',
             $options
         );
+        $success = array();
         $login = $this->session->userdata('isCheckLogin');
         if ($login) {
             if ($_POST) {
@@ -28,29 +54,35 @@ class Comment extends MY_Controller {
                 $content = $_POST['content'];
                 $user_id = $this->session->userdata('id');
                 if ($option == 'add-message') {
-                    if ($user_id > 0 && $content != '' && $tournament_id > 0) {
+                    if ($user_id > 0 && $content != '' && $content != '<br>' && $tournament_id > 0) {
+                        $created = time();
                         $data = array(
                             'pid' => 0,
                             'vn_detail' => $content,
                             'tournament_id	' => $tournament_id,
                             'from_id' => $user_id,
-                            'created' => now(),
+                            'created' => $created,
                         );
+                        $where = array('id' => $user_id);
+                        $objUser = $this->users_m->get_info_rule($where);
+                        $link_img = base_url().'public/site/img/default-user.jpg';
+                        if(!empty($objUser->image_link)){
+                            $link_img = base_url().'uploads/images/user/200_200/'.$objUser->image_link;
+                        }
                         if ($this->comment_m->create($data)) {
                             $comment_id = $this->db->insert_id();
                             $html = '	<div class="box-comment">
                                 		<div class="box-comment-author text-center">
                                 			<a title="Nhấp để xem hồ sơ" href="chi-tiet-thanh-vien.html"><img
-                                				src="'.base_url('public/site/').'img/avatar.jpeg"></a>
+                                				src="'.$link_img.'"></a>
                                 			<h5>
-                                				<a title="Nhấp để xem hồ sơ" href="chi-tiet-thanh-vien.html">Kemmie</a>
+                                				<a title="Nhấp để xem hồ sơ" href="'.base_url('chi-tiet-thanh-vien-'.$objUser->id.'.html').'">'.$objUser->name.'</a>
                                 			</h5>
-                                			<p>Điểm: 500</p>
-                                			<p>Hạng: 10</p>
+                                			<p>Điểm: '.$objUser->point.'</p>
                                 		</div>
                                 		<div class="box-comment-detail">
                                 			<div class="box-comment-detail-date">
-                                				<h5>15/01/2019 - 17:30</h5>
+                                				<h5>'.date('d/m/Y - H:m:s', $created).'</h5>
                                 				<button
                                 					class="btn btn-light waves-effect waves-light delete-comment text-right">Xóa
                                 					bình luận</button>
@@ -61,7 +93,7 @@ class Comment extends MY_Controller {
                                 				<div class="comment-reply">
                                 					<button class="btn btn-indigo waves-effect waves-light">Trả
                                 						lời</button>
-                                					<div class="comment-reply-form" style="display: flex;">
+                                					<div class="comment-reply-form comment-reply-'.$comment_id.'" style="display: flex;">
                                 						<img src="'.base_url('public/site/').'img/avatar.jpeg">
                                 						    <textarea id="nic-editor-'.$comment_id.'" style="width: 100%;"></textarea>
                                                             <button comment-id="'.$comment_id.'" type="button" id-tournament="'.$tournament_id.'" class="btn-send-reply btn btn-indigo waves-effect waves-light">Gửi bình luận</button>
@@ -72,13 +104,16 @@ class Comment extends MY_Controller {
                                 	</div>';
                             $data_pusher['content'] = $html;
                             $data_pusher['tournament_id'] = $tournament_id;
+                            $data_pusher['comment_id'] = $comment_id;
                             $pusher->trigger('my-channel', 'my-event', $data_pusher);
                         }
+                    }else {
+                        $success['content'] = 0;
                     }
                 }
             
                 if ($option == 'add-message-reply') {
-                    if ($user_id > 0 && $content != '' && $tournament_id > 0) {
+                    if ($user_id > 0 && $content != '' && $content != '<br>' && $tournament_id > 0) {
                         $comment_id = $_POST['id_comment'];
                         $data = array(
                             'pid' => $comment_id,
@@ -112,10 +147,15 @@ class Comment extends MY_Controller {
                             $data_pusher['comment_id'] = $comment_id;
                             $pusher->trigger('result-reply', 'event-reply', $data_pusher);
                         }
+                    }else {
+                        $success['content'] = 0;
                     }
                 }
             }
+        }else {
+            $success['success'] = 0;
         }
+        echo json_encode($success);
     }
     // ajax gửi message
     public function nicEditUpload() {

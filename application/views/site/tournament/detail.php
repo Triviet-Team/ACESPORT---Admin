@@ -1,4 +1,11 @@
    <article>
+     <div class="notification" >
+  		<div class="box-login">
+          <div class="tab-content container">              	
+				Vui lòng nhập nội dung bình luận
+          </div>
+        </div>
+	</div>
       <section class="bread-crumb">
         <div class="container">
           <div class="bc-icons">
@@ -14,9 +21,6 @@
       </section>
       <section class="page-text">
         <div class="container">
-          <div class="title-page-text">
-            <h2>10 Kids Unaware of Their Halloween Cosfume</h2>
-          </div>
           <nav class="navbar navbar-light d-block d-md-none">
             <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#tourTab" aria-controls="tourTab" aria-expanded="false" aria-label="Toggle navigation"><a class="navbar-brand">Điều lệ</a></button><i class="mdi mdi-chevron-down"></i>
             <div class="collapse navbar-collapse" id="tourTab">
@@ -25,7 +29,7 @@
                 <li class="nav-item"><a href="<?= $objTournament ? base_url('chi-tiet-giai-dau/') . $objTournament->vn_slug . '/lich-thi-dau' : '' ?>" class="nav-link <?= isset($type) && $type == 'lich-thi-dau' ? active : '' ?>">Lịch thi đấu</a></li>
                 <li class="nav-item"><a href="<?= $objTournament ? base_url('chi-tiet-giai-dau/') . $objTournament->vn_slug . '/ket-qua' : '' ?>" class="nav-link <?= isset($type) && $type == 'ket-qua' ? active : '' ?>">Kết quả</a></li>
                 <li class="nav-item"><a href="<?= $objTournament ? base_url('chi-tiet-giai-dau/') . $objTournament->vn_slug . '/van-dong-vien' : '' ?>" class="nav-link <?= isset($type) && $type == 'van-dong-vien' ? active : '' ?>">Vận động viên</a></li>
-                <li class="nav-item"><a href="<?= $objTournament ? base_url('chi-tiet-giai-dau/') . $objTournament->vn_slug . '/nhanh-dau' : '' ?>" class="nav-link">Nhánh đấu</a></li>
+                <li class="nav-item"><a href="<?= $objTournament ? base_url('chi-tiet-giai-dau/') . $objTournament->vn_slug . '/nhanh-dau' : '' ?>" class="nav-link <?= isset($type) && $type == 'nhanh-dau' ? active : '' ?>">Nhánh đấu</a></li>
                 <li class="nav-item"><a href="<?= $objTournament ? base_url('chi-tiet-giai-dau/') . $objTournament->vn_slug . '/lich-su-giai-dau' : '' ?>" class="nav-link <?= isset($type) && $type == 'lich-su-giai-dau' ? active : '' ?>">Lịch sử giải đấu</a></li>
               </ul>
             </div>
@@ -35,7 +39,7 @@
             <li class="nav-item"><a href="<?= $objTournament ? base_url('chi-tiet-giai-dau/') . $objTournament->vn_slug . '/lich-thi-dau' : '' ?>" class="nav-link <?= isset($type) && $type == 'lich-thi-dau' ? active : '' ?>">Lịch thi đấu</a></li>
             <li class="nav-item"><a href="<?= $objTournament ? base_url('chi-tiet-giai-dau/') . $objTournament->vn_slug . '/ket-qua' : '' ?>" class="nav-link <?= isset($type) && $type == 'ket-qua' ? active : '' ?>">Kết quả</a></li>
             <li class="nav-item"><a href="<?= $objTournament ? base_url('chi-tiet-giai-dau/') . $objTournament->vn_slug . '/van-dong-vien' : '' ?>" class="nav-link <?= isset($type) && $type == 'van-dong-vien' ? active : '' ?>">Vận động viên</a></li>
-            <li class="nav-item"><a href="<?= $objTournament ? base_url('chi-tiet-giai-dau/') . $objTournament->vn_slug . '/nhanh-dau' : '' ?>" class="nav-link">Nhánh đấu</a></li>
+            <li class="nav-item"><a href="<?= $objTournament ? base_url('chi-tiet-giai-dau/') . $objTournament->vn_slug . '/nhanh-dau' : '' ?>" class="nav-link <?= isset($type) && $type == 'nhanh-dau' ? active : '' ?>">Nhánh đấu</a></li>
             <li class="nav-item"><a href="<?= $objTournament ? base_url('chi-tiet-giai-dau/') . $objTournament->vn_slug . '/lich-su-giai-dau' : '' ?>" class="nav-link <?= isset($type) && $type == 'lich-su-giai-dau' ? active : '' ?>">Lịch sử giải đấu</a></li>
           </ul>
        <?php if ($dataTournament) {?>
@@ -62,20 +66,22 @@
                                             $xhtml_doi_2 = '';
                                             if ($row_2->doi_1) {
                                                 foreach ($row_2->doi_1 as $row_3) {
-                                                    $xhtml_doi_1 .= $row_3->name . '-';
+                                                    $url = '<a href="'.base_url('chi-tiet-thanh-vien-'.$row_3->id.'.html').'">'.$row_3->name.'</a>';
+                                                    $xhtml_doi_1 .=  '-' . $url;
                                                 }
                                             }
                                             
                                             if ($row_2->doi_2) {
                                                 foreach ($row_2->doi_2 as $row_4) {
-                                                    $xhtml_doi_2 .= $row_4->name . '-';
+                                                    $url = '<a href="'.base_url('chi-tiet-thanh-vien-'.$row_4->id.'.html').'">'.$row_4->name.'</a>';
+                                                    $xhtml_doi_2 .=  '-' . $url;
                                                 }
                                             }
                                             
                                             $xhtmlContentNoiDung .=  '<tr>
                                                                         <td scope="col">'.date('H:m:s d/m/Y', $row_2->start_date). ' - ' . date('H:m:s d/m/Y', $row_2->end_date). '<b class"live">'.(($row_2->start_date <= now() && $row_2->end_date >= now()) ? ' LIVE' : '' ).'</b></td>
-                                                                        <td scope="col">'.$xhtml_doi_1.'</td>
-                                                                        <td scope="col">'.$xhtml_doi_2.'</td>
+                                                                        <td scope="col">'.substr($xhtml_doi_1, 1).'</td>
+                                                                        <td scope="col">'.substr($xhtml_doi_2, 1).'</td>
                                                                       </tr>';
                                         }
                                     }
@@ -112,20 +118,22 @@
                                             $xhtml_doi_2 = '';
                                             if ($row_2->doi_1) {
                                                 foreach ($row_2->doi_1 as $row_3) {
-                                                    $xhtml_doi_1 .= $row_3->name . '-';
+                                                    $url = '<a href="'.base_url('chi-tiet-thanh-vien-'.$row_3->id.'.html').'">'.$row_3->name.'</a>';
+                                                    $xhtml_doi_1 .=  '-' . $url;
                                                 }
                                             }
                         
                                             if ($row_2->doi_2) {
                                                 foreach ($row_2->doi_2 as $row_4) {
-                                                    $xhtml_doi_2 .= $row_4->name . '-';
+                                                    $url = '<a href="'.base_url('chi-tiet-thanh-vien-'.$row_4->id.'.html').'">'.$row_4->name.'</a>';
+                                                    $xhtml_doi_2 .=  '-' . $url;
                                                 }
                                             }
                         
                                             $xhtmlContentNoiDung .=  '<tr>
                                                                     <td scope="col">'.date('H:m:s d/m/Y', $row_2->start_date). ' - ' . date('H:m:s d/m/Y', $row_2->end_date). '</td>
-                                                                    <td scope="col">'.$xhtml_doi_1.'</td>
-                                                                    <td scope="col">'.$xhtml_doi_2.'</td>
+                                                                    <td scope="col">'.substr($xhtml_doi_1, 1).'</td>
+                                                                    <td scope="col">'.substr($xhtml_doi_2, 1).'</td>
                                                                     <td scope="col">'.$row_2->first_registration_games.':'.$row_2->second_registration_games.'</td>
                                                                   </tr>';
                                         }
@@ -157,7 +165,7 @@
                                     foreach ($row->list_player as $key_1 => $row_1) {
                         
                                         $xhtmlContentNoiDung .=  '<tr>
-                                                                     <td><a href="chi-tiet-thanh-vien.html">'.$row_1->name.'</a></td>
+                                                                     <td><a href="'.base_url('chi-tiet-thanh-vien-'.$row_1->id.'.html').'">'.$row_1->name.'</a></td>
                                                                   </tr>';
 
                                     }
@@ -195,6 +203,20 @@
                                           </table>
                                         </div>';
                             break;
+                        case 'nhanh-dau':
+                            $xhtml .= '<div class="tab-pane fade show active" id="branchTour" role="tabpanel" aria-labelledby="branchTour-tab">';
+                                $xhtml .= '<table class="table table-bordered table-hover" id="branch-table" style="width: 100%">';
+                                    foreach ($dataTournament as $key => $row) {
+                                        $xhtml .= '<tr>
+                                                      <th>'.$row->name.'</th>
+                                                    </tr>
+                                                    <tr>
+                                                      <td><a target="_blank" href="'.base_url('xem-nhanh-dau/') . $row->slug_tournament . '/' . $row->id .'">Nhấp để xem nhánh đấu</a></td>
+                                                    </tr>';
+                                    }
+                                $xhtml .= '</table>
+                                        </div>';
+                            break;
                         default:
                             $xhtml .= '<div>     
                                             <div class="box-post">
@@ -212,68 +234,84 @@
                                             			</h3>
                                                         <div>'.$dataTournament->vn_detail.'</div>
                                             		</div>
-                                            		<div class="box-post-detail-tags">
-                                            			<h5>
-                                            				Tags: <span> <a href="#">Giải đấu vui vẻ,</a></span><span> <a
-                                            					href="#">Giải đấu khô máu</a></span>
-                                            			</h5>
-                                            		</div>
                                             	</div>
                                             </div>';
+                                    $login = $this->session->userdata('isCheckLogin');
+                                    $link_img = base_url().'public/site/img/default-user.jpg';
+                                    if ($login) {                                       
+                                        if(!empty($info_user->image_link)){
+                                            $link_img = base_url().'uploads/images/user/200_200/'.$info_user->image_link;
+                                        }
+                                    }
                                     $xhtml .= '<div class="comment-first">
                                                     	<div class="comment-first-img">
-                                                    		<img src="'.base_url('public/site/').'img/avatar.jpeg">
+                                                    		<img src="'.$link_img.'">
                                                     	</div>
                                                     	<div class="comment-first-box">
-                                                            <textarea style="width: 100%;"></textarea>
+                                                            <textarea id="add-mesage" style="width: 100%;"></textarea>
                                                             <button type="button" id-tournament="'.$dataTournament->id.'" id="btn-send" class="btn btn-indigo waves-effect waves-light">Gửi bình luận</button>
                                                     	</div>
-                                                    </div>';                            
+                                                    </div>';       
+
                                     $xhtml .= '<div class="comment-area-'.$dataTournament->id.'">';
                                             // list comment
                                             if ($dataTournament->comment) {
                                                 foreach ($dataTournament->comment as $row) {
-                                                    $xhtml .= '<div class="box-comment">
+                                                    $link_img = base_url().'public/site/img/default-user.jpg';
+                                                    if(!empty($row->image_link)){
+                                                        $link_img = base_url().'uploads/images/user/200_200/'.$row->image_link;
+                                                    }
+                                                    $xhtml .= '<div class="box-comment box-comment-'.$row->id.'">
                                                             		<div class="box-comment-author text-center">
                                                             			<a title="Nhấp để xem hồ sơ" href="chi-tiet-thanh-vien.html"><img
-                                                            				src="'.base_url('public/site/').'img/avatar.jpeg"></a>
+                                                            				src="'.$link_img.'"></a>
                                                             			<h5>
-                                                            				<a title="Nhấp để xem hồ sơ" href="chi-tiet-thanh-vien.html">Kemmie</a>
+                                                            				<a title="Nhấp để xem hồ sơ" href="'.base_url('chi-tiet-thanh-vien-'.$row->id_user.'.html').'">'.$row->name.'</a>
                                                             			</h5>
-                                                            			<p>Điểm: 500</p>
-                                                            			<p>Hạng: 10</p>
+                                                            			<p>Điểm: '.$row->point.'</p>
                                                             		</div>
                                                             		<div class="box-comment-detail">
                                                             			<div class="box-comment-detail-date">
-                                                            				<h5>15/01/2019 - 17:30</h5>
+                                                            				<h5>'.date('d/m/Y - H:m:s',$row->created).'</h5>
                                                             				<button
-                                                            					class="btn btn-light waves-effect waves-light delete-comment text-right">Xóa
+                                                            					class="btn btn-light waves-effect waves-light delete-comment text-right" comment-id="'.$row->id.'">Xóa
                                                             					bình luận</button>
                                                             			</div>
                                                             			<div class="box-comment-detail-content">
                                                             				<div>'.$row->vn_detail.'</div>';
                                                                             // list sub comment
-                                                                            $xhtml .= '<div class="sub-comment sub-comment-'.$row->id.'">';
+                                                                            $xhtml .= '<div class="sub-comment">';
                                                                             if ($row->sub_comment) {
+                                                                                $link_img = base_url().'public/site/img/default-user.jpg';
+                                                                                if(!empty($row_1->image_link)){
+                                                                                    $link_img = base_url().'uploads/images/user/200_200/'.$row_1->image_link;
+                                                                                }
                                                                                 foreach ($row->sub_comment as $row_1) {
-                                                                                    $xhtml .= '<div class="box-sub-comment">
+                                                                                    $xhtml .= '<div class="box-sub-comment box-comment-'.$row_1->id.'">
                                                                             						<div class="box-sub-comment-img">
                                                                             							<a href="chi-tiet-thanh-vien.html"> <img
-                                                                            								src="'.base_url('public/site/').'img/avatar.jpeg">
+                                                                            								src="'.$link_img.'"></a>
                                                                             							</a>
                                                                             							<h5>
-                                                                            								<a href="chi-tiet-thanh-vien.html">Kemmie</a>
+                                                                            								<a title="Nhấp để xem hồ sơ" href="'.base_url('chi-tiet-thanh-vien-'.$row_1->id_user.'.html').'">'.$row_1->name.'</a>
                                                                             							</h5>
                                                                             						</div>
                                                                             						<div class="box-sub-comment-content">
                                                                                                         <div>'.$row_1->vn_detail.'</div>
-                                                                            							<button class="sub-comment-del">Xóa bình luận</button>
+                                                                            							<button class="delete-comment sub-comment-del" comment-id="'.$row_1->id.'">Xóa bình luận</button>
                                                                             						</div>
                                                                             						<div class="box-sub-comment-date text-center">
-                                                                            							<h5>17:30</h5>
-                                                                            							<h5>15/01/2018</h5>
+                                                                            							<h5>'.date('H:m:s',$row_1->created).'</h5>
+                                                                            							<h5>'.date('d/m/Y',$row_1->created).'</h5>
                                                                             						</div>
                                                                             					</div>';
+                                                                                }
+                                                                            }
+                                                                            $login = $this->session->userdata('isCheckLogin');
+                                                                            $link_img = base_url().'public/site/img/default-user.jpg';
+                                                                            if ($login) {
+                                                                                if(!empty($info_user->image_link)){
+                                                                                    $link_img = base_url().'uploads/images/user/200_200/'.$info_user->image_link;
                                                                                 }
                                                                             }
                                                                             $xhtml .= '</div>';
@@ -281,7 +319,7 @@
                                                                             					<button class="btn btn-indigo waves-effect waves-light">Trả
                                                                             						lời</button>
                                                                             					<div class="comment-reply-form" style="display: flex;">
-                                                                            						<img src="'.base_url('public/site/').'img/avatar.jpeg"> 
+                                                                            						<img src="'.$link_img.'"> 
                                                             			                            <textarea style="width: 100%;"></textarea>
                                                                                                     <button comment-id="'.$row->id.'" type="button" id-tournament="'.$dataTournament->id.'" class="btn-send-reply btn btn-indigo waves-effect waves-light">Gửi bình luận</button>
                                                                             					</div>
@@ -299,23 +337,6 @@
                 
                 echo $xhtml;
           ?>
-
-            <div class="tab-pane fade" id="branchTour" role="tabpanel" aria-labelledby="branchTour-tab">     
-              <table class="table table-bordered table-hover" id="branch-table" style="width: 100%">
-                <tr>
-                  <th>Đôi nam 1800</th>
-                </tr>
-                <tr>
-                  <td><a target="_blank" href="xem-nhanh-dau.html">Nhấp để xem nhánh đấu</a></td>
-                </tr>
-                <tr>
-                  <th>Đôi nam 1540</th>
-                </tr>
-                <tr>
-                  <td><a target="_blank" href="xem-nhanh-dau.html">Nhấp để xem nhánh đấu</a></td>
-                </tr>
-              </table>
-            </div>
           </div>
        <?php } ?>
           <!-- end -->

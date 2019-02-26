@@ -76,7 +76,8 @@ class Table_point extends MY_Controller {
             }
             $list_user = $this->users_m->get_list($input);  
             if ($list_user) {
-                foreach ($list_user as $row) {
+                $i = 1;
+                foreach ($list_user as $k => $row) {
                     $input = array();
                     $input['where'] = array('player_id' => $row->id);
                     $list_registration_player = $this->registration_player_m->get_list($input);
@@ -104,10 +105,11 @@ class Table_point extends MY_Controller {
                     $data[] = array(
                         'id'        => $row->id,
                         'name'      => '<a href="'.base_url('chi-tiet-thanh-vien-'.$row->id.'.html').'">'.$row->name.'</a>',
-                        'rank'      => 86253,
+                        'rank'      => $i,
                         'score'     => $row->point_doi ? $row->point_doi : 0,
                         'count'     => $row->number_tournament ? $row->number_tournament : 0,
                     );
+                    $i++;
                 }
             }
         }

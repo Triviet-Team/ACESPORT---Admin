@@ -1,7 +1,6 @@
-
 <div class="intro-home">
 	<div class="intro-home-box">
-		<a class="link-intro" href="tin-tuc.html" title="Nhấp để vào trang"><img
+		<a class="link-intro" href="<?= base_url('tin-tuc.html') ?>" title="Nhấp để vào trang"><img
 			src="<?= base_url('public/site/') ?>img/t.png" />
 			<h1>Tin tức</h1></a>
 		<div class="intro-home-box-detail">
@@ -13,7 +12,7 @@
 		</div>
 	</div>
 	<div class="intro-home-box">
-		<a class="link-intro" href="giai-dau.html" title="Nhấp để vào trang"><img
+		<a class="link-intro" href="<?= base_url('giai-dau.html') ?>" title="Nhấp để vào trang"><img
 			src="<?= base_url('public/site/') ?>img/g.png" />
 			<h1>Giải đấu</h1></a>
 		<div class="intro-home-box-detail">
@@ -25,7 +24,7 @@
 		</div>
 	</div>
 	<div class="intro-home-box">
-		<a class="link-intro" href="bang-diem.html" title="Nhấp để vào trang"><img
+		<a class="link-intro" href="<?= base_url('bang-diem.html') ?>" title="Nhấp để vào trang"><img
 			src="<?= base_url('public/site/') ?>img/b.png" />
 			<h1>Bảng điểm</h1></a>
 		<div class="intro-home-box-detail">

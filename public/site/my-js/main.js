@@ -1,317 +1,4 @@
 
-function contact(url){
-    //console.log(url);
-    var name = $("input[name='name']").val();
-    var email = $("input[name='email']").val();
-    var phone = $("input[name='phone']").val();
-    var title = $("input[name='title']").val();
-    var content = $("textarea[name='content']").val();
-    //console.log(content);
-    $.ajax({
-        url: url, 
-        type: 'POST',
-        dataType: 'json',
-        data:{name: name, email: email, phone: phone, title: title, content: content},
-        success: function(msg){
-            var str = '';
-            if(msg.error){
-                str += '<div style="background: #d6c9be; padding: 15px; color:red; margin-bottom: 15px;">';
-                for(i = 0; i < msg.error.length; i++ ){
-                    str += '<i style="display: block;" >' + msg.error[i] + '</i>';
-                }
-                str += '</div>';
-                $('.messages').html(str);
-            }else{
-                //console.log(msg.success);
-                $('.messages').html('<div style="background: #d6c9be; padding: 15px; color:#028cf1; margin-bottom: 15px;"><i style="display: block;" >' + msg.success + '</i></div>');
-            }
-        }
-});
-}
-function addtocart(id, opption = '') {
-    var qty = '';
-    var require = false;
-    
-    if(opption == 'detail'){
-      qty = $('#qty-detail').val();
-      console.log(qty + 'qty-detail');
-    }
-    
-    if(opption == 'watch-faster'){
-      qty = $('#qty-faster').val();
-      console.log(qty + 'qty-faster');
-    }
-    //jQuery('html, body').animate({scrollTop: 0}, 1000);
-    $.ajax({
-        url: base_url + 'cart/add',
-        type: 'POST',
-        data: {id: id, qty: qty},
-        success: function (data) {
-        	console.log(data + 'data');
-	        if(data != 0){
-		        $("#items").hide().html(data).fadeIn(1000);
-	           	 if(opption == 'watch-faster'){
-	           	     $(".add-success").hide().html('Thêm vào giỏ hàng thành công.').fadeIn(500);
-	           	 }else if(opption == 'detail'){
-	           	      $("#add-success").hide().html('Thêm vào giỏ hàng thành công.').fadeIn(500);
-	           	 }else{
-	         	    Swal({
-	        	        title: 'Thông báo',
-	        	        type: 'success',
-	        	        html: 'Bạn đã thêm vào giỏ thành công',
-	        	        showCloseButton: true,
-	        	        showCancelButton: true,
-	        	        focusConfirm: false,
-	        	        confirmButtonText:
-	        	          '<a href="'+base_url + 'cart' +'">Vào giỏ hàng</a>',
-	        	        cancelButtonText:
-	        	          'Tiếp tục mua sắm',
-	        	      }) 
-	           	 }
-        	}else{
-        	    Swal({
-        	        title: 'Thông báo',
-        	        //type: 'unsuccess',
-        	        html: 'Thêm vào giỏ hàng không thành công',
-        	        showCloseButton: true,
-        	        showCancelButton: true,
-        	        focusConfirm: false,
-        	        confirmButtonText:
-        	          '<a href="cart.php">Vào giỏ hàng</a>',
-        	        cancelButtonText:
-        	          'Tiếp tục mua sắm',
-        	      })
-        	}
-        }
-    });
-
-}
-// xem nhanh
-function watch(id) {		
-//    jQuery('html, body').animate({scrollTop: 0}, 1000);
-    $.ajax({
-        url: base_url + 'product/watch',
-        type: 'POST',
-        data: {id: id},
-        success: function (data) {
-        	//console.log(data);
-        	$("#watch").delay(300).html(data);        	 
-        }
-    });
-
-}
-
-function watchCart(id = 0) {		
-//  jQuery('html, body').animate({scrollTop: 0}, 1000);
-	
-  $.ajax({
-      url: base_url + 'cart/watch_cart/' + id,
-      type: 'POST',
-      datatype:'json',
-      success: function (data) {    	  
-    	  var myObj 	= JSON.parse(data);
-    	  var number 	= myObj.number;
-      	 $("#watch-cart").html(myObj.xhtml);
-      	 $("#items").html(number);
-      }
-  });
-
-}
-
-
-function loadItem(id = '', number = 1, idLoad = '', $opption = null) {
-	if($opption == null){
-		 //$("#" + idLoad).delay(2000).load(base_url + 'product/list_product', {id: id, limit: number},function(data){});
-		 $.ajax({
-		      url: base_url + 'product/list_product',
-		      type: 'POST',
-		      data: {id: id, limit: number},
-		      //datatype:'json',
-		      success: function (data) {    	  
-		    	 //console.log(data);
-		    	 if(data){
-		    		 $("#" + idLoad).delay(2000).html(data); 
-		    	 }
-		      }
-		  });
-	}	  
-}
-$(document).ready(function() {
-	//sort
-	$("#sort").change(function(){
-		$("#form-sort").submit();
-	});
-
-	
-	
-});
-
-
-$(document).ready(function() {
-	// ajax address
-//	$("#province").focus(function(){
-//	    $.ajax({
-//	        url: base_url + 'cart/address',
-//	        type: 'POST',
-//	        data: {type: 'province'},
-//	        success: function (data) {
-//	        	$("#province").html(data);
-//	        }
-//	    });
-//	});
-	// ajax select districts
-	$("#province").change(function(){
-		var province_id = $("#province option:selected").val();
-		if(province_id > 0){
-		    $.ajax({	    	
-		        url: base_url + 'cart/address',
-		        type: 'POST',
-		        data: {type: 'district', province: province_id},
-		        dataType: 'JSON',
-		        success: function (data) {
-		        	var strDistrict = '<option value="0">Chọn Quận/Huyện</option>';
-		        	if(data){
-		        		$.each(data, function(i, value){
-		        			strDistrict += '<option value="'+ value.id +'">'  + ' ' + value.name + '</option>';
-		        		});
-		        		$('#district').html(strDistrict);
-		        	}
-		        }
-		    });
-		}else{
-			$('#district').html('<option value="0">Chọn Quận/Huyện</option>');
-			$('#ward').html('<option value="0">Chọn Xã/Phường</option>');
-		}
-	});
-	// ajax select ward
-	$("#district").change(function(){
-		var district_id = $("#district option:selected").val();
-		//console.log(district_id);
-		if(district_id > 0){
-		    $.ajax({	    	
-		        url: base_url + 'cart/address',
-		        type: 'POST',
-		        data: {type: 'ward', district : district_id},
-		        dataType: 'JSON',
-		        success: function (data) {
-		        	//console.log(data);
-		        	var strWard = '<option value="0">Chọn Xã/Phường</option>';
-		        	if(data){
-		        		$.each(data, function(i, value){
-		        			strWard += '<option value="'+ value.id +'">'  + ' ' + value.name + '</option>';
-		        		});
-		        		$('#ward').html(strWard);
-		        	}
-		        }
-		    });
-		}else{
-			$('#ward').html('<option value="0">Chọn Xã/Phường</option>');
-		}
-	});
-});
-
-$(document).ready(function() {
-    $("#myform").validate({
-	      rules: {
-	    	  user_name: {
-	          required: true,
-	          minlength: 5
-	    	  },
-	          user_email: {
-		          required: true,
-		          email: true
-		        },
-		      user_phone: {
-		          required: true,
-		          minlength: 10
-		        },
-		      province: {
-		          required: true
-		        },
-		      district: {
-		          required: true
-		        },
-		      ward: {
-		          required: true
-		        }
-		        ,
-		      user_address: {
-		          required: true
-		        }
-	        
-	    
-	      },
-	      messages: {
-	    	  user_name: {
-		          required: "Họ tên không được trống",
-		          minlength: "Họ tên có ít nhất có 5 ký tự"
-	        },
-	          user_email: {
-		          required: "Email không được trống",
-		          email	  : "Vui lòng nhập email đúng"
-	        },
-	        user_phone: {
-		          required: "Điện thoại không được trống",
-		          minlength: "Điện thoại có ít nhất có 10 số"
-	        },
-	        province: {
-		          required: "Tỉnh/Thành phố không được trống"
-	        },
-	        district: {
-		          required: "Quận/Huyện không được trống"
-	        },
-	        ward: {
-		          required: "Xã/Phường không được trống"
-	        }
-	        ,
-	        user_address: {
-		          required: "Địa chỉ không được trống"
-	        }
-	      }
-
-    });
-    
-    // xử lý form tìm kiếm
-//    $('.search-btn').click(function() {
-//    	var str = '';
-//    	if(dataSeach){
-//    		$.each(dataSeach, function(index, vale){
-//    			str += '<option value="'+vale.id+'">'+vale.vn_name+'</option>';
-//    			var categorys = vale.categorys;
-//    			if($(categorys).length > 0){
-//    				$.each(categorys, function(i, val){
-//    					str += '<option value="'+val.id+'">&nbsp;&nbsp;&nbsp;'+val.vn_name+'</option>';
-//    				});
-//    			}
-//    		});
-//    		
-//            Swal({
-//                title: 'Tìm kiếm',
-//                type: 'question',
-//                html: '<form id="form-seach" method="post" action="'+base_url + 'tim-kiem.html'+'">' +
-//                  '<input class="form-control mb-1" type="text" name="search" id="search-form" placeholder="Nhập từ khóa">' +
-//                  '<select name="cid" class="form-control">' +
-//                    '<option value="">Chọn danh mục</option>' +
-//                    str +
-//                  '</select>' +
-//                  '</form>',
-//                showCloseButton: true,
-//                showCancelButton: true,
-//                focusConfirm: false,
-//                confirmButtonText:
-//                  '<a id="submitSearch">Tìm kiếm</a>',
-//                cancelButtonText:
-//                  'Trở về',
-//              })
-//    	}
-//
-//   });
-    
-	$("#submitSearch").click(function(){
-		$("#form-seach").submit();
-	});
-
-});
 
 $(document).ready(function() {
 	//check login
@@ -369,16 +56,43 @@ $(document).ready(function() {
 	});
 });
 
-function ajaxComment(data, url, option) {
-	//console.log(data);
-	if(option != '') {
+function ajaxComment(data, url, option, obj = '') {
+	if(option == 'add-message') {
 	    $.ajax({	    	
 	        url: base_url + url,
 	        type: 'POST',
 	        data: data,
-	        //dataType: 'JSON',
+	        dataType: 'JSON',
 	        success: function (data) {
-	        	console.log(data);
+	        	if(data.success == 0) {
+	                $('.box-login').toggleClass('box-login-show');
+	                $('.login-btn span i').toggleClass('mdi-chevron-down mdi-chevron-up');
+	                $('.overlay').toggleClass('overlay-in');
+	                $("#divToUpdate").delay(500).html('Vui lòng đăng nhập để gửi bình luận');
+	        	}
+	        	if(data.content == 0) {
+	        	    Swal({
+	        	      text: "Vui lòng nhập nội dung tin nhắn!",
+	        	    })
+	        	}
+	        }
+	    });
+	}
+	if(option == 'del-message') {
+	    $.ajax({	    	
+	        url: base_url + url,
+	        type: 'POST',
+	        data: data,
+	        dataType: 'JSON',
+	        success: function (result) {
+	        	if(result.del == 1) {
+	        		$('.box-comment-' + data.id_comment).fadeOut(300, function(){ $(this).remove();});
+	        	}
+	        	if(result.del == 0) {
+	        	    Swal({
+		        	      text: "Bạn không có quyền thực hiện hành động này",
+		        	    })
+	        	}
 	        }
 	    });
 	}
@@ -399,11 +113,11 @@ $(document).ready(function() {
 		var commentId = $(this).attr('comment-id');
 		var contentMessageReply = $('.comment-reply-' + commentId + ' .nicEdit-main').html();
 		var dataAdd = {content: contentMessageReply, id_tournament: idTournament, id_comment: commentId, option: 'add-message-reply'};
-		ajaxComment(dataAdd, 'comment/ajax_message', 'add-message-reply');
+		ajaxComment(dataAdd, 'comment/ajax_message', 'add-message');
 	});
 	
     // Enable pusher logging - don't include this in production
-    //Pusher.logToConsole = true;
+    Pusher.logToConsole = true;
     
     var pusher = new Pusher('9665dd394af39ba953c4', {
         cluster: 'ap1',
@@ -415,7 +129,12 @@ $(document).ready(function() {
     	if(data.content != '') {
     		var objCommentArea = $('.comment-area-' + data.tournament_id);
     		if(objCommentArea.length > 0) {
-    			objCommentArea.append(data.content);
+    			console.log(objCommentArea);
+    			objCommentArea.delay(300).prepend(data.content);
+//    			var html = '<div unselectable="on" style="width: 745px;"><div class=" nicEdit-panelContain" unselectable="on" style="overflow: hidden; width: 100%; border: 1px solid rgb(204, 204, 204); background-color: rgb(239, 239, 239);"><div class=" nicEdit-panel" unselectable="on" style="margin: 0px 2px 2px; zoom: 1; overflow: hidden;"><div style="float: left; margin-top: 2px; display: none;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -432px 0px;"></div></div></div></div><div unselectable="on" style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" unselectable="on" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" unselectable="on" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -54px 0px;"></div></div></div></div><div unselectable="on" style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" unselectable="on" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" unselectable="on" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -126px 0px;"></div></div></div></div><div unselectable="on" style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" unselectable="on" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" unselectable="on" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -342px 0px;"></div></div></div></div><div unselectable="on" style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" unselectable="on" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" unselectable="on" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -162px 0px;"></div></div></div></div><div unselectable="on" style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" unselectable="on" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" unselectable="on" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -72px 0px;"></div></div></div></div><div unselectable="on" style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" unselectable="on" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" unselectable="on" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -234px 0px;"></div></div></div></div><div unselectable="on" style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" unselectable="on" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" unselectable="on" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -144px 0px;"></div></div></div></div><div unselectable="on" style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" unselectable="on" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" unselectable="on" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -180px 0px;"></div></div></div></div><div unselectable="on" style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" unselectable="on" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" unselectable="on" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -324px 0px;"></div></div></div></div><div unselectable="on" style="float: left; margin: 2px 1px 0px;"><div class=" nicEdit-selectContain" unselectable="on" style="width: 90px; height: 20px; cursor: pointer; overflow: hidden; opacity: 1;"><div unselectable="on" style="overflow: hidden; zoom: 1; border: 1px solid rgb(204, 204, 204); padding-left: 3px; background-color: rgb(255, 255, 255);"><div class=" nicEdit-selectControl" unselectable="on" style="overflow: hidden; float: right; height: 18px; width: 16px; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -450px 0px;"></div><div class=" nicEdit-selectTxt" unselectable="on" style="overflow: hidden; float: left; width: 66px; height: 14px; margin-top: 1px; font-family: sans-serif; text-align: center; font-size: 12px;">Font&nbsp;Size...</div></div></div></div><div unselectable="on" style="float: left; margin: 2px 1px 0px;"><div class=" nicEdit-selectContain" unselectable="on" style="width: 90px; height: 20px; cursor: pointer; overflow: hidden; opacity: 1;"><div unselectable="on" style="overflow: hidden; zoom: 1; border: 1px solid rgb(204, 204, 204); padding-left: 3px; background-color: rgb(255, 255, 255);"><div class=" nicEdit-selectControl" unselectable="on" style="overflow: hidden; float: right; height: 18px; width: 16px; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -450px 0px;"></div><div class=" nicEdit-selectTxt" unselectable="on" style="overflow: hidden; float: left; width: 66px; height: 14px; margin-top: 1px; font-family: sans-serif; text-align: center; font-size: 12px;">Font&nbsp;Family...</div></div></div></div><div unselectable="on" style="float: left; margin: 2px 1px 0px;"><div class=" nicEdit-selectContain" unselectable="on" style="width: 90px; height: 20px; cursor: pointer; overflow: hidden; opacity: 1;"><div unselectable="on" style="overflow: hidden; zoom: 1; border: 1px solid rgb(204, 204, 204); padding-left: 3px; background-color: rgb(255, 255, 255);"><div class=" nicEdit-selectControl" unselectable="on" style="overflow: hidden; float: right; height: 18px; width: 16px; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -450px 0px;"></div><div class=" nicEdit-selectTxt" unselectable="on" style="overflow: hidden; float: left; width: 66px; height: 14px; margin-top: 1px; font-family: sans-serif; text-align: center; font-size: 12px;">Font&nbsp;Format...</div></div></div></div><div unselectable="on" style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" unselectable="on" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" unselectable="on" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -108px 0px;"></div></div></div></div><div unselectable="on" style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" unselectable="on" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" unselectable="on" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -198px 0px;"></div></div></div></div><div style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -360px 0px;"></div></div></div></div><div style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -468px 0px;"></div></div></div></div><div style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -378px 0px;"></div></div></div></div><div style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -396px 0px;"></div></div></div></div><div style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -36px 0px;"></div></div></div></div><div style="float: left; margin-top: 2px;"><div class=" nicEdit-buttonContain nicEdit-buttonEnabled" style="width: 20px; height: 20px; opacity: 1;"><div class=" nicEdit-button-undefined" style="background-color: rgb(239, 239, 239); border: 1px solid rgb(239, 239, 239);"><div class=" nicEdit-button" unselectable="on" style="width: 18px; height: 18px; overflow: hidden; zoom: 1; cursor: pointer; background-image: url(&quot;http://localhost/project-hao/tenis/tennis/nicEditorIcons.gif&quot;); background-position: -18px 0px;"></div></div></div></div></div></div></div>';
+//    				html += '<div style="width: 431px; border-width: 0px 1px 1px; border-top-style: initial; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: initial; border-right-color: rgb(204, 204, 204); border-bottom-color: rgb(204, 204, 204); border-left-color: rgb(204, 204, 204); border-image: initial; overflow: hidden auto;"><div class=" nicEdit-main " contenteditable="true" style="width: 423px; margin: 4px; min-height: 78px; overflow: hidden;"><br></div></div>';
+//    				console.log(html);
+//    			$('.comment-reply-' + data.comment_id).prepend(html);
     		}
     	}
     });
@@ -424,19 +143,23 @@ $(document).ready(function() {
     	if(data.content != '') {
     		var objCommentArea = $('.comment-area-' + data.tournament_id + ' .sub-comment-' + data.comment_id);
     		if(objCommentArea.length > 0) {    			
-    			objCommentArea.append(data.content).delay( 800 ); 
+    			objCommentArea.delay(300).prepend(data.content);
     		}
     	}
     });
 
     // đăng ký editor nic
-    bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
-//ed.addEvent("blur", function() { alert('test') });
-    $('#btn-send').click(function() {
-        $('.box-login').toggleClass('box-login-show');
-        $('.login-btn span i').toggleClass('mdi-chevron-down mdi-chevron-up');
-        $('.overlay').toggleClass('overlay-in');
-    });
+   new nicEditor({fullPanel : true}).panelInstance('add-mesage');
+    //new nicEditor({fullPanel : true}).panelInstance('add-mesage-1');
+    //bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+
+	$('body').on('click', '.delete-comment', function() {
+		var idTournament = $("#btn-send").attr('id-tournament');
+		var commentId = $(this).attr('comment-id');
+		var dataAdd = {id_tournament: idTournament, id_comment: commentId, option: 'del-message'};
+		ajaxComment(dataAdd, 'comment/del_message', 'del-message', this);
+	});
+
 });
 
 

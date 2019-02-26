@@ -17,7 +17,7 @@ Class MY_Controller extends CI_Controller {
                     break;
                 }
             default: {
-
+                    $this->data['action'] = $this->uri->rsegment(1);
                     $this->load->model('configs_m');
 
                     $where = array('key' => 'general');

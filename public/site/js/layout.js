@@ -84,6 +84,7 @@ $('document').ready(function() {
     $('.box-login').toggleClass('box-login-show');
     $('.login-btn span i').toggleClass('mdi-chevron-down mdi-chevron-up');
     $('.overlay').toggleClass('overlay-in');
+    $("#divToUpdate").html('');
   });
 
   $('.login-close').click(function() {
@@ -146,59 +147,58 @@ $('document').ready(function() {
   // end
 
   // popup delete
-  $(document).on('click', '.delete-comment', function() {
-    let url = $(this).parent().parent().parent();
-
-    Swal({
-      title: 'Bạn chắc chắn chứ?',
-      text: "Xóa sẽ không phục hồi lại được!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Tôi đồng ý, Xóa!',
-      cancelButtonText: 'Hủy bỏ'
-    }).then((result) => {
-      if (result.value) {
-        Swal(
-          'Xóa thành công!',
-          'Bạn đã xóa bình luận thành công.',
-          'success'
-        ).then(function(res) {
-          if (res) {
-            url.empty();
-          }
-        });
-      }
-    })
-  });
-
-  $(document).on('click', '.sub-comment-del', function() {
-    let url = $(this).parent().parent();
-
-    Swal({
-      title: 'Bạn chắc chắn chứ?',
-      text: "Xóa sẽ không phục hồi lại được!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Tôi đồng ý, Xóa!',
-      cancelButtonText: 'Hủy bỏ'
-    }).then((result) => {
-      if (result.value) {
-        Swal(
-          'Xóa thành công!',
-          'Bạn đã xóa bình luận thành công.',
-          'success'
-        ).then(function(res) {
-          if (res) {
-            url.empty();
-          }
-        });
-      }
-    })
-  });
+//  $(document).on('click', '.delete-comment', function() {
+//    let url = $(this).parent().parent().parent();
+//
+//    Swal({
+//      title: 'Bạn chắc chắn chứ?',
+//      text: "Xóa sẽ không phục hồi lại được!",
+//      type: 'warning',
+//      showCancelButton: true,
+//      confirmButtonColor: '#3085d6',
+//      cancelButtonColor: '#d33',
+//      confirmButtonText: 'Tôi đồng ý, Xóa!',
+//      cancelButtonText: 'Hủy bỏ'
+//    }).then((result) => {
+//      if (result.value) {
+//        Swal(
+//          'Xóa thành công!',
+//          'Bạn đã xóa bình luận thành công.',
+//          'success'
+//        ).then(function(res) {
+//          if (res) {
+//            url.empty();
+//          }
+//        });
+//      }
+//    })
+//  });
+//
+//  $(document).on('click', '.sub-comment-del', function() {
+//    let url = $(this).parent().parent();
+//    Swal({
+//      title: 'Bạn chắc chắn chứ?',
+//      text: "Xóa sẽ không phục hồi lại được!",
+//      type: 'warning',
+//      showCancelButton: true,
+//      confirmButtonColor: '#3085d6',
+//      cancelButtonColor: '#d33',
+//      confirmButtonText: 'Tôi đồng ý, Xóa!',
+//      cancelButtonText: 'Hủy bỏ'
+//    }).then((result) => {
+//      if (result.value) {
+//        Swal(
+//          'Xóa thành công!',
+//          'Bạn đã xóa bình luận thành công.',
+//          'success'
+//        ).then(function(res) {
+//          if (res) {
+//            url.empty();
+//          }
+//        });
+//      }
+//    })
+//  });
   // end
 });
 

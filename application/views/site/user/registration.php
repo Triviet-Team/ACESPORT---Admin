@@ -51,6 +51,12 @@
 								<label for="passwordEq_signup"> Nhập lại mật khẩu</label>
 								<div class="error"><?= form_error('re_password') ?></div>
 							</div>
+							<div class="md-form mt-5">
+								<img id="captcha" src="<?= base_url('application/securimage')?>/securimage_show.php" alt="CAPTCHA Image" />
+                                <input type="text" name="captcha_code" size="10" maxlength="6" />
+                                <a href="#" onclick="document.getElementById('captcha').src = '<?= base_url('application/securimage')?>securimage/securimage_show.php?' + Math.random(); return false">[ Different Image ]</a>
+								<div class="error"><?= form_error('re_password') ?></div>
+							</div>
 							<div
 								class="login-submit text-center mb-4 pb-5 border-bottom border-light">
 								<button class="btn btn-indigo" type="submit">Đăng ký</button>

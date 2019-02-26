@@ -2105,4 +2105,26 @@ div.dataTables_wrapper div.dataTables_info {
   }
 }
 
+.error {
+    color: red;
+	font-size: 13px;
+}
+
+.notification {
+    z-index: 1000;
+    background: #e2dede;
+    position: relative;
+    top: 100;
+    top: 244px;
+	display: none;
+}
+
+.notification .tab-content{
+    height: 100px;
+    text-align: center;
+    color: #0007e6;
+    margin-top: 29px;
+    padding-top: 20px;
+}
+
 /*# sourceMappingURL=layout.css.map */

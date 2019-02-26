@@ -89,21 +89,38 @@ class Tournament extends MY_Controller {
         
         $input = array();
         $input['where'] = array('pid' => 0, 'tournament_id' => $objTournament->id);   
-        $input['order'] = array('created', 'ASC');
+        $input['order'] = array('created', 'DESC');
         $listComment = $this->comment_m->get_list($input);
         
         if ($listComment) {
             foreach ($listComment as $row) {
+                $where = array();
+                $where = array('id' => $row->from_id);
+                $objUser = $this->users_m->get_info_rule($where);
+                $row->name = $objUser->name;
+                $row->point = ($objUser->point_doi &&  $objUser->tid == 1) ? $objUser->point_doi : 0;
+                $row->image_link = $objUser->image_link;
+                $row->id_user = $objUser->id;
                 $input = array();
                 $input['where'] = array('pid' => $row->id);
-                $input['order'] = array('created', 'ASC');
+                $input['order'] = array('created', 'DESC');
                 $row->sub_comment = $this->comment_m->get_list($input);
+                foreach ($row->sub_comment as $row_sub) {
+                    $where = array();
+                    $where = array('id' => $row_sub->from_id);
+                    $objUser = $this->users_m->get_info_rule($where);
+                    $row_sub->name = $objUser->name;
+                    $row_sub->image_link = $objUser->image_link;
+                    $row_sub->id_user = $objUser->id;
+                    $row_sub->point = ($objUser->point_doi &&  $objUser->tid == 1) ? $objUser->point_doi : 0;
+                }
+                
             }
             $objTournament->comment = $listComment;
         }
-// echo '<pre>';
-// print_r($objTournament);
-// echo '<pre>';die();
+//         echo '<pre>';
+//         print_r($objTournament);
+//         echo '<pre>';die();
         if ($objTournament) {
             $arr_fixture_id = array();
             $input = array();
@@ -111,6 +128,7 @@ class Tournament extends MY_Controller {
             $obj_tournament_playing_category = $this->tournament_playing_category_m->get_list($input);
             if ($obj_tournament_playing_category) {
                 foreach ($obj_tournament_playing_category as $row) {
+                    $row->slug_tournament = $objTournament->vn_slug;
                     $input = array(
                         'id' => $row->playing_category_id
                     );
@@ -125,6 +143,7 @@ class Tournament extends MY_Controller {
                     for ($i = $n; $i >= 1; $i--) {
                         $input = array();
                         $input['where'] = array('tournament_playing_category_id' => $row->id, 'round' => $i);
+                        $input['order'] = array('id', 'ASC');
                         $obj_fixture = $this->fixture_m->get_list($input);
                         
                         foreach ($obj_fixture as $row_1) {
@@ -176,6 +195,9 @@ class Tournament extends MY_Controller {
                 case 'lich-su-giai-dau':
                     $this->data['dataTournament'] = $list_related;
                     break;
+                case 'nhanh-dau':
+                    $this->data['dataTournament'] = $obj_tournament_playing_category;
+                    break;
                 default:
                     $this->data['dataTournament'] = $objTournament;
             }
@@ -191,203 +213,103 @@ class Tournament extends MY_Controller {
         $this->one_col($this->data);
     }
     
-    public function update($id = 0) {
-        $this->load->model('tournament_type_m');
-        $this->load->model('registration_m');
-        $this->load->model('playing_in_m');    
-        
-        $filter[] = array('name' => '`fixture`.`id`', 'val' => $id);
-        
-        $infoPlayer = $this->fixture_m->getUpdate($filter);
-        
-        foreach ($infoPlayer as $row) {
-            $row->doi_1 = $this->fixture_m->getPlayer($row->code_doi_1);
-            $row->doi_2 = $this->fixture_m->getPlayer($row->code_doi_2);
-        }
-        $this->data['infoPlayer'] = $infoPlayer[0]; 
-        
-//         echo '<pre>';
-//         print_r($this->data['infoPlayer'] );
-//         echo '<pre>';die();
+    public function nhanh_dau($slug = '', $id = 0) {
+        $where = array(
+            'status' => 1,
+            'vn_slug' => $slug
+        );
     
-        if ($this->input->post()) {
-            $set = $this->input->post('set', true);
-            
-            $round = $infoPlayer[0]->round;
-            $tran_dau = pow(2, $round-1);
-            
-            //kiem tra co thuc hien loc du lieu hay khong
-            $filter = array();
-            
-            $tournament_type = $infoPlayer[0]->tournament_type_id;
-            $tournament_type = intval($tournament_type);
-//             if ($tournament_type > 0) {
-//                 $this->data['tournament_type'] = $tournament_type;
-//                 $filter[] = array('name' => '`tournament_type`.`id`', 'val' => $tournament_type);
-//             }
-            
-            $tournament = $infoPlayer[0]->tournament_id;
-            $tournament = intval($tournament);
-            if ($tournament > 0) {
-                $this->data['tournament'] = $tournament;
-                $filter[] = array('name' => '`tournament`.`id`', 'val' => $tournament);
-            }
-            
-            $noi_dung = $infoPlayer[0]->noi_dung_id;
-            $noi_dung = intval($noi_dung);
-            if ($noi_dung > 0) {
-                $this->data['noi_dung'] = $noi_dung;
-                $filter[] = array('name' => '`tournament_playing_category`.`id`', 'val' => $noi_dung);
-            }
-            
-            $listFixture = $this->fixture_m->getList($filter);
-            $arrIdFixture = array();
-            foreach ($listFixture as $row) {
-                $arrIdFixture[] = $row->id;
-            }
-
-            $round = $round;
-            $round = intval($round);
-            if ($round > 0) {
-                $this->data['round'] = $round;
-                $filter[] = array('name' => '`fixture`.`round`', 'val' => $round);
-            }            
-            
-            $game_user_1 = $set[1][0];
-            $game_user_2 = $set[1][1];           
-            
-            $set_score = array(
-                'set_number' => $infoPlayer[0]->set,
-                'first_registration_games' => $set[1][0],
-                'second_registration_games' => $set[1][1]
-            );
-            $this->set_score_m->update($infoPlayer[0]->set_score_id, $set_score);
-            $fixture_result = array(
-                'winner_registration_id' => $set[1][0] > $set[1][1] ? $infoPlayer[0]->code_doi_1 : $infoPlayer[0]->code_doi_2,
-                'number_of_sets_played	' => $infoPlayer[0]->set
-            );
-            $this->fixture_result_m->update($infoPlayer[0]->fixture_result_id, $fixture_result);
-            
-            $numberRound = $this->fixture_m->countNumberRound($filter);
-            
-            $filter[2] = array('name' => '`fixture`.`round`', 'val' => $round - 1);
-            
-            $numberRound_1 = $this->fixture_m->countNumberRound($filter);
-            
-            if ($numberRound_1 <= 0) {
-                if ($numberRound == $tran_dau) {
-                                    $filter[2] = array('name' => '`fixture`.`round`', 'val' => $round);
-                                    $arrFixtureWiner = $this->fixture_m->getFixtureWiner($filter);
-                
-                                    //echo $n = $tran_dau / 2;die();
-                                    $j = 0;
-                                    for ($i = 1; $i <= $tran_dau / 2; $i++) {
-                
-                                        $fixture = array(
-                                            'tournament_playing_category_id' => $noi_dung,
-                                            'first_registration_id' => $arrFixtureWiner[$j]
-                                        );
-                                        unset($arrFixtureWiner[$j]);
-                                        $j++;
-                                        $fixture['second_registration_id'] = $arrFixtureWiner[$j];
-                                        $fixture['round'] = $round - 1;
-                                        unset($arrFixtureWiner[$j]);
-                                        $j++;
-                
-                                        $this->fixture_m->create($fixture);
-                
-                                        $idFixture = $this->db->insert_id();
-                
-                                        if ($idFixture) {
-                                            $set_score = array(
-                                                'fixture_id' => $idFixture,
-                                                'set_number' => 1,
-                                                'first_registration_games' => 0,
-                                                'second_registration_games' => 0
-                                            );
-                                            $this->set_score_m->create($set_score);
-                                            $fixture_result = array(
-                                                'fixture_id' => $idFixture,
-                                                'winner_registration_id' => 0,
-                                                'number_of_sets_played	' => 1
-                                            );
-                                            $this->fixture_result_m->create($fixture_result);
-                                        }
+        $objTournament = $this->tournament_m->get_info_rule($where);
+        $arr_list_cap_dau = array();
+        $arr_list_ti_so = array();
+        if ($objTournament) {
+            $this->data['dataTournament'] = $objTournament;
+            $arr_fixture_id = array();
+            $input = array();
+            $input['where'] = array('id' => $id);
+            $obj_tournament_playing_category = $this->tournament_playing_category_m->get_list($input);
+            if ($obj_tournament_playing_category) {
+                foreach ($obj_tournament_playing_category as $row) {    
+                    $total_member = $row->total_member;
+                    $type_play = $row->type_play;
+                    $cap_dau = ($total_member/(2*$type_play));
+                    $n = $this->fixture_m->getMu($cap_dau) + 1;
+                    $k = 0;
+                    for ($i = $n; $i >= 1; $i--) {
+                        $input = array();
+                        $input['where'] = array('tournament_playing_category_id' => $row->id, 'round' => $i);
+                        $input['order'] = array('id', 'ASC');
+                        $obj_fixture = $this->fixture_m->get_list($input);
+    
+                        foreach ($obj_fixture as $row_1) {
+                            $arr_fixture_id[] = $row_1->first_registration_id;
+                            $arr_fixture_id[] = $row_1->second_registration_id;
+                            $input = array();
+                            $input = array('fixture_id' => $row_1->id);
+                            $obj_set_score = $this->set_score_m->get_info_rule($input);
+                            $row_1->first_registration_games = $obj_set_score->first_registration_games;
+                            $row_1->second_registration_games = $obj_set_score->second_registration_games;
+                            $arr_list_ti_so[$k][] = array((int)$row_1->first_registration_games, (int)$row_1->second_registration_games);
+                            
+                            $row_1->doi_1 = $this->fixture_m->getPlayer($row_1->first_registration_id);
+                            $row_1->doi_2 = $this->fixture_m->getPlayer($row_1->second_registration_id);
+                            if ($i == $n) {
+                                if (count($row_1->doi_1) == 2) {
+                                    $str_name_1 = '';
+                                    foreach ($row_1->doi_1 as $val) {
+                                        $url = '<a href="'.base_url('chi-tiet-thanh-vien-'.$val->id.'.html').'">'.$val->name.'</a>';
+                                        $str_name_1 .= '-' . $url;
+                                       
                                     }
-                
-                    $round = $round - 1;
-                    if ($round > 0) {
-                        $this->session->set_flashdata('message', 'Cập nhật tỉ số trận đấu thành công');
-                        redirect(base_url('admincp/tournament/fixture?tournament_type='.$tournament_type.'&tournament='.$tournament.'&noi_dung='.$noi_dung.'&round='.$round));
-                    }else {
-                        $this->session->set_flashdata('message', 'Tất cả trận đấu trong nội dung đã được cập nhật thành công');
-                        redirect(base_url('admincp/tournament/fixture?tournament_type='.$tournament_type.'&tournament='.$tournament.'&noi_dung='.$noi_dung));
+                                    $str_name_2 = '';
+                                    foreach ($row_1->doi_2 as $val) {
+                                        $url = '<a href="'.base_url('chi-tiet-thanh-vien-'.$val->id.'.html').'">'.$val->name.'</a>';
+                                        $str_name_2 .= '-' . $url;
+                                    }
+                                    $arr_list_cap_dau[] = array(substr($str_name_1, 1), substr($str_name_2, 1));
+                                }
+                                if (count($row_1->doi_1) == 1) {
+                                    $url_1 = '<a href="'.base_url('chi-tiet-thanh-vien-'.$row_1->doi_1[0]->id.'.html').'">'.$row_1->doi_1[0]->name.'</a>';
+                                    $url_2 = '<a href="'.base_url('chi-tiet-thanh-vien-'.$row_1->doi_2[0]->id.'.html').'">'.$row_1->doi_2[0]->name.'</a>';
+                                    $arr_list_cap_dau[] = array($url_1, $url_2);
+                                }
+                            }
+                        }
+    
+                        $nameRound = $this->fixture_m->getNameRound($i);
+                        $row->list_fixture[$nameRound] = $obj_fixture;
+                        if ($arr_fixture_id) {
+                            $input = array();
+                            $input['where_in'] = array('registration_id', $arr_fixture_id);
+                            $obj_registration_player = $this->registration_player_m->get_list($input);
+                            foreach ($obj_registration_player as $row_2) {
+                                $arr_player_id[] = $row_2->player_id;
+                            }
+    
+                            if ($arr_player_id) {
+                                $input = array();
+                                $input['where_in'] = array('id', $arr_player_id);
+                                $input['order'] = array('name', 'ASC');
+                                $list_player = $this->users_m->get_list($input);
+                                $row->list_player = $list_player;
+                            }
+                        }
+                        $k++;
                     }
-                
-                
-                }else {
-                    redirect(base_url('admincp/tournament/fixture?tournament_type='.$tournament_type.'&tournament='.$tournament.'&noi_dung='.$noi_dung.'&round='.$round));
                 }
-            }else {
-                  
-                $fixture_result = array(
-                    'winner_registration_id' => $set[1][0] > $set[1][1] ? $infoPlayer[0]->code_doi_1 : $infoPlayer[0]->code_doi_2,
-                );
-                
-                $where = array(
-                                'winner_registration_id' => $infoPlayer[0]->winner_registration_id   
-                            );
-                $where_in = array();
-                $where_in = array('fixture_id', $arrIdFixture);
-
-                $this->fixture_result_m->update_rule($where, $fixture_result, $where_in);                
-                
-                $fixture = array(
-                    'first_registration_id' => $set[1][0] > $set[1][1] ? $infoPlayer[0]->code_doi_1 : $infoPlayer[0]->code_doi_2
-                );
-                
-
-                
-                $where = array(
-                    'id <>' => $infoPlayer[0]->id,
-                    'first_registration_id' => $infoPlayer[0]->winner_registration_id
-                );
-                
-                $where_in = array('id', $arrIdFixture);
-                
-                $this->fixture_m->update_rule($where, $fixture, $where_in);
-                
-                $fixture = array(
-                    'second_registration_id' => $set[1][0] > $set[1][1] ? $infoPlayer[0]->code_doi_1 : $infoPlayer[0]->code_doi_2
-                );
-                
-                $where = array(
-                    'id <>' => $infoPlayer[0]->id,
-                    'second_registration_id' => $infoPlayer[0]->winner_registration_id
-                );
-                
-                $where_in = array('id', $arrIdFixture);
-                
-                $this->fixture_m->update_rule($where, $fixture, $where_in);
-                  
-                $this->session->set_flashdata('message', 'Cập nhật tỉ số trận đấu thành công');
-                redirect(base_url('admincp/tournament/fixture?tournament_type='.$tournament_type.'&tournament='.$tournament.'&noi_dung='.$noi_dung.'&round='.$round));
-   
             }
-            
-
-
-
+            $this->data['arr_list_ti_so'] = $arr_list_ti_so;
+            $this->data['arr_list_cap_dau'] = $arr_list_cap_dau;
+            $this->data['obj_tournament_playing_category'] = $obj_tournament_playing_category;   
         }
     
-        if($id){
-            $this->data['title'] = 'Cập nhật tỉ số trận đấu';
-        }else{
-            $this->data['title'] = 'Cập nhật tỉ số trận đấu';
-        }
     
-        $this->data['temp'] = 'tournament/fixture/update';
-        $this->load->view('admin/main', $this->data);
+        $this->data['title_site'] = 'Xem nhánh đấu';
+        $this->data['keyword_site'] = 'Xem nhánh đấu';
+        $this->data['description_site'] = 'Xem nhánh đấu'; 
+        $this->load->view('site/tournament/nhanh_dau.php', $this->data);
     }
+    
+
 
 }

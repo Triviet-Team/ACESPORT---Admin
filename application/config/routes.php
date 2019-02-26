@@ -59,7 +59,7 @@ $route['dich-vu/page/(:num)'] = 'service/index/dich-vu/$1';
 
 $route['dich-vu/(:any).html'] = 'service/detail/$1';
 
-#Product
+#Giải đấu
 
  $route['giai-dau.html'] = 'tournament/index';
 
@@ -74,9 +74,8 @@ $route['dich-vu/(:any).html'] = 'service/detail/$1';
 //  $route['danh-muc/(:any)/(:any)/page/(:num)'] = 'product/category/$2';
 
  $route['chi-tiet-giai-dau/(:any).html'] = 'tournament/detail/$1';
- $route['chi-tiet-giai-dau/(:any)/(:any)'] = 'tournament/detail/$1/$2';
- 
- $route['tim-kiem.html'] = 'product/search';
+ $route['chi-tiet-giai-dau/(:any)/(:any)'] = 'tournament/detail/$1/$2'; 
+ $route['xem-nhanh-dau/(:any)/(:any)'] = 'tournament/nhanh_dau/$1/$2'; 
 
 
 #User

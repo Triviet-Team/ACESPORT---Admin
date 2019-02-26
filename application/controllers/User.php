@@ -97,7 +97,7 @@ Class User extends MY_Controller {
         if (!$login) {
             if (!empty($this->input->post())) {               
                 $this->form_validation->set_rules('name', 'Họ tên', 'required|min_length[8]');
-                $this->form_validation->set_rules('username', 'Tên đăng nhập', 'required|callback_check_username');
+                $this->form_validation->set_rules('username', 'Tên đăng nhập', 'required|trim|callback_check_username');
                 $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
                 $this->form_validation->set_rules('re_password', 'Nhập lại password', 'matches[password]');
                 $this->form_validation->set_rules('email', 'Email', 'required|callback_check_email_registration');
