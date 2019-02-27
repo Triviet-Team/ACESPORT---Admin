@@ -7,6 +7,7 @@ include_once (APPPATH . 'pusher/vendor/autoload.php');
 class Comment extends MY_Controller {
     public function __construct(){
         parent::__construct();
+        $this->load->model('history_comment_m');
         $this->load->model('comment_m');
         $this->load->model('users_m');
     }
@@ -34,6 +35,7 @@ class Comment extends MY_Controller {
         }
         echo json_encode($success);
     }
+
     public function ajax_message() {  
         $options = array(
             'cluster' => 'ap1',
@@ -75,11 +77,27 @@ class Comment extends MY_Controller {
                             $input['where'] = array('tournament_id' => $tournament_id, 'from_id <>' => $user_id);
                             $list_comment = $this->comment_m->get_list($input);
                             if ($list_comment) {
+                                $arr_notification = array();
                                 $from_id = $this->comment_m->getId($list_comment, 'from_id');
-                                $data_notification['content'] = json_encode($from_id);
+                                $input = array();
+                                $input['where_in'] = array('id', $from_id);
+                                $listUser = $this->users_m->get_list($input);  
+                                foreach ($listUser as $row) {
+                                    $data = array(
+                                        'id_user' => (int)$row->id,
+                                        'id_comment	' => $comment_id,
+                                    );
+                                    if ($this->history_comment_m->create($data)) {
+                                        $input = array();
+                                        $input['where'] = array('id_user' => $row->id);
+                                        $total_message = $this->history_comment_m->get_total($input);
+                                        $arr_notification[] = array('id' => $row->id, 'total' => $total_message);
+                                    }
+                                }
+                                $data_notification['content'] = json_encode($arr_notification);
                                 $pusher->trigger('notification', 'event-send-notification', $data_notification);
                             }
-                            
+
                             $html = '	<div class="box-comment">
                                 		<div class="box-comment-author text-center">
                                 			<a title="Nhấp để xem hồ sơ" href="chi-tiet-thanh-vien.html"><img

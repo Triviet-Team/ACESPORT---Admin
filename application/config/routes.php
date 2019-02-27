@@ -16,15 +16,14 @@ $route['gioi-thieu.html'] = 'staticpage/index/gioi-thieu';
 
 $route['doi-tac.html'] = 'staticpage/index/doi-tac';
 
-#Đăng nhập đăng ký user
+#user
 $route['login.html'] = 'user/login';
 $route['logout.html'] = 'user/logout';
 $route['user/thong-tin-ca-nhan.html'] = 'user/index';
 $route['user/doi-mat-khau.html'] = 'user/change_password';
 $route['quen-mat-khau.html'] = 'user/forget_password';
 $route['dang-ky-tai-khoan.html'] = 'user/registration';
-
-$route['doi-tac.html'] = 'staticpage/index/doi-tac';
+$route['thong-ke-giai-dau.html'] = 'user/thong_ke';
 
 #Bảng điểm
 $route['chi-tiet-thanh-vien-(:num).html'] = 'table_point/user/$1';

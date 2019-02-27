@@ -495,5 +495,60 @@ Class User extends MY_Controller {
         }
         return true;
     }
+    
+    function thong_ke() {
+        $login = $this->session->userdata('isCheckLogin');
+        $tid = $this->session->userdata('tid');
+        if ($login && $tid == 1) {  
+            $this->load->model('tournament_m');
+            $this->load->model('tournament_category_m', 'category');
+            $this->load->model('tournament_playing_category_m');
+            $this->load->model('playing_category_m');
+            $this->load->model('playing_in_m');
+            $this->load->model('fixture_m');
+            $this->load->model('registration_player_m');
+            $this->load->model('set_score_m');
+            $this->load->model('fixture_result_m');
+            $this->load->model('users_m');
+            $this->load->model('comment_m');
+            
+            $id = $this->session->userdata('id');
+            $where = array('id' => $id, 'status' => 1);
+            $objUser = $this->users_m->get_info_rule($where);
+            
+            if ($objUser) {
+                
+                $input = array();
+                $input['where'] = array('status' => 1, 'tid' => 1);
+                $input['order'] = array('point_doi', 'DESC');
+                $list_user = $this->users_m->get_list($input);
+                foreach ($list_user as $k => $row) {
+                    if ($row->id == $id) {
+                        $objUser->hang = $k + 1;
+                    }
+                } 
+
+                print_r($objUser);
+                echo "</pre>";die();
+                $this->data['objUser'] = $objUser;
+            }
+        }else {
+            $this->session->set_flashdata('message', '<p>Bạn chưa chưa có tài khoản. Vui lòng đăng ký tại <a>đây</a></p>');
+            redirect(base_url() . 'user/message');
+        }
+
+        $breadcrumb[] = array(
+            'url' => "",
+            'name' => 'Thống kê giải đấu',
+        );
+        
+        $this->data['breadcrumb'] = $breadcrumb;
+        
+        $this->data['title_site'] = 'Thống kê giải đấu';
+        $this->data['keyword_site'] = 'Thống kê giải đấu';
+        $this->data['description_site'] = 'Thống kê giải đấu';
+        $this->data['temp'] = 'user/thong_ke';
+        $this->one_col($this->data);
+    }
 
 }

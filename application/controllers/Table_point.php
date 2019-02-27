@@ -125,10 +125,6 @@ class Table_point extends MY_Controller {
         
         if ($objUser) {
             $this->data['objUser'] = $objUser;
-            
-            $input['where']['status'] = 1;            
-            $this->data['list_tournament'] = $this->tournament_m->get_list($input);            
-            
             $breadcrumb[] = array(
                 'url' => "",
                 'name' => $objUser->name  ? $objUser->name : 'Chi tiết thành viên',

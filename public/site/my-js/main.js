@@ -155,9 +155,9 @@ $(document).ready(function() {
     		var idUser = $('body').attr('id-user');
     		idUser = parseInt(idUser);
     		var arrId = JSON.parse(data.content);
-    		for (var i of arrId) {
-    			if(parseInt(i) == idUser) {
-    				$('.thong-bao-dkm').html('ok');
+    		for (var val of arrId) {
+    			if(parseInt(val.id) == idUser) {
+    				$('.thong-bao-dkm').html(val.total);
     			}
     		}
     	}    	
