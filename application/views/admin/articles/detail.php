@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
+                <!--<div class="form-group row">
                     <label class="col-sm-2 col-form-label">Cấu Hình</label>
                     <div class="col-sm-10">
                         <div class="custom-control custom-checkbox">
@@ -59,7 +59,7 @@
                             <label class="custom-control-label" for="is_home">Hiên thị trang chủ</label>
                         </div>
                     </div>
-                </div>
+                </div>  -->
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Keyword</label>

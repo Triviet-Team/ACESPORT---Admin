@@ -134,7 +134,7 @@
             </div>
         </div>
 
-        <div class="widgets">
+        <!--<div class="widgets">
             <div class="widgetsTitle">
                 <button type="button" data-toggle="collapse" data-target="#collapseFine" aria-expanded="true" aria-controls="collapseOne">
                     <img src="<?= base_url() ?>public/admin/img/icon/quan-li-trang-tinh.png" alt=""/>
@@ -162,7 +162,7 @@
             </div>
         </div>
 
-    	<!--<div class="widgets">
+    	<div class="widgets">
                 <div class="widgetsTitle">
                     <button type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseOne">
                         <img src="<?= base_url() ?>public/admin/img/icon/quan-li-lien-he.png" alt="">

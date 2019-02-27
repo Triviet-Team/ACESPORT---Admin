@@ -365,6 +365,7 @@ Class Fixture_m extends MY_Model {
     }
     
     public function getInfoTable($id) {
+            $id = $id > 0 ? $id : 0;
             $query = "SELECT
             `tournament_playing_category`.`id` AS `id`,
             `playing_category`.`vn_name` AS `vn_name`
@@ -373,9 +374,10 @@ Class Fixture_m extends MY_Model {
         
             WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
             AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
-            AND `tournament`.`id` = $id";
+            AND `tournament`.`id` = '$id'";
         
             $result = $this->db->query($query);
+
             if ($result) {
                 return $result->result();
             }else {

@@ -274,7 +274,7 @@ class Articles_category extends MY_Controller {
                     //Check xem danh muc co san pham k
                     if ($check_articles_all) {
                         //Xóa toàn bộ sản phẩm của danh mục đó xong xóa danh mục
-                        $input = 'cid in (' . $id . ')';
+                        $input = 'cid in (' . $array_id . ')';
                         if ($this->articles_m->update_rule($input, array('status' => 3))) {
                             if ($this->category->update_rule($where_in, array('status' => 3))) {
                                 $msg = 'Xóa thành công tất danh mục và sản phẩm của tất cả danh mục đó';

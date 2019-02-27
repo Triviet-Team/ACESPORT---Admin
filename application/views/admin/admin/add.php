@@ -4,7 +4,7 @@
             <?= $title ?>
         </div>
         <div class="form-mid">
-            <form method="POST" action="" id="frmSubmit">
+            <form method="POST" action="" id="frmSubmit" enctype="multipart/form-data">
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Trạng Thái</label>
                     <div class="col-sm-10">
@@ -19,7 +19,7 @@
                <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Giới tính</label>
                     <div class="col-sm-10">
-                        <select class="custom-select" name="tid">
+                        <select class="custom-select" name="sex">
                         	<option value="2" <?= (isset($filter['tid']) && $filter['tid'] == 3) ? 'selected' : '' ?>>Chưa xác định</option>
                             <option value="1" <?= (isset($filter['tid']) && $filter['tid'] == 1) ? 'selected' : '' ?>>Nam</option>
                             <option value="0" <?= (isset($filter['tid']) && $filter['tid'] == 2) ? 'selected' : '' ?>>Nữ</option>                            
@@ -71,6 +71,13 @@
                         </select>
                     </div>
                 </div>
+                
+               <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Điểm</label>
+                    <div class="col-sm-10">
+                        <input type="number" name="point_doi" class="form-control" placeholder="Nhập điểm của thành viên"  value="<?= isset($filter['point_doi']) ? $filter['point_doi'] : ''?>">
+                    </div>
+                </div>
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Email</label>
@@ -105,6 +112,23 @@
                     <label class="col-sm-2 col-form-label">Địa chỉ</label>
                     <div class="col-sm-10">
                         <input type="text" name="address" class="form-control" placeholder="Địa chỉ" value="<?= isset($filter['address']) ? $filter['address'] : ''?>">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Hình Ảnh</label>
+                    <div class="col-sm-10">
+                        <div class="custom-file">
+                            <input type="file" name="image_link" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label">Chọn File</label>
+                        </div>
+
+                        <div class="showFile">
+                            <?php if (!isset($info->image_link)) { ?>
+                                <img id="profile-img-tag" src="<?= base_url() ?>public/admin/img/no-img.png" alt="No-Img">
+                            <?php } else { ?>
+                                <img id="profile-img-tag" src="<?= base_url('uploads/images/ads/' . $info->image_link) ?>" alt="No-Img">
+                            <?php } ?>
+                        </div>
                     </div>
                 </div>
 

@@ -74,9 +74,6 @@ $('document').ready(function() {
     });
   }
 
-  if (ww < 575) {
-    $('.link-intro').removeAttr('href');
-  }
   // end
 
   // Khi chưa đăng nhập

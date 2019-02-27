@@ -93,6 +93,7 @@
                             <th scope="col" style="width: 130px;">Điểm</th>
                             <th scope="col" style="width: 83px;">Trạng thái</th>
                             <th scope="col" style="width: 83px;">Ngày tạo</th>
+                            <th scope="col" style="width: 110px;">Tạo bởi</th>
                             <th scope="col" style="width: 137px;">Hành động</th>
                         </tr>
                     </thead>
@@ -124,8 +125,9 @@
                                     <img src="<?= base_url() ?>public/admin/img/icon/action_<?= $row->status ?>.png" alt="Xóa"/>
                                 </td>
                                 <td class="text-center"><?= $row->created ? date('d/m/Y', $row->created) : '' ?></td>
+                                <td class="text-center"><?= $row->created_by == 1 ? 'Thành viên' : 'Quản trị viên' ?></td>
                                 <td class="button_action text-center">
-                                    <a href="<?= base_url('admincp/admin/edit/' . $row->id) ?>" class="edit_item" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa"></a>
+                                    <a href="<?= base_url('admincp/admin/edit_user/' . $row->id) ?>" class="edit_item" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa"></a>
                                     <a href="javascript:(0)" onclick="action_item(<?= $row->id ?>, 'enable', '<?= base_url('admincp/admin/config') ?>')" class="enable_item" data-toggle="tooltip" data-placement="top" title="Hiển thị"></a>
                                     <a href="javascript:(0)" onclick="action_item(<?= $row->id ?>, 'disable', '<?= base_url('admincp/admin/config') ?>')" class="disable_item" data-toggle="tooltip" data-placement="top" title="Khóa tài khoản"></a>
                                     <a href="javascript:(0)" onclick="action_item(<?= $row->id ?>, 'del', '<?= base_url('admincp/admin/config') ?>')" class="menu_item_delete" data-toggle="tooltip" data-placement="top" title="Xóa"></a>

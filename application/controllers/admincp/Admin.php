@@ -24,7 +24,7 @@ Class Admin extends MY_Controller {
         if($tid){
             $input['where']['tid']   = $tid;
         }
-
+        
         $name = $this->input->get('name');
         $data['name']       = $name;
         if($name){
@@ -154,14 +154,28 @@ Class Admin extends MY_Controller {
             $data['address']    = $this->input->post('address');
 
             $this->data['filter'] =  $data;
-            
-            $this->form_validation->set_rules('name', 'Họ tên', 'required|min_length[8]');
             $this->form_validation->set_rules('username', 'Username', 'required|callback_check_username');
             $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
             $this->form_validation->set_rules('re_password', 'Nhập lại password', 'matches[password]');
-            $this->form_validation->set_rules('phone', 'Điện thoại', 'numeric');
 
             if($this->form_validation->run()){
+             #Tạo folder upload theo ngày truoc khi upload
+                $upload_path = 'uploads/images/user/';
+
+                $upload_data = $this->system_library->upload($upload_path, 'image_link');
+
+                $image_link = '';
+
+                $cid = $this->input->post('cid', true);
+
+                if ($upload_data != NULL) {
+                    
+                    $image_link = $upload_data;
+                    $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '200_200/' . $image_link, 400, 400);
+                    @unlink($upload_path . $image_link);
+                    
+                }
+                
                 $tid = $this->input->post('tid', true);
                 $data = array(
                     'status' => $this->input->post('status', true),
@@ -170,12 +184,15 @@ Class Admin extends MY_Controller {
                     'password' => md5($this->input->post('password', true)),
                     'sex' => $this->input->post('sex', true),
                     'tid' => $tid,
+                    'point_doi' => $this->input->post('point_doi', true),
+                    'image_link' => $image_link,
                     'email' => $this->input->post('email', true),
                     'phone' => $this->input->post('phone', true),
                     'address' => $this->input->post('address', true),
                     'birthday' => strtotime($this->input->post('birthday', true)),
                     'organization' => $this->input->post('organization', true),
                     'created' => now(),
+                    'created_by' => $this->session->userdata('tid')
                 );
 
                 if($this->users_m->create($data)){
@@ -183,6 +200,7 @@ Class Admin extends MY_Controller {
                 }else{
                     $this->session->set_flashdata('message', 'Tạo tài khoản thất bại');
                 }
+                $tid = (int)$tid;
                 if ($tid == 1) {
                     redirect(base_url() . 'admincp/admin/user');
                 }else {
@@ -194,6 +212,97 @@ Class Admin extends MY_Controller {
         $this->data['title'] = 'Thêm tài khoản';
         $this->data['temp'] = 'admin/add';
         $this->load->view('admin/main', $this->data);
+     }
+     
+     public function edit_user() {
+         $id = $this->uri->rsegment('3');
+         $id = intval($id);
+         
+         $info = $this->users_m->get_info($id);
+         
+         if ($info->tid == 1) {
+             $this->data['info_users'] = $info;
+         }else {
+             $this->session->set_flashdata('message', 'Tài khoản không tồn tại');
+             redirect(base_url() . 'admincp/admin/user');
+         }     
+              
+         if(!empty($this->input->post())){
+             #Tạo folder upload theo ngày truoc khi upload
+             $upload_path = 'uploads/images/user/';
+             
+             $upload_data = $this->system_library->upload($upload_path, 'image_link');
+             
+             $image_link = '';
+             
+             if ($upload_data != NULL && !isset($info->image_link)) {             
+                 $image_link = $upload_data;
+                 $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '200_200/' . $image_link, 400, 400);
+                 @unlink($upload_path . $image_link);
+             
+             } elseif (
+                 $upload_data != NULL && $info->image_link) {             
+                 $image_link = $upload_data;
+                 @unlink($upload_path . '200_200/' . $info->image_link);
+                 $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '200_200/' . $image_link, 400, 400);
+                 @unlink($upload_path . $image_link);
+             
+             } else {
+                 $image_link = $info->image_link;
+             }
+             $password = $this->input->post('password', true);
+             if ($password) {
+                 $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
+                 $this->form_validation->set_rules('re_password', 'Nhập lại password', 'matches[password]');
+                 if($this->form_validation->run()){
+                     $data = array(
+                         'status' => $this->input->post('status', true),
+                         'name' => $this->input->post('name', true),
+                         'password' => md5($this->input->post('password', true)),
+                         'sex' => $this->input->post('sex', true),
+                         'tid' => $this->input->post('tid', true),
+                         'point_doi' => $this->input->post('point_doi', true),
+                         'image_link' => $image_link,
+                         'email' => $this->input->post('email', true),
+                         'phone' => $this->input->post('phone', true),
+                         'address' => $this->input->post('address', true),
+                         'birthday' => strtotime($this->input->post('birthday', true)),
+                         'organization' => $this->input->post('organization', true),
+                     );
+                      
+                     if($this->users_m->update($id, $data)){
+                         $this->session->set_flashdata('message', 'Cập nhật tài khoản thành công');
+                     }else{
+                         $this->session->set_flashdata('message', 'Cập nhật tài khoản thất bại');
+                     }
+                     redirect(base_url() . 'admincp/admin/user');
+                 }
+             }else {
+                 $data = array(
+                     'status' => $this->input->post('status', true),
+                     'name' => $this->input->post('name', true),
+                     'sex' => $this->input->post('sex', true),
+                     'tid' => $this->input->post('tid', true),
+                     'point_doi' => $this->input->post('point_doi', true),
+                     'image_link' => $image_link,
+                     'email' => $this->input->post('email', true),
+                     'phone' => $this->input->post('phone', true),
+                     'address' => $this->input->post('address', true),
+                     'birthday' => strtotime($this->input->post('birthday', true)),
+                     'organization' => $this->input->post('organization', true),
+                 );
+                 if($this->users_m->update($id, $data)){
+                     $this->session->set_flashdata('message', 'Cập nhật tài khoản thành công');
+                 }else{
+                     $this->session->set_flashdata('message', 'Cập nhật tài khoản thất bại');
+                 }
+                 redirect(base_url() . 'admincp/admin/user');
+             }             
+         }
+     
+         $this->data['title'] = 'Chỉnh sửa tài khoản';
+         $this->data['temp'] = 'admin/edit_user';
+         $this->load->view('admin/main', $this->data);
      }
 
     public function edit() {

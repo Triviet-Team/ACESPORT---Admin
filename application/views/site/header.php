@@ -29,6 +29,7 @@
                           }
                ?>
                       	<?php if ($tid > 1) {?>
+                      		<i class="thong-bao-dkm" style="color: #fff;">10</i>
                       		<div class="login-complete-btn"><span><img class="img-circle d-inline block" src="<?= $link_img ?>" /> <?= $info_user->name ?><i class="mdi mdi-chevron-down"></i></span></div>
                       	<?php }else {?>
                       		<i class="thong-bao-dkm" style="color: #fff;">10</i>

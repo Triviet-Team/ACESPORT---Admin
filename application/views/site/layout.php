@@ -45,7 +45,7 @@
 
 
 </head>
-<body>
+<body id-user="<?= $this->session->userdata('id') ? $this->session->userdata('id') : 0 ?>">
 	<?php if ($action == 'home') {?>
 		<?php $this->load->view('site/' . $temp)?>
 	<?php }else { ?>

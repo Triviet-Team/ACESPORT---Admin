@@ -66,6 +66,7 @@ class Table_point extends MY_Controller {
             $type = $_GET['type'];
             $input = array();
             $input['where'] = array('status' => 1, 'tid' => 1);
+            $input['order'] = array('point_doi', 'DESC');
             switch ($type) {
                 case 'nam':
                     $input['where'] = array('sex' => 1);
@@ -79,7 +80,7 @@ class Table_point extends MY_Controller {
                 $i = 1;
                 foreach ($list_user as $k => $row) {
                     $input = array();
-                    $input['where'] = array('player_id' => $row->id);
+                    $input['where'] = array('player_id' => $row->id);                    
                     $list_registration_player = $this->registration_player_m->get_list($input);
                     if ($list_registration_player) {
                         $arr_registration = $this->users_m->getId($list_registration_player, 'registration_id');

@@ -51,7 +51,7 @@ class Tournament extends MY_Controller {
         $config['base_url'] = base_url('admincp/tournament/tournament');
         $config['suffix'] = '?' . http_build_query($getData, '', "&amp;");
         $config['first_url'] = $config['base_url'] . '?' . http_build_query($getData, '', "&amp;");
-        $config['per_page'] = 5; //so luong san pham hien thi tren 1 trang
+        $config['per_page'] = 20; //so luong san pham hien thi tren 1 trang
         $config['num_links'] = 2;
 
         $config = array_merge($config, $this->system_library->pagination());
@@ -116,11 +116,6 @@ class Tournament extends MY_Controller {
         
         $catalogs = $this->tournament_type_m->get_list($input);
 
-//         foreach ($catalogs as $row) {
-//             $input['where'] = array('pid' => $row->id, 'status' => 1);
-//             $subs = $this->tournament_m->get_list($input);
-//             $row->subs = $subs;
-//         }
         $this->data['catalogs'] = $catalogs;
         if($id){
             $info = $this->tournament_m->get_info($id);
@@ -139,10 +134,6 @@ class Tournament extends MY_Controller {
         $this->data['arrPid'] = $arrPid;
         
         if ($this->input->post()) {
-            
-//             echo '<pre>';
-//             print_r($_POST);
-//             echo '<pre>';die();
 
             $this->form_validation->set_rules('vn_name', 'Tên sản phẩm', 'required');
 
@@ -151,65 +142,6 @@ class Tournament extends MY_Controller {
             $this->form_validation->set_rules('end_date', 'Ngày bắt kết thúc', 'required');
 
             if ($this->form_validation->run()) {
-
-                #Tạo folder upload theo ngày truoc khi upload
-                $upload_path = 'uploads/images/product/';
-
-                $upload_data = $this->system_library->upload($upload_path, 'image_link');
-
-                $image_link = '';
-
-                //Xử lý hình ảnh của sản phẩm và sản phẩm kèm theo
-                if ($upload_data != NULL && !isset($info->image_link)) {
-                    $image_link = $upload_data;
-                    $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '421_561/' . $image_link, 507, 676);
-                    $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '400_400/' . $image_link, 800, 1067);
-                    @unlink($upload_path . $image_link);
-                } elseif ($upload_data != NULL && $info->image_link) {
-                    $image_link = $upload_data;
-                    @unlink($upload_path . '400_400/' . $info->image_link);
-                    @unlink($upload_path . '421_561/' . $info->image_link);
-                    $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '421_561/' . $image_link, 507, 676);
-                    $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '400_400/' . $image_link, 800, 1067);
-                    @unlink($upload_path . $image_link);
-                } else {
-                    $image_link = $info->image_link;
-                }
-                
-                //upload cac anh kem theo
-                $image_list = array();
-                $image_list = $this->system_library->upload_file($upload_path, 'image_list');
-                
-                if ($image_list != NULL && !isset($info->image_list)) {
-                
-                    foreach ($image_list as $img) {
-                        //$this->system_library->resize_image('crop', $upload_path . $img, $upload_path . '421_561/' . $img, 507, 676);
-                        $this->system_library->resize_image('crop', $upload_path . $img, $upload_path . '400_400/' . $img, 800, 1067);
-                
-                        @unlink($upload_path . $img);
-                    }
-                
-                    $image_list = json_encode($image_list);
-                } elseif ($image_list != NULL && $info->image_list) {
-                
-                    $image = json_decode($info->image_list);
-                    foreach ($image as $img) {
-                        //@unlink($upload_path . '421_561/' . $img);
-                        @unlink($upload_path . '400_400/' . $img);
-                        @unlink($upload_path . $img);
-                    }
-                
-                    foreach ($image_list as $img) {
-                        //$this->system_library->resize_image('crop', $upload_path . $img, $upload_path . '421_561/' . $img, 507, 676);
-                        $this->system_library->resize_image('crop', $upload_path . $img, $upload_path . '400_400/' . $img, 800, 1067);
-                        @unlink($upload_path . $img);
-                    }
-                
-                    $image_list = json_encode($image_list);
-                } else {
-                    $image_list = $info->image_list;
-                }
-                
                 //Kết thúc xử lý hình ảnh
                 $slug = $this->input->post('vn_slug', true);
                 $i = 0;
@@ -229,21 +161,10 @@ class Tournament extends MY_Controller {
                     'vn_keyword' => $this->input->post('vn_keyword', true),
                     'vn_title' => $this->input->post('vn_title', true),
                     'vn_description' => $this->input->post('vn_description', true),
-                    //'price' => $price,
-                    //'sale_price' => $sale_price,
-                    //'code' => $this->input->post('code', true),
                     'vn_sapo' => $this->input->post('vn_sapo', true),
                     'vn_detail' => $this->input->post('vn_detail', true),
-                    'image_link' => $image_link,
-                    'image_list' => $image_list,
                     'start_date' => strtotime($this->input->post('start_date', true)),
                     'end_date' => strtotime($this->input->post('end_date', true)),
-                    //'is_home' => $this->input->post('is_home', true),
-                    //'is_pay' => $this->input->post('is_pay', true),
-                    //'is_new' => $this->input->post('is_new', true),
-                    //'is_like' => $this->input->post('is_like', true),
-                    //'is_special' => $this->input->post('is_special', true),
-                    //'is_hight' => $this->input->post('is_hight', true),
                     'status' => $this->input->post('status', true),
                     'created' => now(),
                 );

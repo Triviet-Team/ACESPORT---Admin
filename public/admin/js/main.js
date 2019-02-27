@@ -84,7 +84,7 @@ function action_item_all(key, url) {
         type: 'POST',
         data: {'ids': ids, key: key},
         dataType: 'JSON',
-        success: function (data) {        			
+        success: function (data) {   
             $('.messages').html('<div class="alert alert-success" role="alert">' + data.msg + '</div>');
             if (data.success) {
                 $(ids).each(function (id, val) {
@@ -234,15 +234,14 @@ $(document).ready(function () {
 	var activeTournament = $("#tournament").attr('tournament');
 	var activeNoiDung = $("#noi_dung").attr('noi_dung');
 	var activeRound = $("#round").attr('round');
-	
-	if(tournament_type != 0) {
+	if(tournament_type != 0 && tournament_type != undefined) {
 		getInfo({tournament_type: tournament_type, type: 'tournament_type'}, '#tournament', 'Chọn giải đấu', activeTournament);
 		tournament = $("#tournament option:selected").val();
 	}
 	
-	if(activeTournament != 0) {
+	if(activeTournament != 0 && activeTournament != undefined) {
 		getInfo({tournament: activeTournament, type: 'tournament'}, '#noi_dung', 'Chọn nội dung', activeNoiDung);
-		 $.ajax({
+		$.ajax({
 		        url: url + 'admincp/tournament/fixture/getInfo',
 		        type: 'POST',
 		        data: {noi_dung: activeNoiDung, type: 'noi_dung', active: activeRound},
@@ -250,7 +249,7 @@ $(document).ready(function () {
 		        success: function (result) {
 		        	$('#round').html(result.content);
 		        }
-		    });
+		 });
 	}
 
 	

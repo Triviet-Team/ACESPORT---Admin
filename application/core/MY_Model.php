@@ -43,7 +43,6 @@ class MY_Model extends CI_Model {
         $where = array();
         $where[$this->key] = $id;
         $this->update_rule($where, $data);
-
         return TRUE;
     }
 
@@ -142,6 +141,12 @@ class MY_Model extends CI_Model {
 
         $where = array();
         $where[$this->key] = $id;
+        
+        $this->get_info_rule($where, $field);
+        
+//         echo '<pre>';
+//         print_r($this->db->last_query());
+//         echo '<pre>';die();
 
         return $this->get_info_rule($where, $field);
     }
@@ -151,11 +156,14 @@ class MY_Model extends CI_Model {
      * $where: Mảng điều kiện
      * $field: Cột muốn lấy dữ liệu
      */
-    function get_info_rule($where = array(), $field = '') {
+    function get_info_rule($where = array(), $field = '', $where_or = '') {
         if ($field) {
             $this->db->select($field);
         }
         $this->db->where($where);
+        if ($where_or) {
+            $this->db->or_where($where_or);
+        }
         $query = $this->db->get($this->table);
         if ($query->num_rows()) {
             return $query->row();

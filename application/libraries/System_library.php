@@ -9,41 +9,6 @@ class System_library {
     function __construct() {
         $this->CI = & get_instance();
     }
-
-    function send_email($to, $subject, $body) {
-
-        $this->CI->load->library('email');
-        //SMTP & mail configuration
-        $config = array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'smtp.gmail.com',
-            'smtp_port' => 465,
-            'smtp_user' => 'vuvanhao122995@gmail.com',
-            'smtp_pass' => '@96689@@64',
-            'mailtype' => 'html',
-            'charset' => 'utf-8'
-        );
-        $this->CI->email->initialize($config);
-        $this->CI->email->set_mailtype("html");
-        $this->CI->email->set_newline("\r\n");
-
-        $this->CI->email->to($to);
-        $this->CI->email->from('vuvanhao122995@gmail.com', 'ACE corp');
-        $this->CI->email->subject($subject);
-        $this->CI->email->message($body);
-
-        //Send email
-
-        $this->CI->email->send();
-
-       if($this->CI->email->send()){
-           echo 'Gửi email thành công'; exit;
-       }else{
-           echo $this->CI->email->print_debugger();
-           echo 'Gửi email thất bại'; exit;
-       }
-    }
-
     function pagination() {
 
         $config['enable_query_strings'] = TRUE;
@@ -98,7 +63,6 @@ class System_library {
     function upload($upload_path = '', $file_upload = '') {
 
         $files = $_FILES[$file_upload];
-
         if ($files['tmp_name']) {
 
             $file_name = time() . '_' . addslashes($this->filterName($files['name'], '_'));

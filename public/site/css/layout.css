@@ -1,5 +1,23 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css?family=Montserrat");
+@font-face {
+  font-family: "SF Display";
+  font-weight: 500;
+  src: url("https://sf.abarba.me/SF-UI-Display-Medium.otf");
+}
+
+/** Regular */
+@font-face {
+  font-family: "SF Display";
+  font-weight: 400;
+  src: url("https://sf.abarba.me/SF-UI-Display-Regular.otf");
+}
+
+/** Semibold */
+@font-face {
+  font-family: "SF Display";
+  font-weight: 600;
+  src: url("https://sf.abarba.me/SF-UI-Display-Semibold.otf");
+}
 * {
   padding: 0;
   margin: 0;
@@ -13,10 +31,10 @@ html {
 }
 
 body {
-  background-image: url("../img/bg-body.jpeg");
+  background-image: url("../img/body-bg.png");
   background-attachment: fixed;
   background-size: cover;
-  font-family: "Montserrat";
+  font-family: "SF Display";
   margin: 0;
   margin-right: 15px;
   overflow-x: hidden;
@@ -183,13 +201,13 @@ article {
   grid-template-columns: 1fr 1fr 1fr;
 }
 .intro-home.intro0 {
-  background-image: url("../img/home-1.jpeg");
-}
-.intro-home.intro1 {
   background-image: url("../img/home-2.jpeg");
 }
+.intro-home.intro1 {
+  background-image: url("../img/dat-nen.png");
+}
 .intro-home.intro2 {
-  background-image: url("../img/home-3.jpeg");
+  background-image: url("../img/san-co.png");
 }
 .intro-home.intro3 {
   background-image: url("../img/home-4.jpeg");
@@ -751,7 +769,7 @@ article {
   margin-bottom: 10px;
 }
 .box-tour-content h4 a {
-  font-weight: bold;
+  font-weight: 500;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -825,8 +843,8 @@ article {
   background: #f4f4f4;
 }
 .score-board table.table-bordered.dataTable tbody tr td {
-  font-weight: 500;
-  padding: 0.5rem;
+  font-weight: 400;
+  padding: 0.4rem;
 }
 .score-board table.table-bordered.dataTable tbody tr td a {
   transition: none;
@@ -1624,8 +1642,9 @@ div.jQBracket .bracket {
 
 .left .box-left {
   margin-bottom: 20px;
-  background: white;
+  background: #383838;
   padding-bottom: 10px;
+  
 }
 .left .box-left ul {
   padding: 15px;
@@ -1636,7 +1655,7 @@ div.jQBracket .bracket {
   width: 5px;
 }
 .left .box-left ul::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #666;
 }
 .left .box-left ul::-webkit-scrollbar-thumb {
   background: #888;
@@ -1654,13 +1673,13 @@ div.jQBracket .bracket {
   -webkit-box-orient: vertical;
   transition: 0.5s;
   font-size: 13px;
-  color: black;
+  color: white;
 }
 .left .box-left ul li a i {
   margin-right: 10px;
 }
 .left .box-left ul li a:hover {
-  color: #055699;
+  color: #379ff5;
   padding-left: 2px;
 }
 .left .title-left {

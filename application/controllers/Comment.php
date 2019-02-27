@@ -71,6 +71,15 @@ class Comment extends MY_Controller {
                         }
                         if ($this->comment_m->create($data)) {
                             $comment_id = $this->db->insert_id();
+                            $input = array();
+                            $input['where'] = array('tournament_id' => $tournament_id, 'from_id <>' => $user_id);
+                            $list_comment = $this->comment_m->get_list($input);
+                            if ($list_comment) {
+                                $from_id = $this->comment_m->getId($list_comment, 'from_id');
+                                $data_notification['content'] = json_encode($from_id);
+                                $pusher->trigger('notification', 'event-send-notification', $data_notification);
+                            }
+                            
                             $html = '	<div class="box-comment">
                                 		<div class="box-comment-author text-center">
                                 			<a title="Nhấp để xem hồ sơ" href="chi-tiet-thanh-vien.html"><img

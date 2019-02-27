@@ -364,7 +364,7 @@ Class User extends MY_Controller {
     
     public function login() {
        if ($this->input->post()) {
-           $data = array();
+            $data = array();
             $this->form_validation->set_rules('username', 'Username', 'required');
             $this->form_validation->set_rules('password', 'Password', 'required');
             if ($this->form_validation->run() == FALSE) {
@@ -375,15 +375,23 @@ Class User extends MY_Controller {
                 $password = $this->input->post('password');
                 $password = md5($password);
 
-                $this->load->model('users_m');
-                $where = array(
-                    'tid >=' => 1,
-                    'username' => $username,
-                    'password' => $password,
-                    'status' => 1
-                );
-
-                $info = $this->users_m->get_info_rule($where);
+                $db = $this->load->model('users_m');
+                $qr = "SELECT * FROM `users` 
+                      WHERE `tid` >= 1 
+                      AND (`username` = '$username' OR `email` = '$username') 
+                      AND `password` = '$password'
+                      AND `status` = 1 ";
+//                 $where = array(
+//                     'tid >=' => 1,
+//                     'username' => $username,
+//                     'password' => $password,
+//                     'status' => 1
+//                 );
+                //$info = $this->users_m->get_info_rule($where, '', $where_or);
+                
+                $query = $this->db->query($qr);
+                
+                $info = $query->row();
 
                 if ($info) {
                     $username = array(

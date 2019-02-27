@@ -41,7 +41,7 @@ class Articles extends MY_Controller {
         $config['base_url'] = base_url('admincp/articles');
         $config['suffix'] = '?' . http_build_query($getData, '', "&amp;");
         $config['first_url'] = $config['base_url'] . '?' . http_build_query($getData, '', "&amp;");
-        $config['per_page'] = 10; //so luong san pham hien thi tren 1 trang
+        $config['per_page'] = 20; //so luong san pham hien thi tren 1 trang
         $config['num_links'] = $total_rows;
 
         $config = array_merge($config, $this->system_library->pagination());
@@ -56,7 +56,8 @@ class Articles extends MY_Controller {
 
         $this->data['list'] = $this->articles_m->get_list($input);
 
-
+        //$this->system_library->echo_errors();die();
+        
         $where = array();
         $where['where'] = array('pid' => 0, 'status' => 1);
         $catalogs = $this->category->get_list($where);
@@ -148,8 +149,6 @@ class Articles extends MY_Controller {
                     'vn_sapo' => $this->input->post('vn_sapo', true),
                     'vn_detail' => $this->input->post('vn_detail'),
                     'image_link' => $image_link,
-                    'is_home' => $this->input->post('is_home', true),
-                    'is_hot' => $this->input->post('is_hot', true),
                     'status' => $this->input->post('status', true),
                     'created' => now(),
                 );

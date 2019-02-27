@@ -51,7 +51,7 @@ class Configs extends MY_Controller {
                 'values' => json_encode($value)
             );
 
-            if ($this->configs_m->update(1, $data)) {
+            if ($this->configs_m->update('1', $data)) {
                 $this->session->set_flashdata('message', 'Cập nhật dữ liệu thành công');
             }
 

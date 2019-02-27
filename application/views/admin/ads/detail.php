@@ -44,13 +44,6 @@
                     </div>
                 </div>
                 
-               <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Mô tả</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" rows="10" id="sapo" name="vn_sapo"><?= isset($info->vn_sapo) ? $info->vn_sapo : set_value('vn_sapo') ?></textarea>
-                    </div>
-                </div>
-                
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Link</label>
                     <div class="col-sm-10">

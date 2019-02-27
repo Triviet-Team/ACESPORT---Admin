@@ -198,49 +198,6 @@
                         <textarea class="form-control" rows="10" id="editor" name="vn_detail"><?= isset($info->vn_detail) ? $info->vn_detail : set_value('vn_detail') ?></textarea>
                     </div>
                 </div>
-                
-              
-
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Hình Ảnh</label>
-                    <div class="col-sm-10">
-                        <div class="custom-file">
-                            <input type="file" name="image_link" class="custom-file-input" id="customFile">
-                            <label class="custom-file-label">Chọn File</label>
-                        </div>
-
-                        <div class="showFile">
-                            <?php if (!isset($info->image_link)) { ?>
-                                <img id="profile-img-tag" src="<?= base_url() ?>public/admin/img/no-img.png" alt="No-Img">
-                            <?php } else { ?>
-                                <img id="profile-img-tag" src="<?= base_url('uploads/images/product/421_561/' . $info->image_link) ?>" alt="No-Img">
-                            <?php } ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Hình ảnh kèm theo</label>
-                    <div class="col-sm-10">
-                        <div class="custom-file">
-                            <input type="file" name="image_list[]" multiple class="custom-file-input" id="files">
-                            <label class="custom-file-label">Chọn File</label>
-                        </div>
-                        <div class="showFile" id="showMulti">
-                            <?php if (!isset($info->image_list)) { ?>
-                                <img id="profile-img-tag" src="<?= base_url() ?>public/admin/img/no-img.png" alt="No-Img">
-                            <?php } else { ?>
-                                <div  id="showMulti">
-                                    <?php $image_list = json_decode($info->image_list) ?>
-                                    <?php foreach ($image_list as $img) { ?>
-                                        <img src="<?= base_url('uploads/images/product/400_400/' . $img) ?>" alt="No-Img">
-                                    <?php } ?>
-                                </div>
-                            <?php } ?>
-                        </div>
-                        <p style="margin-top:10px;">Giữ Ctrl và chọn nhiều File Ảnh để đính kèm 2 hoặc nhiều ảnh !</p>
-                    </div>
-                </div>
-                
                </div>
 
             </form>

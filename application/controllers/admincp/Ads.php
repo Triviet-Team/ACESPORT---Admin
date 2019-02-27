@@ -117,7 +117,6 @@ class Ads extends MY_Controller {
                 $data = array(
                     'cid' => $cid,
                     'vn_name' => $this->input->post('vn_name', true),
-                    'vn_sapo' => $this->input->post('vn_sapo', true),
                     'link' => $this->input->post('link', true),
                     'image_link' => $image_link,
                     'status' => $this->input->post('status', true),

@@ -33,24 +33,6 @@ Class MY_Controller extends CI_Controller {
                     $input = array();
                     $input['where'] = array('status' => 1, 'cid' => 6);
                     $this->data['logo_top'] = $this->ads_m->get_row($input);
-                    
-
-                    //danh muc sản phẩm
-                    $this->load->model('product_category_m');
-                    $input =  array();
-                    $input['where'] = array('status' => 1, 'pid' => 0);
-                    $input['order'] = array('position', 'DESC');
-                    
-                    $categorys      = $this->product_category_m->get_list($input);
-                    
-                    foreach ($categorys as $row){
-                        $input =  array();
-                        $input['where'] = array('status' => 1, 'pid' => $row->id);
-                        $input['order'] = array('position', 'DESC');
-                        $row->categorys       = $this->product_category_m->get_list($input);
-                    }
-                    
-                    $this->data['categorys'] = $categorys;
 
                     #Meta head
                     $this->data['title_page'] = $config->vn_title_site;
@@ -61,7 +43,7 @@ Class MY_Controller extends CI_Controller {
 
                     $this->data['url'] = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
 
-                    $this->data['img_page'] = base_url('public/site/images/bannerfacebook.jpg');
+                    //$this->data['img_page'] = base_url('public/site/images/bannerfacebook.jpg');
 
                     $this->user_online();
                 }

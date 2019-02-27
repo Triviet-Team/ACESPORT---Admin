@@ -97,23 +97,27 @@ class Fixture extends MY_Controller {
             }
             
             if ($type == 'tournament'){
-                $val = $_POST['tournament'];
+                $val = $_POST['tournament'] ? $_POST['tournament'] : 0;
                 $result = $this->fixture_m->getInfoTable($val);
             }
             
             if ($type == 'noi_dung'){
                 $val = $_POST['noi_dung'];
-                $active = $_POST['active'];
-                $info = $this->tournament_playing_category_m->get_info($val);
-                $total_member = $info->total_member;
-                $type_play = $info->type_play;
-                $cap_dau = ($total_member/(2*$type_play));
-                //$cap_dau = $doi_choi / 2;
-                $n = $this->fixture_m->getMu($cap_dau) + 1;
-                $arrGetRount = $this->fixture_m->createRound($n, $active);
-                $result['type'] = $type_play;
-                $result['content'] = $arrGetRount['str'];
-                echo json_encode($result);die();
+                if ($val) {
+                    $active = $_POST['active'];
+                    $info = $this->tournament_playing_category_m->get_info($val);
+                    if($info) {
+                        $total_member = $info->total_member;
+                        $type_play = $info->type_play;
+                        $cap_dau = ($total_member/(2*$type_play));
+                        //$cap_dau = $doi_choi / 2;
+                        $n = $this->fixture_m->getMu($cap_dau) + 1;
+                        $arrGetRount = $this->fixture_m->createRound($n, $active);
+                        $result['type'] = $type_play;
+                        $result['content'] = $arrGetRount['str'];
+                        echo json_encode($result);die();
+                    }
+                }
             }
         }        
         if ($result) { 
