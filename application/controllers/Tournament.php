@@ -89,9 +89,29 @@ class Tournament extends MY_Controller {
         
         $input = array();
         $input['where'] = array('pid' => 0, 'tournament_id' => $objTournament->id);   
-        $input['order'] = array('created', 'DESC');
-        $listComment = $this->comment_m->get_list($input);
         
+        $total_rows = $this->comment_m->get_total($input);
+        //load ra thu vien phan trang
+        $config = array();
+        $config['total_rows'] = $total_rows;
+        $config['base_url'] = base_url('chi-tiet-giai-dau/' . $slug . '/dieu-le/page/');
+        $config['first_url'] = base_url('chi-tiet-giai-dau/' . $slug) .'.html';
+        $config['per_page'] = 3;
+        $config['num_links'] = $total_rows;
+        
+        //custom pagination
+        $config = array_merge($config, $this->system_library->pagination_site());
+        //khoi tao cac cau hinh phan trang
+        
+        $this->pagination->initialize($config);
+        $segment = $this->uri->segment(5);
+        $segment = intval($segment);        
+        $this->data["pagination"] = $this->pagination->create_links();        
+        $input['limit'] = array($config['per_page'], $segment);        
+        $input['order'] = array('created', 'DESC');
+        
+        $listComment = $this->comment_m->get_list($input);
+        // lấy danh sách commemnt
         if ($listComment) {
             foreach ($listComment as $row) {
                 $where = array();
@@ -103,7 +123,7 @@ class Tournament extends MY_Controller {
                 $row->id_user = $objUser->id;
                 $input = array();
                 $input['where'] = array('pid' => $row->id);
-                $input['order'] = array('created', 'DESC');
+                $input['order'] = array('created', 'ASC');
                 $row->sub_comment = $this->comment_m->get_list($input);
                 foreach ($row->sub_comment as $row_sub) {
                     $where = array();
@@ -121,6 +141,7 @@ class Tournament extends MY_Controller {
 //         echo '<pre>';
 //         print_r($objTournament);
 //         echo '<pre>';die();
+        // lấy lịch sử giải đấu, tỉ số...
         if ($objTournament) {
             $arr_fixture_id = array();
             $input = array();

@@ -23,7 +23,8 @@ $route['user/thong-tin-ca-nhan.html'] = 'user/index';
 $route['user/doi-mat-khau.html'] = 'user/change_password';
 $route['quen-mat-khau.html'] = 'user/forget_password';
 $route['dang-ky-tai-khoan.html'] = 'user/registration';
-$route['thong-ke-giai-dau.html'] = 'user/thong_ke';
+$route['user/thong-ke-giai-dau.html'] = 'user/thong_ke';
+$route['xem-thong-bao.html'] = 'user/ajax_notification';
 
 #Bảng điểm
 $route['chi-tiet-thanh-vien-(:num).html'] = 'table_point/user/$1';
@@ -74,6 +75,7 @@ $route['dich-vu/(:any).html'] = 'service/detail/$1';
 
  $route['chi-tiet-giai-dau/(:any).html'] = 'tournament/detail/$1';
  $route['chi-tiet-giai-dau/(:any)/(:any)'] = 'tournament/detail/$1/$2'; 
+ $route['chi-tiet-giai-dau/(:any)/(:any)/page/(:num)'] = 'tournament/detail/$1/$2/$3';
  $route['xem-nhanh-dau/(:any)/(:any)'] = 'tournament/nhanh_dau/$1/$2'; 
 
 

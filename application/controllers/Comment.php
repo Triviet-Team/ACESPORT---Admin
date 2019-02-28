@@ -12,6 +12,16 @@ class Comment extends MY_Controller {
         $this->load->model('users_m');
     }
     public function del_message() {
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher\Pusher(
+            '9665dd394af39ba953c4',
+            '7fa8f901ea1b0bb964a7',
+            '716621',
+            $options
+        );
         $login = $this->session->userdata('isCheckLogin');
         $tid = $this->session->userdata('tid');
         $success = array();
@@ -19,6 +29,7 @@ class Comment extends MY_Controller {
             $id_comment = $_POST['id_comment'];
             $where = array('id' => $id_comment);
             $objComment = $this->comment_m->get_info_rule($where);
+            $this->history_comment_m->del_rule(array('id_comment' => $objComment->id));
             if ($objComment->pid == 0) {
                 if($this->comment_m->del_rule(array('pid' => $objComment->id))) {
                     if($this->comment_m->delete($objComment->id)) {
@@ -29,6 +40,10 @@ class Comment extends MY_Controller {
                 if($this->comment_m->delete($objComment->id)) {
                     $success['del'] = 1;
                 }
+            }
+            if ($success['del'] == 1) {
+                $data_pusher['comment_id'] = (int)$id_comment;
+                $pusher->trigger('del-message', 'event-del-message', $data_pusher);
             }
         }else {
             $success['del'] = 0;
@@ -46,7 +61,7 @@ class Comment extends MY_Controller {
             '7fa8f901ea1b0bb964a7',
             '716621',
             $options
-        );
+            );
         $success = array();
         $login = $this->session->userdata('isCheckLogin');
         if ($login) {
@@ -54,53 +69,30 @@ class Comment extends MY_Controller {
                 $option = $_POST['option'];
                 $tournament_id = $_POST['id_tournament'];
                 $content = $_POST['content'];
+                $parent_comment_id = $_POST['id_parent_comment'] ? $_POST['id_parent_comment'] : 0;
                 $user_id = $this->session->userdata('id');
-                if ($option == 'add-message') {
+                $where = array('id' => $user_id, 'status' => 1);
+                $objUser = $this->users_m->get_info_rule($where);
+                $link_img = base_url().'public/site/img/default-user.jpg';
+                if(!empty($objUser->image_link)){
+                    $link_img = base_url().'uploads/images/user/200_200/'.$objUser->image_link;
+                }
+                if ($objUser) {
                     if ($user_id > 0 && $content != '' && $content != '<br>' && $tournament_id > 0) {
-                        $created = time();
+                        $created = now();
                         $data = array(
-                            'pid' => 0,
+                            'pid' => $parent_comment_id > 0 ? $parent_comment_id : 0,
                             'vn_detail' => $content,
                             'tournament_id	' => $tournament_id,
                             'from_id' => $user_id,
                             'created' => $created,
                         );
-                        $where = array('id' => $user_id);
-                        $objUser = $this->users_m->get_info_rule($where);
-                        $link_img = base_url().'public/site/img/default-user.jpg';
-                        if(!empty($objUser->image_link)){
-                            $link_img = base_url().'uploads/images/user/200_200/'.$objUser->image_link;
-                        }
                         if ($this->comment_m->create($data)) {
                             $comment_id = $this->db->insert_id();
-                            $input = array();
-                            $input['where'] = array('tournament_id' => $tournament_id, 'from_id <>' => $user_id);
-                            $list_comment = $this->comment_m->get_list($input);
-                            if ($list_comment) {
-                                $arr_notification = array();
-                                $from_id = $this->comment_m->getId($list_comment, 'from_id');
-                                $input = array();
-                                $input['where_in'] = array('id', $from_id);
-                                $listUser = $this->users_m->get_list($input);  
-                                foreach ($listUser as $row) {
-                                    $data = array(
-                                        'id_user' => (int)$row->id,
-                                        'id_comment	' => $comment_id,
-                                    );
-                                    if ($this->history_comment_m->create($data)) {
-                                        $input = array();
-                                        $input['where'] = array('id_user' => $row->id);
-                                        $total_message = $this->history_comment_m->get_total($input);
-                                        $arr_notification[] = array('id' => $row->id, 'total' => $total_message);
-                                    }
-                                }
-                                $data_notification['content'] = json_encode($arr_notification);
-                                $pusher->trigger('notification', 'event-send-notification', $data_notification);
-                            }
-
-                            $html = '	<div class="box-comment">
+                            if ($option == 'add-message') {
+                                $html = '<div class="box-comment box-comment-'.$comment_id.'">
                                 		<div class="box-comment-author text-center">
-                                			<a title="Nhấp để xem hồ sơ" href="chi-tiet-thanh-vien.html"><img
+                                			<a title="Nhấp để xem hồ sơ" href="'.base_url('chi-tiet-thanh-vien-'.$objUser->id.'.html').'"><img
                                 				src="'.$link_img.'"></a>
                                 			<h5>
                                 				<a title="Nhấp để xem hồ sơ" href="'.base_url('chi-tiet-thanh-vien-'.$objUser->id.'.html').'">'.$objUser->name.'</a>
@@ -111,17 +103,17 @@ class Comment extends MY_Controller {
                                 			<div class="box-comment-detail-date">
                                 				<h5>'.date('d/m/Y - H:m:s', $created).'</h5>
                                 				<button
-                                					class="btn btn-light waves-effect waves-light delete-comment text-right">Xóa
+                                					class="btn btn-light waves-effect waves-light delete-comment text-right" comment-id="'.$comment_id.'">Xóa
                                 					bình luận</button>
                                 			</div>
                                 			<div class="box-comment-detail-content">
                                 				<div>'.$content.'</div>
-                                				<div class="sub-comment"></div>
+                                				<div class="sub-comment sub-comment-'.$comment_id.'"></div>
                                 				<div class="comment-reply">
                                 					<button class="btn btn-indigo waves-effect waves-light">Trả
                                 						lời</button>
                                 					<div class="comment-reply-form comment-reply-'.$comment_id.'" style="display: flex;">
-                                						<img src="'.base_url('public/site/').'img/avatar.jpeg">
+                                						<img src="'.$link_img.'">
                                 						    <textarea id="nic-editor-'.$comment_id.'" style="width: 100%;"></textarea>
                                                             <button comment-id="'.$comment_id.'" type="button" id-tournament="'.$tournament_id.'" class="btn-send-reply btn btn-indigo waves-effect waves-light">Gửi bình luận</button>
                                 					</div>
@@ -129,54 +121,66 @@ class Comment extends MY_Controller {
                                 			</div>
                                 		</div>
                                 	</div>';
-                            $data_pusher['content'] = $html;
-                            $data_pusher['tournament_id'] = $tournament_id;
-                            $data_pusher['comment_id'] = $comment_id;
-                            $pusher->trigger('my-channel', 'my-event', $data_pusher);
-                        }
-                    }else {
-                        $success['content'] = 0;
-                    }
-                }
-            
-                if ($option == 'add-message-reply') {
-                    if ($user_id > 0 && $content != '' && $content != '<br>' && $tournament_id > 0) {
-                        $comment_id = $_POST['id_comment'];
-                        $data = array(
-                            'pid' => $comment_id,
-                            'vn_detail' => $content,
-                            'tournament_id	' => $tournament_id,
-                            'from_id' => $user_id,
-                            'created' => now(),
-                        );
-            
-                        if ($this->comment_m->create($data)) {
-                            $html = '<div class="box-sub-comment">
+                                $data_pusher['content'] = $html;
+                                $data_pusher['tournament_id'] = $tournament_id;
+                                $data_pusher['comment_id'] = $comment_id;
+                                $pusher->trigger('my-channel', 'my-event', $data_pusher);
+                            }elseif ($option == 'add-message-reply') {
+                                $html = '<div class="box-sub-comment">
             						<div class="box-sub-comment-img">
-            							<a href="chi-tiet-thanh-vien.html"> <img
-            								src="'.base_url('public/site/').'img/avatar.jpeg">
+            							<a href="'.base_url('chi-tiet-thanh-vien-'.$objUser->id.'.html').'"> <img
+            								src="'.$link_img.'">
             							</a>
             							<h5>
-            								<a href="chi-tiet-thanh-vien.html">Kemmie</a>
+            								<a href="'.base_url('chi-tiet-thanh-vien-'.$objUser->id.'.html').'">'.$objUser->name.'</a>
             							</h5>
             						</div>
             						<div class="box-sub-comment-content">
                                         <div>'.$content.'</div>
-            							<button class="sub-comment-del">Xóa bình luận</button>
+            							<button class="delete-comment sub-comment-del" comment-id="'.$comment_id.'">Xóa bình luận</button>
             						</div>
             						<div class="box-sub-comment-date text-center">
-            							<h5>17:30</h5>
-            							<h5>15/01/2018</h5>
+            							<h5>'.date('H:m:s', $created).'</h5>
+            							<h5>'.date('d/m/Y', $created).'</h5>
             						</div>
             					</div>';
-                            $data_pusher['content'] = $html;
-                            $data_pusher['tournament_id'] = $tournament_id;
-                            $data_pusher['comment_id'] = $comment_id;
-                            $pusher->trigger('result-reply', 'event-reply', $data_pusher);
+                                $data_pusher['content'] = $html;
+                                $data_pusher['tournament_id'] = $tournament_id;
+                                $data_pusher['comment_id'] = $parent_comment_id;
+                                $pusher->trigger('result-reply', 'event-reply', $data_pusher);
+                            }
+                            $input = array();
+                            $input['where'] = array('tournament_id' => $tournament_id, 'from_id <>' => $user_id);
+                            $list_comment = $this->comment_m->get_list($input);
+                            if ($list_comment) {
+                                $arr_notification = array();
+                                $from_id = $this->comment_m->getId($list_comment, 'from_id');
+                                $input = array();
+                                $input['where_in'] = array('id', $from_id);
+                                $listUser = $this->users_m->get_list($input);
+                                foreach ($listUser as $row) {
+                                    $data = array(
+                                        'id_user' => (int)$row->id,
+                                        'id_comment' => $comment_id,
+                                        'created' => $created,
+                                    );
+                                    if ($this->history_comment_m->create($data)) {
+                                        //cap nhat lai thông báo tin nhắn
+                                        $data = array();
+                                        $data['count_notification'] = $row->count_notification + 1;
+                                        $this->users_m->update($row->id, $data);
+                                        $arr_notification[] = array('id' => $row->id, 'total' => $row->count_notification + 1);
+                                    }
+                                }
+                                $data_notification['content'] = json_encode($arr_notification);
+                                $pusher->trigger('notification', 'event-send-notification', $data_notification);
+                            }
                         }
                     }else {
                         $success['content'] = 0;
                     }
+                }else {
+                    $success['active'] = 0;
                 }
             }
         }else {

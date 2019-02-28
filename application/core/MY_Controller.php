@@ -67,7 +67,6 @@ Class MY_Controller extends CI_Controller {
             $where = array('status' => 1, 'id' => $id);
             $data['info_user'] = $this->users_m->get_info_rule($where);
         }
-
         
         $input = array();
         $input['where'] = array('start_date <=' => now(), 'end_date >=' => now(), 'status' => 1);

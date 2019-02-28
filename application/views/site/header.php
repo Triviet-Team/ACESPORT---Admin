@@ -6,7 +6,7 @@
             <div class="col-lg-2 col-4">
               <div class="logo"><a href="index.html"><img src="<?= base_url('public/site/') ?>img/logo.png"/></a></div>
             </div>
-            <div class="col-lg-8 col-12 order-last order-lg-0">
+            <div class="col-lg-7 col-12 order-last order-lg-0">
               <div class="main-menu"><a class="toggleMenu ssm-toggle-nav"><i class="mdi mdi-menu"></i></a>
                 <ul class="nav">
                   <div class="nav-close"><i class="mdi mdi-close d-block d-sm-none"></i></div>
@@ -17,7 +17,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col-lg-2 col-8">
+            <div class="col-lg-3 col-8">
               <div class="text-right">
                <?php 
                       $login = $this->session->userdata('isCheckLogin');
@@ -28,12 +28,16 @@
                               $link_img = base_url().'uploads/images/user/200_200/'.$info_user->image_link;
                           }
                ?>
+               			  <div class="noti">
+                              <i class="mdi mdi-bell"></i>
+                              <div class="box-thong-bao-dkm"><?= $info_user->count_notification > 0 ? '<span class="thong-bao-dkm">' . $info_user->count_notification . '</span>' : '' ?></div>
+                          </div>
                       	<?php if ($tid > 1) {?>
-                      		<i class="thong-bao-dkm" style="color: #fff;">10</i>
-                      		<div class="login-complete-btn"><span><img class="img-circle d-inline block" src="<?= $link_img ?>" /> <?= $info_user->name ?><i class="mdi mdi-chevron-down"></i></span></div>
+                      		
+                      		<div title="<?= $info_user->name ?>" class="login-complete-btn"><span><img class="img-circle d-inline block" src="<?= $link_img ?>" /> <?= $info_user->name ?><i class="mdi mdi-chevron-down"></i></span></div>
                       	<?php }else {?>
-                      		<i class="thong-bao-dkm" style="color: #fff;">10</i>
-                      		<div class="login-complete-btn"><span><img class="img-circle d-inline block" src="<?= $link_img ?>" /> <?= $info_user->name ?><i class="mdi mdi-chevron-down"></i></span></div>
+
+                      		<div title="<?= $info_user->name ?>" class="login-complete-btn"><span><img class="img-circle d-inline block" src="<?= $link_img ?>" /> <?= $info_user->name ?><i class="mdi mdi-chevron-down"></i></span></div>
                       		
                       	<?php }?>
                 <?php }else {?>
@@ -85,7 +89,7 @@
               <div class="login-complete">
                 <ul>
                   <li><a href="<?= base_url('user/thong-tin-ca-nhan.html')?>"><i class="mdi mdi-account-edit"></i>thông tin cá nhân</a></li>
-                  <li><a href="<?= base_url('thong-tin-ca-nhan.html')?>"><i class="mdi mdi-chart-areaspline"></i>thống kê giải đấu</a></li>
+                  <li><a href="<?= base_url('user/thong-ke-giai-dau.html')?>"><i class="mdi mdi-chart-areaspline"></i>thống kê giải đấu</a></li>
                   <li><a href="<?= base_url('logout.html')?>"><i class="mdi mdi-logout"></i>đăng xuất</a></li>
                 </ul>
               </div>
@@ -98,6 +102,9 @@
               </div>
           	<?php }?>
           <?php } ?>
+          
+          
+          <div class="noti-tab d-none"></div>
         </div>
       </section>
       <div class="ssm-overlay ssm-toggle-nav"></div>

@@ -400,7 +400,26 @@ Class Fixture_m extends MY_Model {
         return $i;
     }
 
+//     public function get_list_fixture($arr) {
+//         $id = $id > 0 ? $id : 0;
+//         $query = "SELECT
+//         `tournament_playing_category`.`id` AS `id`,
+//         `playing_category`.`vn_name` AS `vn_name`
     
+//         FROM `tournament`, `tournament_playing_category`, `playing_category`
+    
+//         WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+//         AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id`
+//         AND `tournament`.`id` = '$id'";
+    
+//         $result = $this->db->query($query);
+    
+//         if ($result) {
+//             return $result->result();
+//         }else {
+//             return FALSE;
+//         }
+//     }
     
     
     

@@ -15,6 +15,10 @@ $('document').ready(function() {
       $(this).closest("li li a").removeClass("active");
     }
   });
+  
+  $('.noti').click(() => {
+	 $('.noti-tab').toggleClass('d-none d-block');
+  });
 
   $('.menu .nav').slideAndSwipe();
 

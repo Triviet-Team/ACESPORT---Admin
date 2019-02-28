@@ -280,7 +280,7 @@
                                                             			<div class="box-comment-detail-content">
                                                             				<div>'.$row->vn_detail.'</div>';
                                                                             // list sub comment
-                                                                            $xhtml .= '<div class="sub-comment">';
+                                                                            $xhtml .= '<div class="sub-comment sub-comment-'.$row->id.'">';
                                                                             if ($row->sub_comment) {
                                                                                 $link_img = base_url().'public/site/img/default-user.jpg';
                                                                                 if(!empty($row_1->image_link)){
@@ -337,6 +337,15 @@
                 
                 echo $xhtml;
           ?>
+              <div class="row">
+                  <div class="col-lg-12">
+                    <nav>
+                      <ul class="pagination justify-content-end">
+        				<?=$pagination?>
+                      </ul>
+                    </nav>
+                  </div>
+             </div>
           </div>
        <?php } ?>
           <!-- end -->

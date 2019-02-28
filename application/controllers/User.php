@@ -526,11 +526,31 @@ Class User extends MY_Controller {
                     if ($row->id == $id) {
                         $objUser->hang = $k + 1;
                     }
-                } 
+                }
+                
+                $input = array();
+                $input['where'] = array('player_id' => $objUser->id);
+                $list_registration_player = $this->registration_player_m->get_list($input);
+                if ($list_registration_player) {
+                    $arr_registration_id = $this->registration_player_m->getId($list_registration_player, 'registration_id');
+                    $input = array();
+                    $input['where_in'] = array('first_registration_id', $arr_registration_id);
+                    $list_fixture_first = $this->fixture_m->get_list($input);
+                    
+                    $input = array();
+                    $input['where_in'] = array('second_registration_id', $arr_registration_id);
+                    $list_fixture_second = $this->fixture_m->get_list($input);
+                    $list_fixture = array_merge($list_fixture_first, $list_fixture_second);
+                    $arr_fixture_id = $this->fixture_m->getId($list_fixture, 'id');
+                    echo '<pre>';
+                    print_r($arr_fixture_id);
+                    echo '<pre>';
 
-                print_r($objUser);
-                echo "</pre>";die();
+                }
                 $this->data['objUser'] = $objUser;
+                echo '<pre>';
+                print_r($arr_registration_id);
+                echo '<pre>';die();
             }
         }else {
             $this->session->set_flashdata('message', '<p>Bạn chưa chưa có tài khoản. Vui lòng đăng ký tại <a>đây</a></p>');
@@ -550,5 +570,86 @@ Class User extends MY_Controller {
         $this->data['temp'] = 'user/thong_ke';
         $this->one_col($this->data);
     }
+    
+    function ajax_notification() {
+        $login = $this->session->userdata('isCheckLogin');
+        if ($login) {
+            $this->load->model('history_comment_m');
+            $this->load->model('comment_m');
+            $this->load->model('tournament_m');
+            
+            $id = $this->session->userdata('id');
+            $input = array();
+            $input['where'] = array('id_user' => $id);
+            $input['order'] = array('created', 'DESC');
+            $list_history_comment = $this->history_comment_m->get_list($input);
+            $result = array();
+            $xhtml = '';
+            foreach ($list_history_comment as $row) {
+                $where = array();
+                $where = array('id' => $row->id_comment);
+                $objComment = $this->comment_m->get_info_rule($where);
+                if ($objComment) {
+                    $where = array();
+                    $where = array('id' => $objComment->from_id);
+                    $objUser = $this->users_m->get_info_rule($where);
+                    $link_img = base_url().'public/site/img/default-user.jpg';
+                    if(!empty($objUser->image_link)){
+                        $link_img = base_url().'uploads/images/user/200_200/'.$objUser->image_link;
+                    }
+                    
+                    $where = array();
+                    $where = array('id' => $objComment->tournament_id);
+                    $objTournament = $this->tournament_m->get_info_rule($where);
+                    $xhtml .= '<div class="box-noti">
+                      		<div class="box-noti-user">
+                      			<img class="img-circle" src="'. $link_img .'" />
+                      			<h5>'. $objUser->name .'</h5>
+                      		</div>
+                      		<div class="box-noti-detail">
+                      			<h5>
+                      				<a href="#">'.$objTournament->vn_name.'</a>
+                      			</h5>
+                      			<p>'.$objUser->name .' đã bình luận trong giải đấu mà bạn tham gia</p>
+                      			<h6>'.date('H:m:s d/m/Y', $objComment->created).'</h6>
+                      		</div>
+                      	</div>';
+                }
+            }
+            //cap nhat lai thông báo tin nhắn
+            $data = array();
+            $data['count_notification'] = 0;
+            if ($this->users_m->update($id, $data)) {
+                $result['notification'] = 1;
+            }
+            $result['xhtml'] = $xhtml;
+            echo json_encode($result);
+        }
+    }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
