@@ -1,15 +1,8 @@
 <?php
-
+ 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-include APPPATH . "PHPMailer-master/src/PHPMailer.php";
-include APPPATH . "PHPMailer-master/src/Exception.php";
-include APPPATH . "PHPMailer-master/src/OAuth.php";
-include APPPATH . "PHPMailer-master/src/POP3.php";
-include APPPATH . "PHPMailer-master/src/SMTP.php";
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+require_once APPPATH . 'phpmailer/class.phpmailer.php';
 
 Class User extends MY_Controller {
 
@@ -17,7 +10,7 @@ Class User extends MY_Controller {
         parent::__construct();
         $this->load->model('users_m');
     }
-
+ 
     public function index() {
         $login = $this->session->userdata('isCheckLogin');
         if ($login) {
@@ -26,7 +19,7 @@ Class User extends MY_Controller {
             $objUser = $this->users_m->get_info_rule($where);
             $this->data['objUser'] = $objUser;
 
-            if(!empty($this->input->post())){
+            if($this->input->post()){
                 #Tạo folder upload theo ngày truoc khi upload
                 $upload_path = 'uploads/images/user/200_200/';
                 
@@ -95,7 +88,7 @@ Class User extends MY_Controller {
     public function registration() {
         $login = $this->session->userdata('isCheckLogin');
         if (!$login) {
-            if (!empty($this->input->post())) {               
+            if ($this->input->post()) {               
                 $this->form_validation->set_rules('name', 'Họ tên', 'required|min_length[8]');
                 $this->form_validation->set_rules('username', 'Tên đăng nhập', 'required|trim|callback_check_username');
                 $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
@@ -363,7 +356,7 @@ Class User extends MY_Controller {
 
     
     public function login() {
-       if ($this->input->post()) {
+      if ($this->input->post()) {
             $data = array();
             $this->form_validation->set_rules('username', 'Username', 'required');
             $this->form_validation->set_rules('password', 'Password', 'required');
@@ -426,39 +419,52 @@ Class User extends MY_Controller {
 
     
     public function message() {
-       $this->data['temp'] = 'user/message';
-       $this->one_col($this->data);
+      $this->data['temp'] = 'user/message';
+      $this->one_col($this->data);
     }
     
     public function send_mail($to, $subject, $body) {
-        $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
-        try {
-            //Server settings
-            $mail->SMTPDebug = 2;                                 // Enable verbose debug output
-            $mail->isSMTP();                                      // Set mailer to use SMTP
-            $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-            $mail->SMTPAuth = true;                               // Enable SMTP authentication
-            $mail->Username = 'vuvanhao122995@gmail.com';                 // SMTP username
-            $mail->Password = '@96689@@64';                           // SMTP password
-            $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-            $mail->Port = 587;                                    // TCP port to connect to
-    
-            //Recipients
-            $mail->CharSet  = "utf-8";
-            $mail->setFrom('no-reply-vuvanhao122995@gmail.com', 'No-reply');
-            $mail->addAddress($to);     // Add a recipient
-    
-            //Content
-            $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = $subject;
-            $mail->Body    = $body;
-            $mail->AltBody = '';
-    
-            $mail->send();
-            return TRUE;
-        } catch (Exception $e) {
-            return FALSE;
-        }
+        $mail = new PHPMailer();
+    	// Gọi đến lớp SMTP
+    	$mail->IsSMTP();
+    	
+    	$mail->SMTPDebug	= 1; 	// Hiển thị thông báo trong quá trình kết nối SMTP
+    								// 1 = Hiển thị message + error
+    								// 2 = Hiển thị message
+    	
+    	$mail->SMTPAuth		= true;
+    	$mail->SMTPSecure	= 'ssl';
+    	$mail->Host			= 'smtp.gmail.com';
+    	$mail->Port			= 465;
+    	$mail->Username		= 'vuvanhao122995@gmail.com';	// php.zendvn@gmail.com zendvnphp89
+    	$mail->Password		= '@96689@@64';
+    	
+    	// Thiết lập thông tin người gửi và email người gửi
+    	$mail->SetFrom('vuvanhao122995@gmail.com', 'Kích hoạt tài khoản');
+    	
+    	// Thiết lập thông tin người nhận và email người nhận
+    	$mail->AddAddress($to, 'Đéo cần phản hồi');
+    	
+    	// Thiết lập email reply
+    	//$mail->AddReplyTo('lanluu@worldprovn.com');
+    	
+    	// Đính kèm tập tin
+    	//$mail->AddAttachment('Lighthouse.zip');
+    	
+    	// Thiết lập tiêu đề
+    	$mail->Subject = $subject;
+    	
+    	// Thiết lập charset
+    	$mail->CharSet = 'utf-8';
+    	
+    	//$mail->Body = $body;
+    	$mail->MsgHTML($body);
+    	
+    	if($mail->Send() == false){
+    		return TRUE;
+    	} else{
+    		return FALSE;
+    	}
     }
     
     function check_email_registration() {
@@ -628,28 +634,6 @@ Class User extends MY_Controller {
     }
 
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
 }
