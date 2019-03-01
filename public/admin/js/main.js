@@ -105,6 +105,13 @@ if ($('#editor').length) {
     CKFinder.setupCKEditor(editors, base + 'public/admin/ckeditor/ckfinder/');
 }
 
+if ($('#editor1').length) {
+    editors = CKEDITOR.replace("editor1", {
+        height: '350', language: 'vi',
+    });
+    CKFinder.setupCKEditor(editors, base + 'public/admin/ckeditor/ckfinder/');
+}
+
 if ($('#sapo').length) {
     editors = CKEDITOR.replace("sapo", {height: '200', language: 'vi'});
     CKFinder.setupCKEditor(editors, base + 'public/admin/ckeditor/ckfinder/');
@@ -213,15 +220,13 @@ function getInfo(data, id = '', title = '', active = '') {
 }
 
 function formatState (state) {
-	
 	  if (!state.id) {
 	    return state.text;
 	  }
-	  var baseUrl = "/user/pages/images/flags";
+	  var str = state.organization != ' ' ? ' - ' + state.organization : ''
 	  var $state = $(
-	    '<span><img style="width=10px!important; height=10px!important" src="http://localhost/project-tenis/ACESPORT---Admin.git/public/admin/img/default-534x534.png" class="img-flag" /> ' + state.text + '</span>'
+	    '<span><img style="width:40px!important; height:40px!important" src="' + state.url + '" /> ' + state.text + '</span>'
 	 );
-	  //console.log($state);
 	 return $state;
 }
 
@@ -320,16 +325,16 @@ $(document).ready(function () {
 	      valUser3 = $("#user3 option:selected").val();
 	      valUser4 = $("#user4 option:selected").val();
 		  $.ajax({
-			  url: url + 'admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
-			  type: 'POST',
+			  url: url + 'admincp/tournament/fixture/getInfoUsers?&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
+			  type: 'GET',
 			  dataType: "json",
 			  success: function(result){
 				  $("#user1").select2({
 					    //placeholder: "Select a Review",
-					    //minimumInputLength: 0,
+					    minimumInputLength: 0,
 					    data: result
 					    ,
-					    //templateResult: formatState
+					    templateResult: formatState
 					  }); 
 
 			  }
@@ -337,21 +342,20 @@ $(document).ready(function () {
 	  });
 	  
 	  $("#user2").on("click change", function(){
-	      valUser1 = $("#user2 option:selected").val();
-	      valUser2 = $("#user3 option:selected").val();
+	      valUser1 = $("#user1 option:selected").val();
 	      valUser3 = $("#user3 option:selected").val();
 	      valUser4 = $("#user4 option:selected").val();
 		  $.ajax({
-			  url: url + 'admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
-			  type: 'POST',
+			  url: url + 'admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
+			  type: 'GET',
 			  dataType: "json",
 			  success: function(result){
 				  $("#user2").select2({
 					    //placeholder: "Select a Review",
-					    //minimumInputLength: 0,
+					    minimumInputLength: 0,
 					    data: result
 					    ,
-					    //templateResult: formatState
+					    templateResult: formatState
 					  }); 
 
 			  }
@@ -359,21 +363,20 @@ $(document).ready(function () {
 	  });
 	  
 	  $("#user3").on("click change", function(){
-	      valUser1 = $("#user2 option:selected").val();
-	      valUser2 = $("#user3 option:selected").val();
-	      valUser3 = $("#user3 option:selected").val();
+	      valUser1 = $("#user1 option:selected").val();
+	      valUser2 = $("#user2 option:selected").val();
 	      valUser4 = $("#user4 option:selected").val();
 		  $.ajax({
-			  url: url + 'admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
-			  type: 'POST',
+			  url: url + 'admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser4='+ valUser4, 
+			  type: 'GET',
 			  dataType: "json",
 			  success: function(result){
 				  $("#user3").select2({
 					    //placeholder: "Select a Review",
-					    //minimumInputLength: 0,
+					    minimumInputLength: 0,
 					    data: result
 					    ,
-					    //templateResult: formatState
+					    templateResult: formatState
 					  }); 
 
 			  }
@@ -381,27 +384,104 @@ $(document).ready(function () {
 	  });
 	  
 	  $("#user4").on("click change", function(){
-	      valUser1 = $("#user2 option:selected").val();
-	      valUser2 = $("#user3 option:selected").val();
+	      valUser1 = $("#user1 option:selected").val();
+	      valUser2 = $("#user2 option:selected").val();
 	      valUser3 = $("#user3 option:selected").val();
-	      valUser4 = $("#user4 option:selected").val();
 		  $.ajax({
-			  url: url + 'admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3 +'&valUser4='+ valUser4, 
-			  type: 'POST',
+			  url: url + 'admincp/tournament/fixture/getInfoUsers?valUser1=' + valUser1 +'&valUser2=' + valUser2 + '&valUser3='+ valUser3, 
+			  type: 'GET',
 			  dataType: "json",
 			  success: function(result){
 				  $("#user4").select2({
 					    //placeholder: "Select a Review",
-					    //minimumInputLength: 0,
+					    minimumInputLength: 0,
 					    data: result
 					    ,
-					    //templateResult: formatState
+					    templateResult: formatState
 					  }); 
 
 			  }
 		  });
 	  });;
+	  // selected edit cặp đấu
+	  var idUser1 =  $("#user1").attr('id-selected');
+	  var idUser2 =  $("#user2").attr('id-selected');
+	  var idUser3 =  $("#user3").attr('id-selected');
+	  var idUser4 =  $("#user4").attr('id-selected');
+	  
+	  if(parseInt(idUser1) > 0) {
+		  $.ajax({
+			  url: url + 'admincp/tournament/fixture/getInfoUsers?&idSelected=' + idUser1, 
+			  type: 'GET',
+			  dataType: "json",
+			  success: function(result){
+				  $("#user1").select2({
+					    //placeholder: "Select a Review",
+					    minimumInputLength: 0,
+					    data: result
+					    ,
+					    templateResult: formatState
+				 }); 
 
+			  }
+		  });
+	  }
+	  
+	  if(parseInt(idUser2) > 0) {
+		  $.ajax({
+			  url: url + 'admincp/tournament/fixture/getInfoUsers?&idSelected=' + idUser2, 
+			  type: 'GET',
+			  dataType: "json",
+			  success: function(result){
+				  $("#user2").select2({
+					    //placeholder: "Select a Review",
+					    minimumInputLength: 0,
+					    data: result
+					    ,
+					    templateResult: formatState
+				 }); 
+
+			  }
+		  });
+	  }
+	  
+	  if(parseInt(idUser3) > 0) {
+		  $.ajax({
+			  url: url + 'admincp/tournament/fixture/getInfoUsers?&idSelected=' + idUser3, 
+			  type: 'GET',
+			  dataType: "json",
+			  success: function(result){
+				  $("#user3").select2({
+					    //placeholder: "Select a Review",
+					    minimumInputLength: 0,
+					    data: result
+					    ,
+					    templateResult: formatState
+				 }); 
+
+			  }
+		  });
+	  }
+	  
+	  if(parseInt(idUser4) > 0) {
+		  $.ajax({
+			  url: url + 'admincp/tournament/fixture/getInfoUsers?&idSelected=' + idUser4, 
+			  type: 'GET',
+			  dataType: "json",
+			  success: function(result){
+				  $("#user4").select2({
+					    //placeholder: "Select a Review",
+					    minimumInputLength: 0,
+					    data: result
+					    ,
+					    templateResult: formatState
+				 }); 
+
+			  }
+		  });
+	  }
+	  
+	  
     $("#noi_dung").change(function(){
     	tournament_type = $("#tournament_type option:selected").val();
     	tournament = $("#tournament option:selected").val();

@@ -56,7 +56,13 @@
                                 $xhtmlContentNoiDung .= '<div class="tab-pane fade show '.($key == 0 ? 'active' : '').'" id="schedule-'.$row->id.'" role="tabpanel" aria-labelledby="schedule-1-tab">
                                                           <table class="table table-bordered table-hover" id="schedule-table" style="width: 100%">
                                                             <tbody>';
+                                if ($row->content_tournament_playing_category) {
+                                    $obj_content_tournament_playing_category = $row->content_tournament_playing_category;
+                                    $xhtmlContentNoiDung .= '<tr><th colspan="5">Vòng loại</th></tr>';
+                                    $xhtmlContentNoiDung .= '<tr><td colspan="3">'.$obj_content_tournament_playing_category->lich_thi_dau.'</td></tr>';
+                                }
                                 if ($row->list_fixture) {
+                                    
                                     foreach ($row->list_fixture as $key_1 => $row_1) {
                                         $xhtmlContentNoiDung .=  '<tr>
                                                                     <th colspan="5">'.$key_1.'</th>
@@ -161,7 +167,13 @@
                                 $xhtmlContentNoiDung .= '<div class="tab-pane fade show '.($key == 0 ? 'active' : '').'" id="schedule-'.$row->id.'" role="tabpanel" aria-labelledby="schedule-1-tab">
                                                   <table class="table table-bordered table-hover" id="schedule-table" style="width: 100%">
                                                     <tbody>';
+                                if ($row->content_tournament_playing_category) {
+                                    $obj_content_tournament_playing_category = $row->content_tournament_playing_category;
+                                    $xhtmlContentNoiDung .= '<tr><th colspan="5">Danh sách vận động viên</th></tr>';
+                                    $xhtmlContentNoiDung .= '<tr><td colspan="3">'.$obj_content_tournament_playing_category->van_dong_vien.'</td></tr>';
+                                }
                                 if ($row->list_player) {
+                                    $xhtmlContentNoiDung .= '<tr><th colspan="5">Xem chi tiết</th></tr>';
                                     foreach ($row->list_player as $key_1 => $row_1) {
                         
                                         $xhtmlContentNoiDung .=  '<tr>
@@ -315,21 +327,23 @@
                                                                                 }
                                                                             }
                                                                             $xhtml .= '</div>';
-                                                                            $xhtml .= '<div class="comment-reply comment-reply-'.$row->id.'">
-                                                                            					<button class="btn btn-indigo waves-effect waves-light">Trả
-                                                                            						lời</button>
-                                                                            					<div class="comment-reply-form" style="display: flex;">
-                                                                            						<img src="'.$link_img.'"> 
-                                                            			                            <textarea style="width: 100%;"></textarea>
-                                                                                                    <button comment-id="'.$row->id.'" type="button" id-tournament="'.$dataTournament->id.'" class="btn-send-reply btn btn-indigo waves-effect waves-light">Gửi bình luận</button>
-                                                                            					</div>
-                                                                            				</div>';
+                                                                            $xhtml .= '<button id-parent-comment="'.$row->id.'" class="btn btn-indigo waves-effect waves-light click-btn-reply">Trả lời</button>';
+                                                                            $xhtml .= '<div class="add-box-reply-'.$row->id.'"></div>';
                                                      $xhtml .=       '</div>
                                                             		</div>
                                                             	</div>';
                                                 }
                                             }   
-                                  $xhtml .= '</div>';                             
+                                  $xhtml .= '</div>'; 
+                                            $xhtml .= '<div class="row">
+                                                              <div class="col-lg-12">
+                                                                <nav>
+                                                                  <ul class="pagination justify-content-end">
+                                                    				'.$pagination.'
+                                                                  </ul>
+                                                                </nav>
+                                                              </div>
+                                                         </div>';
                                $xhtml .= '</div>';
                             break;
                     }
@@ -337,15 +351,7 @@
                 
                 echo $xhtml;
           ?>
-              <div class="row">
-                  <div class="col-lg-12">
-                    <nav>
-                      <ul class="pagination justify-content-end">
-        				<?=$pagination?>
-                      </ul>
-                    </nav>
-                  </div>
-             </div>
+
           </div>
        <?php } ?>
           <!-- end -->

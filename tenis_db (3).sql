@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 23, 2019 lúc 05:59 AM
+-- Thời gian đã tạo: Th3 01, 2019 lúc 10:04 AM
 -- Phiên bản máy phục vụ: 10.1.34-MariaDB
 -- Phiên bản PHP: 7.2.7
 
@@ -44,14 +44,7 @@ CREATE TABLE `ads` (
 
 INSERT INTO `ads` (`id`, `cid`, `vn_name`, `link`, `image_link`, `status`, `created`) VALUES
 (5, 1, 'Slider1', '', '1542616710_slider1_1.png', 1, 1542616710),
-(6, 1, 'Slider2', '', '1542616718_slider1_1.png', 1, 1542616718),
-(13, 6, 'Logo top', '', '1542616631_logo_1.png', 1, 1542697469),
-(14, 7, 'Slider partner 1', '', '1542360498_partner1.png', 1, 1542360498),
-(15, 7, 'Slider partner 2', '', '1542360514_partner2.png', 1, 1542360514),
-(16, 7, 'Slider partner 3', '', '1542360531_partner3.png', 1, 1542360531),
-(17, 7, 'Slider partner 4', '', '1542360550_partner4.png', 1, 1542360550),
-(19, 8, 'Logo bottom', '', '1542616661_logofooter.png', 1, 1542616661),
-(20, 7, 'Banner top', '', NULL, 1, 1542961994);
+(6, 1, 'Slider2', '', '1542616718_slider1_1.png', 1, 1542616718);
 
 -- --------------------------------------------------------
 
@@ -76,10 +69,7 @@ CREATE TABLE `ads_category` (
 --
 
 INSERT INTO `ads_category` (`id`, `pid`, `vn_name`, `vn_slug`, `vn_title`, `vn_keyword`, `vn_description`, `status`, `created`) VALUES
-(1, 0, 'Slider top', 'slider-top', 'Slider top', 'Slider top', 'Slider top', 1, 1541574184),
-(6, 0, 'Logo Top', 'logo-top', 'Logo Top', 'Logo Top', 'Logo Top', 1, 1542616547),
-(7, 0, 'Slider partner', 'slider-partner', '', '', '', 1, 1542360420),
-(8, 0, 'Logo bottom', 'logo-bottom', 'Logo bottom', 'Logo bottom', 'Logo bottom', 1, 1542616603);
+(1, 0, 'Slider top', 'slider-top', 'Slider top', 'Slider top', 'Slider top', 1, 1541574184);
 
 -- --------------------------------------------------------
 
@@ -112,7 +102,7 @@ CREATE TABLE `articles` (
 INSERT INTO `articles` (`id`, `cid`, `vn_name`, `vn_slug`, `vn_keyword`, `vn_title`, `vn_description`, `vn_sapo`, `vn_detail`, `is_home`, `is_hot`, `view`, `image_link`, `status`, `created`) VALUES
 (14, 3, 'Đắk Lắk: Tạm giữ nhóm đối tượng thuê ô tô đi trộm cắp tài sản', 'dak-lak-tam-giu-nhom-doi-tuong-thue-o-to-di-trom-cap-tai-san', '', 'Đắk Lắk: Tạm giữ nhóm đối tượng thuê ô tô đi trộm cắp tài sản', 'Ngày 5/11, Đại tá Nguyễn Văn Bôn, Trưởng Phòng Cảnh sát hình sự Công an tỉnh Đắk Lắk cho biết, đơn vị đang tạm giữ một nhóm đối tượng để phục vụ công tác điều tra về hành vi trộm cắp tài sản trên địa bàn tỉnh Đắk Lắk với tổng trị giá hơn 1 tỷ đồng.', 'Ngày 5/11, Đại tá Nguyễn Văn Bôn, Trưởng Phòng Cảnh sát hình sự Công an tỉnh Đắk Lắk cho biết, đơn vị đang tạm giữ một nhóm đối tượng để phục vụ công tác điều tra về hành vi trộm cắp tài sản trên địa bàn tỉnh Đắk Lắk với tổng trị giá hơn 1 tỷ đồng.', '<p>C&aacute;c đối tượng bị tạm giữ gồm: Nguy&ecirc;̃n Ngọc Giáp, 24 tuổi; Mai Mạnh Vũ 24 tuổi; và Hoàng Trung Đức, 23 tuổi, cả 3 đều tr&uacute; ở huy&ecirc;̣n Kr&ocirc;ng Búk, tỉnh Đắk Lắk. Theo cơ quan điều tra, nh&oacute;m đối tượng n&agrave;y c&oacute; tổng cộng 5 người nhưng hiện c&oacute; 2 đối tượng bỏ trốn khỏi địa phương</p>\r\n\r\n<p>Theo th&ocirc;ng tin ban đầu, từ đ&acirc;̀u năm 2018 đ&ecirc;́n nay, tr&ecirc;n địa bàn các huy&ecirc;̣n Kr&ocirc;ng Năng, K&ocirc;ng Búk, Cư M&rsquo;gar và thị xã Bu&ocirc;n H&ocirc;̀ người d&acirc;n thường xuy&ecirc;n bị kẻ gian đột nhập v&agrave;o nh&agrave; ri&ecirc;ng, c&aacute;c kho chứa n&ocirc;ng sản, rồi d&ugrave;ng c&aacute;c loại dụng cụ ph&aacute; kh&oacute;a để trộm cắp t&agrave;i sản. Nhận tin b&aacute;o, qua trinh s&aacute;t, lực lượng c&ocirc;ng an x&aacute;c định nh&oacute;m của Gi&aacute;p, Vũ v&agrave; Đức (c&ugrave;ng 2 đối tượng đ&atilde; bỏ trốn) l&agrave; nghi can n&ecirc;n đ&atilde; triệu tập l&ecirc;n trụ sở c&ocirc;ng an tỉnh để phục vụ c&ocirc;ng t&aacute;c điều tra.</p>\r\n\r\n<p>Tại cơ quan c&ocirc;ng an, các đ&ocirc;́i tượng khai nh&acirc;̣n, do thi&ecirc;́u ti&ecirc;̀n ăn chơi n&ecirc;n vào c&aacute;c buổi đ&ecirc;m, nh&oacute;m n&agrave;y thường thu&ecirc; xe &ocirc; t&ocirc; đi đ&ecirc;́n các bu&ocirc;n l&agrave;ng ở vùng s&acirc;u của c&aacute;c huyện vừa n&ecirc;u để khi thấy người d&acirc;n mất cảnh gi&aacute;c sẽ tổ chức trộm cắp t&agrave;i sản rồi đem b&aacute;n lấy tiền ti&ecirc;u x&agrave;i c&aacute; nh&acirc;n. Trong qu&aacute; tr&igrave;nh điều tra, c&ocirc;ng an ph&aacute;t hiện c&aacute;c đối tượng đ&atilde; tổ chức nhiều vụ trộm cắp t&agrave;i sản với tổng trị gi&aacute; l&ecirc;n tới hơn 1 tỷ đồng.</p>\r\n\r\n<p>C&ocirc;ng an tỉnh Đắk Lắk đang tổ chức truy bắt 2 đ&ocirc;́i tượng bỏ trốn, v&agrave; tiếp tục ho&agrave;n thiện hồ sơ để xử l&yacute; c&aacute;c đối tượng theo quy định của ph&aacute;p luật.</p>\r\n', 1, NULL, 4, '1550892531_news1.jpeg', 1, 1550892531),
 (15, 3, 'Bắt vợ chồng chuyên ăn cắp vali đắt tiền ở sân bay Thái Lan', 'bat-vo-chong-chuyen-an-cap-vali-dat-tien-o-san-bay-thai-lan', '', 'Bắt vợ chồng chuyên ăn cắp vali đắt tiền ở sân bay Thái Lan', 'Hai người nước ngoài chuyên ăn cắp hành lý đắt tiền ở sân bay quốc tế Suvarnabhumi và đem chúng bán cho các cửa hàng kinh doanh đồ cũ bên ngoài Thái Lan đã bị cảnh sát nước này bắt giữ.', 'Hai người nước ngoài chuyên ăn cắp hành lý đắt tiền ở sân bay quốc tế Suvarnabhumi và đem chúng bán cho các cửa hàng kinh doanh đồ cũ bên ngoài Thái Lan đã bị cảnh sát nước này bắt giữ.', '<p>Cảnh s&aacute;t Th&aacute;i Lan h&ocirc;m qua 4.11 bắt hai vợ chồng Li Tze Yueng, 35 tuổi, người Canada gốc Trung Quốc v&agrave; Lou Jieying, 22 tuổi, người Trung Quốc v&igrave; bị t&igrave;nh nghi ăn cắp vali của người kh&aacute;c. Hai kẻ t&igrave;nh nghi bị bắt khi đang chuẩn bị l&ecirc;n chuyến bay đi Hồng K&ocirc;ng c&ugrave;ng với chiếc vali được cho l&agrave; của một h&agrave;nh kh&aacute;ch người Mỹ.</p>\r\n\r\n<p>Chủ nh&acirc;n của vali l&agrave; du kh&aacute;ch Elsie Mullers, sau khi đ&aacute;p chuyến bay của h&atilde;ng All Nippon Airways, Nhật đến s&acirc;n bay Suvarnabhumi, Bangkok th&igrave; ph&aacute;t hiện ra chiếc vali của m&igrave;nh bị mất, liền b&aacute;o cảnh s&aacute;t h&ocirc;m 2.11. Th&ocirc;ng qua camera an ninh, cảnh s&aacute;t nh&igrave;n thấy hai h&agrave;nh kh&aacute;ch lấy đi chiếc vali bị b&aacute;o mất từ băng chuyền h&agrave;nh l&yacute; v&agrave; nhận diện hai h&agrave;nh kh&aacute;ch khả nghi.</p>\r\n\r\n<p>Cảnh s&aacute;t đ&atilde; chặn hai vợ chồng n&oacute;i tr&ecirc;n khi họ đang tr&ecirc;n đường trốn chạy. Giới chức Th&aacute;i Lan cho hay hai vợ chồng nhiều lần đến Th&aacute;i Lan với mục đ&iacute;ch lấy cắp h&agrave;nh l&yacute; của h&agrave;nh kh&aacute;ch kh&aacute;c v&agrave; họ chỉ nhắm v&agrave;o mục ti&ecirc;u l&agrave; những chiếc vali c&oacute; thương hiệu sang trọng như Rimowa.</p>\r\n', 1, NULL, 10, '1550892525_news1.jpeg', 1, 1550892526),
-(16, 3, 'Chứng kiến Việt Nam thi đấu, HLV của đội tuyển số 1 châu Á sốc nặng, lo lắng cho trận đấu tới', 'chung-kien-viet-nam-thi-dau-hlv-cua-doi-tuyen-so-1-chau-a-soc-nang-lo-lang-cho-tran-dau-toi', 'Chứng kiến Việt Nam thi đấu, HLV của đội tuyển số 1 châu Á sốc nặng, lo lắng cho trận đấu tới', 'Chứng kiến Việt Nam thi đấu, HLV của đội tuyển số 1 châu Á sốc nặng, lo lắng cho trận đấu tới', 'Chứng kiến Việt Nam thi đấu, HLV của đội tuyển số 1 châu Á sốc nặng, lo lắng cho trận đấu tới', 'Vẫn biết Đình Trọng thuộc top visual của đội tuyển Việt Nam nhưng đẹp bất chấp trang phục, bất chấp hoàn cảnh như thế', '<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h4>Vẫn biết Đ&igrave;nh Trọng thuộc top visual của đội tuyển Việt Nam nhưng đẹp bất chấp trang phục, bất chấp ho&agrave;n cảnh như thế ...</h4>\r\n\r\n<p><img alt=\"\" src=\"../img/news-1.jpeg\" /></p>\r\n\r\n<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem dignissimos cupiditate accusantium dolor? Eius laborum id veritatis deserunt perspiciatis! Ullam magni reprehenderit id quisquam est quis sed cupiditate, mollitia voluptatem?</p>\r\n\r\n<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem dignissimos cupiditate accusantium dolor? Eius laborum id veritatis deserunt perspiciatis! Ullam magni reprehenderit id quisquam est quis sed cupiditate, mollitia voluptatem?</p>\r\n\r\n<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem dignissimos cupiditate accusantium dolor? Eius laborum id veritatis deserunt perspiciatis! Ullam magni reprehenderit id quisquam est quis sed cupiditate, mollitia voluptatem?</p>\r\n\r\n<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem dignissimos cupiditate accusantium dolor? Eius laborum id veritatis deserunt perspiciatis! Ullam magni reprehenderit id quisquam est quis sed cupiditate, mollitia voluptatem?</p>\r\n\r\n<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem dignissimos cupiditate accusantium dolor? Eius laborum id veritatis deserunt perspiciatis! Ullam magni reprehenderit id quisquam est quis sed cupiditate, mollitia voluptatem?</p>\r\n\r\n<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem dignissimos cupiditate accusantium dolor? Eius laborum id veritatis deserunt perspiciatis! Ullam magni reprehenderit id quisquam est quis sed cupiditate, mollitia voluptatem?</p>\r\n', NULL, NULL, 1, '1550892446_news1.jpeg', 1, 1550892446);
+(16, 3, 'Chứng kiến Việt Nam thi đấu, HLV của đội tuyển số 1 châu Á sốc nặng, lo lắng cho trận đấu tới', 'chung-kien-viet-nam-thi-dau-hlv-cua-doi-tuyen-so-1-chau-a-soc-nang-lo-lang-cho-tran-dau-toi', 'Chứng kiến Việt Nam thi đấu, HLV của đội tuyển số 1 châu Á sốc nặng, lo lắng cho trận đấu tới', 'Chứng kiến Việt Nam thi đấu, HLV của đội tuyển số 1 châu Á sốc nặng, lo lắng cho trận đấu tới', 'Chứng kiến Việt Nam thi đấu, HLV của đội tuyển số 1 châu Á sốc nặng, lo lắng cho trận đấu tới', 'Vẫn biết Đình Trọng thuộc top visual của đội tuyển Việt Nam nhưng đẹp bất chấp trang phục, bất chấp hoàn cảnh như thế', '<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h4>Vẫn biết Đ&igrave;nh Trọng thuộc top visual của đội tuyển Việt Nam nhưng đẹp bất chấp trang phục, bất chấp ho&agrave;n cảnh như thế ...</h4>\r\n\r\n<p><img alt=\"\" src=\"../img/news-1.jpeg\" /></p>\r\n\r\n<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem dignissimos cupiditate accusantium dolor? Eius laborum id veritatis deserunt perspiciatis! Ullam magni reprehenderit id quisquam est quis sed cupiditate, mollitia voluptatem?</p>\r\n\r\n<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem dignissimos cupiditate accusantium dolor? Eius laborum id veritatis deserunt perspiciatis! Ullam magni reprehenderit id quisquam est quis sed cupiditate, mollitia voluptatem?</p>\r\n\r\n<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem dignissimos cupiditate accusantium dolor? Eius laborum id veritatis deserunt perspiciatis! Ullam magni reprehenderit id quisquam est quis sed cupiditate, mollitia voluptatem?</p>\r\n\r\n<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem dignissimos cupiditate accusantium dolor? Eius laborum id veritatis deserunt perspiciatis! Ullam magni reprehenderit id quisquam est quis sed cupiditate, mollitia voluptatem?</p>\r\n\r\n<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem dignissimos cupiditate accusantium dolor? Eius laborum id veritatis deserunt perspiciatis! Ullam magni reprehenderit id quisquam est quis sed cupiditate, mollitia voluptatem?</p>\r\n\r\n<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem dignissimos cupiditate accusantium dolor? Eius laborum id veritatis deserunt perspiciatis! Ullam magni reprehenderit id quisquam est quis sed cupiditate, mollitia voluptatem?</p>\r\n', NULL, NULL, 2, '1550892446_news1.jpeg', 1, 1550892446);
 
 -- --------------------------------------------------------
 
@@ -160,44 +150,27 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`id`, `pid`, `vn_detail`, `tournament_id`, `from_id`, `created`) VALUES
-(232, 0, 'Đăng ký', 6, 6, 1550629646),
-(233, 232, 'Danh sách đã đăng ký', 6, 6, 1550629657),
-(235, 0, '<br>', 6, 6, 1550651567),
-(236, 0, 'hello&nbsp;<div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><img src=\"http://localhost/project-hao/tenis/tennis/uploads/images/comment/192536739790e47bf8fada54fad809b4d95b4a70b7.jpeg\" width=\"746\"><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div>fhsdhfhsh</div><div><br></div>', 6, 6, 1550656394),
-(237, 0, 'uuririr', 6, 6, 1550656628),
-(238, 0, '<br>', 6, 6, 1550657619),
-(239, 0, '<br>', 6, 6, 1550657825),
-(240, 232, 'fgsgfgdgfdgdgdgdggfgx', 6, 6, 1550657825),
-(241, 235, 'jhfjfj', 6, 6, 1550657838),
-(242, 237, 'yhkfykflflfl', 6, 6, 1550657845),
-(243, 238, '<img src=\"http://localhost/project-hao/tenis/tennis/uploads/images/comment/11955629300812af8dad3bff133284111a95ff292f.jpeg\" width=\"423\"><br><div><br></div><div>kgklglgulglgl</div>', 6, 6, 1550657877),
-(244, 239, '<br>', 6, 6, 1550658125),
-(245, 239, 'tgwrh', 6, 6, 1550658132),
-(246, 238, 'rhhhwhwh', 6, 6, 1550658136),
-(247, 0, 'gkgkhc', 8, 6, 1550658263),
-(248, 0, 'ulllultl', 6, 6, 1550658429),
-(249, 0, 'i7totto', 6, 6, 1550658500),
-(250, 0, 'jtfjykykkk', 6, 6, 1550658545),
-(251, 0, '1', 6, 6, 1550658585),
-(252, 0, '2', 6, 6, 1550658597),
-(253, 232, '8oyi;gu\'ghi\'hi\'i', 6, 6, 1550658677),
-(254, 232, 't4rttw', 6, 6, 1550711005),
-(255, 236, 'rwr', 6, 6, 1550711016),
-(256, 0, 'utwtwt', 6, 6, 1550711036),
-(257, 0, 'jyhkjykkk', 6, 6, 1550712792),
-(258, 0, 'lylllykf', 6, 6, 1550712847),
-(259, 0, 'sV', 6, 6, 1550713409),
-(260, 0, 'ultuldlyy', 6, 6, 1550716452),
-(261, 0, 'fjfjxk<div><br></div>', 8, 6, 1550716614),
-(262, 261, 'nfjxjx', 8, 6, 1550716715),
-(263, 0, 'ghkkck', 8, 6, 1550716721),
-(264, 263, 'j\'ợpkp', 8, 6, 1550716863),
-(265, 0, 'k.fi,f', 8, 6, 1550716889),
-(266, 0, 'ơu<br>Uơ<div>0u</div><div>0[</div><div>u</div>', 8, 6, 1550716990),
-(267, 0, 'hdhdhd', 6, 3, 1550720647),
-(268, 0, 'bcs<div><br></div><div><br></div><div><img src=\"http://localhost/project-hao/tenis/tennis/uploads/images/comment/691495172ee5203181b94f8caa185.jpg\" width=\"283\"><br></div><div><br></div><div><br></div><div><br></div><div>gsgghsghshs</div><div><br></div><div><br></div><div><br></div>', 6, 3, 1550720813),
-(269, 0, 'rw', 9, 3, 1550723675),
-(270, 0, 'sfs', 8, 6, 1550809961);
+(386, 0, '1', 9, 70, 1551338619),
+(387, 0, '2', 9, 6, 1551338670),
+(388, 0, '3', 9, 3, 1551338685),
+(389, 0, '4', 9, 70, 1551338733),
+(391, 0, 'fdhshsh', 9, 70, 1551340362),
+(394, 0, 'yjrtjrkrjrsjsrjsrjrjrj<br>', 9, 6, 1551345399),
+(396, 0, 'ok', 6, 3, 1551412281),
+(397, 394, 'kfhkfkk', 9, 3, 1551414013),
+(398, 391, '123', 9, 3, 1551415871),
+(399, 0, 'gdjd', 9, 3, 1551415949),
+(400, 399, 'jjdjdfg', 9, 3, 1551415952),
+(401, 399, 'jjdjdfg', 9, 3, 1551415995),
+(402, 399, 'gjlgllgl', 9, 3, 1551416092),
+(403, 394, 'rtjrjr', 9, 3, 1551416135),
+(404, 0, 'ok', 9, 3, 1551416151),
+(405, 0, 'ok', 9, 3, 1551416229),
+(406, 0, 'pl', 9, 3, 1551416343),
+(407, 0, 'gfgs', 9, 3, 1551416442),
+(408, 407, 'ok', 9, 3, 1551416446),
+(409, 405, 'ok', 9, 3, 1551417897),
+(410, 0, 'ok', 9, 3, 1551417904);
 
 -- --------------------------------------------------------
 
@@ -216,7 +189,7 @@ CREATE TABLE `configs` (
 --
 
 INSERT INTO `configs` (`id`, `key`, `values`) VALUES
-(1, 'general', '{\"vn_title_site\":\"C\\u00d4NG TY TNHH TM NHUNG HUY\",\"vn_keyword_site\":\"C\\u00d4NG TY TNHH TM NHUNG HUY\",\"vn_description_site\":\"C\\u00d4NG TY TNHH TM NHUNG HUY\",\"about\":\"V\\u1edbi trang thi\\u1ebft b\\u1ecb hi\\u1ec7n \\u0111\\u1ea1i k\\u1ebft  h\\u1ee3p v\\u1edbi \\u0111\\u1ed9i ng\\u0169 k\\u1ef9 thu\\u1eadt d\\u00e0y d\\u1eb7n kinh nghi\\u1ec7m, nhaphanphoidentrangtri.com xin \\u0111\\u01b0\\u1ee3c l\\u1ea5y s\\u1ef1 uy t\\u00edn ra \\u0111\\u1ec3 cam k\\u1ebft v\\u1edbi kh\\u00e1ch h\\u00e0ng r\\u1eb1ng ch\\u00fang t\\u00f4i s\\u1ebd v\\u00e0 ch\\u1ec9 s\\u1ebd cung c\\u1ea5p nh\\u1eefng s\\u1ea3n ph\\u1ea9m c\\u00f3 ch\\u1ea5t l\\u01b0\\u1ee3ng cao, quy tr\\u00ecnh giao h\\u00e0ng an to\\u00e0n v\\u00e0 nhanh ch\\u00f3ng c\\u00f9ng gi\\u00e1 c\\u1ea3 ph\\u1ea3i ch\\u0103ng, \\u0111\\u00fang v\\u1edbi gi\\u00e1 tr\\u1ecb m\\u00e0 ch\\u00fang t\\u00f4i mang l\\u1ea1i.\",\"address\":\"1221 Nguy\\u1ec5n Duy Trinh, P. Long Tr\\u01b0\\u1eddng, Q9, TP.HCM\",\"address_website\":\"https:\\/\\/nhaphanphoidentrangtri.com\",\"email\":\"nhunghuy@gmail.com\",\"phone\":\"086693 1273  - 0919 851 807\",\"name\":\"\",\"hotline\":\"0919 851 807 \",\"fax\":\"\",\"facebook\":\"http:\\/\\/facebook.com\",\"zalo\":\"http:\\/\\/facebook.com\",\"twitter\":\"http:\\/\\/facebook.com\",\"skype\":\"http:\\/\\/facebook.com\"}');
+(1, 'general', '{\"vn_title_site\":\"C\\u00d4NG \",\"vn_keyword_site\":\"C\\u00d4NG TY TNHH TM NHUNG HUY\",\"vn_description_site\":\"\\u1ebbhehehehde\",\"about\":\"V\\u1edbi trang thi\\u1ebft b\\u1ecb hi\\u1ec7n \\u0111\\u1ea1i k\\u1ebft  h\\u1ee3p v\\u1edbi \\u0111\\u1ed9i ng\\u0169 k\\u1ef9 thu\\u1eadt d\\u00e0y d\\u1eb7n kinh nghi\\u1ec7m, nhaphanphoidentrangtri.com xin \\u0111\\u01b0\\u1ee3c l\\u1ea5y s\\u1ef1 uy t\\u00edn ra \\u0111\\u1ec3 cam k\\u1ebft v\\u1edbi kh\\u00e1ch h\\u00e0ng r\\u1eb1ng ch\\u00fang t\\u00f4i s\\u1ebd v\\u00e0 ch\\u1ec9 s\\u1ebd cung c\\u1ea5p nh\\u1eefng s\\u1ea3n ph\\u1ea9m c\\u00f3 ch\\u1ea5t l\\u01b0\\u1ee3ng cao, quy tr\\u00ecnh giao h\\u00e0ng an to\\u00e0n v\\u00e0 nhanh ch\\u00f3ng c\\u00f9ng gi\\u00e1 c\\u1ea3 ph\\u1ea3i ch\\u0103ng, \\u0111\\u00fang v\\u1edbi gi\\u00e1 tr\\u1ecb m\\u00e0 ch\\u00fang t\\u00f4i mang l\\u1ea1i.\",\"address\":\"1221 Nguy\\u1ec5n Duy Trinh, P. Long Tr\\u01b0\\u1eddng, Q9, TP.HCM\",\"address_website\":\"https:\\/\\/nhaphanphoidentrangtri.com\",\"email_1\":\"\",\"email_2\":\"\",\"phone\":\"086693 1273  - 0919 851 807\",\"name\":null,\"hotline\":\"0919 851 807 \",\"fax\":\"\",\"facebook\":\"http:\\/\\/facebook.com\",\"zalo\":\"http:\\/\\/facebook.com\",\"twitter\":\"http:\\/\\/facebook.com\",\"skype\":\"http:\\/\\/facebook.com\",\"youtube\":\"\"}');
 
 -- --------------------------------------------------------
 
@@ -248,6 +221,31 @@ INSERT INTO `contact` (`id`, `name`, `email`, `phone`, `address`, `title`, `cont
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `content_tournament_playing_category`
+--
+
+CREATE TABLE `content_tournament_playing_category` (
+  `id` int(11) NOT NULL,
+  `tournament_type` int(11) DEFAULT NULL,
+  `tournament` int(11) DEFAULT NULL,
+  `tournament_playing_category_id` int(11) DEFAULT NULL,
+  `van_dong_vien` longtext,
+  `lich_thi_dau` longtext,
+  `status` int(1) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `content_tournament_playing_category`
+--
+
+INSERT INTO `content_tournament_playing_category` (`id`, `tournament_type`, `tournament`, `tournament_playing_category_id`, `van_dong_vien`, `lich_thi_dau`, `status`) VALUES
+(3, 3, 6, 17, '<p>Danh sách vận động viên tham gia giả đấu</p>\r\n', '<p>Danh sách vận động viên tham gia vòng loại</p>\r\n', 1),
+(4, 3, 6, 21, '<p>Danh sách vận động viên tham gia giả đấu</p>\r\n', '<p>Danh sách vận động viên tham gia vòng loại</p>\r\n', 1),
+(5, 3, 8, 22, '', '', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `counters`
 --
 
@@ -266,7 +264,7 @@ CREATE TABLE `counters` (
 --
 
 INSERT INTO `counters` (`id`, `yesterday`, `today`, `week`, `month`, `year`, `properties`) VALUES
-(1, '394', '331', '2137.5', '2507', '2507', 'a:4:{s:3:\"day\";s:2:\"23\";s:4:\"week\";s:2:\"08\";s:5:\"month\";s:2:\"02\";s:4:\"year\";s:4:\"2019\";}');
+(1, '723.5', '249.5', '2412.5', '249.5', '4918.5', 'a:4:{s:3:\"day\";s:2:\"01\";s:4:\"week\";s:2:\"09\";s:5:\"month\";s:2:\"03\";s:4:\"year\";s:4:\"2019\";}');
 
 -- --------------------------------------------------------
 
@@ -1020,37 +1018,10 @@ CREATE TABLE `fixture` (
 --
 
 INSERT INTO `fixture` (`id`, `registration_id`, `tournament_playing_category_id`, `first_registration_id`, `second_registration_id`, `round`, `start_date`, `end_date`) VALUES
-(74, NULL, 17, 109, 110, 4, 1550715500, 1560715500),
-(75, NULL, 17, 111, 112, 4, 1550715500, 1560715500),
-(76, NULL, 17, 113, 114, 4, 1550715500, 1560715500),
-(77, NULL, 17, 115, 116, 4, 1550715500, 1560715500),
-(78, NULL, 17, 117, 118, 4, 1550715500, 1560715500),
-(79, NULL, 17, 119, 120, 4, 1550715500, 1560715500),
-(80, NULL, 17, 121, 122, 4, 1550715500, 1560715500),
-(81, NULL, 17, 123, 124, 4, 1550715500, 1560715500),
-(82, NULL, 17, 109, 112, 3, 1550715500, 1560715500),
-(83, NULL, 17, 113, 116, 3, 1550715500, 1560715500),
-(84, NULL, 17, 117, 120, 3, 1550715500, 1560715500),
-(85, NULL, 17, 121, 124, 3, 1550715500, 1560715500),
-(86, NULL, 17, 109, 116, 2, 1550715500, 1560715500),
-(87, NULL, 17, 117, 124, 2, 1550715500, 1560715500),
-(88, NULL, 17, 109, 124, 1, 1550715500, 1560715500),
-(89, NULL, 21, 125, 126, 4, 1549990800, 1551286800),
-(90, NULL, 21, 127, 128, 4, 1550715500, 1560715500),
-(91, NULL, 21, 129, 130, 4, 1550715500, 1560715500),
-(92, NULL, 21, 131, 132, 4, 1550715500, 1560715500),
-(93, NULL, 21, 133, 134, 4, 1550715500, 1560715500),
-(94, NULL, 21, 135, 136, 4, 1550715500, 1560715500),
-(95, NULL, 21, 137, 138, 4, 1550715500, 1560715500),
-(96, NULL, 21, 139, 140, 4, 1550715500, 1560715500),
-(97, NULL, 21, 125, 128, 3, 1550715500, 1560715500),
-(98, NULL, 21, 129, 132, 3, 1550715500, 1560715500),
-(99, NULL, 21, 133, 136, 3, 1550715500, 1560715500),
-(100, NULL, 21, 137, 140, 3, 1550715500, 1560715500),
-(101, NULL, 21, 125, 132, 2, 1550715500, 1560715500),
-(102, NULL, 21, 133, 140, 2, 1550715500, 1560715500),
-(103, NULL, 21, 125, 140, 1, 1550715500, 1560715500),
-(104, NULL, 22, 141, 142, 4, 1549990800, 1549996800);
+(104, NULL, 22, 141, 142, 4, 1549990800, 1549996800),
+(106, NULL, 24, 145, 146, 5, 1549303260, 1550858400),
+(107, NULL, 22, 147, 148, 4, 1552629600, 1552633200),
+(108, NULL, 22, 149, 150, 4, 1553324340, 1552114800);
 
 -- --------------------------------------------------------
 
@@ -1070,37 +1041,66 @@ CREATE TABLE `fixture_result` (
 --
 
 INSERT INTO `fixture_result` (`id`, `fixture_id`, `winner_registration_id`, `number_of_sets_played`) VALUES
-(67, 74, 109, 1),
-(68, 75, 112, 1),
-(69, 76, 113, 1),
-(70, 77, 116, 1),
-(71, 78, 117, 1),
-(72, 79, 120, 1),
-(73, 80, 121, 1),
-(74, 81, 124, 1),
-(75, 82, 109, 1),
-(76, 83, 116, 1),
-(77, 84, 117, 1),
-(78, 85, 124, 1),
-(79, 86, 109, 1),
-(80, 87, 124, 1),
-(81, 88, 109, 1),
-(82, 89, 125, 1),
-(83, 90, 128, 1),
-(84, 91, 129, 1),
-(85, 92, 132, 1),
-(86, 93, 133, 1),
-(87, 94, 136, 1),
-(88, 95, 137, 1),
-(89, 96, 140, 1),
-(90, 97, 125, 1),
-(91, 98, 132, 1),
-(92, 99, 133, 1),
-(93, 100, 140, 1),
-(94, 101, 125, 1),
-(95, 102, 140, 1),
-(96, 103, 125, 1),
-(97, 104, 0, 1);
+(97, 104, 0, 1),
+(99, 106, 145, 1),
+(100, 107, 0, 1),
+(101, 108, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `history_comment`
+--
+
+CREATE TABLE `history_comment` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `id_comment` int(11) DEFAULT NULL,
+  `created` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `history_comment`
+--
+
+INSERT INTO `history_comment` (`id`, `id_user`, `id_comment`, `created`) VALUES
+(107, 70, 387, 1551338670),
+(108, 70, 388, 1551338685),
+(109, 6, 388, 1551338685),
+(110, 6, 389, 1551338733),
+(111, 3, 389, 1551338733),
+(114, 6, 391, 1551340362),
+(115, 3, 391, 1551340362),
+(120, 70, 394, 1551345399),
+(121, 3, 394, 1551345399),
+(124, 70, 397, 1551414013),
+(125, 6, 397, 1551414013),
+(126, 70, 398, 1551415871),
+(127, 6, 398, 1551415871),
+(128, 70, 399, 1551415949),
+(129, 6, 399, 1551415949),
+(130, 70, 400, 1551415952),
+(131, 6, 400, 1551415952),
+(132, 70, 401, 1551415995),
+(133, 6, 401, 1551415995),
+(134, 70, 402, 1551416092),
+(135, 6, 402, 1551416092),
+(136, 70, 403, 1551416135),
+(137, 6, 403, 1551416135),
+(138, 70, 404, 1551416151),
+(139, 6, 404, 1551416151),
+(140, 70, 405, 1551416229),
+(141, 6, 405, 1551416229),
+(142, 70, 406, 1551416343),
+(143, 6, 406, 1551416343),
+(144, 70, 407, 1551416442),
+(145, 6, 407, 1551416442),
+(146, 70, 408, 1551416446),
+(147, 6, 408, 1551416446),
+(148, 70, 409, 1551417897),
+(149, 6, 409, 1551417897),
+(150, 70, 410, 1551417904),
+(151, 6, 410, 1551417904);
 
 -- --------------------------------------------------------
 
@@ -1187,7 +1187,11 @@ INSERT INTO `playing_category` (`id`, `vn_name`, `vn_slug`, `vn_keyword`, `vn_ti
 (1, 'Đơn nam 1800', 'don-nam-1800', 'Đơn nam', 'Đơn nam', NULL, NULL, 'Đơn nam', 1, 1549683365),
 (2, 'Đơn nữ', 'don-nu', 'Đơn nữ', 'Đơn nữ', NULL, NULL, 'Đơn nữ', 1, 1548150270),
 (3, 'Đôi nam', 'doi-nam', '', '', NULL, NULL, '', 1, 1549013123),
-(4, 'Đôi nữ', 'doi-nu', '', '', NULL, NULL, '', 1, 1549705053);
+(4, 'Đôi nữ', 'doi-nu', '', '', NULL, NULL, '', 1, 1549705053),
+(5, 'Lãnh đạo trên 50', 'lanh-dao-tren-50', '', '', NULL, NULL, '', 1, 1551150606),
+(6, 'Lãnh đạo từ 35-50', 'lanh-dao-tu-35-50', '', '', NULL, NULL, '', 1, 1551150632),
+(7, 'Đôi nam 1650', 'doi-nam-1650', '', '', NULL, NULL, '', 1, 1551150648),
+(8, 'Đôi nam nữ 1450', 'doi-nam-nu-1450', '', '', NULL, NULL, '', 1, 1551150674);
 
 -- --------------------------------------------------------
 
@@ -1207,106 +1211,14 @@ CREATE TABLE `playing_in` (
 --
 
 INSERT INTO `playing_in` (`id`, `registration_id`, `seed`, `tournament_playing_category_id`) VALUES
-(101, 109, NULL, 17),
-(102, 110, NULL, 17),
-(103, 111, NULL, 17),
-(104, 112, NULL, 17),
-(105, 113, NULL, 17),
-(106, 114, NULL, 17),
-(107, 115, NULL, 17),
-(108, 116, NULL, 17),
-(109, 117, NULL, 17),
-(110, 118, NULL, 17),
-(111, 119, NULL, 17),
-(112, 120, NULL, 17),
-(113, 121, NULL, 17),
-(114, 122, NULL, 17),
-(115, 123, NULL, 17),
-(116, 124, NULL, 17),
-(117, 125, NULL, 21),
-(118, 126, NULL, 21),
-(119, 127, NULL, 21),
-(120, 128, NULL, 21),
-(121, 129, NULL, 21),
-(122, 130, NULL, 21),
-(123, 131, NULL, 21),
-(124, 132, NULL, 21),
-(125, 133, NULL, 21),
-(126, 134, NULL, 21),
-(127, 135, NULL, 21),
-(128, 136, NULL, 21),
-(129, 137, NULL, 21),
-(130, 138, NULL, 21),
-(131, 139, NULL, 21),
-(132, 140, NULL, 21),
 (133, 141, NULL, 22),
-(134, 142, NULL, 22);
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `product`
---
-
-CREATE TABLE `product` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `cid` int(11) DEFAULT NULL,
-  `province_id` int(11) DEFAULT NULL,
-  `vn_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `vn_slug` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `vn_keyword` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `vn_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `vn_description` text COLLATE utf8_unicode_ci,
-  `price` decimal(15,0) DEFAULT NULL,
-  `sale_price` decimal(15,0) DEFAULT NULL,
-  `vn_sapo` text COLLATE utf8_unicode_ci,
-  `vn_detail` longtext COLLATE utf8_unicode_ci,
-  `view` int(11) DEFAULT NULL,
-  `rate_total` int(11) DEFAULT NULL,
-  `rate_count` int(11) DEFAULT NULL,
-  `buy_sell` tinyint(3) DEFAULT NULL,
-  `is_home` tinyint(3) DEFAULT NULL,
-  `is_sale` tinyint(3) DEFAULT NULL,
-  `is_pay` tinyint(3) DEFAULT NULL,
-  `is_new` tinyint(3) DEFAULT NULL,
-  `is_like` int(1) DEFAULT NULL,
-  `is_special` int(1) DEFAULT NULL,
-  `code` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `image_link` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `image_list` text COLLATE utf8_unicode_ci,
-  `status` tinyint(3) DEFAULT NULL,
-  `created` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `product_category`
---
-
-CREATE TABLE `product_category` (
-  `id` int(11) NOT NULL,
-  `pid` int(11) DEFAULT NULL,
-  `vn_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `vn_slug` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `vn_keyword` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `vn_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `vn_description` text COLLATE utf8_unicode_ci,
-  `vn_sapo` longtext COLLATE utf8_unicode_ci,
-  `position` int(11) DEFAULT NULL,
-  `image_link` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status` tinyint(3) DEFAULT NULL,
-  `created` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `product_category`
---
-
-INSERT INTO `product_category` (`id`, `pid`, `vn_name`, `vn_slug`, `vn_keyword`, `vn_title`, `vn_description`, `vn_sapo`, `position`, `image_link`, `status`, `created`) VALUES
-(1, 0, 'Nội thất Ý Segis', 'noi-that-y-segis', '', '', '', '', NULL, '1550717156_logothietbi.jpg', 1, 1550717156),
-(2, 0, 'Nội thất Ý Segis', 'noi-that-y-segis-1', '', '', '', '', NULL, '1550717228_1547536657_img_7918.jpg', 1, 1550717228);
+(134, 142, NULL, 22),
+(137, 145, NULL, 24),
+(138, 146, NULL, 24),
+(139, 147, NULL, 22),
+(140, 148, NULL, 22),
+(141, 149, NULL, 22),
+(142, 150, NULL, 22);
 
 -- --------------------------------------------------------
 
@@ -1407,40 +1319,14 @@ CREATE TABLE `registration` (
 --
 
 INSERT INTO `registration` (`id`, `date`) VALUES
-(109, '2019-02-12 11:02:33'),
-(110, '2019-02-12 11:02:34'),
-(111, '2019-02-12 11:02:25'),
-(112, '2019-02-12 11:02:25'),
-(113, '2019-02-12 11:02:14'),
-(114, '2019-02-12 11:02:15'),
-(115, '2019-02-12 02:02:26'),
-(116, '2019-02-12 02:02:26'),
-(117, '2019-02-12 02:02:45'),
-(118, '2019-02-12 02:02:45'),
-(119, '2019-02-12 02:02:21'),
-(120, '2019-02-12 02:02:21'),
-(121, '2019-02-12 02:02:06'),
-(122, '2019-02-12 02:02:06'),
-(123, '2019-02-12 02:02:56'),
-(124, '2019-02-12 02:02:56'),
-(125, '2019-02-12 02:02:59'),
-(126, '2019-02-12 02:02:00'),
-(127, '2019-02-12 02:02:11'),
-(128, '2019-02-12 02:02:11'),
-(129, '2019-02-12 02:02:47'),
-(130, '2019-02-12 02:02:47'),
-(131, '2019-02-12 02:02:09'),
-(132, '2019-02-12 02:02:09'),
-(133, '2019-02-12 02:02:04'),
-(134, '2019-02-12 02:02:04'),
-(135, '2019-02-12 02:02:05'),
-(136, '2019-02-12 02:02:05'),
-(137, '2019-02-12 02:02:15'),
-(138, '2019-02-12 02:02:16'),
-(139, '2019-02-12 02:02:14'),
-(140, '2019-02-12 02:02:14'),
 (141, '2019-02-12 04:02:35'),
-(142, '2019-02-12 04:02:35');
+(142, '2019-02-12 04:02:35'),
+(145, '2019-02-26 02:02:06'),
+(146, '2019-02-26 02:02:06'),
+(147, '2019-03-01 03:03:43'),
+(148, '2019-03-01 03:03:43'),
+(149, '2019-03-01 03:03:39'),
+(150, '2019-03-01 03:03:39');
 
 -- --------------------------------------------------------
 
@@ -1459,56 +1345,16 @@ CREATE TABLE `registration_player` (
 --
 
 INSERT INTO `registration_player` (`id`, `registration_id`, `player_id`) VALUES
-(137, 109, 6),
-(138, 110, 7),
-(139, 111, 8),
-(140, 112, 9),
-(141, 113, 10),
-(142, 114, 11),
-(143, 115, 12),
-(144, 116, 13),
-(145, 117, 14),
-(146, 118, 15),
-(147, 119, 16),
-(148, 120, 17),
-(149, 121, 18),
-(150, 122, 19),
-(151, 123, 20),
-(152, 124, 21),
-(153, 125, 6),
-(154, 125, 8),
-(155, 126, 7),
-(156, 126, 9),
-(157, 127, 10),
-(158, 127, 12),
-(159, 128, 11),
-(160, 128, 13),
-(161, 129, 14),
-(162, 129, 16),
-(163, 130, 15),
-(164, 130, 17),
-(165, 131, 18),
-(166, 131, 20),
-(167, 132, 19),
-(168, 132, 21),
-(169, 133, 22),
-(170, 133, 24),
-(171, 134, 23),
-(172, 134, 25),
-(173, 135, 26),
-(174, 135, 28),
-(175, 136, 27),
-(176, 136, 29),
-(177, 137, 30),
-(178, 137, 32),
-(179, 138, 31),
-(180, 138, 33),
-(181, 139, 34),
-(182, 139, 36),
-(183, 140, 35),
-(184, 140, 37),
 (185, 141, 6),
-(186, 142, 7);
+(186, 142, 7),
+(189, 145, 64),
+(190, 145, 59),
+(191, 146, 62),
+(192, 146, 53),
+(193, 147, 72),
+(194, 148, 70),
+(195, 149, 70),
+(196, 150, 68);
 
 -- --------------------------------------------------------
 
@@ -1529,37 +1375,10 @@ CREATE TABLE `set_score` (
 --
 
 INSERT INTO `set_score` (`id`, `fixture_id`, `set_number`, `first_registration_games`, `second_registration_games`) VALUES
-(73, 74, 1, 6, 1),
-(74, 75, 1, 1, 6),
-(75, 76, 1, 6, 2),
-(76, 77, 1, 2, 6),
-(77, 78, 1, 6, 3),
-(78, 79, 1, 3, 6),
-(79, 80, 1, 6, 4),
-(80, 81, 1, 4, 6),
-(81, 82, 1, 6, 1),
-(82, 83, 1, 1, 6),
-(83, 84, 1, 6, 1),
-(84, 85, 1, 2, 6),
-(85, 86, 1, 6, 1),
-(86, 87, 1, 1, 6),
-(87, 88, 1, 6, 1),
-(88, 89, 1, 6, 1),
-(89, 90, 1, 1, 6),
-(90, 91, 1, 6, 2),
-(91, 92, 1, 2, 6),
-(92, 93, 1, 6, 3),
-(93, 94, 1, 3, 6),
-(94, 95, 1, 6, 4),
-(95, 96, 1, 4, 6),
-(96, 97, 1, 6, 1),
-(97, 98, 1, 1, 6),
-(98, 99, 1, 6, 2),
-(99, 100, 1, 2, 6),
-(100, 101, 1, 6, 1),
-(101, 102, 1, 1, 6),
-(102, 103, 1, 6, 1),
-(103, 104, 1, 0, 0);
+(103, 104, 1, 0, 0),
+(105, 106, 1, 6, 1),
+(106, 107, 1, 0, 0),
+(107, 108, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1627,9 +1446,8 @@ CREATE TABLE `tournament` (
 --
 
 INSERT INTO `tournament` (`id`, `pid`, `vn_name`, `vn_slug`, `vn_keyword`, `vn_title`, `vn_description`, `vn_sapo`, `vn_detail`, `number_of_rounds`, `tournament_type_id`, `surface_type_id`, `image_link`, `image_list`, `start_date`, `end_date`, `view`, `status`, `created`) VALUES
-(6, 3, '10 Kids Unaware of Their Halloween Costsdfume', '10-kids-unaware-of-their-halloween-costsdfume', '10 Kids Unaware of Their Halloween Costsdfume', '10 Kids Unaware of Their Halloween Costsdfume', '10 Kids Unaware of Their Halloween Costsdfume', '<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat magnam repudiandae, natus velit ab nulla magni cumque quidem maiores sapiente sequi fugit. Nulla cupiditate impedit, dolorum placeat nisi ipsa enim?</p>\r\n', '<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat magnam repudiandae, natus velit ab nulla magni cumque quidem maiores sapiente sequi fugit. Nulla cupiditate impedit, dolorum placeat nisi ipsa enim?</p>\r\n\r\n<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat magnam repudiandae, natus velit ab nulla magni cumque quidem maiores sapiente sequi fugit. Nulla cupiditate impedit, dolorum placeat nisi ipsa enim?</p>\r\n\r\n<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat magnam repudiandae, natus velit ab nulla magni cumque quidem maiores sapiente sequi fugit. Nulla cupiditate impedit, dolorum placeat nisi ipsa enim?</p>\r\n\r\n<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat magnam repudiandae, natus velit ab nulla magni cumque quidem maiores sapiente sequi fugit. Nulla cupiditate impedit, dolorum placeat nisi ipsa enim?</p>\r\n\r\n<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat magnam repudiandae, natus velit ab nulla magni cumque quidem maiores sapiente sequi fugit. Nulla cupiditate impedit, dolorum placeat nisi ipsa enim?</p>\r\n\r\n<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat magnam repudiandae, natus velit ab nulla magni cumque quidem maiores sapiente sequi fugit. Nulla cupiditate impedit, dolorum placeat nisi ipsa enim?</p>\r\n\r\n<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat magnam repudiandae, natus velit ab nulla magni cumque quidem maiores sapiente sequi fugit. Nulla cupiditate impedit, dolorum placeat nisi ipsa enim?</p>\r\n', NULL, NULL, NULL, NULL, NULL, 1548954000, 1551286800, 535, 1, 1550109563),
-(8, 3, 'Thép và những người bạn', 'thep-va-nhung-nguoi-ban', 'Thép và những người bạn', 'Thép và những người bạn', 'Thép và những người bạn', '<p><strong>Serena sẽ sớm trở lại. </strong>Serena Williams sắp sửa trở lại top 10 tay vợt nữ hàng đầu thế giới năm 2019. Điều đáng nói, đã gần 3 tuần rồi cô em nhà Williams không thi đấu. Serena chuẩn bị thế chỗ của Carolina Wozniacki - người vừa rút lui vì chấn thương ở giải Qatar Total Open 2019.</p>\r\n', '<p><strong>Serena sẽ sớm trở lại. </strong>Serena Williams sắp sửa trở lại top 10 tay vợt nữ hàng đầu thế giới năm 2019. Điều đáng nói, đã gần 3 tuần rồi cô em nhà Williams không thi đấu. Serena chuẩn bị thế chỗ của Carolina Wozniacki - người vừa rút lui vì chấn thương ở giải Qatar Total Open 2019.</p>\r\n\r\n<p> </p>\r\n\r\n<p><strong>Joshua “bay đêm” cùng Mayweather.</strong> Tay đấm người Anh, Anthony Joshua bị truyền thông Anh chỉ trích dữ dội vì có mặt trong hộp đêm Las Vegas với “Độc cô cầu bại” Mayweather. Mặc dù trên tay cầm chai nước lọc song các tờ báo Anh cho rằng Joshua chỉ đang “diễn”. Ngoài ra, giới truyền thông Anh cũng cảnh báo tay đấm 29 tuổi, nếu anh đi theo cách sống xa hoa như Mayweather, sự nghiệp của Joshua có thể sẽ tiêu tan rất sớm.</p>\r\n\r\n<p>&lt;iframe frameborder=\"0\" height=\"1\" id=\"google_ads_iframe_/124557882/24h/vn/desktop/sport/in_readvideo_article_0\" name=\"google_ads_iframe_/124557882/24h/vn/desktop/sport/in_readvideo_article_0\" scrolling=\"no\" title=\"3rd party ad content\" width=\"1\"&gt;&lt;/iframe&gt;</p>\r\n\r\n<p> </p>\r\n\r\n<p><strong>Chris Froome bị nghi ngờ “bắt chước” Lance Armstrong.</strong> Tay đua người Anh, Chris Froome vô địch Tour de France 3 lần liên tiếp. Mới đây, một số tờ báo Pháp nghi ngờ rằng Chris Froome đã sử dụng gian lận để giành chiến thắng. Thậm chí không ít tờ báo đặt ra mối nghi ngờ, liệu rằng Foome có tiếp bước Lance Armstrong - tay đua từng 7 lần liên tiếp vô địch Tour de France nhưng rồi vỡ lở bê bối sử dụng doping.</p>\r\n\r\n<p> </p>\r\n\r\n<p><strong>“Lewis Hamilton ngày càng tự phụ”. </strong>Tay đua F1 người Anh vẫn chưa có động thái trở lại tập luyện, chuẩn bị cho mùa giải F1 năm 2020. Ngay lập tức Hamilton bị kình địch Sebastian Vettel mỉa mai, rằng “Hamilton ngày càng kênh kiệu và ảo tưởng rằng mình là trung tâm của thế giới”. Hai tay đua này từng mâu thuẫn nghiêm trọng sau sự cố tại Azerbaijan Grand Prix năm 2018.</p>\r\n', NULL, NULL, NULL, NULL, NULL, 1550595600, 1553965200, 210, 1, 1550108874),
-(9, 3, 'Thép và những người bạn lần 2', 'thep-va-nhung-nguoi-ban-lan-2', 'Thép và những người bạn lần 2', 'Thép và những người bạn lần 2', 'Thép và những người bạn lần 2', '<p>Thép và những người bạn lần 2</p>\r\n', '<p>Với danh hiệu Grand Slam thứ 15 giành được tại chung kết Australian Open, tay vợt Serbia đã chính thức vượt qua Pete Sampras và tràn đầy cơ hội qua mặt cả Nadal (17 Grand Slam) lẫn Federer (20 Grand Slam).</p>\r\n\r\n<p>Sau khi chữa lành hoàn toàn chấn thương cách đây 1 năm, Nole vẫn đang trên con đường trở thành tay vợt có khả năng thống trị lâu nhất mọi thời đại. Nếu như Nadal không thể ngăn cản Djokovic tại Roland Garros diễn ra vào tháng 5, tay vợt Serbia sẽ áp sát chính số danh hiệu Grand Slam của tay vợt người Tây Ban Nha đang có (16 so với 17).</p>\r\n\r\n<p>Theo như dự đoán của cựu tay vợt người Đức - Patrick Kuhnen, Djokovic lúc này mới 31 tuổi và còn rất nhiều cơ hội cho anh đạt được những cột mốc mới trong sự nghiệp. “Nếu Djokovic tiếp tục thi đấu với phong độ cao như hiện nay, anh ấy có thể trở thành tay vợt vĩ đại nhất trong lịch sử. Tôi hy vọng sẽ được chào đón Djokovic đến Munich một ngày nào đó.”</p>\r\n\r\n<p>Tại giải đấu Australian Open vừa kết thúc cách đây không lâu, tay vợt số 1 thế giới cho thấy anh hoàn toàn không có đối thủ vào thời điểm hiện tại, kể cả đó là <a href=\"https://www.24h.com.vn/rafael-nadal-c101e4418.html\" title=\"Rafael Nadal\">Rafael Nadal</a>.</p>\r\n\r\n<p>Tuy nhiên, đích đến sắp tới của Djokovic chính là giải đấu Roland Garros, nơi Nadal là \"độc cô cầu bại\" trên mặt sân đất nện với thành tích 82 thắng - 2 thua, 11 danh hiệu.</p>\r\n\r\n<p>Nếu muốn trở thành nhà vô địch toàn diện nhất, Djokovic cần phải hạ gục đại kình địch. Trong trường hợp thành công, Djokovic hoàn toàn có thể hướng tới danh hiệu tay vợt vĩ đại nhất lịch sử.</p>\r\n', NULL, NULL, NULL, NULL, NULL, 1551114000, 1551286800, 32, 1, 1550722192);
+(8, 3, 'Thép và những người bạn', 'thep-va-nhung-nguoi-ban', 'Thép và những người bạn', 'Thép và những người bạn', 'Thép và những người bạn', '<p><strong>Serena sẽ sớm trở lại. </strong>Serena Williams sắp sửa trở lại top 10 tay vợt nữ hàng đầu thế giới năm 2019. Điều đáng nói, đã gần 3 tuần rồi cô em nhà Williams không thi đấu. Serena chuẩn bị thế chỗ của Carolina Wozniacki - người vừa rút lui vì chấn thương ở giải Qatar Total Open 2019.</p>\r\n', '<p><strong>Serena sẽ sớm trở lại. </strong>Serena Williams sắp sửa trở lại top 10 tay vợt nữ hàng đầu thế giới năm 2019. Điều đáng nói, đã gần 3 tuần rồi cô em nhà Williams không thi đấu. Serena chuẩn bị thế chỗ của Carolina Wozniacki - người vừa rút lui vì chấn thương ở giải Qatar Total Open 2019.</p>\r\n\r\n<p> </p>\r\n\r\n<p><strong>Joshua “bay đêm” cùng Mayweather.</strong> Tay đấm người Anh, Anthony Joshua bị truyền thông Anh chỉ trích dữ dội vì có mặt trong hộp đêm Las Vegas với “Độc cô cầu bại” Mayweather. Mặc dù trên tay cầm chai nước lọc song các tờ báo Anh cho rằng Joshua chỉ đang “diễn”. Ngoài ra, giới truyền thông Anh cũng cảnh báo tay đấm 29 tuổi, nếu anh đi theo cách sống xa hoa như Mayweather, sự nghiệp của Joshua có thể sẽ tiêu tan rất sớm.</p>\r\n\r\n<p>&lt;iframe frameborder=\"0\" height=\"1\" id=\"google_ads_iframe_/124557882/24h/vn/desktop/sport/in_readvideo_article_0\" name=\"google_ads_iframe_/124557882/24h/vn/desktop/sport/in_readvideo_article_0\" scrolling=\"no\" title=\"3rd party ad content\" width=\"1\"&gt;&lt;/iframe&gt;</p>\r\n\r\n<p> </p>\r\n\r\n<p><strong>Chris Froome bị nghi ngờ “bắt chước” Lance Armstrong.</strong> Tay đua người Anh, Chris Froome vô địch Tour de France 3 lần liên tiếp. Mới đây, một số tờ báo Pháp nghi ngờ rằng Chris Froome đã sử dụng gian lận để giành chiến thắng. Thậm chí không ít tờ báo đặt ra mối nghi ngờ, liệu rằng Foome có tiếp bước Lance Armstrong - tay đua từng 7 lần liên tiếp vô địch Tour de France nhưng rồi vỡ lở bê bối sử dụng doping.</p>\r\n\r\n<p> </p>\r\n\r\n<p><strong>“Lewis Hamilton ngày càng tự phụ”. </strong>Tay đua F1 người Anh vẫn chưa có động thái trở lại tập luyện, chuẩn bị cho mùa giải F1 năm 2020. Ngay lập tức Hamilton bị kình địch Sebastian Vettel mỉa mai, rằng “Hamilton ngày càng kênh kiệu và ảo tưởng rằng mình là trung tâm của thế giới”. Hai tay đua này từng mâu thuẫn nghiêm trọng sau sự cố tại Azerbaijan Grand Prix năm 2018.</p>\r\n', NULL, NULL, NULL, NULL, NULL, 1550595600, 1553965200, 265, 1, 1551237139),
+(10, 4, 'Bình dương mở rộng 2019', 'binh-duong-mo-rong-2019', '', '', 'Serena sẽ sớm trở lại. Serena Williams sắp sửa trở lại top 10 tay vợt nữ hàng đầu thế giới năm 2019. Điều đáng nói, đã gần 3 tuần rồi cô em nhà Williams không thi đấu. Serena chuẩn bị thế chỗ của Carolina Wozniacki - người vừa rút lui vì chấn thương ở giải Qatar Total Open 2019.', '<p><strong>Serena sẽ sớm trở lại. </strong>Serena Williams sắp sửa trở lại top 10 tay vợt nữ hàng đầu thế giới năm 2019. Điều đáng nói, đã gần 3 tuần rồi cô em nhà Williams không thi đấu. Serena chuẩn bị thế chỗ của Carolina Wozniacki - người vừa rút lui vì chấn thương ở giải Qatar Total Open 2019.</p>\r\n', '<p>ĐIỀU LỆ THI ĐẤU MÔN TENNIS <br>\r\nTẠI VÒNG CHUNG KẾT HỘI THAO NGÀNH TƯ PHÁP <br>\r\nLẦN THỨ II<br>\r\nCHÀO MỪNG ĐẠI HỘI THI ĐUA YÊU NƯỚC NGÀNH TƯ PHÁP LẦN THỨ IV VÀ KỶ NIỆM 70 NĂM NGÀY TRUYỀN THỐNG NGÀNH TƯ PHÁP <br>\r\n(28/8/1945 - 28/8/2015)</p>\r\n\r\n<p>I. MỤC ĐÍCH, YÊU CẦU<br>\r\n1. Mục đích<br>\r\n- Đẩy mạnh phong trào tập luyện và thi đấu trong cán bộ, công chức, viên chức Ngành Tư pháp chào mừng Đại hội thi đua yêu nước Ngành Tư pháp lần thứ IV và kỷ niệm 70 năm Ngày truyền thống Ngành Tư pháp (28/8/1945 - 28/8/2015); 70 năm Cách mạng Tháng Tám và Quốc khánh nước Cộng hòa xã hội chủ nghĩa Việt Nam.<br>\r\n- Nâng cao đời sống văn hóa tinh thần; tạo động lực cho toàn thể cán bộ, công chức, viên chức Ngành Tư pháp phát huy tinh thần đoàn kết, gắn bó giữa các đơn vị, góp phần thực hiện thắng lợi nhiệm vụ của Ngành.<br>\r\n- Gắn liền với công tác giáo dục truyền thống, nâng cao nhận thức cho cán bộ, công chức, viên chức Ngành Tư pháp về vị trí, vai trò, nhiệm vụ của mình trong sự nghiệp xây dựng và bảo vệ Tổ quốc. <br>\r\n2. Yêu cầu: Vận động viên tham gia thi đấu chấp hành các quy định tại Điều lệ và hướng dẫn của Ban Tổ chức Hội thao.<br>\r\nII. ĐỐI TƯỢNG DỰ THI<br>\r\nCác đội đạt giải Nhất, giải Nhì, giải Ba đối với mỗi nội dung tại Hội thao cấp khu vực được tham dự Hội thao cấp Ngành.<br>\r\nIII. THỜI GIAN VÀ ĐỊA ĐIỂM THI ĐẤU<br>\r\n1. Thời gian: <br>\r\na) Ngày 22/8/2015 (thứ Bảy): <br>\r\n- 14h00 - 15h00: Tổng duyệt chương trình diễu hành, khai mạc Hội thao;<br>\r\n- 15h00 - 17h00: Bốc thăm chia bảng, làm quen sân bãi.<br>\r\nb) Ngày 23/8/2015 (Chủ nhật).<br>\r\nLễ Khai mạc bắt đầu vào lúc 08h00; bế mạc và trao giải thưởng vào lúc 15h00.<br>\r\n2. Địa điểm: Cung thi đấu điền kinh, thuộc Trung tâm huấn luyện và thi đấu thể dục thể thao Hà Nội, đường Trần Hữu Dực, Mỹ Đình, Từ Liêm, TP. Hà Nội.<br>\r\nIV. NỘI DUNG VÀ THỂ THỨC THI ĐẤU<br>\r\n1. Nội dung thi đấu:<br>\r\nTổ chức thi đấu nội dung đôi nam dành cho 02 lứa tuổi: <br>\r\na) Từ 45 tuổi trở lên (sinh trước ngày 01/01/1970):<br>\r\n- Giai đoạn 1: bốc thăm, chia 02 bảng A và B thi đấu vòng tròn 1 lượt tính điểm, lấy đôi nhất, nhì của mỗi bảng để vào thi đấu chéo (bán kết).<br>\r\n- Giai đoạn 2: thi đấu loại trực tiếp (bán kết, chung kết).<br>\r\nb) Dưới 45 tuổi (sinh từ ngày 01/01/1970):<br>\r\n- Giai đoạn 1: bốc thăm, chia 03 bảng thi đấu vòng tròn 1 lượt tính điểm, lấy 03 đôi nhất của mỗi bảng và 01 đội nhì xuất sắc để vào bốc thăm thi đấu bán kết.<br>\r\nViệc chọn đội nhì xuất sắc được xét đến các chỉ số phụ theo thứ tự ưu tiên như sau: tỷ số game thắng - thua, tổng số game thắng. Trong trường hợp các chỉ số phụ vẫn bằng nhau thì Ban Tổ chức sẽ tiến hành bốc thăm.<br>\r\n- Giai đoạn 2: thi đấu loại trực tiếp (bán kết, chung kết).<br>\r\n2. Thể thức thi đấu <br>\r\na) Áp dụng Luật thi đấu Tennis hiện hành.<br>\r\nb) Bóng dùng để thi đấu: Bóng Willson.<br>\r\nc) Mỗi trận sẽ thi đấu 01 set 6 game, bên nào thắng đến game thứ 6 trước sẽ giành phần thắng. <br>\r\nd) Luật “bàn thắng vàng” được áp dụng khi hai đội đang có điểm “lợi đều” lần 2 trong một game đấu, bên nào thắng điểm kế tiếp sẽ thắng game đấu đó. Trọng tài sẽ có nhiệm vụ thông báo trước cho các vận động viên khi có “bàn thắng vàng”.<br>\r\nđ) Lỗi đạp vạch khi giao bóng sẽ được bỏ qua, tuy nhiên, các vận động viên không được di chuyển qua vạch vào trong sân.<br>\r\nV. TRANG PHỤC THI ĐẤU<br>\r\nBan Tổ chức trang bị áo thi đấu cho các vận động viên. Vận động viên trang bị quần, giày thể thao.<br>\r\nVI. TRỌNG TÀI<br>\r\n1. Trọng tài điều khiển các trận đấu do Ban Tổ chức phân công.<br>\r\n2. Khi thi đấu, các vận động viên phải tuân thủ quyết định của Trọng tài điều khiển trận đấu. <br>\r\nVII. CƠ CẤU GIẢI THƯỞNG<br>\r\nCơ cấu giải thưởng đối với mỗi nội dung thi đấu bao gồm:<br>\r\n- Giải nhất: Huy chương, cờ giải và tiền thưởng là 2.000.000 đồng;<br>\r\n- Giải nhì: Huy chương, cờ giải và tiền thưởng là 1.500.000 đồng;<br>\r\n- Đồng Giải ba: Huy chương, cờ giải và tiền thưởng là 1.000.000 đồng.<br>\r\nVIII. NGHĨA VỤ VÀ QUYỀN LỢI CỦA VẬN ĐỘNG VIÊN<br>\r\n1. Nghĩa vụ<br>\r\na) Trung thực trong việc đăng ký thông tin với Ban Tổ chức.<br>\r\nb) Tuân thủ Điều lệ Giải, luật thi đấu, các quyết định của Trọng tài và của Ban Tổ chức.<br>\r\nc) Vận động viên tự chuẩn bị dụng cụ để thi đấu.<br>\r\nd) Có thái độ giao tiếp hoà nhã, giữ gìn vệ sinh chung, tuân thủ sự hướng dẫn của các thành viên Ban Tổ chức.<br>\r\nđ) Có mặt đúng giờ tại địa điểm thi đấu theo thông báo của Ban Tổ chức. Vận động viên nào đến trễ quá 10 phút kể từ khi Trọng tài thông báo trận đấu mà không thông báo trước với Ban Tổ chức thì xem như bỏ cuộc và sẽ bị xử thua với tỷ số 0-6.<br>\r\n2. Quyền lợi<br>\r\na) Được tham dự các trận đấu theo thể thức thi đấu của Giải.<br>\r\nb) Được nhận quà tặng, giải thưởng của Ban Tổ chức và các nhà tài trợ (nếu có).<br>\r\nIX. XỬ LÝ VI PHẠM<br>\r\n1. Nếu trong một trận đấu có một cặp đấu bỏ cuộc giữa chừng thì cặp đấu còn lại sẽ được xử thắng với tỷ số 6-0.<br>\r\n2. Ban Tổ chức có quyền quyết định dừng ngay trận đấu nếu phát hiện vận động viên nào vi phạm Điều lệ Giải, không tuân thủ quyết định của Trọng tài hoặc các lỗi khác như nói tục, chửi thề... mà Ban Tổ chức xét thấy nghiêm trọng. Đội có vận động viên vi phạm sẽ bị xử thua trận với tỷ số 0-6.<br>\r\n3. Tr¬ưởng đoàn là người thay mặt đội có quyền khiếu nại bằng văn bản cho Ban tổ chức khi phát hiện vận động viên vi phạm Điều lệ giải. Ban tổ chức có trách nhiệm xem xét và xử lý kịp thời.<br>\r\nX. ĐIỀU KHOẢN CUỐI CÙNG<br>\r\n1. Tuỳ thuộc vào điều kiện, hoàn cảnh cụ thể, Ban Tổ chức có quyền điều chỉnh các nội dung của Điều lệ Giải. <br>\r\n2. Mọi sửa đổi và bổ sung có liên quan đến Điều lệ do Ban Tổ chức quyết định và được đăng tải công khai trên Website của Bộ Tư pháp, đồng thời được thông báo đến Trưởng đoàn và các vận động viên đã đăng ký tham dự.</p>\r\n', NULL, NULL, NULL, NULL, NULL, 1552582800, 1552755600, 33, 1, 1551231930);
 
 -- --------------------------------------------------------
 
@@ -1651,10 +1469,11 @@ CREATE TABLE `tournament_playing_category` (
 --
 
 INSERT INTO `tournament_playing_category` (`id`, `tournament_id`, `playing_category_id`, `total_member`, `type_play`, `set`) VALUES
-(17, 6, 2, 16, 1, 1),
-(21, 6, 3, 32, 2, 1),
 (22, 8, 2, 16, 1, 1),
-(23, 9, 2, 16, 1, 1);
+(24, 10, 8, 64, 2, 1),
+(25, 10, 7, 64, 2, 1),
+(26, 10, 6, 32, 2, 1),
+(27, 10, 5, 32, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -1684,7 +1503,9 @@ CREATE TABLE `tournament_type` (
 --
 
 INSERT INTO `tournament_type` (`id`, `pid`, `vn_name`, `vn_slug`, `vn_keyword`, `vn_title`, `vn_description`, `vn_sapo`, `vn_detail`, `image_link`, `image_list`, `position`, `status`, `created`) VALUES
-(3, 0, 'Test', 'test', '', '', '', NULL, NULL, NULL, NULL, NULL, 1, 1549675614);
+(3, 0, 'Test', 'test', '', '', '', NULL, NULL, NULL, NULL, NULL, 1, 1549675614),
+(4, 0, 'Bình dương mở rộng', 'binh-duong-mo-rong', '', '', '', NULL, NULL, NULL, NULL, NULL, 1, 1551150263),
+(5, 0, 'Miền tây mở rộng', 'mien-tay-mo-rong', '', '', '', NULL, NULL, NULL, NULL, NULL, 1, 1551166978);
 
 -- --------------------------------------------------------
 
@@ -1746,75 +1567,82 @@ CREATE TABLE `users` (
   `image_link` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `key_active` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `code_forget_password` int(11) DEFAULT NULL,
+  `count_notification` int(11) DEFAULT '0',
   `status` tinyint(3) DEFAULT NULL,
-  `created` int(11) DEFAULT NULL
+  `created` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `users`
 --
 
-INSERT INTO `users` (`id`, `tid`, `username`, `password`, `name`, `about`, `birthday`, `sex`, `phone`, `email`, `organization`, `address`, `point_doi`, `point_don`, `image_link`, `key_active`, `code_forget_password`, `status`, `created`) VALUES
-(1, 4, 'admin', '7db923d5d5f23110cfc9cd0b858dbd97', 'Thiên', NULL, NULL, NULL, '01647884720', 'thienkbang1123@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 14565),
-(3, 4, 'triviet', '215bd54fbb7be28fa7b4b8ff48ecf53c', 'Cty Trí Việt', NULL, NULL, NULL, '0903 636 249', 'kinhdoanh@triviet.net', NULL, '311K13, Đường số 8, Khu phố 1, Phường An Phú,Quận 2, Tp.Hồ Chí Minh,Việt Nam', NULL, NULL, NULL, NULL, NULL, 1, 1529052420),
-(5, 1, NULL, '7db923d5d5f23110cfc9cd0b858dbd97', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, 'upload.jpg', NULL, NULL, 1, 1531205346),
-(6, 1, 'user1', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn A', 'about', 792522000, '2', '0961800223', NULL, 'Cty Trí Việt', 'Hồ Chí Minh', NULL, NULL, '1550719770_images.jpg', NULL, NULL, 1, 1531205346),
-(7, 1, 'user2', 'e10adc3949ba59abbe56e057f20f883e', 'Thiên', 'rsjjrjs', 0, '0', '0961800223', 'langthien.nina@gmail.com', '', 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(8, 1, 'user3', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(9, 1, 'user4', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(10, 1, 'user5', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(11, 1, 'user6', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(12, 1, 'user7', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(13, 1, 'user8', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(14, 1, 'user9', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(15, 1, 'user10', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(16, 1, 'user11', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(17, 1, 'user12', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(18, 1, 'user13', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(19, 1, 'user14', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(20, 1, 'user15', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(21, 1, 'user16', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(22, 1, 'user17', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(23, 1, 'user18', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(24, 1, 'user19', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(25, 1, 'user20', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(26, 1, 'user21', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(27, 1, 'user22', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(28, 1, 'user23', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(29, 1, 'user24', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(30, 1, 'user25', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(31, 1, 'user26', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(32, 1, 'user27', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(33, 1, 'user28', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(34, 1, 'user29', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(35, 1, 'user30', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(36, 1, 'user31', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(37, 1, 'user32', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(38, 1, 'user33', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(39, 1, 'user34', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(40, 1, 'user35', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(41, 1, 'user36', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(42, 1, 'user37', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(43, 1, 'user38', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(44, 1, 'user39', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(45, 1, 'user40', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(46, 1, 'user41', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 1, 1531205346),
-(48, 1, 'user43', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn B', NULL, NULL, NULL, '0966890064', 'vanhao122995@gmail.com', NULL, 'Dương Bá Trạc, Q8, TPHCM', NULL, NULL, NULL, NULL, NULL, 1, 1550128025),
-(49, 1, 'user44', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn B', NULL, NULL, NULL, '0966890064', 'vanhao122995@gmail.com', NULL, 'Dương Bá Trạc, Q8, TPHCM', NULL, NULL, NULL, NULL, NULL, 1, 1550128025),
-(50, 1, 'user45', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn B', NULL, 1995, NULL, '0966890064', 'vanhao122995@gmail.com', NULL, 'Dương Bá Trạc, Q8, TPHCM', NULL, 500, NULL, NULL, NULL, 1, 1550128025),
-(51, 1, 'user46', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn B', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 1995, NULL, '0966890064', 'vanhao122995@gmail.com', 'Toyota Thủ Đức', 'Dương Bá Trạc, Q8, TPHCM', NULL, 1200, NULL, NULL, NULL, 1, 1550128025),
-(52, 1, 'vuvanhao', 'e10adc3949ba59abbe56e057f20f883e', 'Vũ Văn Hảo', 'Trùm tenis việt nam', 792522000, '1', '0966890064', 'vanhao122995@gmail.com', 'Cty Trí Việt', 'Dương Bá Trạc, Q8, TPHCM', NULL, NULL, 'dfgagagag.jpg', NULL, NULL, 1, 1550199094),
-(53, 1, 'user47', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn D', NULL, 792522000, NULL, '0966890064', 'vanhao122995@gmail.com', NULL, 'Dương Bá Trạc, Q8, TPHCM', NULL, NULL, NULL, NULL, NULL, 1, 1550222171),
-(54, 1, 'user48', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn D', NULL, 791571600, NULL, '0966890064', 'vanhao122995@gmail.com', 'Tenis', 'Dương Bá Trạc, Q8, TPHCM', NULL, NULL, NULL, NULL, NULL, 1, 1550222442),
-(59, 1, 'user50', 'e10adc3949ba59abbe56e057f20f883e', '', NULL, NULL, NULL, NULL, 'vanhao122995@gmail.com', NULL, NULL, NULL, NULL, NULL, '', NULL, 1, 1550738664),
-(60, 1, 'user51', 'd41d8cd98f00b204e9800998ecf8427e', '', NULL, NULL, NULL, NULL, 'vanhao122995@gmail.com', NULL, NULL, 7373, NULL, NULL, '', NULL, 1, 1550739046),
-(61, 1, 'user52', 'd41d8cd98f00b204e9800998ecf8427e', '', NULL, NULL, NULL, NULL, 'vanhao122995@gmail.com', NULL, NULL, 6272, NULL, NULL, '', NULL, 1, 1550739193),
-(62, 1, 'user55', 'e10adc3949ba59abbe56e057f20f883e', 'user55gdhah', NULL, 0, NULL, '', 'vanhao122995@gmail.com', '', '', 573, NULL, NULL, NULL, NULL, 1, 1550739415),
-(63, 1, 'user54', 'e10adc3949ba59abbe56e057f20f883e', '', NULL, NULL, NULL, NULL, 'vanhao122995@gmail.com', NULL, NULL, 466, NULL, NULL, '', NULL, 2, 1550739782),
-(64, 1, 'user56', '25f9e794323b453885f5181f1b624d0b', '', NULL, NULL, NULL, NULL, 'vuvan122995@gmail.com', NULL, NULL, 6453, NULL, NULL, 'fNOikwp6WNdDqagT', 756721, 1, 1550742375),
-(67, 1, 'user60', 'e10adc3949ba59abbe56e057f20f883e', 'Vũ Văn Hảo', NULL, NULL, NULL, NULL, 'vuvanhao122995@gmail.com', NULL, NULL, 5000, 100, NULL, '', NULL, 1, 1550807940),
-(70, 1, 'user69', 'e10adc3949ba59abbe56e057f20f883e', 'Vũ Văn Hảo', NULL, NULL, '2', NULL, 'vannhao122995@gmail.com', NULL, NULL, 466, NULL, NULL, 'UERa79S6UMtzXonH', NULL, 4, 1550830182),
-(71, 1, 'user601', 'e10adc3949ba59abbe56e057f20f883e', 'Vũ Văn Hảo', NULL, NULL, '2', NULL, 'vanhao123122995@gmail.com', NULL, NULL, NULL, NULL, NULL, 'jnwBz3wu99NXi6Lk', NULL, 4, 1550894650);
+INSERT INTO `users` (`id`, `tid`, `username`, `password`, `name`, `about`, `birthday`, `sex`, `phone`, `email`, `organization`, `address`, `point_doi`, `point_don`, `image_link`, `key_active`, `code_forget_password`, `count_notification`, `status`, `created`, `created_by`) VALUES
+(1, 4, 'admin', '7db923d5d5f23110cfc9cd0b858dbd97', 'Thiên', NULL, NULL, NULL, '01647884720', 'thienkbang1123@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 14565, NULL),
+(3, 4, 'triviet', '215bd54fbb7be28fa7b4b8ff48ecf53c', 'Cty Trí Việt', NULL, NULL, NULL, '0903 636 249', 'kinhdoanh@triviet.net', NULL, '311K13, Đường số 8, Khu phố 1, Phường An Phú,Quận 2, Tp.Hồ Chí Minh,Việt Nam', NULL, NULL, NULL, NULL, NULL, 0, 1, 1529052420, NULL),
+(5, 1, NULL, '7db923d5d5f23110cfc9cd0b858dbd97', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', 600, NULL, 'upload.jpg', NULL, NULL, 0, 1, 1531205346, NULL),
+(6, 1, 'user1', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn A', 'about', 792522000, '1', '0961800223', NULL, 'Cty Trí Việt', 'Hồ Chí Minh', 66656, NULL, '1550719770_images.jpg', NULL, NULL, 14, 1, 1531205346, NULL),
+(7, 1, 'user2', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn B', 'rsjjrjs', 0, '0', '0961800223', 'langthien.nina@gmail.com', '', 'Hồ Chí Minh', 688, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(8, 1, 'user3', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn C', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', 15232, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(9, 1, 'user4', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn D', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', 355, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(10, 1, 'user5', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn E', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(11, 1, 'user6', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn Ê', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(12, 1, 'user7', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn G', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(13, 1, 'user8', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn H', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(14, 1, 'user9', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn I', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(15, 1, 'user10', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn K', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(16, 1, 'user11', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn L', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(17, 1, 'user12', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn M', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(18, 1, 'user13', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn N', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(19, 1, 'user14', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn O', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(20, 1, 'user15', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn Ô', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(21, 1, 'user16', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn W', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(22, 1, 'user17', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn Z', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(23, 1, 'user18', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn ABC', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(24, 1, 'user19', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn XYZ', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(25, 1, 'user20', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn XXX', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(26, 1, 'user21', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn YYY', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(27, 1, 'user22', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn BCS', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 0, 1531205346, NULL),
+(28, 1, 'user23', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(29, 1, 'user24', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(30, 1, 'user25', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(31, 1, 'user26', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(32, 1, 'user27', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(33, 1, 'user28', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(34, 1, 'user29', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(35, 1, 'user30', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(36, 1, 'user31', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(37, 1, 'user32', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(38, 1, 'user33', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(39, 1, 'user34', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(40, 1, 'user35', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(41, 1, 'user36', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(42, 1, 'user37', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(43, 1, 'user38', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(44, 1, 'user39', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(45, 1, 'user40', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(46, 1, 'user41', '202cb962ac59075b964b07152d234b70', 'Thiên', NULL, NULL, NULL, '0961800223', 'langthien.nina@gmail.com', NULL, 'Hồ Chí Minh', NULL, NULL, NULL, NULL, NULL, 0, 1, 1531205346, NULL),
+(48, 1, 'user43', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn B', NULL, NULL, NULL, '0966890064', 'vanhao122995@gmail.com', NULL, 'Dương Bá Trạc, Q8, TPHCM', NULL, NULL, NULL, NULL, NULL, 0, 1, 1550128025, NULL),
+(49, 1, 'user44', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn B', NULL, NULL, NULL, '0966890064', 'vanhao122995@gmail.com', NULL, 'Dương Bá Trạc, Q8, TPHCM', NULL, NULL, NULL, NULL, NULL, 0, 1, 1550128025, NULL),
+(50, 1, 'user45', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn B', NULL, 1995, NULL, '0966890064', 'vanhao122995@gmail.com', NULL, 'Dương Bá Trạc, Q8, TPHCM', NULL, 500, NULL, NULL, NULL, 0, 1, 1550128025, NULL),
+(51, 1, 'user46', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn B', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 1995, NULL, '0966890064', 'vanhao122995@gmail.com', 'Toyota Thủ Đức', 'Dương Bá Trạc, Q8, TPHCM', NULL, 1200, NULL, NULL, NULL, 0, 1, 1550128025, NULL),
+(52, 1, 'vuvanhao', 'e10adc3949ba59abbe56e057f20f883e', 'Vũ Văn Hảo', 'Trùm tenis việt nam', 792522000, '1', '0966890064', 'vanhao122995@gmail.com', 'Cty Trí Việt', 'Dương Bá Trạc, Q8, TPHCM', NULL, NULL, 'dfgagagag.jpg', NULL, NULL, 0, 1, 1550199094, NULL),
+(53, 1, 'user47', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn D', NULL, 792522000, NULL, '0966890064', 'vanhao122995@gmail.com', NULL, 'Dương Bá Trạc, Q8, TPHCM', NULL, NULL, NULL, NULL, NULL, 0, 1, 1550222171, NULL),
+(54, 1, 'user48', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn D', NULL, 791571600, NULL, '0966890064', 'vanhao122995@gmail.com', 'Tenis', 'Dương Bá Trạc, Q8, TPHCM', NULL, NULL, NULL, NULL, NULL, 0, 1, 1550222442, NULL),
+(59, 1, 'user50', 'e10adc3949ba59abbe56e057f20f883e', '', NULL, 0, '0', '', 'vanhao122995@gmail.com', '', '', 778464548, NULL, '1551251859_news1.jpeg', '', NULL, 0, 1, 1550738664, NULL),
+(60, 1, 'user51', 'd41d8cd98f00b204e9800998ecf8427e', '', NULL, NULL, NULL, NULL, 'vanhao122995@gmail.com', NULL, NULL, 7373, NULL, NULL, '', NULL, 0, 1, 1550739046, NULL),
+(61, 1, 'user52', 'd41d8cd98f00b204e9800998ecf8427e', '', NULL, NULL, NULL, NULL, 'vanhao122995@gmail.com', NULL, NULL, 6272, NULL, NULL, '', NULL, 0, 1, 1550739193, NULL),
+(62, 1, 'user55', 'e10adc3949ba59abbe56e057f20f883e', 'user55gdhah', NULL, 0, NULL, '', 'vanhao122995@gmail.com', '', '', 573, NULL, NULL, NULL, NULL, 0, 1, 1550739415, NULL),
+(63, 1, 'user54', 'e10adc3949ba59abbe56e057f20f883e', '', NULL, NULL, NULL, NULL, 'vanhao122995@gmail.com', NULL, NULL, 466, NULL, NULL, '', NULL, 0, 2, 1550739782, NULL),
+(64, 1, 'user56', 'e10adc3949ba59abbe56e057f20f883e', '', NULL, NULL, NULL, NULL, 'vuvanhao122995@gmail.com', NULL, NULL, 6453, NULL, NULL, 'fNOikwp6WNdDqagT', 756721, 0, 1, 1550742375, NULL),
+(65, 1, 'user80', 'e10adc3949ba59abbe56e057f20f883e', 'Vũ Văn Hảo', NULL, 0, NULL, '', '', '', '', NULL, NULL, NULL, NULL, NULL, 0, 1, 1551168871, NULL),
+(66, 1, 'user85', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn Tuấn', NULL, 0, NULL, '', '', '', '', NULL, NULL, NULL, NULL, NULL, 0, 1, 1551230341, NULL),
+(67, 1, 'user86', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn Tuấn', NULL, 0, NULL, '', '', '', '', NULL, NULL, NULL, NULL, NULL, 0, 1, 1551230360, NULL),
+(68, 1, 'user88', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn Tuấn', NULL, 0, NULL, '', '', '', '', NULL, NULL, NULL, NULL, NULL, 0, 1, 1551234604, NULL),
+(69, 1, 'user89', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn Tuấn', NULL, 0, NULL, '', '', '', '', NULL, NULL, NULL, NULL, NULL, 0, 1, 1551239794, NULL),
+(70, 1, 'user90', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn Tuấn 1', '1', 818701200, '1', '1234567891', NULL, 'Trùm xã hội đen 111', 'Biên Hòa mới ra nha', 5000, NULL, '1551253409_news1.jpeg', NULL, NULL, 14, 1, 1551241444, 4),
+(71, 1, 'user888', 'e10adc3949ba59abbe56e057f20f883e', '', NULL, 0, '2', '', '', '', '', 0, NULL, '', NULL, NULL, 0, 1, 1551242600, 4),
+(72, 1, 'user887', 'e10adc3949ba59abbe56e057f20f883e', '', NULL, 0, '2', '', '', '', '', 0, NULL, '1551242831_news1.jpeg', NULL, NULL, 0, 1, 1551242831, 4);
 
 -- --------------------------------------------------------
 
@@ -1833,8 +1661,8 @@ CREATE TABLE `user_online` (
 --
 
 INSERT INTO `user_online` (`session_id`, `time`, `local`) VALUES
-('l0tncqeq1ehoa779s0tm0luqhs2c0ocq', '1550897105', '/project-hao/tenis/tennis/index.php/$l'),
-('oodmlkb3a2imt9q5k3aah1tlqqvg05d1', '1550897904', '/project-hao/tenis/tennis/index.php/$l');
+('s0m7v7e8bbfjqqn0l4namqqs7k2n37fb', '1551430710', '/project-hao/tenis/tennis/index.php/$l'),
+('baaqce9k348a3v2feq4kt9o6ckqbqnue', '1551430798', '/project-hao/tenis/tennis/index.php/$l');
 
 -- --------------------------------------------------------
 
@@ -13027,6 +12855,12 @@ ALTER TABLE `contact`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `content_tournament_playing_category`
+--
+ALTER TABLE `content_tournament_playing_category`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `counters`
 --
 ALTER TABLE `counters`
@@ -13058,6 +12892,12 @@ ALTER TABLE `fixture_result`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `history_comment`
+--
+ALTER TABLE `history_comment`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `order`
 --
 ALTER TABLE `order`
@@ -13079,18 +12919,6 @@ ALTER TABLE `playing_category`
 -- Chỉ mục cho bảng `playing_in`
 --
 ALTER TABLE `playing_in`
-  ADD PRIMARY KEY (`id`);
-
---
--- Chỉ mục cho bảng `product`
---
-ALTER TABLE `product`
-  ADD PRIMARY KEY (`id`);
-
---
--- Chỉ mục cho bảng `product_category`
---
-ALTER TABLE `product_category`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -13167,13 +12995,13 @@ ALTER TABLE `ward`
 -- AUTO_INCREMENT cho bảng `ads`
 --
 ALTER TABLE `ads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `ads_category`
 --
 ALTER TABLE `ads_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `articles`
@@ -13185,13 +13013,13 @@ ALTER TABLE `articles`
 -- AUTO_INCREMENT cho bảng `articles_category`
 --
 ALTER TABLE `articles_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=411;
 
 --
 -- AUTO_INCREMENT cho bảng `configs`
@@ -13204,6 +13032,12 @@ ALTER TABLE `configs`
 --
 ALTER TABLE `contact`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT cho bảng `content_tournament_playing_category`
+--
+ALTER TABLE `content_tournament_playing_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `counters`
@@ -13221,13 +13055,19 @@ ALTER TABLE `email_register`
 -- AUTO_INCREMENT cho bảng `fixture`
 --
 ALTER TABLE `fixture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT cho bảng `fixture_result`
 --
 ALTER TABLE `fixture_result`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+
+--
+-- AUTO_INCREMENT cho bảng `history_comment`
+--
+ALTER TABLE `history_comment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
 --
 -- AUTO_INCREMENT cho bảng `order`
@@ -13245,43 +13085,31 @@ ALTER TABLE `player`
 -- AUTO_INCREMENT cho bảng `playing_category`
 --
 ALTER TABLE `playing_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `playing_in`
 --
 ALTER TABLE `playing_in`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
-
---
--- AUTO_INCREMENT cho bảng `product`
---
-ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT cho bảng `product_category`
---
-ALTER TABLE `product_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
 
 --
 -- AUTO_INCREMENT cho bảng `registration`
 --
 ALTER TABLE `registration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
 
 --
 -- AUTO_INCREMENT cho bảng `registration_player`
 --
 ALTER TABLE `registration_player`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=197;
 
 --
 -- AUTO_INCREMENT cho bảng `set_score`
 --
 ALTER TABLE `set_score`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT cho bảng `static_page`
@@ -13293,19 +13121,19 @@ ALTER TABLE `static_page`
 -- AUTO_INCREMENT cho bảng `tournament`
 --
 ALTER TABLE `tournament`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `tournament_playing_category`
 --
 ALTER TABLE `tournament_playing_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT cho bảng `tournament_type`
 --
 ALTER TABLE `tournament_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `transaction`
@@ -13317,7 +13145,7 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

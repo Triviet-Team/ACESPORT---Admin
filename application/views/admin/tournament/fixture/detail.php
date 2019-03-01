@@ -5,11 +5,11 @@
         </div>
         <div class="form-mid">
             <form action="" method="POST" id="frmSubmit" enctype="multipart/form-data">
-            <?php if(!$infoNoiDung) {?>
+            <?php if(!$infoNoiDung) {?>           
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Ngày bắt đầu trận đấu</label>
                 <div class="col-sm-10">
-                    <input type="datetime-local" name="start_date" value="<?= @$infoNoiDung->start_date ? date('Y-m-d', @$infoNoiDung->start_date) : ''?>" class="form-control">
+                    <input type="datetime-local" name="start_date" value="<?= @$infoNoiDung->start_date ? date('Y-m-d\TH:m:s', @$infoNoiDung->start_date) : ''?>" class="form-control">
                     <div class="error"><?= form_error('start_date') ?></div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
            <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Ngày kết thúc trận đấu</label>
                 <div class="col-sm-10">
-                    <input type="datetime-local" name="end_date" value="<?= @$infoNoiDung->end_date ? date('Y-m-d', @$infoNoiDung->end_date) : ''?>" class="form-control">
+                    <input type="datetime-local" name="end_date" value="<?= @$infoNoiDung->end_date ? date('Y-m-d\TH:m:s', @$infoNoiDung->end_date) : ''?>" class="form-control">
                     <div class="error"><?= form_error('end_date') ?></div>
                 </div>
             </div>
@@ -83,7 +83,7 @@
 			<div class="form-group row">
                 <label class="col-sm-2 col-form-label">Ngày bắt đầu trận đấu</label>
                 <div class="col-sm-10">
-                    <input type="datetime-local" name="start_date" value="<?= @$infoNoiDung->start_date ? date('Y-m-d', @$infoNoiDung->start_date) : ''?>" class="form-control">
+                    <input type="datetime-local" name="start_date" value="<?= @$infoNoiDung->start_date ? date('Y-m-d\TH:m:s', @$infoNoiDung->start_date) : ''?>" class="form-control">
                     <div class="error"><?= form_error('start_date') ?></div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
            <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Ngày kết thúc trận đấu</label>
                 <div class="col-sm-10">
-                    <input type="datetime-local" name="end_date" value="<?= @$infoNoiDung->end_date ? date('Y-m-d', @$infoNoiDung->end_date) : ''?>" class="form-control">
+                    <input type="datetime-local" name="end_date" value="<?= @$infoNoiDung->end_date ? date('Y-m-d\TH:m:s', @$infoNoiDung->end_date) : ''?>" class="form-control">
                     <div class="error"><?= form_error('end_date') ?></div>
                 </div>
             </div>
@@ -99,14 +99,14 @@
         		<div class="row" id="user">
     			  <div class="col-sm-6">
     					<h6 class="mb-2 text-center">Đội chơi 1</h6>
-    					<select class=" mb-2" name="user1" id="user1">					
+    					<select id-selected="<?= @$infoPlayer->doi_1[0]->id ?  @$infoPlayer->doi_1[0]->id  : 0 ?>" class=" mb-2" name="user1" id="user1">					
     						<option value="">Người chơi thứ nhất của đội 1</option>
     					</select> 
     				</div>
     
     				<div class="col-sm-6 mb-3">
     					<h6 class="mb-2 text-center">Đội chơi 2</h6>
-    					<select class=" mb-2" name="user3" id="user3">
+    					<select id-selected="<?= @$infoPlayer->doi_2[0]->id ?  @$infoPlayer->doi_2[0]->id  : 0 ?>" class=" mb-2" name="user3" id="user3">
     						<option value="">Người chơi thứ nhất của đội 2</option>
     					</select>
     				</div>
@@ -115,21 +115,21 @@
         			<div class="row" id="user">
         			   <div class="col-sm-6">
         					<h6 class="mb-2 text-center">Đội chơi 1</h6>
-        					<select class=" mb-2" name="user1" id="user1">					
+        					<select id-selected="<?= @$infoPlayer->doi_1[0]->id ?  @$infoPlayer->doi_1[0]->id  : 0 ?>" class=" mb-2" name="user1" id="user1">					
         						<option value="">Người chơi thứ nhất của đội 1</option>
         					</select> 
         					
-        					<select class="mb-2" name="user2" id="user2">
+        					<select id-selected="<?= @$infoPlayer->doi_1[1]->id ?  @$infoPlayer->doi_1[1]->id  : 0 ?>" class="mb-2" name="user2" id="user2">
         						<option value="">Người chơi thứ hai của đội 1</option>
         					</select>
         				</div>
         
         				<div class="col-sm-6 mb-3">
         					<h6 class="mb-2 text-center">Đội chơi 2</h6>
-        					<select class=" mb-2" name="user3" id="user3">
+        					<select id-selected="<?= @$infoPlayer->doi_2[0]->id ?  @$infoPlayer->doi_2[0]->id  : 0 ?>" class=" mb-2" name="user3" id="user3">
         						<option value="">Người chơi thứ nhất của đội 2</option>
         					</select>
-        					<select class="mb-2" name="user4" id="user4">
+        					<select id-selected="<?= @$infoPlayer->doi_2[1]->id ?  @$infoPlayer->doi_2[1]->id  : 0 ?>" class="mb-2" name="user4" id="user4">
         						<option value="">Người chơi thứ hai của đội 2</option>
         					</select>
         				</div>

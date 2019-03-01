@@ -61,25 +61,37 @@ class Fixture extends MY_Controller {
     
     public function getInfoUsers() {
         $input = array();
-        $input['where'] = array('status' => 1);
+        $input['where'] = array('status' => 1, 'tid' => 1);
+
         if ($_GET) {
-            foreach ($_GET as $val) {
-                if ($val != '') {
+            foreach ($_GET as $k => $val) {
+                if ($k != 'idSelected' && $val != '') {
                     $arrIdUser[] = $val;
                 }
             }
-        
+
             if ($arrIdUser) {
                 $input['where_not_in'] = array('id', $arrIdUser);
             }
         }
-        
+
         $data = $this->users_m->get_list($input);
         
         $result = null;
-        
         foreach ($data as $row) {
-            $result[] = array('id' => intval($row->id), 'text' => $row->username);
+            $link_img = base_url().'public/site/img/default-user.jpg';
+            if(!empty($row->image_link)){
+                $link_img = base_url().'uploads/images/user/200_200/'.$row->image_link;
+            }
+            $name = $row->name ? $row->name : 'No name';
+            $username = $row->username ? $row->username : 'No name';
+            $result[] = array(
+                                id => intval($row->id), 
+                                text => $username . '(' . $name . ')',  
+                                organization => $row->organization ? $row->organization : ' ', 
+                                'url' => $link_img,
+                                selected => ((int)$_GET['idSelected'] > 0 && (int)$_GET['idSelected'] == $row->id) ? TRUE : FALSE
+            );
         }
         
         echo json_encode($result);
@@ -218,6 +230,213 @@ class Fixture extends MY_Controller {
         $this->load->view('admin/main', $this->data);
     }
 
+    public function add_content() {
+            $this->load->model('tournament_type_m');
+            $this->load->model('registration_m');
+            $this->load->model('playing_in_m');
+            $tournament_type = '';
+            $tournament = '';
+            $noi_dung = '';
+            $round = '';
+            
+            $input = array();
+            $input['where'] = array('status' => 1);
+            $this->data['noi_dung'] = $this->playing_category_m->get_list($input);       
+            
+            $input = array();
+            $input['where'] = array('pid' => 0, 'status' => 1);
+            
+            $input['order'][0] = 'position';
+            $input['order'][1] = 'ASC';
+            
+            $catalogs = $this->tournament_type_m->get_list($input);
+    
+            $this->data['catalogs'] = $catalogs;
+            if($id) {
+                $info = $this->fixture_m->get_info($id);
+                if(!empty($info)){
+                    $filter[] = array('name' => '`fixture`.`id`', 'val' => $id);
+                    
+                    $infoPlayer = $this->fixture_m->getUpdate($filter);
+                    
+                    $tournament_type = $infoPlayer[0]->tournament_type_id;
+                    $tournament = $infoPlayer[0]->tournament_id;
+                    $noi_dung = $infoPlayer[0]->noi_dung_id;
+                    $round = $infoPlayer[0]->round;
+                    
+                    $infoNoiDung = $this->tournament_playing_category_m->get_info($infoPlayer[0]->noi_dung_id);
+                    if ($infoNoiDung) {
+                        $this->data['infoNoiDung'] = $infoNoiDung;
+                    }
+                }else{
+                    $this->session->set_flashdata('message', 'Dịch vụ muốn chỉnh sửa không tồn tại');
+                    redirect(base_url() . 'admincp/tournament/fixture/index/');
+                }
+            }
+            
+    
+            if ($this->input->post()) {
+                
+                if ($_POST['user1']) {
+                    $arrPlayer[] = $_POST['user1'];
+                }
+                
+                if ($_POST['user2']) {
+                    $arrPlayer[] = $_POST['user2'];
+                }
+                
+                if ($_POST['user3']) {
+                    $arrPlayer[] = $_POST['user3'];
+                }
+                
+                if ($_POST['user4']) {
+                    $arrPlayer[] = $_POST['user4'];
+                }
+                
+                $start_date = strtotime($this->input->post('start_date', true));
+                $end_date = strtotime($this->input->post('end_date', true));
+                
+                if ($id > 0) {
+                    if ($infoPlayer) {
+                        $infoNoiDung = $this->tournament_playing_category_m->get_info($infoPlayer[0]->noi_dung_id);
+                        $arrRegistration[] = $info->first_registration_id;
+                        $arrRegistration[] = $info->second_registration_id;
+                        if ($infoNoiDung->type_play == 1) {
+                        
+                            for ($i = 0; $i <= 1; $i++) {
+                                $registration_player = array(
+                                    'player_id' => $arrPlayer[$i]
+                                );
+                                $where = array('registration_id' => $arrRegistration[$i]);
+                                $this->registration_player_m->update_rule($where, $registration_player);
+                            }
+                        }
+                        
+                        if ($infoNoiDung->type_play == 2) {   
+                            $k = 0;
+                            for ($i = 0; $i <= 1; $i++) {
+                                $inputIdPlayer = array();
+                                $inputIdPlayer['where'] = array('registration_id' => $arrRegistration[$i]);
+                                $inputIdPlayer['order'] = array('id', 'ASC');
+                                $data = $this->registration_player_m->get_list($inputIdPlayer);
+                                foreach ($data as $row) {
+                                    $registration_player = array(
+                                        'player_id' => $arrPlayer[$k]
+                                    );
+                                    $where = array('id' => $row->id);
+                                    $this->registration_player_m->update_rule($where, $registration_player);
+                                    $k++;
+                                }
+                            }
+                        }
+                        $fixture = array(
+                            'start_date' => $start_date,
+                            'end_date' => $end_date
+                        );
+                        $this->fixture_m->update($id, $fixture);
+                    }
+                    
+                }else {
+                    $noi_dung = $this->input->post('noi_dung', true);
+                    
+                    $infoNoiDung = $this->tournament_playing_category_m->get_info($noi_dung);                
+                    
+                    if ($infoNoiDung) {
+                        $total_member = $infoNoiDung->total_member;
+                        $type_play = $infoNoiDung->type_play;
+                        $cap_dau = ($total_member/(2*$type_play));
+                        // $cap_dau = $doi_choi / 2;
+                    
+                        $round = $this->fixture_m->getMu($cap_dau) + 1;
+                        
+                        $tournament_type = $this->input->post('tournament_type', true);
+                        $tournament = $this->input->post('tournament', true);
+                        $noi_dung = $noi_dung;
+                            
+                        $n = count($arrPlayer)/2;
+                        $ids_registration = array();
+                        $k = 0;
+                        for ($i = 1; $i <= 2; $i++) {
+                            $registration = array(
+                                'date' => date('Y-m-d h:m:s', now()),
+                            );
+                            if ($this->registration_m->create($registration)) {
+                                $id_registration = $this->db->insert_id();
+                                $ids_registration[] = $id_registration;
+                                $playing_in = array(
+                                    'registration_id' => $id_registration,
+                                    'tournament_playing_category_id' => $noi_dung
+                                );
+                                $this->playing_in_m->create($playing_in);
+                                if ($n == 1) {
+                                    $registration_player = array(
+                                        'registration_id' => $id_registration,
+                                        'player_id' => $arrPlayer[$i - 1]
+                                    );
+                                    $this->registration_player_m->create($registration_player);
+                                }
+                    
+                                if ($n == 2) {
+                                    for ($j = 1; $j <= 2; $j++) {
+                                        $registration_player = array(
+                                            'registration_id' => $id_registration,
+                                            'player_id' => $arrPlayer[$k]
+                                        );
+                                        $this->registration_player_m->create($registration_player);
+                                        $k++;
+                                    }
+                                }
+                            }
+                        }
+                    
+                        if ($ids_registration) {
+                            $fixture = array(
+                                'tournament_playing_category_id' => $noi_dung,
+                                'first_registration_id' => $ids_registration[0],
+                                'second_registration_id' => $ids_registration[1],
+                                'round' => $round,
+                                'start_date' => $start_date,
+                                'end_date' => $end_date
+                            );
+                            $this->fixture_m->create($fixture);
+                    
+                            $idFixture = $this->db->insert_id();
+                    
+                            if ($idFixture) {
+                                $set_score = array(
+                                    'fixture_id' => $idFixture,
+                                    'set_number' => 1,
+                                    'first_registration_games' => 0,
+                                    'second_registration_games' => 0
+                                );
+                                $this->set_score_m->create($set_score);
+                                $fixture_result = array(
+                                    'fixture_id' => $idFixture,
+                                    'winner_registration_id' => 0,
+                                    'number_of_sets_played	' => 1
+                                );
+                                $this->fixture_result_m->create($fixture_result);
+                            }
+                        }
+                    }
+                }
+                    
+    
+                    if ($id > 0) {
+                        $this->session->set_flashdata('message', 'Cập nhật cặp đấu thành công');
+                        redirect(base_url('admincp/tournament/fixture?tournament_type='.$tournament_type.'&tournament='.$tournament.'&noi_dung='.$noi_dung.'&round='.$round));
+                    } else {
+                        $this->session->set_flashdata('message', 'Thêm cặp đấu thành công');
+                        redirect(base_url('admincp/tournament/fixture?tournament_type='.$tournament_type.'&tournament='.$tournament.'&noi_dung='.$noi_dung.'&round='.$round));
+                    }
+            }
+    
+            $this->data['title'] = 'Thêm danh sách vận động viên cho nội dung';
+            
+            $this->data['temp'] = 'tournament/fixture/add_content';
+            $this->load->view('admin/main', $this->data);
+    }
+    
     public function detail($id = 0) {
         $this->load->model('tournament_type_m');
         $this->load->model('registration_m');
@@ -247,6 +466,11 @@ class Fixture extends MY_Controller {
                 
                 $infoPlayer = $this->fixture_m->getUpdate($filter);
                 
+                $infoPlayer[0]->doi_1 = $this->fixture_m->getPlayer($infoPlayer[0]->code_doi_1);
+                $infoPlayer[0]->doi_2 = $this->fixture_m->getPlayer($infoPlayer[0]->code_doi_2);
+                
+                $this->data['infoPlayer'] = $infoPlayer[0];
+                
                 $tournament_type = $infoPlayer[0]->tournament_type_id;
                 $tournament = $infoPlayer[0]->tournament_id;
                 $noi_dung = $infoPlayer[0]->noi_dung_id;
@@ -254,6 +478,8 @@ class Fixture extends MY_Controller {
                 
                 $infoNoiDung = $this->tournament_playing_category_m->get_info($infoPlayer[0]->noi_dung_id);
                 if ($infoNoiDung) {
+                    $infoNoiDung->start_date = $info->start_date;
+                    $infoNoiDung->end_date = $info->end_date;
                     $this->data['infoNoiDung'] = $infoNoiDung;
                 }
             }else{
@@ -261,7 +487,6 @@ class Fixture extends MY_Controller {
                 redirect(base_url() . 'admincp/tournament/fixture/index/');
             }
         }
-        
 
         if ($this->input->post()) {
             
@@ -443,10 +668,6 @@ class Fixture extends MY_Controller {
             $row->doi_2 = $this->fixture_m->getPlayer($row->code_doi_2);
         }
         $this->data['infoPlayer'] = $infoPlayer[0]; 
-        
-//         echo '<pre>';
-//         print_r($this->data['infoPlayer'] );
-//         echo '<pre>';die();
     
         if ($this->input->post()) {
             $set = $this->input->post('set', true);

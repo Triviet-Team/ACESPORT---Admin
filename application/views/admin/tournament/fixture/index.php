@@ -132,7 +132,7 @@
                                                 </div>
                                                 <div class="info_products">
                                                     <b><?= $row_doi->username ?></b>
-                                                    <div>Xem: <?= number_format($row->view) ?></div>
+                                                    <div><?= $row_doi->name ? $row_doi->name : 'No name' ?></div>
                                                 </div>
                                             </div>
                                         <?php } ?>
@@ -153,7 +153,7 @@
                                                 </div>
                                                 <div class="info_products">
                                                     <b><?= $row_doi->username ?></b>
-                                                    <div>Xem: <?= number_format($row->view) ?></div>
+                                                    <div><?= $row_doi->name ? $row_doi->name : 'No name' ?></div>
                                                 </div>
                                             </div>
                                         <?php } ?>

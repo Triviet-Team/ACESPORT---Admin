@@ -4,84 +4,6 @@
     </div>
 
     <div class="menu">
-
-        <!--  <div class="widgets">
-            <div class="widgetsTitle">
-                <button type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <img src="<?= base_url() ?>public/admin/img/icon/quan-li-website.png" alt=""/>
-                    Quản lí website
-                </button>
-            </div>
-
-            <div class="widgetsSub">
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                    <ul>
-                        <li>
-                            <a href="<?= base_url('admincp') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/bang-dieu-khien.png" alt="Bảng điều khiển"/>
-                                Bảng điều khiển
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('admincp/configs') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/cau-hinh-tong-quat.png" alt="Cấu hình tổng quát"/>
-                                Cấu hình tổng quát
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>                   
-
-        <div class="widgets">
-            <div class="widgetsTitle">
-                <button type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
-                    <img src="<?= base_url() ?>public/admin/img/icon/quan-li-tai-khoan.png" alt=""/>
-                    Quản lí tài khoản
-                </button>
-            </div>
-
-            <div class="widgetsSub">
-                <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                    <ul>
-                        <li>
-                            <a href="<?= base_url('admincp/admin') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/thu-muc.png" alt="Danh sách tài khoản"/>
-                                Danh sách tài khoản
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('admincp/admin/add') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/them.png" alt="Thêm tài khoản"/>
-                                Thêm tài khoản
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <div class="widgets">
-            <div class="widgetsTitle">
-                <button type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseOne">
-                    <img src="<?= base_url() ?>public/admin/img/icon/quan-li-lien-he.png" alt=""/>
-                    Quản lí đơn hàng
-                </button>
-            </div>
-            <div class="widgetsSub">
-                <div id="collapseSix" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                    <ul>
-                        <li>
-                            <a href="<?= base_url('admincp/order') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/danh-sach.png" alt="Đơn hàng sản phẩm"/>
-                                Đơn hàng sản phẩm
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>-->
-
         <div class="widgets">
             <div class="widgetsTitle">
                 <button type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
@@ -89,7 +11,6 @@
                     Quản lí giải đấu
                 </button>
             </div>
-
             <div class="widgetsSub">
                 <div id="collapseThree" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <ul>
@@ -122,87 +43,6 @@
                 </div>
             </div>
         </div>
-
-        <!--  <div class="widgets">
-            <div class="widgetsTitle">
-                <button type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseOne">
-                    <img src="<?= base_url() ?>public/admin/img/icon/icon-bai-viet.png" alt=""/>
-                    Quản lí tin tức
-                </button>
-            </div>
-
-            <div class="widgetsSub">
-                <div id="collapseFour" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                    <ul>
-                        <li>
-                            <a href="<?= base_url('admincp/articles_category') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/thu-muc.png" alt=""/>
-                                Danh mục
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('admincp/articles_category/detail') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/them.png" alt=""/>
-                                Thêm danh mục
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('admincp/articles/index') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/danh-sach.png" alt=""/>
-                                Danh sách tin tức
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('admincp/articles/detail') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/them.png" alt=""/>
-                                Thêm bài mới
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <div class="widgets">
-            <div class="widgetsTitle">
-                <button type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseOne">
-                    <img src="<?= base_url() ?>public/admin/img/icon/icon-bai-viet.png" alt=""/>
-                    Quản lí dịch vụ
-                </button>
-            </div>
-
-            <div class="widgetsSub">
-                <div id="collapseFour" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                    <ul>
-                        <li>
-                            <a href="<?= base_url('admincp/service_category') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/thu-muc.png" alt=""/>
-                                Danh mục
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('admincp/service_category/detail') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/them.png" alt=""/>
-                                Thêm danh mục
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('admincp/service/index') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/danh-sach.png" alt=""/>
-                                Danh sách dịch vụ
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('admincp/service/detail') ?>">
-                                <img src="<?= base_url() ?>public/admin/img/icon/them.png" alt=""/>
-                                Thêm bài mới
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>-->
-
         <div class="widgets">
             <div class="widgetsTitle">
                 <button type="button" data-toggle="collapse" data-target="#collapseFine" aria-expanded="true" aria-controls="collapseOne">
@@ -224,6 +64,18 @@
                             <a href="<?= base_url('admincp/tournament/playing_category/detail') ?>">
                                 <img src="<?= base_url() ?>public/admin/img/icon/them.png" alt=""/>
                                 Thêm nội dung giải đấu
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url('admincp/tournament/content_tournament_playing_category') ?>">
+                                <img src="<?= base_url() ?>public/admin/img/icon/danh-sach.png" alt="Danh sách vận động viên cho nội dung và vòng loại"/>
+                                Danh sách vận động viên cho nội dung và vòng loại
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url('admincp/tournament/content_tournament_playing_category/detail') ?>">
+                                <img src="<?= base_url() ?>public/admin/img/icon/them.png" alt=""/>
+                                Thêm vận động viên cho nội dung
                             </a>
                         </li>
                     </ul>
@@ -248,14 +100,7 @@
                                     Thêm cặp đấu mới
                                 </a>
                             </li>
-    <!--                        <li>
-                                <a href="http://dogonguyenhoang.com/admincp/emailregister">
-                                    <img src="http://dogonguyenhoang.com/public/admin/img/icon/thu-muc.png" alt=""/>
-                                    Đăng kí nhận email
-                                </a>
-                            </li>-->
                             <li>
-
                             <a href="<?= base_url('admincp/tournament/fixture') ?>">
 
                                 <img src="<?= base_url() ?>public/admin/img/icon/thu-muc.png" alt=""/>
@@ -263,8 +108,7 @@
                                 Danh sách cặp đấu
 
                             </a>
-
-                        </li>
+                       	</li>
                         </ul>
                     </div>
                 </div>

@@ -11,6 +11,36 @@ class Comment extends MY_Controller {
         $this->load->model('comment_m');
         $this->load->model('users_m');
     }
+    
+    public function get_info_reply() {
+        $login = $this->session->userdata('isCheckLogin');
+        $xhtml = '';
+        if ($login) {
+            if ($_POST) {
+                $idUser = $_POST['id'];
+                $comment_id = $_POST['id_comment'];
+                $tournament_id = $_POST['id_tournament'];
+                $user_id = $this->session->userdata('id');
+                $where = array('id' => $user_id, 'status' => 1);
+                $objUser = $this->users_m->get_info_rule($where);
+                if($objUser) {
+                    $link_img = base_url().'public/site/img/default-user.jpg';
+                    if(!empty($objUser->image_link)){
+                        $link_img = base_url().'uploads/images/user/200_200/'.$objUser->image_link;
+                    }
+                    $xhtml = '<div class="comment-reply comment-reply-'.$comment_id.'">
+                    					<div class="comment-reply-form" style="display: flex;">
+                    						<img src="'.$link_img.'"> 
+    			                            <textarea style="width: 100%;"></textarea>
+                                            <button comment-id="'.$comment_id.'" type="button" id-tournament="'.$tournament_id.'" class="btn-send-reply btn btn-indigo waves-effect waves-light">Gửi bình luận</button>
+                    					</div>
+                    			</div>';
+                }
+            }
+        }
+        echo $xhtml;
+    }
+    
     public function del_message() {
         $options = array(
             'cluster' => 'ap1',
@@ -109,18 +139,11 @@ class Comment extends MY_Controller {
                                 			<div class="box-comment-detail-content">
                                 				<div>'.$content.'</div>
                                 				<div class="sub-comment sub-comment-'.$comment_id.'"></div>
-                                				<div class="comment-reply">
-                                					<button class="btn btn-indigo waves-effect waves-light">Trả
-                                						lời</button>
-                                					<div class="comment-reply-form comment-reply-'.$comment_id.'" style="display: flex;">
-                                						<img src="'.$link_img.'">
-                                						    <textarea id="nic-editor-'.$comment_id.'" style="width: 100%;"></textarea>
-                                                            <button comment-id="'.$comment_id.'" type="button" id-tournament="'.$tournament_id.'" class="btn-send-reply btn btn-indigo waves-effect waves-light">Gửi bình luận</button>
-                                					</div>
-                                				</div>
+                                				<button id-parent-comment="'.$comment_id.'" class="btn btn-indigo waves-effect waves-light click-btn-reply">Trả lời</button>
+                                				<div class="add-box-reply-'.$comment_id.'"></div>
                                 			</div>
                                 		</div>
-                                	</div>';
+                                	</div>';                               
                                 $data_pusher['content'] = $html;
                                 $data_pusher['tournament_id'] = $tournament_id;
                                 $data_pusher['comment_id'] = $comment_id;
@@ -171,10 +194,11 @@ class Comment extends MY_Controller {
                                         $this->users_m->update($row->id, $data);
                                         $arr_notification[] = array('id' => $row->id, 'total' => $row->count_notification + 1);
                                     }
-                                }
+                                }                                
                                 $data_notification['content'] = json_encode($arr_notification);
                                 $pusher->trigger('notification', 'event-send-notification', $data_notification);
                             }
+                            $success['content'] = 1;
                         }
                     }else {
                         $success['content'] = 0;

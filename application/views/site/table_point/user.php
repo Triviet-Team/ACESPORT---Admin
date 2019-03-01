@@ -42,7 +42,7 @@
               </div>
             </div>
           </div>
-          <div class="box-member-title">
+          <!--<div class="box-member-title">
             <h3>Thống kê chung</h3>
           </div>
           <div class="box-member chart">
@@ -83,7 +83,7 @@
                 </ul>
               </div>
             </div>
-          </div>
+          </div>  -->
           <div class="box-member-title">
             <h3>Lịch sử trận đấu</h3>
           </div>

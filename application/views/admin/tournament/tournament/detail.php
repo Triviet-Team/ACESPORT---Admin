@@ -118,52 +118,6 @@
                         <input type="text" name="vn_slug" value="<?= isset($info->vn_slug) ? $info->vn_slug : set_value('vn_slug') ?>" id="vn_slug" onkeyup="return slug('vn_name', 'vn_slug');" class="form-control">
                     </div>
                 </div>
-				<!-- <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Giá sản phẩm</label>
-                    <div class="col-sm-10">
-                        <input class="form-control format_number" value="<?= isset($info->price) ? $info->price : set_value('price') ?>" name="price"/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Giá SP sau khi giảm</label>
-                    <div class="col-sm-10">
-                        <input class="form-control format_number" value="<?= isset($info->sale_price) ? $info->sale_price : set_value('sale_price') ?>" placeholder="Nhập giá sản phẩm sau khi đã giảm giá" name="sale_price"/>
-                    </div>
-                </div>
-               	<div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Mã sản phẩm</label>
-                    <div class="col-sm-10">
-                        <input class="form-control" value="<?= isset($info->code) ? $info->code : set_value('code') ?>" name="code"/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Cấu Hình</label>
-                    <div class="col-sm-10">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" <?= @$info->is_new == 1 ? 'checked' : '' ?> value="1" name="is_new" id="is_new">
-                                    <label class="custom-control-label" for="is_new">Hiện trang chủ</label>
-                                </div>
-                            </div>
-                            
-                           <div class="col-lg-4">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" <?= @$info->is_pay == 1 ? 'checked' : '' ?> value="1" name="is_pay" id="is_pay">
-                                    <label class="custom-control-label" for="is_pay">Sản phẩm bán chạy</label>
-                                </div>
-                            </div>
-                            
-                            <div class="col-lg-4">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" <?= @$info->is_hight == 1 ? 'checked' : '' ?> value="1" name="is_hight" id="is_hight">
-                                    <label class="custom-control-label" for="is_hight">Sản phẩm nổi bật</label>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div> -->
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Keyword</label>
                     <div class="col-sm-10">

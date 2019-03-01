@@ -63,21 +63,27 @@ function ajaxComment(data, url, option, obj = '') {
 	        type: 'POST',
 	        data: data,
 	        dataType: 'JSON',
-	        success: function (data) {
-	        	//console.log(data);
-	        	if(data.success == 0) {
+	        success: function (result) {
+	        	//console.log(result);
+	        	if(result.success == 0) {
 	                $('.box-login').toggleClass('box-login-show');
 	                $('.login-btn span i').toggleClass('mdi-chevron-down mdi-chevron-up');
 	                $('.overlay').toggleClass('overlay-in');
 	                $("#divToUpdate").delay(500).html('Vui lòng đăng nhập để gửi bình luận');
 	        	}
-	        	if(data.content == 0) {
+	        	
+	        	if(result.content == 1) {
+	        		$(".comment-first .nicEdit-main").html('');
+	        		$('.comment-reply-' + data.id_parent_comment + ' textarea').val(' ');
+	        	}
+	        	
+	        	if(result.content == 0) {
 	        	    Swal({
 	        	      text: "Vui lòng nhập nội dung tin nhắn!",
 	        	    })
 	        	}
 	        	
-	        	if(data.active == 0) {
+	        	if(result.active == 0) {
 	        	    Swal({
 	        	      text: "Tài khoản tạm khóa, vui lòng liên hệ để được hỗ trợ",
 	        	    })
@@ -131,7 +137,6 @@ $(document).ready(function() {
 		        //data: data,
 		        dataType: 'JSON',
 		        success: function (result) {
-		        	console.log(result);
 		        	if(result.notification == 1) {
 		        		$('.box-thong-bao-dkm').html('');
 		        	}
@@ -140,6 +145,32 @@ $(document).ready(function() {
 		        	}
 		        }
 		    });
+	});
+	// get info btn-rely
+	$('body').on('click', '.click-btn-reply', function() {
+		var commentId = $(this).attr('id-parent-comment');
+		var idTournament = $("#btn-send").attr('id-tournament');
+		commentId = parseInt(commentId);
+		if(commentId > 0) {
+			console.log(typeof commentId);
+			 $.ajax({	    	
+			        url: base_url + 'info-message-reply',
+			        type: 'POST',
+			        data: {id_comment: commentId,  id_tournament: idTournament},
+			        //dataType: 'JSON',
+			        success: function (result) {
+			        	console.log(result);
+			        	if(result != '') {
+			        		$('.add-box-reply-' + commentId).html(result);
+			        	}else {
+			                $('.box-login').toggleClass('box-login-show');
+			                $('.login-btn span i').toggleClass('mdi-chevron-down mdi-chevron-up');
+			                $('.overlay').toggleClass('overlay-in');
+			                $("#divToUpdate").delay(500).html('Vui lòng đăng nhập để gửi bình luận');
+			        	}
+			        }
+			    });
+		}
 	});
     // Enable pusher logging - don't include this in production
     //Pusher.logToConsole = true;

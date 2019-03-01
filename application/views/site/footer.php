@@ -7,10 +7,10 @@
             </div>
             <div class="col-lg-6 text-center text-lg-right d-none d-sm-block">
               <ul>
-                <li><a href="index.html">Trang chủ</a></li>
-                <li><a href="tin-tuc.html">Tin tức</a></li>
-                <li><a href="giai-dau.html">Giải đấu</a></li>
-                <li><a href="bang-diem.html">Bảng điểm</a></li>
+                <li><a href="<?= base_url() ?>">Trang chủ</a></li>
+                <li><a href="<?= base_url('tin-tuc.html') ?>">Tin tức</a></li>
+                <li><a href="<?= base_url('giai-dau.html') ?>">Giải đấu</a></li>
+                <li><a href="<?= base_url('bang-diem.html') ?>">Bảng điểm</a></li>
               </ul>
             </div>
           </div>

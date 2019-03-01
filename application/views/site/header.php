@@ -28,10 +28,10 @@
                               $link_img = base_url().'uploads/images/user/200_200/'.$info_user->image_link;
                           }
                ?>
-               			  <div class="noti">
+               			  <!--<div class="noti">
                               <i class="mdi mdi-bell"></i>
                               <div class="box-thong-bao-dkm"><?= $info_user->count_notification > 0 ? '<span class="thong-bao-dkm">' . $info_user->count_notification . '</span>' : '' ?></div>
-                          </div>
+                          </div>  -->
                       	<?php if ($tid > 1) {?>
                       		
                       		<div title="<?= $info_user->name ?>" class="login-complete-btn"><span><img class="img-circle d-inline block" src="<?= $link_img ?>" /> <?= $info_user->name ?><i class="mdi mdi-chevron-down"></i></span></div>

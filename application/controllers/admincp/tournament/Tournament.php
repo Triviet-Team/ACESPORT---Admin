@@ -200,6 +200,7 @@ class Tournament extends MY_Controller {
                         $this->session->set_flashdata('message', 'Thêm dự án thất bại');
                     }
                 } else {
+                    unset($data['created']);
                     if ($this->tournament_m->update($id, $data)) {
                         
                         foreach ($arrPid as $row) {

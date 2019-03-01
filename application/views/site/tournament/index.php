@@ -28,7 +28,7 @@
             							<div class="col-md-3 col-9">
             								<div class="box-tour-info text-center">
             									<div class="box-tour-info-comment">
-            										<h5>100</h5>
+            										<h5>'.($row->count_comment ? $row->count_comment : 0).'</h5>
             									</div>
             									<div class="box-tour-info-view">
             										<i class="mdi mdi-eye"></i>'.($row->view ? $row->view : 0).'

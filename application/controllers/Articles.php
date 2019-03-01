@@ -37,7 +37,7 @@ class Articles extends MY_Controller {
             $config['total_rows'] = $total_rows;
             $config['base_url'] = base_url($slug . '/page/');
             $config['first_url'] = base_url($slug) .'.html';
-            $config['per_page'] = 1;
+            $config['per_page'] = 4;
             $config['num_links'] = $total_rows;
             
             //custom pagination

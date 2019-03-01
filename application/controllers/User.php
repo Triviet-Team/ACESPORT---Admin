@@ -524,39 +524,33 @@ Class User extends MY_Controller {
             
             if ($objUser) {
                 
-                $input = array();
-                $input['where'] = array('status' => 1, 'tid' => 1);
-                $input['order'] = array('point_doi', 'DESC');
-                $list_user = $this->users_m->get_list($input);
-                foreach ($list_user as $k => $row) {
-                    if ($row->id == $id) {
-                        $objUser->hang = $k + 1;
-                    }
-                }
+//                 $input = array();
+//                 $input['where'] = array('status' => 1, 'tid' => 1);
+//                 $input['order'] = array('point_doi', 'DESC');
+//                 $list_user = $this->users_m->get_list($input);
+//                 foreach ($list_user as $k => $row) {
+//                     if ($row->id == $id) {
+//                         $objUser->hang = $k + 1;
+//                     }
+//                 }
                 
-                $input = array();
-                $input['where'] = array('player_id' => $objUser->id);
-                $list_registration_player = $this->registration_player_m->get_list($input);
-                if ($list_registration_player) {
-                    $arr_registration_id = $this->registration_player_m->getId($list_registration_player, 'registration_id');
-                    $input = array();
-                    $input['where_in'] = array('first_registration_id', $arr_registration_id);
-                    $list_fixture_first = $this->fixture_m->get_list($input);
+//                 $input = array();
+//                 $input['where'] = array('player_id' => $objUser->id);
+//                 $list_registration_player = $this->registration_player_m->get_list($input);
+//                 if ($list_registration_player) {
+//                     $arr_registration_id = $this->registration_player_m->getId($list_registration_player, 'registration_id');
+//                     $input = array();
+//                     $input['where_in'] = array('first_registration_id', $arr_registration_id);
+//                     $list_fixture_first = $this->fixture_m->get_list($input);
                     
-                    $input = array();
-                    $input['where_in'] = array('second_registration_id', $arr_registration_id);
-                    $list_fixture_second = $this->fixture_m->get_list($input);
-                    $list_fixture = array_merge($list_fixture_first, $list_fixture_second);
-                    $arr_fixture_id = $this->fixture_m->getId($list_fixture, 'id');
-                    echo '<pre>';
-                    print_r($arr_fixture_id);
-                    echo '<pre>';
+//                     $input = array();
+//                     $input['where_in'] = array('second_registration_id', $arr_registration_id);
+//                     $list_fixture_second = $this->fixture_m->get_list($input);
+//                     $list_fixture = array_merge($list_fixture_first, $list_fixture_second);
+//                     $arr_fixture_id = $this->fixture_m->getId($list_fixture, 'id');
 
-                }
+//                 }
                 $this->data['objUser'] = $objUser;
-                echo '<pre>';
-                print_r($arr_registration_id);
-                echo '<pre>';die();
             }
         }else {
             $this->session->set_flashdata('message', '<p>Bạn chưa chưa có tài khoản. Vui lòng đăng ký tại <a>đây</a></p>');

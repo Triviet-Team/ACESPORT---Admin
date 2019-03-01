@@ -17,6 +17,7 @@ class Tournament extends MY_Controller {
         $this->load->model('fixture_result_m');
         $this->load->model('users_m');
         $this->load->model('comment_m');
+        $this->load->model('content_tournament_playing_category_m');
     }
 
 
@@ -50,8 +51,16 @@ class Tournament extends MY_Controller {
         $this->data["pagination"] = $this->pagination->create_links();        
 
         $input['limit'] = array($config['per_page'], $segment);
+        $list_tournament = $this->tournament_m->get_list($input); 
+        
+        foreach ($list_tournament as $row) {
+            $input =array();
+            $input['where'] = array('tournament_id' => $row->id);
+            $total_comment = $this->comment_m->get_total($input);
+            $row->count_comment = $total_comment;
+        }
 
-        $this->data['list_tournament'] = $this->tournament_m->get_list($input);             
+        $this->data['list_tournament'] = $list_tournament;         
 
         $breadcrumb[] = array(
             'url' => "",
@@ -149,6 +158,12 @@ class Tournament extends MY_Controller {
             $obj_tournament_playing_category = $this->tournament_playing_category_m->get_list($input);
             if ($obj_tournament_playing_category) {
                 foreach ($obj_tournament_playing_category as $row) {
+                    $where = array();
+                    $where = array('tournament_playing_category_id' => $row->id);
+                    $obj_content_tournament_playing_category = $this->content_tournament_playing_category_m->get_info_rule($where);
+                    
+                    $row->content_tournament_playing_category = $obj_content_tournament_playing_category;
+                    
                     $row->slug_tournament = $objTournament->vn_slug;
                     $input = array(
                         'id' => $row->playing_category_id
@@ -202,7 +217,6 @@ class Tournament extends MY_Controller {
                     }
                 }
             }
-
             switch ($type) {
                 case 'lich-thi-dau':
                     $this->data['dataTournament'] = $obj_tournament_playing_category;
@@ -224,7 +238,6 @@ class Tournament extends MY_Controller {
             }
             $this->data['type'] = $type;
         }
-        
         
         $this->data['title_site'] = 'Sản phẩm';
         $this->data['keyword_site'] = 'Sản phẩm';

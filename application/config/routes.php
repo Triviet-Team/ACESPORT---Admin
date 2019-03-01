@@ -16,6 +16,9 @@ $route['gioi-thieu.html'] = 'staticpage/index/gioi-thieu';
 
 $route['doi-tac.html'] = 'staticpage/index/doi-tac';
 
+#comment
+$route['info-message-reply'] = 'comment/get_info_reply';
+
 #user
 $route['login.html'] = 'user/login';
 $route['logout.html'] = 'user/logout';
