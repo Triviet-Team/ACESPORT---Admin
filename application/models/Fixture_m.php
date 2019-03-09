@@ -184,8 +184,40 @@ Class Fixture_m extends MY_Model {
             AND `fixture_result`.`winner_registration_id` > 0
             ORDER BY `id` DESC";
     
-        //AND `set_score`.`fixture_id` = `fixture`.`id`, `set_score` , `set_score`.`set_number` AS `set`,
-        //`set_score`.`first_registration_games` AS `game_doi_1`, `set_score`.`second_registration_games` AS `game_doi_2`
+        $result = $this->db->query($query);
+        if ($result) {
+            return count($result->result());
+        }else {
+            return FALSE;
+        }
+    }
+    
+    public function checkRoundNext($filter){
+        $strFilter = '';
+        if ($filter) {
+            foreach ($filter as $value) {
+                $strFilter .= ' AND ' . $value['name'] . ' = ' . $value['val'];
+            }
+        }
+    
+        $query = "SELECT
+            `fixture`.`id` AS `id`,
+            `tournament_type`.`vn_name` AS `tournament_type`, `tournament`.`vn_name` AS `tournament`, `tournament`.`id` AS `tournament_id`,
+            `playing_category`.`vn_name` AS `noi_dung`,
+            `fixture`.`first_registration_id` AS `code_doi_1`, `fixture`.`second_registration_id` AS `code_doi_2`,
+    
+            `fixture`.`round` AS `round`, `tournament_playing_category`.`set`, `tournament_playing_category`.`id` AS `noi_dung_id`
+    
+            FROM `tournament_type`, `tournament`, `tournament_playing_category`, `playing_category`, `fixture`, `fixture_result`
+    
+            WHERE `tournament_type`.`id` = `tournament`.`pid`
+            AND `tournament`.`id` = `tournament_playing_category`.`tournament_id`
+            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id`
+            AND `tournament_playing_category`.`id` = `fixture`.`tournament_playing_category_id`
+            AND `fixture`.`id` = `fixture_result`.`fixture_id`
+    
+            ". $strFilter ."
+            ORDER BY `id` DESC";
     
         $result = $this->db->query($query);
         if ($result) {
@@ -194,6 +226,8 @@ Class Fixture_m extends MY_Model {
             return FALSE;
         }
     }
+    
+    
     
     public function checkUserWiner($filter){
         $strFilter = '';
@@ -363,27 +397,7 @@ Class Fixture_m extends MY_Model {
             }
         }
     }
-    
-    public function getInfoTable($id) {
-            $id = $id > 0 ? $id : 0;
-            $query = "SELECT
-            `tournament_playing_category`.`id` AS `id`,
-            `playing_category`.`vn_name` AS `vn_name`
-        
-            FROM `tournament`, `tournament_playing_category`, `playing_category`
-        
-            WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
-            AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id` 
-            AND `tournament`.`id` = '$id'";
-        
-            $result = $this->db->query($query);
 
-            if ($result) {
-                return $result->result();
-            }else {
-                return FALSE;
-            }
-    }
     
     public function getMu($val) {
         $i = 0;
@@ -400,29 +414,5 @@ Class Fixture_m extends MY_Model {
         return $i;
     }
 
-//     public function get_list_fixture($arr) {
-//         $id = $id > 0 ? $id : 0;
-//         $query = "SELECT
-//         `tournament_playing_category`.`id` AS `id`,
-//         `playing_category`.`vn_name` AS `vn_name`
-    
-//         FROM `tournament`, `tournament_playing_category`, `playing_category`
-    
-//         WHERE `tournament`.`id` = `tournament_playing_category`.`tournament_id`
-//         AND `playing_category`.`id` = `tournament_playing_category`.`playing_category_id`
-//         AND `tournament`.`id` = '$id'";
-    
-//         $result = $this->db->query($query);
-    
-//         if ($result) {
-//             return $result->result();
-//         }else {
-//             return FALSE;
-//         }
-//     }
-    
-    
-    
-    
     
 }

@@ -204,6 +204,7 @@ function getInfo(data, id = '', title = '', active = '') {
         data: data,
         dataType: 'JSON',
         success: function (result) {
+        	console.log(result);
         	var str = '<option value="">' + title + '</option>';
         	if(result != 0){
         		$.each(result, function(i, value){
@@ -239,23 +240,6 @@ $(document).ready(function () {
 	var activeTournament = $("#tournament").attr('tournament');
 	var activeNoiDung = $("#noi_dung").attr('noi_dung');
 	var activeRound = $("#round").attr('round');
-	if(tournament_type != 0 && tournament_type != undefined) {
-		getInfo({tournament_type: tournament_type, type: 'tournament_type'}, '#tournament', 'Chọn giải đấu', activeTournament);
-		tournament = $("#tournament option:selected").val();
-	}
-	
-	if(activeTournament != 0 && activeTournament != undefined) {
-		getInfo({tournament: activeTournament, type: 'tournament'}, '#noi_dung', 'Chọn nội dung', activeNoiDung);
-		$.ajax({
-		        url: url + 'admincp/tournament/fixture/getInfo',
-		        type: 'POST',
-		        data: {noi_dung: activeNoiDung, type: 'noi_dung', active: activeRound},
-		        dataType: 'JSON',
-		        success: function (result) {
-		        	$('#round').html(result.content);
-		        }
-		 });
-	}
 
 	
     $("#tournament_type").change(function(){
@@ -284,7 +268,7 @@ $(document).ready(function () {
     $("#noi_dung").change(function(){
     	noi_dung = $("#noi_dung option:selected").val();
     	if(noi_dung != 0) {
-    		var data = {noi_dung: noi_dung, type: 'noi_dung'};
+    		var data = {noi_dung: noi_dung, type: 'noi_dung'};    		
     		 $.ajax({
     		        url: url + 'admincp/tournament/fixture/getInfo',
     		        type: 'POST',
@@ -294,16 +278,23 @@ $(document).ready(function () {
     		        	$('#round').html(result.content);
     		        	if(result.type) {
     		        		var listSelect = $('#user .col-sm-6 select');
+    		        		var pass = $(".pass");
+    		        		$.each(pass, function(i, val){
+    		        			$(this).removeAttr('checked');
+    		        		});    
+
     		        		$.each(listSelect, function(i, val){
     		        			if(i % 2 != 0) {
     		        				if(result.type == 1) {
     		        					$(this).attr('disabled', 'disabled');
-    		        				}
-    		        				
-    		        				if(result.type == 2) {
-    		        					$(this).removeAttr('disabled');
-    		        				}
+    		        				}    		        				
+    		        			}else {
+    		        				$(this).removeAttr('disabled');
     		        			}
+		        				if(result.type == 2) {
+		        					$(this).removeAttr('disabled');
+		        				}
+    		        			
     		        		});
     		        	}
     		        }
@@ -312,6 +303,46 @@ $(document).ready(function () {
     		$("#round").html('<option value="0">Chọn vòng đấu</option>');
     	}
     });
+    
+//	if(parseInt(tournament_type) > 0 && tournament_type != undefined) {
+//		getInfo({tournament_type: tournament_type, type: 'tournament_type'}, '#tournament', 'Chọn giải đấu', activeTournament);
+//		tournament = $("#tournament option:selected").val();
+//	}
+	
+//    $.ajax({
+//	    url: url + 'admincp/tournament/fixture/getNoiDung',
+//	    type: 'POST',
+//	    data: {tournament: activeTournament, type: 'tournament'},
+//	    dataType: 'JSON',
+//	    success: function (result) {
+//	    	console.log(result);
+//	    	var str = '<option value="">Chọn nội dung</option>';
+//	    	if(result != 0){
+//	    		var activeNoiDung = $("#noi_dung").attr('noi_dung');
+//	    		console.log(activeNoiDung);
+//	    		$.each(result, function(i, value){
+//	    			if(activeNoiDung == value.id ) {
+//	    				str += '<option selected value="'+ value.id +'">'  + ' ' + value.vn_name + '</option>';
+//	    			}else {
+//	    				str += '<option value="'+ value.id +'">'  + ' ' + value.vn_name + '</option>';
+//	    			}
+//	    		});
+//	    	}
+//	    	$('#noi_dung').html(str);
+//	    }
+//	});
+//    
+	if(parseInt(activeTournament) > 0 && activeTournament != undefined) {
+		$.ajax({
+		        url: url + 'admincp/tournament/fixture/getInfo',
+		        type: 'POST',
+		        data: {noi_dung: activeNoiDung, type: 'noi_dung', active: activeRound},
+		        dataType: 'JSON',
+		        success: function (result) {
+		        	$('#round').html(result.content);
+		        }
+		 });
+	}
 
 // chọn người chơi (thêm cặp đấu mới)	 
       var valUser1 = $("#user1 option:selected").val();
@@ -402,7 +433,7 @@ $(document).ready(function () {
 
 			  }
 		  });
-	  });;
+	  });
 	  // selected edit cặp đấu
 	  var idUser1 =  $("#user1").attr('id-selected');
 	  var idUser2 =  $("#user2").attr('id-selected');
@@ -481,6 +512,51 @@ $(document).ready(function () {
 		  });
 	  }
 	  
+	// pass
+	  $(".pass").on("click", function(){
+		  var pass = this;
+		  var noi_dung = $("#noi_dung option:selected").val();
+		  $.ajax({
+			  url: url + 'admincp/tournament/fixture/getTypeTournament?id=' + noi_dung, 
+			  type: 'GET',
+			  //dataType: "json",
+			  success: function(result){
+				  if(pass.checked) {	
+					  if(parseInt(result) == 1 || parseInt(result) == 2) {
+						  $('#user3').attr('disabled', 'disabled');
+						  $('#user4').attr('disabled', 'disabled');
+					  }
+				  }else {
+					  if(parseInt(result) == 1) {
+						  $('#user3').removeAttr('disabled', 'disabled');
+					  }
+					  if(parseInt(result) == 2) {
+						  $('#user3').removeAttr('disabled', 'disabled');
+						  $('#user4').removeAttr('disabled', 'disabled');
+					  }
+				  }
+			  }
+		  });
+	  });
+	// pass-1
+	  $(".pass-active-1").on("click", function(){
+		  if(this.checked) {	
+			  $('#user3').attr('disabled', 'disabled');
+		  }else {
+			  $('#user3').removeAttr('disabled', 'disabled');
+		  }
+	  });
+	  
+		// pass-2
+	  $(".pass-active-2").on("click", function(){
+		  if(this.checked) {	
+			  $('#user3').attr('disabled', 'disabled');
+			  $('#user4').attr('disabled', 'disabled');
+		  }else {
+			  $('#user3').removeAttr('disabled', 'disabled');
+			  $('#user4').removeAttr('disabled', 'disabled');
+		  }
+	  });
 	  
     $("#noi_dung").change(function(){
     	tournament_type = $("#tournament_type option:selected").val();
@@ -529,12 +605,12 @@ $(document).ready(function() {
 	    $("#frmSubmit").validate({
 	    	  ignore: [],
 		      rules: {
-		    	  start_date: {
-		    		  required: true
-		    	  },
-		    	  end_date: {
-		    		  required: true
-		    	  },
+//		    	  start_date: {
+//		    		  required: true
+//		    	  },
+//		    	  end_date: {
+//		    		  required: true
+//		    	  },
 		    	  tournament_type: {
 		    		  required: true
 		    	  },

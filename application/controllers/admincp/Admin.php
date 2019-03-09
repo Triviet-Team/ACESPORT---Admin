@@ -154,7 +154,7 @@ Class Admin extends MY_Controller {
             $data['address']    = $this->input->post('address');
 
             $this->data['filter'] =  $data;
-            $this->form_validation->set_rules('username', 'Username', 'required|callback_check_username');
+            $this->form_validation->set_rules('username', 'Username', 'required|callback_check_username|callback_check_rules');
             $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
             $this->form_validation->set_rules('re_password', 'Nhập lại password', 'matches[password]');
 
@@ -213,6 +213,19 @@ Class Admin extends MY_Controller {
         $this->data['temp'] = 'admin/add';
         $this->load->view('admin/main', $this->data);
      }
+     
+     public function check_rules() {
+         $username = $this->input->post('username');
+         //validate username username is 8-20 characters long, no _ or . at the beginning, no __ or _. or ._ or .. inside, allowed characters, no _ or . at the end
+         $pattern = '/^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/';
+         if (!preg_match($pattern, $username, $matches)) {
+             //trả về thông báo lỗi
+             $this->form_validation->set_message(__FUNCTION__, 'Nicknam phải dài từ 8-20 ký tự gồm chuỗi a-zA-Z0-9 không chứa dấu, khoảng trắng, không bắt đầu bằng dấu _ hoặc ., bên trong không chứa dấu __ hoặc _. hoặc .., không kết thúc bằng _ hoặc .');
+             return false;
+         }
+         return true;
+     }
+
      
      public function edit_user() {
          $id = $this->uri->rsegment('3');

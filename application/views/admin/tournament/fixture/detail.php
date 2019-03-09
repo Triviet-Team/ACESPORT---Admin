@@ -77,6 +77,10 @@
 					<select class="mb-2" name="user4" id="user4">
 						<option value="">Người chơi thứ hai của đội 2</option>
 					</select>
+					<label class="checkbox-container">BYE
+                      <input class="pass" type="checkbox" value="1" name="pass" />
+                      <span class="checkmark"></span>
+                    </label>
 				</div>
 			</div>
 		<?php }else { ?>
@@ -103,12 +107,15 @@
     						<option value="">Người chơi thứ nhất của đội 1</option>
     					</select> 
     				</div>
-    
     				<div class="col-sm-6 mb-3">
     					<h6 class="mb-2 text-center">Đội chơi 2</h6>
-    					<select id-selected="<?= @$infoPlayer->doi_2[0]->id ?  @$infoPlayer->doi_2[0]->id  : 0 ?>" class=" mb-2" name="user3" id="user3">
+    					<select id-selected="<?= @$infoPlayer->doi_2[0]->id ?  @$infoPlayer->doi_2[0]->id  : 0 ?>" <?= $infoPlayer->doi_2[0]->id == 74 ? 'disabled="disabled"' : ''?>  class=" mb-2" name="user3" id="user3">
     						<option value="">Người chơi thứ nhất của đội 2</option>
     					</select>
+    					<label class="checkbox-container">BYE
+                          <input class="pass-active-1" <?= $infoPlayer->doi_2[0]->id == 74 ? 'checked="checked"' : ''?> type="checkbox" value="1" name="pass" />
+                          <span class="checkmark"></span>
+                        </label>
     				</div>
         		</div>
         		<?php }else {?>
@@ -123,15 +130,19 @@
         						<option value="">Người chơi thứ hai của đội 1</option>
         					</select>
         				</div>
-        
+
         				<div class="col-sm-6 mb-3">
         					<h6 class="mb-2 text-center">Đội chơi 2</h6>
-        					<select id-selected="<?= @$infoPlayer->doi_2[0]->id ?  @$infoPlayer->doi_2[0]->id  : 0 ?>" class=" mb-2" name="user3" id="user3">
+        					<select <?= $infoPlayer->doi_2[0]->id == 74 ? 'disabled="disabled"' : ''?> id-selected="<?= @$infoPlayer->doi_2[0]->id ?  @$infoPlayer->doi_2[0]->id  : 0 ?>" class=" mb-2" name="user3" id="user3">
         						<option value="">Người chơi thứ nhất của đội 2</option>
         					</select>
-        					<select id-selected="<?= @$infoPlayer->doi_2[1]->id ?  @$infoPlayer->doi_2[1]->id  : 0 ?>" class="mb-2" name="user4" id="user4">
+        					<select <?= $infoPlayer->doi_2[0]->id == 74 ? 'disabled="disabled"' : ''?> id-selected="<?= @$infoPlayer->doi_2[1]->id ?  @$infoPlayer->doi_2[1]->id  : 0 ?>" class="mb-2" name="user4" id="user4">
         						<option value="">Người chơi thứ hai của đội 2</option>
         					</select>
+            				<label class="checkbox-container">BYE
+                              <input class="pass-active-2" <?= $infoPlayer->doi_2[0]->id == 74 ? 'checked="checked"' : ''?> type="checkbox" value="1" name="pass" />
+                              <span class="checkmark"></span>
+                            </label>
         				</div>
         			</div>
         		<?php } ?>

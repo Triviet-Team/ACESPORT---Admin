@@ -9,6 +9,7 @@ class System_library {
     function __construct() {
         $this->CI = & get_instance();
     }
+    
     function pagination() {
 
         $config['enable_query_strings'] = TRUE;

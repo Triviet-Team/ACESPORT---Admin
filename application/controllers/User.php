@@ -436,14 +436,17 @@ Class User extends MY_Controller {
     	$mail->SMTPSecure	= 'ssl';
     	$mail->Host			= 'smtp.gmail.com';
     	$mail->Port			= 465;
-    	$mail->Username		= 'vuvanhao122995@gmail.com';	// php.zendvn@gmail.com zendvnphp89
-    	$mail->Password		= '@96689@@64';
+//     	$mail->Username		= 'vuvanhao122995@gmail.com';	// php.zendvn@gmail.com zendvnphp89
+//     	$mail->Password		= '@96689@@64';
+
+    	$mail->Username		= 'designweb122995@gmail.com';
+    	$mail->Password		= 'ongut0966890064';
     	
     	// Thiết lập thông tin người gửi và email người gửi
-    	$mail->SetFrom('vuvanhao122995@gmail.com', 'Kích hoạt tài khoản');
+    	$mail->SetFrom('designweb122995@gmail.com', 'Kích hoạt tài khoản');
     	
     	// Thiết lập thông tin người nhận và email người nhận
-    	$mail->AddAddress($to, 'Đéo cần phản hồi');
+    	$mail->AddAddress($to);
     	
     	// Thiết lập email reply
     	//$mail->AddReplyTo('lanluu@worldprovn.com');

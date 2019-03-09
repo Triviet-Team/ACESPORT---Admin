@@ -1,5 +1,3 @@
-
-
 $(document).ready(function() {
 	//check login
 	var options = { 

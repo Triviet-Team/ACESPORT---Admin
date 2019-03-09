@@ -71,12 +71,34 @@
                                     <div class="col">
                                         <select tournament="<?= @$tournament ? $tournament : ''?>" class="custom-select" id="tournament" name="tournament">
                                             <option value="0">Chọn giải đấu</option>
+                                             <?php foreach ($list_tournament as $row) { ?>
+                                                <?php if ($row->subs) { ?>
+                                                    <optgroup label="<?php echo $row->vn_name ?>">
+                                                        <?php foreach ($row->subs as $sub) { ?>
+                                                            <option value="<?php echo $sub->id ?>" <?= @$tournament == $sub->id ? 'selected' : '' ?>><?php echo $sub->vn_name ?> </option>
+                                                        <?php } ?>
+                                                    </optgroup>
+                                                <?php } else { ?>
+                                                    <option value="<?php echo $row->id ?>"  <?= @$tournament == $row->id ? 'selected' : '' ?>><?php echo $row->vn_name ?></option>
+                                                <?php } ?>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                     
                                     <div class="col">
                                         <select noi_dung="<?= @$noi_dung ? $noi_dung : ''?>" class="custom-select" id="noi_dung" name="noi_dung">
                                             <option value="0">Chọn nội dung</option>
+                                            <?php foreach ($list_noi_dung as $val) { ?>
+                                                <?php if ($row->subs) { ?>
+                                                    <optgroup label="<?php echo $row->vn_name ?>">
+                                                        <?php foreach ($row->subs as $sub) { ?>
+                                                            <option value="<?php echo $sub->id ?>" <?= @$noi_dung == $sub->id ? 'selected' : '' ?>><?php echo $sub->vn_name ?> </option>
+                                                        <?php } ?>
+                                                    </optgroup>
+                                                <?php } else { ?>
+                                                    <option value="<?php echo $val['id']; ?>"  <?= @$noi_dung == $val['id'] ? 'selected' : '' ?>><?php echo $val['vn_name'];  ?></option>
+                                                <?php } ?>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                      <div class="col">
