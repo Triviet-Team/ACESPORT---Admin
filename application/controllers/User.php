@@ -2,8 +2,6 @@
  
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require_once APPPATH . 'phpmailer/class.phpmailer.php';
-
 Class User extends MY_Controller {
 
     function __construct() {
@@ -20,24 +18,33 @@ Class User extends MY_Controller {
             $this->data['objUser'] = $objUser;
 
             if($this->input->post()){
-                #Tạo folder upload theo ngày truoc khi upload
-                $upload_path = 'uploads/images/user/200_200/';
                 
-                $upload_data = $this->system_library->upload($upload_path, 'image_link');
-                
-                $image_link = '';
-
-                if ($upload_data != NULL && !isset($objUser->image_link)) {
-                    $image_link = $upload_data;
-                } elseif ($upload_data != NULL && $objUser->image_link) {
-                    $image_link = $upload_data;
-                } else {
-                    $image_link = $objUser->image_link;
-                }
+                 #Tạo folder upload theo ngày truoc khi upload
+                 $upload_path = 'uploads/images/user/';
+                 
+                 $upload_data = $this->system_library->upload($upload_path, 'image_link');
+                 
+                 $image_link = '';
+                 
+    
+                 
+                 if ($upload_data != NULL && !$objUser->image_link) {             
+                     $image_link = $upload_data;
+                     $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '200_200/' . $image_link, 400, 400);
+                     @unlink($upload_path . $image_link);
+                 } else if ($upload_data != NULL && $objUser->image_link) {             
+                     $image_link = $upload_data;
+                     @unlink($upload_path . '200_200/' . $objUser->image_link);
+                     $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '200_200/' . $image_link, 400, 400);
+                     @unlink($upload_path . $image_link);
+                 
+                 } else {
+                     $image_link = $objUser->image_link;
+                 }
                 
                 $data = array(
                     'name' => $this->input->post('name', true),
-                    'email' => $this->input->post('email', true),
+                    'nickname' => $this->input->post('nickname', true),
                     'phone' => $this->input->post('phone', true),
                     'address' => $this->input->post('address', true),
                     'birthday' => strtotime($this->input->post('birthday', true)),
@@ -89,9 +96,9 @@ Class User extends MY_Controller {
         $login = $this->session->userdata('isCheckLogin');
         if (!$login) {
             if ($this->input->post()) {               
-                $this->form_validation->set_rules('name', 'Họ tên', 'required|min_length[8]');
-                $this->form_validation->set_rules('username', 'Tên đăng nhập', 'required|trim|callback_check_username');
-                $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
+                $this->form_validation->set_rules('nickname', 'Nickname', 'required|min_length[4]');
+                $this->form_validation->set_rules('username', 'Tên đăng nhập', 'required|trim|callback_check_username|callback_check_rules');
+                $this->form_validation->set_rules('password', 'Password', 'required|min_length[4]');
                 $this->form_validation->set_rules('re_password', 'Nhập lại password', 'matches[password]');
                 $this->form_validation->set_rules('email', 'Email', 'required|callback_check_email_registration');
                 
@@ -101,13 +108,14 @@ Class User extends MY_Controller {
                     $email = $this->input->post('email', true);
                     $data = array(
                         'status' => 4,
-                        'name' => $this->input->post('name', true),
+                        'nickname' => $this->input->post('nickname', true),
                         'username' => $this->input->post('username', true),
                         'password' => md5($this->input->post('password', true)),
                         'tid' => 1,
                         'sex' => 2,
                         'email' => $email,
                         'key_active' => $key_active,
+                        'created_by' => 1,
                         'created' => now(),
                     );
 
@@ -116,9 +124,16 @@ Class User extends MY_Controller {
 
                         $subject = 'Kích hoạt tài khoản';
 
-                        $body = 'Bạn đã tạo tài khoản thành công vui lòng kích hoạt tài khoản tại  <a href="'.base_url('user/active_user?key_active=') .$key_active.'&id=' . $id_user .'">đây</a>';
+                        $body = '
+                        <div>
+                            <h2>
+                            Chúc mừng bạn đã đăng ký tài khoản tại ACESPORT thành công, vui lòng bấm kích hoạt
+                                <a style="padding: 10px 15px;background: #15c;color: white;text-decoration: none;display: block;margin-top: 10px;width: 140px;font-size: 14px;text-align: center;" href="'.base_url('user/active_user?key_active=') .$key_active.'&id=' . $id_user .'">Kích hoạt tài khoản</a>
+                            </h2>
+                        </div>
+                        ';
 
-                        $this->send_mail($email, $subject, $body);
+                         $this->system_library->send_mail($email, $subject, $body, 'Kích hoạt tài khoản');
 
                         $this->session->set_flashdata('message', 'Tài khoản của bạn đã được đăng ký thành công vui lòng kiểm tra mail để kích hoạt tài khoản');
                     }else{
@@ -146,6 +161,18 @@ Class User extends MY_Controller {
             redirect(base_url() . 'user/message');
         } 
     }
+    
+    public function check_rules() {
+         $username = $this->input->post('username');
+         //validate username username is 8-20 characters long, no _ or . at the beginning, no __ or _. or ._ or .. inside, allowed characters, no _ or . at the end
+         $pattern = '/^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/';
+         if (!preg_match($pattern, $username, $matches)) {
+             //trả về thông báo lỗi
+             $this->form_validation->set_message(__FUNCTION__, 'Tên đăng nhập phải dài từ 6-20 ký tự gồm chuỗi a-z, A-Z, 0-9 không chứa dấu, khoảng trắng');
+             return false;
+         }
+         return true;
+     }
     
     public function active_user() {
         if ($_GET['key_active'] && $_GET['id'] > 0) {
@@ -188,11 +215,10 @@ Class User extends MY_Controller {
                 if ($this->form_validation->run()) {
                     $email = $this->input->post('email');                    
                     $code = rand(100000, 999999);                   
-                    $subject = 'Code thay đổi password';                    
-                    $body = 'Mã code để thay đổi password của bạn là: <b>' .$code. '</b>';
-                    
+                    $subject = 'Code thay đổi password';     
+                    $body = '<div><h3>Mã code để thay đổi password của bạn là: ' .$code. '</h3></div>';
                     $_SESSION['info_forget_password'] = array('code_forget_password' => $code, 'email_forget_password' => $email);     
-                    $this->send_mail($email, $subject, $body); 
+                    $this->system_library->send_mail($email, $subject, $body, 'Mã thay đổi mật khẩu'); 
                     redirect(base_url() . 'user/code_password');
                 }
             }
@@ -421,53 +447,6 @@ Class User extends MY_Controller {
     public function message() {
       $this->data['temp'] = 'user/message';
       $this->one_col($this->data);
-    }
-    
-    public function send_mail($to, $subject, $body) {
-        $mail = new PHPMailer();
-    	// Gọi đến lớp SMTP
-    	$mail->IsSMTP();
-    	
-    	$mail->SMTPDebug	= 1; 	// Hiển thị thông báo trong quá trình kết nối SMTP
-    								// 1 = Hiển thị message + error
-    								// 2 = Hiển thị message
-    	
-    	$mail->SMTPAuth		= true;
-    	$mail->SMTPSecure	= 'ssl';
-    	$mail->Host			= 'smtp.gmail.com';
-    	$mail->Port			= 465;
-//     	$mail->Username		= 'vuvanhao122995@gmail.com';	// php.zendvn@gmail.com zendvnphp89
-//     	$mail->Password		= '@96689@@64';
-
-    	$mail->Username		= 'designweb122995@gmail.com';
-    	$mail->Password		= 'ongut0966890064';
-    	
-    	// Thiết lập thông tin người gửi và email người gửi
-    	$mail->SetFrom('designweb122995@gmail.com', 'Kích hoạt tài khoản');
-    	
-    	// Thiết lập thông tin người nhận và email người nhận
-    	$mail->AddAddress($to);
-    	
-    	// Thiết lập email reply
-    	//$mail->AddReplyTo('lanluu@worldprovn.com');
-    	
-    	// Đính kèm tập tin
-    	//$mail->AddAttachment('Lighthouse.zip');
-    	
-    	// Thiết lập tiêu đề
-    	$mail->Subject = $subject;
-    	
-    	// Thiết lập charset
-    	$mail->CharSet = 'utf-8';
-    	
-    	//$mail->Body = $body;
-    	$mail->MsgHTML($body);
-    	
-    	if($mail->Send() == false){
-    		return TRUE;
-    	} else{
-    		return FALSE;
-    	}
     }
     
     function check_email_registration() {

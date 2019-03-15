@@ -49,11 +49,21 @@ $(document).ready( function () {
     			                    );
     			                  },
     			                },
+    			                
     			                { 
     			                  "data": "score",
     			                  "render": function(data, type, row) {
     			                    return (
     			                      `${row.score}`
+    			                    );
+    			                  },
+    			                },
+    			                
+    			                { 
+    			                 "data": "organization",
+    			                  "render": function(data, type, row) {
+    			                    return (
+    			                      `${row.organization}`
     			                    );
     			                  },
     			                },
@@ -149,14 +159,6 @@ $(document).ready(function() {
 	        			        "render": function(data, type, row) {
 	        			          return (
 	        			            `${row.date}`
-	        			          );
-	        			        },
-	        			      },
-	        			      { 
-	        			        "data": "rank",
-	        			        "render": function(data, type, row) {
-	        			          return (
-	        			            `${row.rank}`
 	        			          );
 	        			        },
 	        			      },

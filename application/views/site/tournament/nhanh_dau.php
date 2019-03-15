@@ -54,6 +54,11 @@
       }
       
       $(updateResizeDemo)
+      
+      
+      $(document).ready(() => {
+          $('.teamContainer').last().css('display', 'none')
+      })
     </script>
   <?php }else {
       echo 'Dữ liệu đang cập nhật';}

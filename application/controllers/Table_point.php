@@ -65,7 +65,7 @@ class Table_point extends MY_Controller {
         if (isset($_GET['type'])) {
             $type = $_GET['type'];
             $input = array();
-            $input['where'] = array('status' => 1, 'tid' => 1);
+            $input['where'] = array('status' => 1, 'tid' => 1, 'id <>' => 74);
             $input['order'] = array('point_doi', 'DESC');
             switch ($type) {
                 case 'nam':
@@ -105,9 +105,10 @@ class Table_point extends MY_Controller {
                     }
                     $data[] = array(
                         'id'        => $row->id,
-                        'name'      => '<a href="'.base_url('chi-tiet-thanh-vien-'.$row->id.'.html').'">'.$row->name.'</a>',
+                        'name'      => '<a href="'.base_url('chi-tiet-thanh-vien-'.$row->id.'.html').'">'.($row->nickname ? $row->nickname : 'No Nickname').'</a>',
+                        'organization' => $row->organization ? $row->organization : 'Chưa xác định',
                         'rank'      => $i,
-                        'score'     => $row->point_doi ? $row->point_doi : 0,
+                        'score'     => '<p '.($row->is_member == 1 ? 'style="color: red;"' : '').'>' . ($row->point_doi ? $row->point_doi : 0) . '</p>',
                         'count'     => $row->number_tournament ? $row->number_tournament : 0,
                     );
                     $i++;
@@ -158,20 +159,18 @@ class Table_point extends MY_Controller {
                     $input['where_in'] = array('id', $arr_tournament_playing_category);
                     $list_tournament_playing_category = $this->tournament_playing_category_m->get_list($input);
                     if ($list_tournament_playing_category) {
-                        $arr_tournament = $this->users_m->getId($list_tournament_playing_category, 'tournament_id');
-                        $input = array();
-                        $input['where'] = array('status' => 1);
-                        $input['where_in'] = array('id', $arr_tournament);
-                        $list_tournament = $this->tournament_m->get_list($input);
-                        foreach ($list_tournament as $row) {
-                            $data[] = array(
-                                                'id'        => $row->id,
-                                                'name'      => $row->vn_name,
-                                                'rank'      => 86253,
-                                                'date'      => date('d/m/Y - H:m:s', $row->start_date),
-                                                'url'       => '<button><a target="_blank" class="watch-branch-btn" href="xem-nhanh-dau.html">Xem nhánh đấu</a></button>',
-                                
-                                           );
+                        foreach ($list_tournament_playing_category as $row) {
+                            $where = array('id' => $row->tournament_id, 'status' => 1);
+                            $objTournament = $this->tournament_m->get_info_rule($where);
+                            if($objTournament) {
+                                $data[] = array(
+                                    'id'        => $objTournament->id,
+                                    'name'      => $objTournament->vn_name,
+                                    'date'      => date('d/m/Y - H:m:s', $objTournament->start_date),
+                                    'url'       => '<button><a target="_blank" class="watch-branch-btn" href="'.base_url('xem-nhanh-dau/') .$objTournament->vn_slug .'/'. $row->id .'.html">Xem nhánh đấu</a></button>',
+                    
+                              );
+                            }
                         }
                     }
                 }

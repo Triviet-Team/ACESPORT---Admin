@@ -1,3 +1,5 @@
+
+
 <div class="bg-white addHeight height-auto">
     <div class="ui-wid">
         <div class="form-head">
@@ -56,15 +58,7 @@
                                         <select class="custom-select" id="tournament_type" name="tournament_type">
                                             <option value="0">Chọn danh mục giải đấu</option>
                                             <?php foreach ($catalogs as $row) { ?>
-                                                <?php if ($row->subs) { ?>
-                                                    <optgroup label="<?php echo $row->vn_name ?>">
-                                                        <?php foreach ($row->subs as $sub) { ?>
-                                                            <option value="<?php echo $sub->id ?>" <?= @$tournament_type == $sub->id ? 'selected' : '' ?>><?php echo $sub->vn_name ?> </option>
-                                                        <?php } ?>
-                                                    </optgroup>
-                                                <?php } else { ?>
-                                                    <option value="<?php echo $row->id ?>"  <?= @$tournament_type == $row->id ? 'selected' : '' ?>><?php echo $row->vn_name ?></option>
-                                                <?php } ?>
+                                                <option value="<?php echo $row->id ?>"  <?= @$tournament_type == $row->id ? 'selected' : '' ?>><?php echo $row->vn_name ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -72,15 +66,7 @@
                                         <select tournament="<?= @$tournament ? $tournament : ''?>" class="custom-select" id="tournament" name="tournament">
                                             <option value="0">Chọn giải đấu</option>
                                              <?php foreach ($list_tournament as $row) { ?>
-                                                <?php if ($row->subs) { ?>
-                                                    <optgroup label="<?php echo $row->vn_name ?>">
-                                                        <?php foreach ($row->subs as $sub) { ?>
-                                                            <option value="<?php echo $sub->id ?>" <?= @$tournament == $sub->id ? 'selected' : '' ?>><?php echo $sub->vn_name ?> </option>
-                                                        <?php } ?>
-                                                    </optgroup>
-                                                <?php } else { ?>
-                                                    <option value="<?php echo $row->id ?>"  <?= @$tournament == $row->id ? 'selected' : '' ?>><?php echo $row->vn_name ?></option>
-                                                <?php } ?>
+                                                 <option value="<?php echo $row->id ?>"  <?= @$tournament == $row->id ? 'selected' : '' ?>><?php echo $row->vn_name ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -89,15 +75,7 @@
                                         <select noi_dung="<?= @$noi_dung ? $noi_dung : ''?>" class="custom-select" id="noi_dung" name="noi_dung">
                                             <option value="0">Chọn nội dung</option>
                                             <?php foreach ($list_noi_dung as $val) { ?>
-                                                <?php if ($row->subs) { ?>
-                                                    <optgroup label="<?php echo $row->vn_name ?>">
-                                                        <?php foreach ($row->subs as $sub) { ?>
-                                                            <option value="<?php echo $sub->id ?>" <?= @$noi_dung == $sub->id ? 'selected' : '' ?>><?php echo $sub->vn_name ?> </option>
-                                                        <?php } ?>
-                                                    </optgroup>
-                                                <?php } else { ?>
-                                                    <option value="<?php echo $val['id']; ?>"  <?= @$noi_dung == $val['id'] ? 'selected' : '' ?>><?php echo $val['vn_name'];  ?></option>
-                                                <?php } ?>
+                                                <option value="<?php echo $val['id']; ?>"  <?= @$noi_dung == $val['id'] ? 'selected' : '' ?>><?php echo $val['vn_name'];  ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -125,7 +103,7 @@
                         <th scope="col" width=25%>Đội 1</th>
                         <th scope="col" width=25%>Đội 2</th>
                         <th scope="col" width=8%>Tỉ số</th>
-                        <th scope="col" width=8%>Ngày thi đấu</th>
+                        <th scope="col" style="width: 30px; text-align: left;">Ngày thi đấu</th>
                         <th scope="col" width=7% class="text-center">Hành động</th>
                     </tr>
                 </thead>
@@ -138,12 +116,12 @@
                             ?>
                             <tr>
                                 <td class="text-center"><?= $row->id ?></td>
-                                <td><?= $row->tournament_type ?>/<?= $row->tournament ?>/<?= $row->noi_dung ?></td>
+                                <td><?= $row->tournament_type ?>/<?= $row->tournament ?>/<?= $row->noi_dung ?>/<?= $row->name_round ?></td>
                                 <td class="text-center">
                                 	<?php if($row->doi_1){ ?>
                                 		<?php foreach ($row->doi_1 as $k => $row_doi) { ?>
                                 			<div class="d-inline-block">
-            									<div style="float: none; margin-left:10px" class="image_thumb">
+            									<div style="float: none" class="image_thumb">
                                                     <?php 
                                                             $link_img = base_url().'public/admin/img/default-534x534.png';
                                                             if(!empty($row->image_link)){
@@ -164,7 +142,7 @@
                                		<?php if($row->doi_2){ ?>
                                 		<?php foreach ($row->doi_2 as $k => $row_doi) { ?>
                                 			<div class="d-inline-block">
-            									<div style="float: none; margin-left:10px" class="image_thumb">
+            									<div style="float: none" class="image_thumb">
                                                     <?php 
                                                             $link_img = base_url().'public/admin/img/default-534x534.png';
                                                             if(!empty($row->image_link)){
@@ -186,7 +164,7 @@
                                     Game <?= $row->set ?>:   <?= $row->game_1?>-<?= $row->game_2?>
                                 </td>
                                 
-                                <td class="text-center"><?= get_date($row->created) ?></td>
+                                <td class="text-center"><?= date('H:m d/m/Y', $row->start_date) ?></td>
                                 <td class="button_action text-center">
                                     <a href="<?= base_url('admincp/tournament/fixture/detail/' . $row->id) ?>" class="edit_item" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa"></a>
                                     <a href="<?= base_url('admincp/tournament/fixture/update/' . $row->id) ?>"  class="enable_item" data-toggle="tooltip" data-placement="top" title="Cập nhật tỉ số"></a>

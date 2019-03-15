@@ -2,12 +2,58 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+require_once APPPATH . 'phpmailer/class.phpmailer.php';
+
 class System_library {
 
     var $CI = '';
 
     function __construct() {
         $this->CI = & get_instance();
+    }
+    
+    public function send_mail($to, $subject, $body, $title) {
+        $mail = new PHPMailer();
+    	// Gọi đến lớp SMTP
+    	$mail->IsSMTP();
+    	
+    	$mail->SMTPDebug	= 1; 	// Hiển thị thông báo trong quá trình kết nối SMTP
+    								// 1 = Hiển thị message + error
+    								// 2 = Hiển thị message
+    	
+    	$mail->SMTPAuth		= true;
+    	$mail->SMTPSecure	= 'ssl';
+    	$mail->Host			= 'smtp.gmail.com';
+    	$mail->Port			= 465;
+    	$mail->Username		= 'designweb122995@gmail.com';	// php.zendvn@gmail.com zendvnphp89
+    	$mail->Password		= 'ongut0966890064';
+    	
+    	// Thiết lập thông tin người gửi và email người gửi
+    	$mail->SetFrom('designweb122995@gmail.com', $title);
+    	
+    	// Thiết lập thông tin người nhận và email người nhận
+    	$mail->AddAddress($to);
+    	
+    	// Thiết lập email reply
+    	//$mail->AddReplyTo('lanluu@worldprovn.com');
+    	
+    	// Đính kèm tập tin
+    	//$mail->AddAttachment('Lighthouse.zip');
+    	
+    	// Thiết lập tiêu đề
+    	$mail->Subject = $subject;
+    	
+    	// Thiết lập charset
+    	$mail->CharSet = 'utf-8';
+    	
+    	//$mail->Body = $body;
+    	$mail->MsgHTML($body);
+    	
+    	if($mail->Send() == false){
+    		return TRUE;
+    	} else{
+    		return FALSE;
+    	}
     }
     
     function pagination() {

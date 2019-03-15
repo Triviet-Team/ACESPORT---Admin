@@ -16,11 +16,20 @@
                     </div>
                 </div>
                 
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Chính thức</label>
+                    <div class="col-sm-10">
+                        <select class="custom-select" name="is_member">
+                            <option value="0" <?= $info_users->is_member == 0 ? 'selected' : '' ?>>Không chính thức</option>
+                            <option value="1" <?= $info_users->is_member == 1 ? 'selected' : '' ?>>Chính thức</option>
+                        </select>
+                    </div>
+                </div>
+                
                <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Giới tính</label>
                     <div class="col-sm-10">
                         <select class="custom-select" name="sex">
-                        	<option value="2" <?= ($info_users->sex == 2) ? 'selected' : '' ?>>Chưa xác định</option>
                             <option value="1" <?= ($info_users->sex == 1) ? 'selected' : '' ?>>Nam</option>
                             <option value="0" <?= ($info_users->sex == 0) ? 'selected' : '' ?>>Nữ</option>                            
                         </select>
@@ -30,13 +39,21 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Họ tên</label>
                     <div class="col-sm-10">
-                        <input type="text" name="name" class="form-control" placeholder="Họ tên"  value="<?php echo $info_users->name ?>">
+                        <input type="text" name="name" class="form-control" placeholder="Họ tên"  value="<?php echo $info_users->name; ?>">
                         <div class="error"><?= form_error('name') ?></div>
                     </div>
                 </div>
+                
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Nickname</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="nickname" class="form-control" placeholder="nickname" value="<?php echo $info_users->nickname; ?>">
+                    </div>
+
+                </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Password</label>
+                    <label class="col-sm-2 col-form-label">Password <i style="color: red;">*</i></label>
                     <div class="col-sm-10">
                         <input type="password" name="password" class="form-control" placeholder="Password">
                         <div class="error"><?= form_error('password') ?></div>
@@ -44,7 +61,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Nhập lại password</label>
+                    <label class="col-sm-2 col-form-label">Nhập lại password <i style="color: red;">*</i></label>
                     <div class="col-sm-10">
                         <input type="password" name="re_password" class="form-control" placeholder="Nhập lại password">
                         <div class="error"><?= form_error('re_password') ?></div>
@@ -114,7 +131,7 @@
                         </div>
 
                         <div class="showFile">
-                            <?php if (!isset($info_users->image_link)) { ?>
+                            <?php if (!$info_users->image_link) { ?>
                                 <img id="profile-img-tag" src="<?= base_url() ?>public/admin/img/no-img.png" alt="No-Img">
                             <?php } else { ?>
                                 <img id="profile-img-tag" src="<?= base_url('uploads/images/user/200_200/' . $info_users->image_link) ?>" alt="No-Img">

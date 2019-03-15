@@ -20,6 +20,8 @@
         
         <link href="<?= base_url() ?>public/admin/css/select2.min.css" rel="stylesheet" type="text/css"/>
         
+        <link href="<?= base_url() ?>public/admin/css/jquery.filthypillow.css" rel="stylesheet" type="text/css"/>
+        
         <script> var url = '<?= base_url() ?>'; </script>
 
     </head>
@@ -67,6 +69,10 @@
         <script src="<?= base_url() ?>public/admin/js/select2.min.js" type="text/javascript"></script>
         
         <script src="<?= base_url() ?>public/admin/js/jquery.validate.min.js" type="text/javascript"></script>
+        
+        <script src="<?= base_url() ?>public/admin/js/moment.js" type="text/javascript"></script>
+        
+        <script src="<?= base_url() ?>public/admin/js/jquery.filthypillow.min.js" type="text/javascript"></script>
 
         <script src="<?= base_url() ?>public/admin/js/main.js" type="text/javascript"></script>
 

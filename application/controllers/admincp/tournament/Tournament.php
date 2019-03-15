@@ -160,13 +160,15 @@ class Tournament extends MY_Controller {
                     'vn_slug' => $slug,
                     'vn_keyword' => $this->input->post('vn_keyword', true),
                     'vn_title' => $this->input->post('vn_title', true),
-                    'vn_description' => $this->input->post('vn_description', true),
-                    'vn_sapo' => $this->input->post('vn_sapo', true),
-                    'vn_detail' => $this->input->post('vn_detail', true),
+                    'vn_description' => $this->input->post('vn_description'),
+                    'vn_sapo' => $this->input->post('vn_sapo'),
+                    'vn_detail' => $this->input->post('vn_detail'),
+                    'danh_sach_dk' => $_POST['danh_sach_dk'],
                     'start_date' => strtotime($this->input->post('start_date', true)),
                     'end_date' => strtotime($this->input->post('end_date', true)),
                     'status' => $this->input->post('status', true),
                     'created' => now(),
+                    'created_by' => $this->session->userdata('id'),
                 );
 
                 $noi_dung = $this->input->post('noi_dung[]', true);

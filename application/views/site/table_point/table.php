@@ -45,9 +45,10 @@
                 <table id="score-board-all" class="table table-bordered table-striped display scoreeee " type-table="<?= @$type ?>" style="width: 100%">
                   <thead>
                     <tr>
-                      <th scope="col">Hạng</th>
+                      <th style="width: 30px" scope="col">Hạng</th>
                       <th scope="col">Tên thành viên</th>
-                      <th scope="col">Tổng điểm</th>
+                      <th scope="col">Điểm</th>
+                      <th scope="col">Đơn vị/Tổ chức</th>
                       <th scope="col">Số giải đấu</th>
                     </tr>
                   </thead>

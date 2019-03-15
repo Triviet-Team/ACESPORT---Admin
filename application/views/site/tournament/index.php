@@ -3,10 +3,10 @@
     $xhtmlListProduct = '';
     if(!empty($list_tournament)){
         foreach($list_tournament as $row){
-            $link_img = base_url().'public/site/img/default-534x534.png';
-            if(!empty($row->image_link)){
-                $link_img = base_url().'uploads/images/product/421_561/'.$row->image_link;
-            }            
+            $link_img = base_url().'public/site/img/default-user.jpg';
+            if(!empty($row->created_by['image_link'])){
+                $link_img = base_url().'uploads/images/user/200_200/'.$row->created_by['image_link'];
+            }          
             $new    = ($row->created + 30*24*60*60) > time() ? '<h5>new</h5>' : '';
 
             $xhtmlListProduct .= '<div class="box-tour">
@@ -21,8 +21,8 @@
             							</div>
             							<div class="col-md-1 col-3 order-md-first order-0">
             								<div class="box-tour-author">
-            									<img src="'.base_url('public/site/').'img/avatar.jpeg"/>
-            									<h6>Admin</h6>
+            									<img src="'.$link_img.'"/>
+            									<h6>'.($dataTournament->created_by['nickname'] ? $dataTournament->created_by['nickname'] : ( $dataTournament->created_by['name'] ?  $dataTournament->created_by['name'] : 'ADMIN')).'</h6>
             								</div>
             							</div>
             							<div class="col-md-3 col-9">
@@ -57,7 +57,7 @@
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-						<li class="breadcrumb-item active">Giải dấu</li>
+						<li class="breadcrumb-item active">Giải đấu</li>
 					</ol>
 				</nav>
 			</div>

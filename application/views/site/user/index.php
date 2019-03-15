@@ -36,8 +36,8 @@
                   <div class="col-md-8">
                     <div class="box-member-detail">
                 	  <p><?= $this->session->flashdata('message'); ?></p>
-                      <h3><?= $objUser->name ?></h3>
-                      <p><?= $objUser->username ?></p>
+                      <h3>Họ tên: <?= $objUser->name ?></h3>
+                      <h3>Nickname: <?= $objUser->nickname ?></h3>
                       <ul>
                         <li>
                           <label>Giới tính:</label><?= $objUser->sex == 1 ? 'Nam' : ($objUser->sex == 0 ? 'Nũ' : 'Chưa xác định') ?>
@@ -83,8 +83,12 @@
                       <div class="box-member-setting-form">
                         <div class="row">
                           <div class="col-sm-6">
-                            <label for="first-name-setting">Họ và tên:</label>
+                            <label for="first-name-setting">Họ Tên:</label>
                             <input class="form-control" name="name" id="first-name-setting" type="text" value="<?= $objUser->name ?>"/>
+                          </div>
+                          <div class="col-sm-6">
+                            <label for="first-name-setting">Nickname:</label>
+                            <input class="form-control" name="nickname" id="first-name-setting" type="text" value="<?= $objUser->nickname ?>"/>
                           </div>
                           <div class="col-sm-6 gender-setting">
                             <h5>Giới tính:</h5>

@@ -1,3 +1,5 @@
+
+
 $(document).ready(function() {
 	//check login
 	var options = { 
@@ -157,7 +159,6 @@ $(document).ready(function() {
 			        data: {id_comment: commentId,  id_tournament: idTournament},
 			        //dataType: 'JSON',
 			        success: function (result) {
-			        	console.log(result);
 			        	if(result != '') {
 			        		$('.add-box-reply-' + commentId).html(result);
 			        	}else {
@@ -215,6 +216,7 @@ $(document).ready(function() {
 	//del message
     var delMessage = pusher.subscribe('del-message');
     delMessage.bind('event-del-message', function(data) {
+        console.log(data);
     	if(data.comment_id > 0) {
     		var objCommentArea = $('.box-comment-' + data.comment_id);
     		if(objCommentArea.length > 0) {    			
@@ -223,18 +225,35 @@ $(document).ready(function() {
     	}    	
     });
     // đăng ký editor nic
-   new nicEditor({fullPanel : true}).panelInstance('add-mesage');
-
+    
+    let idNick = $('#add-mesage');
+    if (Object.keys(idNick).length > 0) {
+       new nicEditor({fullPanel : true}).panelInstance('add-mesage');
+    }
 	$('body').on('click', '.delete-comment', function() {
-		var idTournament = $("#btn-send").attr('id-tournament');
-		var commentId = $(this).attr('comment-id');
-		var dataAdd = {id_tournament: idTournament, id_comment: commentId, option: 'del-message'};
-		ajaxComment(dataAdd, 'comment/del_message', 'del-message', this);
+	        Swal({
+                  title: 'Bạn chắc chắn chứ?',
+                  text: "Xóa sẽ không phục hồi lại được!",
+                  type: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Tôi đồng ý, Xóa!',
+                  cancelButtonText: 'Hủy bỏ'
+                }).then((result) => {
+                  if (result.value) {
+                    var idTournament = $("#btn-send").attr('id-tournament');
+            		var commentId = $(this).attr('comment-id');
+            		var dataAdd = {id_tournament: idTournament, id_comment: commentId, option: 'del-message'};
+            		ajaxComment(dataAdd, 'comment/del_message', 'del-message', this);
+                }
+            })
 	});
 	
 
 
 });
+
 
 
 

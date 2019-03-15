@@ -24,17 +24,16 @@
               <div class="col-md-8">
                 <div class="box-member-detail">
                   <h3><?= $objUser->name ?></h3>
-                  <p><?= $objUser->username ?></p>
                   <ul>
                     <li>
-                      <label>Giới tính:</label><?= $objUser->sex == 1 ? 'Nam' : ($objUser->sex == 0 ? 'Nũ' : 'Chưa xác định') ?>
+                      <label>Giới tính:</label><?= $objUser->sex == 1 ? 'Nam' : ($objUser->sex == 0 ? 'Nữ' : 'Chưa xác định') ?>
                     </li>
                     <li>
                       <label>Đơn vị công tác:</label><?= $objUser->organization ?>
                     </li>
-                    <li>
-                      <label>Năm sinh:</label><?= $objUser->birthday ? date('d/m/Y',$objUser->birthday) : '' ?>
-                    </li>
+                    <!--<li>-->
+                    <!--  <label>Năm sinh:</label><?= $objUser->birthday ? date('d/m/Y',$objUser->birthday) : '' ?>-->
+                    <!--</li>-->
                   </ul>
                   <h5 class="title-member">Giới thiệu bản thân:</h5>
                   <di><?= $objUser->about ?></di>
@@ -93,7 +92,6 @@
                 <tr>
                   <th scope="col">Tên Giải đấu</th>
                   <th scope="col">Ngày bắt đầu</th>
-                  <th scope="col">Thứ hạng</th>
                   <th scope="col">Hành động</th>
                 </tr>
               </thead>

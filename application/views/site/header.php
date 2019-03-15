@@ -4,7 +4,7 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-2 col-4">
-              <div class="logo"><a href="index.html"><img src="<?= base_url('public/site/') ?>img/logo.png"/></a></div>
+              <div class="logo"><a href="<?= base_url() ?>"><img src="<?= base_url('public/site/') ?>img/logo.png"/></a></div>
             </div>
             <div class="col-lg-7 col-12 order-last order-lg-0">
               <div class="main-menu"><a class="toggleMenu ssm-toggle-nav"><i class="mdi mdi-menu"></i></a>
@@ -34,10 +34,10 @@
                           </div>  -->
                       	<?php if ($tid > 1) {?>
                       		
-                      		<div title="<?= $info_user->name ?>" class="login-complete-btn"><span><img class="img-circle d-inline block" src="<?= $link_img ?>" /> <?= $info_user->name ?><i class="mdi mdi-chevron-down"></i></span></div>
+                      		<div title="<?= $info_user->nickname ? $info_user->nickname : $info_user->name ?>" class="login-complete-btn"><span><img class="img-circle d-inline block" src="<?= $link_img ?>" /> <?= $info_user->nickname ? $info_user->nickname : $info_user->name ?><i class="mdi mdi-chevron-down"></i></span></div>
                       	<?php }else {?>
 
-                      		<div title="<?= $info_user->name ?>" class="login-complete-btn"><span><img class="img-circle d-inline block" src="<?= $link_img ?>" /> <?= $info_user->name ?><i class="mdi mdi-chevron-down"></i></span></div>
+                      		<div title="<?= $info_user->nickname ? $info_user->nickname : $info_user->name ?>" class="login-complete-btn"><span><img class="img-circle d-inline block" src="<?= $link_img ?>" /> <?= $info_user->nickname ? $info_user->nickname : $info_user->name ?><i class="mdi mdi-chevron-down"></i></span></div>
                       		
                       	<?php }?>
                 <?php }else {?>

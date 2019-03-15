@@ -1,4 +1,3 @@
-
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -55,18 +54,23 @@ class Tournament extends MY_Controller {
         $list_tournament = $this->tournament_m->get_list($input); 
         
         foreach ($list_tournament as $row) {
+            $where = array('id' => $row->created_by);
+            $obj_created_by = $this->users_m->get_info_rule($where);
+            $row->created_by = array('name' => $obj_created_by->name, 'nickname' => $obj_created_by->nickname, 'image_link' => $obj_created_by->image_link);
             $input =array();
             $input['where'] = array('tournament_id' => $row->id);
             $total_comment = $this->comment_m->get_total($input);
             $row->count_comment = $total_comment;
         }
-
-        $this->data['list_tournament'] = $list_tournament;         
-
+        
         $breadcrumb[] = array(
             'url' => "",
             'name' => 'Giải đấu',
         );
+
+
+        $this->data['list_tournament'] = $list_tournament;         
+
 
         $this->data['title_site'] = 'Giải đấu';
         $this->data['keyword_site'] = 'Giải đấu';
@@ -89,13 +93,21 @@ class Tournament extends MY_Controller {
         $data['view'] = $objTournament->view + 1;
         $this->tournament_m->update($objTournament->id, $data);
         
+        $where = array('id' => $objTournament->created_by);
+        $obj_created_by = $this->users_m->get_info_rule($where);
+        
+        $objTournament->created_by = array('name' => $obj_created_by->name, 'nickname' => $obj_created_by->nickname, 'image_link' => $obj_created_by->image_link);
+
         $this->data['objTournament'] = $objTournament;
         
         $input = array();
-        $input['where'] = array('pid' => $objTournament->pid);
-        $input['where'] = array('id <>' => $objTournament->id);
+        $input['where'] = array('pid' => $objTournament->pid, 'status' => 1, 'id <>' => $objTournament->id);
         $input['order'] = array('id', 'ASC');
         $list_related = $this->tournament_m->get_list($input);
+        
+        //         echo '<pre>';
+        // print_r($list_related);
+        // echo '<pre>';die();
         
         $input = array();
         $input['where'] = array('pid' => 0, 'tournament_id' => $objTournament->id);   
@@ -131,6 +143,7 @@ class Tournament extends MY_Controller {
                 $row->point = ($objUser->point_doi &&  $objUser->tid == 1) ? $objUser->point_doi : 0;
                 $row->image_link = $objUser->image_link;
                 $row->id_user = $objUser->id;
+                $row->created = $objUser->created;
                 $input = array();
                 $input['where'] = array('pid' => $row->id);
                 $input['order'] = array('created', 'ASC');
@@ -143,6 +156,7 @@ class Tournament extends MY_Controller {
                     $row_sub->image_link = $objUser->image_link;
                     $row_sub->id_user = $objUser->id;
                     $row_sub->point = ($objUser->point_doi &&  $objUser->tid == 1) ? $objUser->point_doi : 0;
+                    $row_sub->created = $objUser->created;
                 }
                 
             }
@@ -226,7 +240,8 @@ class Tournament extends MY_Controller {
                     $this->data['dataTournament'] = $obj_tournament_playing_category;
                     break;
                 case 'van-dong-vien':
-                    $this->data['dataTournament'] = $obj_tournament_playing_category;
+                     //$this->data['dataTournament'] = $objTournament;
+                     $this->data['dataTournament'] = $obj_tournament_playing_category;
                     break;
                 case 'lich-su-giai-dau':
                     $this->data['dataTournament'] = $list_related;
@@ -240,9 +255,21 @@ class Tournament extends MY_Controller {
             $this->data['type'] = $type;
         }
         
-        $this->data['title_site'] = 'Sản phẩm';
-        $this->data['keyword_site'] = 'Sản phẩm';
-        $this->data['description_site'] = 'Sản phẩm';
+        $breadcrumb[] = array(
+            'url' => base_url('giai-dau.html'),
+            'name' => 'Giải đấu',
+        );
+        
+        $breadcrumb[] = array(
+            'url' => base_url() . $objTournament->vn_slug . '.html',
+            'name' => $objTournament->vn_name,
+        );
+
+        $this->data['breadcrumb'] = $breadcrumb; 
+        
+        $this->data['title_site'] = 'Giải đấu';
+        $this->data['keyword_site'] = 'Giải đấu';
+        $this->data['description_site'] = 'Giải đấu';
         
         $this->data['temp'] = 'tournament/detail';
         $this->one_col($this->data);
@@ -292,19 +319,19 @@ class Tournament extends MY_Controller {
                                 if (count($row_1->doi_1) == 2) {
                                     $str_name_1 = '';
                                     foreach ($row_1->doi_1 as $val) {
-                                        $url = '<a href="'.base_url('chi-tiet-thanh-vien-'.$val->id.'.html').'">'.$val->name.'</a>';
+                                        $url = '<a title="'.$val->name.'" href="'.base_url('chi-tiet-thanh-vien-'.$val->id.'.html').'">'.$val->name.'</a>';
                                         $str_name_1 .= '-' . $url;
                                        
                                     }
                                     $str_name_2 = '';
                                     foreach ($row_1->doi_2 as $val) {
-                                        $url = '<a href="'.base_url('chi-tiet-thanh-vien-'.$val->id.'.html').'">'.$val->name.'</a>';
+                                        $url = '<a title="'.$val->name.'" href="'.base_url('chi-tiet-thanh-vien-'.$val->id.'.html').'">'.$val->name.'</a>';
                                         $str_name_2 .= '-' . $url;
                                     }
                                     $arr_list_cap_dau[] = array(substr($str_name_1, 1), substr($str_name_2, 1));
                                 }
                                 if (count($row_1->doi_1) == 1) {
-                                    $url_1 = '<a href="'.base_url('chi-tiet-thanh-vien-'.$row_1->doi_1[0]->id.'.html').'">'.$row_1->doi_1[0]->name.'</a>';
+                                    $url_1 = '<a  href="'.base_url('chi-tiet-thanh-vien-'.$row_1->doi_1[0]->id.'.html').'">'.$row_1->doi_1[0]->name.'</a>';
                                     $url_2 = '<a href="'.base_url('chi-tiet-thanh-vien-'.$row_1->doi_2[0]->id.'.html').'">'.$row_1->doi_2[0]->name.'</a>';
                                     $arr_list_cap_dau[] = array($url_1, $url_2);
                                 }

@@ -19,7 +19,7 @@
     <meta property="og:title"         content="<?= @$title_site ? $title_site : $title_page ?>" />
     <meta property="og:description"   content="<?= @$description_site ? $description_site : $description_page ?>" />
     <meta property="og:image"         content="<?= @$img_site ? $img_site : $img_page ?>" />
-    <meta property="og:site_name" content="CÔNG TY CỔ PHẦN AN NINH DHS VIỆT NAM">
+    <meta property="og:site_name" content="ACESPORT">
     
 	
 

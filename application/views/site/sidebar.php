@@ -24,16 +24,28 @@
     		</ul>
     	</div>
     	<div class="box-left">
-    		<div class="title-left">
-    			<h5>giải đấu đang diễn ra</h5>
+    		<!--<div class="title-left">-->
+    		<!--	<h5>giải đấu đã diễn ra</h5>-->
+    		<!--</div>-->
+    		<!--<ul>-->
+      <!--  		<?php if ($objTournamentSidebar['gd_dang_dien_ra']) { ?>-->
+      <!--  			<?php foreach ($objTournamentSidebar['gd_dang_dien_ra'] as $row) {?>-->
+      <!--  				<li><a title="" href="<?= base_url('chi-tiet-giai-dau/') . $row->vn_slug ?>.html"> <i class="mdi mdi-tennis"></i><?= $row->vn_name ?></a></li>-->
+      <!--  			<?php } ?>-->
+      <!--  		<?php } ?>-->
+    		<!--</ul>-->
+    		
+    	    <div class="title-left">
+    			<h5>giải đấu đã diễn ra</h5>
     		</div>
     		<ul>
-        		<?php if ($objTournamentSidebar['gd_dang_dien_ra']) { ?>
-        			<?php foreach ($objTournamentSidebar['gd_dang_dien_ra'] as $row) {?>
+        		<?php if ($objTournamentSidebar['gd_da_dien_ra']) { ?>
+        			<?php foreach ($objTournamentSidebar['gd_da_dien_ra'] as $row) {?>
         				<li><a title="" href="<?= base_url('chi-tiet-giai-dau/') . $row->vn_slug ?>.html"> <i class="mdi mdi-tennis"></i><?= $row->vn_name ?></a></li>
         			<?php } ?>
         		<?php } ?>
     		</ul>
+    		
     	</div>
 	<?php } ?>
 </div>

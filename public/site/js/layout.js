@@ -42,22 +42,6 @@ $('document').ready(function() {
   });
   // end
 
-  //NAVTABS ACTIVE
-  $('.navbar-nav .nav-item').on('click', function(){
-    let itemParent = $(this)
-      .parent()
-      .parent()
-      .parent()
-        .find('.navbar-toggler');
-
-    $('.navbar-nav .nav-item').removeClass('active')
-    $(this).addClass('active')
-
-    let text = $(this).text();
-    $(itemParent).text(text);
-    $('.navbar-collapse').removeClass('show');
-  });
-  // end
 
   // Setting menu mobile
   $('.nav-close').click(() => {
@@ -87,6 +71,7 @@ $('document').ready(function() {
     $('.overlay').toggleClass('overlay-in');
     $("#divToUpdate").html('');
   });
+  
 
   $('.login-close').click(function() {
     $('.box-login').removeClass('box-login-show');

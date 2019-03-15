@@ -62,6 +62,7 @@ Class Admin extends MY_Controller {
         $input['limit'] = array($config['per_page'], $segment);
 
         $this->data['list_user'] = $this->users_m->get_list($input);
+
         $this->data['filter'] = $data;
 
         $this->data['title'] = 'Danh sách tài khoản';
@@ -93,7 +94,7 @@ Class Admin extends MY_Controller {
             $input['or_like_arr'][]  = array('phone', $name);
             $input['or_like_arr'][]  = array('organization', $name);
         }
-    
+        $input['where']['id <>']   = 74;
         //lay tong so luong ta ca cac giao dich trong websit
         $total_item = $this->users_m->get_total($input);
     
@@ -146,7 +147,7 @@ Class Admin extends MY_Controller {
     }
 
     public function add() {
-        if(!empty($this->input->post())){
+        if($this->input->post()){
             $data = array();
             $data['status']     = $this->input->post('status');
             $data['tid']        = $this->input->post('tid');
@@ -176,21 +177,39 @@ Class Admin extends MY_Controller {
                     
                 }
                 
+                $email = $this->input->post('email', true);
+                
+                if($email) {
+                    $subject = 'Thông tin tài khoản';     
+                    $body = '<div>
+                                <h3>Tài khoản của bạn vừa được tạo thành công bởi Admin của ACESPORT</h3>
+                                <p>Đây là thông tin tài khoản username và password của bạn để đăng nhập vào website <a href="'.base_url().'">acesport.net<a/>
+                                <br>
+                                Bạn không nên cho ai biết thông tin này vui lòng truy cập vào website <a href="'.base_url().'">acesport.net<a/> để thay đổi thông tin.
+                                </p>
+                                <p>username: '.$this->input->post('username', true).'</p>
+                                <p>password: '.$this->input->post('password', true).'</p>
+                            </div>';
+                    $this->system_library->send_mail($email, $subject, $body, 'ACESPORT'); 
+                }
+                
                 $tid = $this->input->post('tid', true);
                 $data = array(
                     'status' => $this->input->post('status', true),
                     'name' => $this->input->post('name', true),
+                    'nickname' => $this->input->post('name', true),
                     'username' => $this->input->post('username', true),
                     'password' => md5($this->input->post('password', true)),
                     'sex' => $this->input->post('sex', true),
                     'tid' => $tid,
                     'point_doi' => $this->input->post('point_doi', true),
                     'image_link' => $image_link,
-                    'email' => $this->input->post('email', true),
+                    'email' => $email,
                     'phone' => $this->input->post('phone', true),
                     'address' => $this->input->post('address', true),
                     'birthday' => strtotime($this->input->post('birthday', true)),
                     'organization' => $this->input->post('organization', true),
+                    'is_member' => $this->input->post('is_member', true),
                     'created' => now(),
                     'created_by' => $this->session->userdata('tid')
                 );
@@ -214,20 +233,19 @@ Class Admin extends MY_Controller {
         $this->load->view('admin/main', $this->data);
      }
      
-     public function check_rules() {
+    public function check_rules() {
          $username = $this->input->post('username');
          //validate username username is 8-20 characters long, no _ or . at the beginning, no __ or _. or ._ or .. inside, allowed characters, no _ or . at the end
-         $pattern = '/^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/';
+         $pattern = '/^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/';
          if (!preg_match($pattern, $username, $matches)) {
              //trả về thông báo lỗi
-             $this->form_validation->set_message(__FUNCTION__, 'Nicknam phải dài từ 8-20 ký tự gồm chuỗi a-zA-Z0-9 không chứa dấu, khoảng trắng, không bắt đầu bằng dấu _ hoặc ., bên trong không chứa dấu __ hoặc _. hoặc .., không kết thúc bằng _ hoặc .');
+             $this->form_validation->set_message(__FUNCTION__, 'Nicknam phải dài từ 6-20 ký tự gồm chuỗi a-zA-Z0-9 không chứa dấu, khoảng trắng, không bắt đầu bằng dấu _ hoặc ., bên trong không chứa dấu __ hoặc _. hoặc .., không kết thúc bằng _ hoặc .');
              return false;
          }
          return true;
      }
-
      
-     public function edit_user() {
+      public function edit_user() {
          $id = $this->uri->rsegment('3');
          $id = intval($id);
          
@@ -240,7 +258,7 @@ Class Admin extends MY_Controller {
              redirect(base_url() . 'admincp/admin/user');
          }     
               
-         if(!empty($this->input->post())){
+         if($this->input->post()){
              #Tạo folder upload theo ngày truoc khi upload
              $upload_path = 'uploads/images/user/';
              
@@ -248,13 +266,13 @@ Class Admin extends MY_Controller {
              
              $image_link = '';
              
-             if ($upload_data != NULL && !isset($info->image_link)) {             
+
+             
+             if ($upload_data != NULL && !$info->image_link) {             
                  $image_link = $upload_data;
                  $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '200_200/' . $image_link, 400, 400);
                  @unlink($upload_path . $image_link);
-             
-             } elseif (
-                 $upload_data != NULL && $info->image_link) {             
+             } else if ($upload_data != NULL && $info->image_link) {             
                  $image_link = $upload_data;
                  @unlink($upload_path . '200_200/' . $info->image_link);
                  $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '200_200/' . $image_link, 400, 400);
@@ -268,15 +286,34 @@ Class Admin extends MY_Controller {
                  $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
                  $this->form_validation->set_rules('re_password', 'Nhập lại password', 'matches[password]');
                  if($this->form_validation->run()){
+                     
+                    $email = $this->input->post('email', true);
+                     
+                    if($email && $email != $info->email) {
+                        $subject = 'Thông tin tài khoản';     
+                        $body = '<div>
+                                    <h3>Tài khoản của bạn vừa được tạo thành công bởi Admin của ACESPORT</h3>
+                                    <p>Đây là thông tin tài khoản username và password của bạn để đăng nhập vào website <a href="'.base_url().'">acesport.net<a/>
+                                    <br>
+                                    Bạn không nên cho ai biết thông tin này vui lòng truy cập vào website <a href="'.base_url().'">acesport.net<a/> để thay đổi thông tin.
+                                    </p>
+                                    <p>username: '.$info->username.'</p>
+                                    <p>password: '.$this->input->post('password', true).'</p>
+                                </div>';
+                        $this->system_library->send_mail($email, $subject, $body, 'ACESPORT'); 
+                    }
+                     
                      $data = array(
                          'status' => $this->input->post('status', true),
                          'name' => $this->input->post('name', true),
+                         'nickname' => $this->input->post('nickname', true),
                          'password' => md5($this->input->post('password', true)),
                          'sex' => $this->input->post('sex', true),
                          'tid' => $this->input->post('tid', true),
                          'point_doi' => $this->input->post('point_doi', true),
+                         'is_member' => $this->input->post('is_member', true),
                          'image_link' => $image_link,
-                         'email' => $this->input->post('email', true),
+                         'email' => $email,
                          'phone' => $this->input->post('phone', true),
                          'address' => $this->input->post('address', true),
                          'birthday' => strtotime($this->input->post('birthday', true)),
@@ -294,6 +331,8 @@ Class Admin extends MY_Controller {
                  $data = array(
                      'status' => $this->input->post('status', true),
                      'name' => $this->input->post('name', true),
+                     'nickname' => $this->input->post('nickname', true),
+                     'is_member' => $this->input->post('is_member', true),
                      'sex' => $this->input->post('sex', true),
                      'tid' => $this->input->post('tid', true),
                      'point_doi' => $this->input->post('point_doi', true),
@@ -321,15 +360,40 @@ Class Admin extends MY_Controller {
     public function edit() {
         $id = $this->uri->rsegment('3');
         $id = intval($id);
+        
+        $info = $this->users_m->get_info($id);
 
-        $this->data['info_users'] = $this->users_m->get_info($id);
+        $this->data['info_users'] = $info;
 
-        if(!empty($this->input->post())){
+        if($this->input->post()){
+             #Tạo folder upload theo ngày truoc khi upload
+             $upload_path = 'uploads/images/user/';
+             
+             $upload_data = $this->system_library->upload($upload_path, 'image_link');
+             
+             $image_link = '';
+             
+
+             
+             if ($upload_data != NULL && !$info->image_link) {             
+                 $image_link = $upload_data;
+                 $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '200_200/' . $image_link, 400, 400);
+                 @unlink($upload_path . $image_link);
+             } else if ($upload_data != NULL && $info->image_link) {             
+                 $image_link = $upload_data;
+                 @unlink($upload_path . '200_200/' . $info->image_link);
+                 $this->system_library->resize_image('crop', $upload_path . $image_link, $upload_path . '200_200/' . $image_link, 400, 400);
+                 @unlink($upload_path . $image_link);
+             
+             } else {
+                 $image_link = $info->image_link;
+             }
                 $data = array(
                     'status' => $this->input->post('status', true),
                     'name' => $this->input->post('name', true),
                     'tid' => $this->input->post('tid', true),
                     'email' => $this->input->post('email', true),
+                    'image_link' => $image_link,
                     'phone' => $this->input->post('phone', true),
                     'address' => $this->input->post('address', true),
                 );
@@ -484,7 +548,7 @@ Class Admin extends MY_Controller {
             $this->session->set_flashdata('message', 'Không có gì trong thùng rác');
         }
 
-        redirect(base_url('admincp/admin'));
+        redirect(base_url('admincp/admin/user'));
     }
     
     public function position($type = '') {    
@@ -495,6 +559,19 @@ Class Admin extends MY_Controller {
             $col = $type == 'don' ? 'point_don' : 'point_doi';
             if ($this->users_m->update($id, array($col => $position))) {
                 $msg = 'Cập nhật điểm thành công';
+                echo json_encode(array('msg' => $msg, 'success' => true));
+            }
+        }
+    }
+    
+    public function is_value($type = '') {    
+        $value = $this->input->post('value');    
+        $id = $this->input->post('id');
+        $name = $this->input->post('name');
+    
+        if ($this->input->post()) {
+            if ($this->users_m->update($id, array($name => $value))) {
+                $msg = 'Cập nhật trạng thái thành viên thành công';
                 echo json_encode(array('msg' => $msg, 'success' => true));
             }
         }

@@ -29,35 +29,6 @@
                 </a>
             </li>
 
-            <li>
-                <a href="<?= base_url('admincp/product') ?>">
-                    <img src="<?= base_url() ?>public/admin/img/config/quan-li-san-pham.png" alt=""/>
-                    Quản lí sản phẩm
-                </a>
-            </li>
-
-            <li>
-                <a href="<?= base_url('admincp/articles') ?>">
-                    <img src="<?= base_url() ?>public/admin/img/config/icon-bai-viet.png" alt=""/>
-                    Quản lí tin tức, dự án, tư vấn
-                </a>
-            </li>
-
-            <li>
-                <a href="<?= base_url('admincp/ads') ?>">
-                    <img src="<?= base_url() ?>public/admin/img/config/quan-li-ads.png" alt=""/>
-                    Quản lí ads
-                </a>
-            </li>
-
-
-            <li>
-                <a href="<?= base_url('admincp/manager_service') ?>">
-                    <img src="<?= base_url() ?>public/admin/img/config/icon-dowload.png" alt=""/>
-                    Quản lí các dịch vụ
-                </a>
-            </li>
-
         </ul>
     </div>
 </div>

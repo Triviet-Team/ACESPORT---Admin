@@ -103,6 +103,9 @@ $route['admincp/tournament/tournament/(:num)'] = 'admincp/tournament/tournament/
 
 $route['admincp/tournament/playing_category/(:num)'] = 'admincp/tournament/playing_category/index/';
 
+$route['admincp/tournament/fixture/(:num)'] = 'admincp/tournament/fixture/index/$1';
+
+
 $route['admincp/product_category/(:num)'] = 'admincp/product_category/index/';
 
 $route['admincp/product/(:num)'] = 'admincp/product/index/';

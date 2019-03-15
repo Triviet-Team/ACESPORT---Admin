@@ -304,13 +304,14 @@ footer p{
 
 .image_thumb{
     float: left;
-    margin-right: 10px;
+    margin: auto;
     width: 60px;
     overflow: hidden;
 }
 
 .image_thumb img {
 	width: 60px;
+	border-radius: 50%;
 }
 
 .info_products{

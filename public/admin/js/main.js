@@ -197,6 +197,18 @@ function position(id, position, url) {
     });
 }
 
+function isValue(id, name, url, obj) {
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {id: id, name: name, value: obj.checked == true ? 1 : 0},
+        dataType: 'JSON',
+        success: function (data) {
+            $('.messages').html('<div class="alert alert-success" role="alert">' + data.msg + '</div>');
+        }
+    });
+}
+
 function getInfo(data, id = '', title = '', active = '') {
     $.ajax({
         url: url + 'admincp/tournament/fixture/getInfo',
@@ -204,7 +216,7 @@ function getInfo(data, id = '', title = '', active = '') {
         data: data,
         dataType: 'JSON',
         success: function (result) {
-        	console.log(result);
+        	//console.log(result);
         	var str = '<option value="">' + title + '</option>';
         	if(result != 0){
         		$.each(result, function(i, value){
@@ -303,35 +315,23 @@ $(document).ready(function () {
     		$("#round").html('<option value="0">Chọn vòng đấu</option>');
     	}
     });
-    
-//	if(parseInt(tournament_type) > 0 && tournament_type != undefined) {
-//		getInfo({tournament_type: tournament_type, type: 'tournament_type'}, '#tournament', 'Chọn giải đấu', activeTournament);
-//		tournament = $("#tournament option:selected").val();
-//	}
 	
-//    $.ajax({
-//	    url: url + 'admincp/tournament/fixture/getNoiDung',
-//	    type: 'POST',
-//	    data: {tournament: activeTournament, type: 'tournament'},
-//	    dataType: 'JSON',
-//	    success: function (result) {
-//	    	console.log(result);
-//	    	var str = '<option value="">Chọn nội dung</option>';
-//	    	if(result != 0){
-//	    		var activeNoiDung = $("#noi_dung").attr('noi_dung');
-//	    		console.log(activeNoiDung);
-//	    		$.each(result, function(i, value){
-//	    			if(activeNoiDung == value.id ) {
-//	    				str += '<option selected value="'+ value.id +'">'  + ' ' + value.vn_name + '</option>';
-//	    			}else {
-//	    				str += '<option value="'+ value.id +'">'  + ' ' + value.vn_name + '</option>';
-//	    			}
-//	    		});
-//	    	}
-//	    	$('#noi_dung').html(str);
-//	    }
-//	});
-//    
+	var classNoiDung =  $(".noi-dung");
+	//console.log(classNoiDung);
+	if(classNoiDung.length > 0) {
+	    	if(parseInt(activeTournament) > 0 && activeTournament != undefined) {
+	    	    getInfo({tournament: activeTournament, type: 'tournament'}, '#noi_dung', 'Chọn nội dung', activeNoiDung);
+	    	}
+	}
+	
+	var classTournamentType =  $(".tournament");
+	//console.log(classTournamentType);
+	if(classTournamentType.length > 0) {
+    	if(parseInt(activeTournament) > 0 && activeTournament != undefined) {
+    		getInfo({tournament_type: tournament_type, type: 'tournament_type'}, '#tournament', 'Chọn giải đấu', activeTournament);
+    	}
+	}
+	
 	if(parseInt(activeTournament) > 0 && activeTournament != undefined) {
 		$.ajax({
 		        url: url + 'admincp/tournament/fixture/getInfo',
@@ -680,10 +680,36 @@ $(document).ready(function() {
 
 });
 
+//datetimepicker
+$(document).ready(function() {
+	var $fp = $( ".filthypillow-1" ),
+    now = moment( ).subtract( "seconds", 1 );
+	$fp.filthypillow( { 
+	  minDateTime: null
+	} );
+	$fp.on( "focus", function( ) {
+	  $fp.filthypillow( "show" );
+	} );
+	$fp.on( "fp:save", function( e, dateObj ) {
+	  $fp.val( dateObj.format( "DD-MM-YYYY hh:mm" ) );
+	  $fp.filthypillow( "hide" );
+	} );
+	
+	var $fp2 = $( ".filthypillow-2" ),
+    now = moment( ).subtract( "seconds", 1 );
+	$fp2.filthypillow( { 
+	  minDateTime: null
+	} );
+	$fp2.on( "focus", function( ) {
+		$fp2.filthypillow( "show" );
+	} );
+	$fp2.on( "fp:save", function( e, dateObj ) {
+		$fp2.val( dateObj.format( "DD-MM-YYYY hh:mm" ) );
+		$fp2.filthypillow( "hide" );
+	} );
 
 
-
-
+});
 
 
 

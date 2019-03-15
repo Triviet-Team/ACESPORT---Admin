@@ -91,6 +91,7 @@
                             <th scope="col" style="width: 61px">Mã Số</th>
                             <th scope="col">Thông tin</th>                            
                             <th scope="col" style="width: 130px;">Điểm</th>
+                            <th scope="col" style="width: 90px;">Chính thức</th>
                             <th scope="col" style="width: 83px;">Trạng thái</th>
                             <th scope="col" style="width: 83px;">Ngày tạo</th>
                             <th scope="col" style="width: 110px;">Tạo bởi</th>
@@ -114,18 +115,20 @@
                                     </div>
                                     <div class="info_products">
                                         <div>Username: <?= $row->username ?></div>
-                                        <span>Tên: <?= $row->name ? $row->name : 'Chưa cập nhật'?></span></br>
+                                        <span>Họ Tên: <?= $row->name ? $row->name : 'Chưa cập nhật'?></span></br>
+                                        <span>Nickname: <?= $row->nickname ? $row->nickname : 'Chưa cập nhật'?></span></br>
                                         <span>Email: <?= $row->email ?></span>
                                         <div>Đơn vị/Tổ chức: <?= $row->organization ? $row->organization : 'Chưa cập nhật'?></div>
                                     </div>
                                 </td>
                                 <td class="text-center"><input style="font-size: 13px; width: 100%" class="form-control iptPostion" onchange="position('<?= $row->id ?>', this.value, '<?= base_url('admincp/admin/position/doi') ?>')" value="<?= $row->point_doi ? $row->point_doi : 0 ?>"/></td>
-								<!-- <td class="text-center"><input style="font-size: 13px; width: 100%" class="form-control iptPostion" onchange="position('<?= $row->id ?>', this.value, '<?= base_url('admincp/admin/position/don') ?>')" value="<?= $row->point_don ? $row->point_don : 0 ?>"/></td>     -->                           
+								<!-- <td class="text-center"><input style="font-size: 13px; width: 100%" class="form-control iptPostion" onchange="position('<?= $row->id ?>', this.value, '<?= base_url('admincp/admin/position/don') ?>')" value="<?= $row->point_don ? $row->point_don : 0 ?>"/></td>     -->  
+								<td class="text-center" id="status_<?= $row->id ?>"><input class="checkItem" onclick="isValue(<?= $row->id ?>, 'is_member', '<?= base_url('admincp/admin/is_value') ?>', this)" name="is_member" <?= $row->is_member == 1 ? 'checked' : '' ?> value="" type="checkbox"></td>
                                 <td class="text-center" id="status_<?= $row->id ?>">
                                     <img src="<?= base_url() ?>public/admin/img/icon/action_<?= $row->status ?>.png" alt="Xóa"/>
                                 </td>
                                 <td class="text-center"><?= $row->created ? date('d/m/Y', $row->created) : '' ?></td>
-                                <td class="text-center"><?= $row->created_by == 1 ? 'Thành viên' : 'Quản trị viên' ?></td>
+                                <td class="text-center"><?= $row->created_by > 1 ? 'Quản trị viên' : 'Thành viên' ?></td>
                                 <td class="button_action text-center">
                                     <a href="<?= base_url('admincp/admin/edit_user/' . $row->id) ?>" class="edit_item" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa"></a>
                                     <a href="javascript:(0)" onclick="action_item(<?= $row->id ?>, 'enable', '<?= base_url('admincp/admin/config') ?>')" class="enable_item" data-toggle="tooltip" data-placement="top" title="Hiển thị"></a>

@@ -16,11 +16,20 @@
                     </div>
                 </div>
                 
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Chính thức</label>
+                    <div class="col-sm-10">
+                        <select class="custom-select" name="is_member">
+                            <option value="0" <?= (isset($filter['is_member']) && $filter['is_member'] == 0) ? 'selected' : '' ?>>Không chính thức</option>
+                            <option value="1" <?= (isset($filter['is_member']) && $filter['is_member'] == 1) ? 'selected' : '' ?>>Chính thức</option>
+                        </select>
+                    </div>
+                </div>
+                
                <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Giới tính</label>
                     <div class="col-sm-10">
                         <select class="custom-select" name="sex">
-                        	<option value="2" <?= (isset($filter['tid']) && $filter['tid'] == 3) ? 'selected' : '' ?>>Chưa xác định</option>
                             <option value="1" <?= (isset($filter['tid']) && $filter['tid'] == 1) ? 'selected' : '' ?>>Nam</option>
                             <option value="0" <?= (isset($filter['tid']) && $filter['tid'] == 2) ? 'selected' : '' ?>>Nữ</option>                            
                         </select>
@@ -34,18 +43,26 @@
                         <div class="error"><?= form_error('name') ?></div>
                     </div>
                 </div>
+                
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Nickname</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="nickname" class="form-control" placeholder="nickname" value="<?php echo set_value('nickname'); ?>">
+                    </div>
+
+                </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Username</label>
+                    <label class="col-sm-2 col-form-label">Username <i style="color: red;">*</i></label>
                     <div class="col-sm-10">
-                        <input type="text" name="username" class="form-control" placeholder="Username" value="<?php echo set_value('username'); ?>">
+                        <input type="text" name="username" class="form-control" placeholder="Tên đăng nhập (tên này là duy nhất và không thể thay đổi)" value="<?php echo set_value('username'); ?>">
                         <div class="error"><?= form_error('username') ?></div>
                     </div>
 
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Password</label>
+                    <label class="col-sm-2 col-form-label">Password <i style="color: red;">*</i></label>
                     <div class="col-sm-10">
                         <input type="password" name="password" class="form-control" placeholder="Password">
                         <div class="error"><?= form_error('password') ?></div>
@@ -53,7 +70,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Nhập lại password</label>
+                    <label class="col-sm-2 col-form-label">Nhập lại password  <i style="color: red;">*</i></label>
                     <div class="col-sm-10">
                         <input type="password" name="re_password" class="form-control" placeholder="Nhập lại password">
                         <div class="error"><?= form_error('re_password') ?></div>

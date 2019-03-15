@@ -208,13 +208,21 @@ $config['ResourceType'][] = Array(
 		'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
 		'deniedExtensions' => '');
 
+// $config['ResourceType'][] = Array(
+// 		'name' => 'Flash',
+// 		'url' => $baseUrl . 'flash',
+// 		'directory' => $baseDir . 'flash',
+// 		'maxSize' => 0,
+// 		'allowedExtensions' => 'swf,flv',
+// 		'deniedExtensions' => '');
+
 $config['ResourceType'][] = Array(
-		'name' => 'Flash',
-		'url' => $baseUrl . 'flash',
-		'directory' => $baseDir . 'flash',
-		'maxSize' => 0,
-		'allowedExtensions' => 'swf,flv',
-		'deniedExtensions' => '');
+'name' => 'Flash',
+'url' => $baseUrl . 'flash',
+'directory' => $baseDir . 'flash',
+'maxSize' => 0,
+'allowedExtensions' => 'swf,flv,mov,mp4',
+'deniedExtensions' => '');
 
 /*
  Due to security issues with Apache modules, it is recommended to leave the
@@ -324,6 +332,8 @@ For more complex configuration options visit our Developer's Guide
   http://docs.cksource.com/CKFinder_2.x/Developers_Guide/PHP
 */
 $config['XSendfile'] = false;
+
+//$config['XSendfile'] = true;
 
 /*
 Enables protection in the connector.

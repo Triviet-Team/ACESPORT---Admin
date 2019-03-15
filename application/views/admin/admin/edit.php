@@ -4,7 +4,7 @@
             <?= $title ?>
         </div>
         <div class="form-mid">
-            <form method="POST" action="" id="frmSubmit">
+            <form method="POST" action="" id="frmSubmit" enctype="multipart/form-data">
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Trạng Thái</label>
@@ -54,6 +54,24 @@
                     <label class="col-sm-2 col-form-label">Địa chỉ</label>
                     <div class="col-sm-10">
                         <input type="text" name="address" value="<?= $info_users->address ?>" class="form-control" placeholder="Địa chỉ">
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Hình Ảnh</label>
+                    <div class="col-sm-10">
+                        <div class="custom-file">
+                            <input type="file" name="image_link" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label">Chọn File</label>
+                        </div>
+
+                        <div class="showFile">
+                            <?php if (!$info_users->image_link) { ?>
+                                <img id="profile-img-tag" src="<?= base_url() ?>public/admin/img/no-img.png" alt="No-Img">
+                            <?php } else { ?>
+                                <img id="profile-img-tag" src="<?= base_url('uploads/images/user/200_200/' . $info_users->image_link) ?>" alt="No-Img">
+                            <?php } ?>
+                        </div>
                     </div>
                 </div>
 

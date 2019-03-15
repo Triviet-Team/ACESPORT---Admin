@@ -14,10 +14,10 @@
           </div>
           <div class="tab-content">
             <div class="tab-pane fade show active" id="setting" role="tabpanel" aria-labelledby="setting-tab"> 
-              <div class="box-member">
+              <div class="box-member-register">
                 <form method="POST" action="" enctype="multipart/form-data">
                   <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                       <div class="box-member-setting-form">
                         <div class="row">
                           <div class="col-sm-12">

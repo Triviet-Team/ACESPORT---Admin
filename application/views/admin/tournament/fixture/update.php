@@ -56,7 +56,7 @@
 					</thead>
 					<tbody>
 						<?php if($infoPlayer->set) { ?>
-							<?php for ($i = 1; $i <= $infoPlayer->set; $i++) { ?>
+							<?php for ($i = 1; $i <= 1; $i++) { ?>
         						<tr>
         							<td class="border-0">Set <?= $i ?></td>
         							<td class="border-0">

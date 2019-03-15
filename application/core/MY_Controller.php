@@ -73,6 +73,11 @@ Class MY_Controller extends CI_Controller {
         $input['limit'] = array(6 ,0);
         $objTournamentSidebar['gd_dang_dien_ra'] = $this->tournament_m->get_list($input);
         
+        $input = array();
+        $input['where'] = array('end_date <' => now(), 'status' => 1);
+        $input['limit'] = array(6 ,0);
+        $objTournamentSidebar['gd_da_dien_ra'] = $this->tournament_m->get_list($input);
+        
         $data['objTournamentSidebar'] = $objTournamentSidebar;     
        
         $this->load->view('site/layout', $data);

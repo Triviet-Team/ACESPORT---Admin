@@ -54,26 +54,50 @@ class Comment extends MY_Controller {
         );
         $login = $this->session->userdata('isCheckLogin');
         $tid = $this->session->userdata('tid');
+        $id = $this->session->userdata('id');
         $success = array();
-        if ($login && $tid > 1) {
+        if ($login) {
             $id_comment = $_POST['id_comment'];
             $where = array('id' => $id_comment);
             $objComment = $this->comment_m->get_info_rule($where);
-            $this->history_comment_m->del_rule(array('id_comment' => $objComment->id));
-            if ($objComment->pid == 0) {
-                if($this->comment_m->del_rule(array('pid' => $objComment->id))) {
+            if($tid > 1) {
+                $this->history_comment_m->del_rule(array('id_comment' => $objComment->id));
+                if ($objComment->pid == 0) {
+                    if($this->comment_m->del_rule(array('pid' => $objComment->id))) {
+                        if($this->comment_m->delete($objComment->id)) {
+                            $success['del'] = 1;
+                        }
+                    };
+                }else {
                     if($this->comment_m->delete($objComment->id)) {
                         $success['del'] = 1;
                     }
-                };
-            }else {
-                if($this->comment_m->delete($objComment->id)) {
-                    $success['del'] = 1;
+                }
+                if ($success['del'] == 1) {
+                    $data_pusher['comment_id'] = (int)$id_comment;
+                    $pusher->trigger('del-message', 'event-del-message', $data_pusher);
                 }
             }
-            if ($success['del'] == 1) {
-                $data_pusher['comment_id'] = (int)$id_comment;
-                $pusher->trigger('del-message', 'event-del-message', $data_pusher);
+            if($tid == 1) {
+                if($objComment->from_id == $id) {
+                    if ($objComment->pid == 0) {
+                        if($this->comment_m->del_rule(array('pid' => $objComment->id))) {
+                            if($this->comment_m->delete($objComment->id)) {
+                                $success['del'] = 1;
+                            }
+                        };
+                    }else {
+                        if($this->comment_m->delete($objComment->id)) {
+                            $success['del'] = 1;
+                        }
+                    }
+                    if ($success['del'] == 1) {
+                        $data_pusher['comment_id'] = (int)$id_comment;
+                        $pusher->trigger('del-message', 'event-del-message', $data_pusher);
+                    }
+                }else {
+                    $success['del'] = 0;
+                }
             }
         }else {
             $success['del'] = 0;
@@ -128,6 +152,7 @@ class Comment extends MY_Controller {
                                 				<a title="Nhấp để xem hồ sơ" href="'.base_url('chi-tiet-thanh-vien-'.$objUser->id.'.html').'">'.$objUser->name.'</a>
                                 			</h5>
                                 			<p>Điểm: '.$objUser->point.'</p>
+                                			<p>Ngày tham gia '.date('d/m/Y',$objUser->created).'</p>
                                 		</div>
                                 		<div class="box-comment-detail">
                                 			<div class="box-comment-detail-date">
@@ -143,13 +168,13 @@ class Comment extends MY_Controller {
                                 				<div class="add-box-reply-'.$comment_id.'"></div>
                                 			</div>
                                 		</div>
-                                	</div>';                               
+                                	</div>';
                                 $data_pusher['content'] = $html;
                                 $data_pusher['tournament_id'] = $tournament_id;
                                 $data_pusher['comment_id'] = $comment_id;
                                 $pusher->trigger('my-channel', 'my-event', $data_pusher);
                             }elseif ($option == 'add-message-reply') {
-                                $html = '<div class="box-sub-comment">
+                                $html = '<div class="box-sub-comment box-comment-'.$comment_id.'"">
             						<div class="box-sub-comment-img">
             							<a href="'.base_url('chi-tiet-thanh-vien-'.$objUser->id.'.html').'"> <img
             								src="'.$link_img.'">
@@ -194,7 +219,7 @@ class Comment extends MY_Controller {
                                         $this->users_m->update($row->id, $data);
                                         $arr_notification[] = array('id' => $row->id, 'total' => $row->count_notification + 1);
                                     }
-                                }                                
+                                }
                                 $data_notification['content'] = json_encode($arr_notification);
                                 $pusher->trigger('notification', 'event-send-notification', $data_notification);
                             }

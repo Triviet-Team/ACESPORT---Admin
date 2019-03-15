@@ -152,7 +152,13 @@
                         <textarea class="form-control" rows="10" id="editor" name="vn_detail"><?= isset($info->vn_detail) ? $info->vn_detail : set_value('vn_detail') ?></textarea>
                     </div>
                 </div>
-               </div>
+               
+               <!-- <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Danh sách vận động viên đăng ký</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="10" id="editor1" name="danh_sach_dk"><?= isset($info->danh_sach_dk) ? $info->danh_sach_dk : set_value('danh_sach_dk') ?></textarea>
+                    </div>
+                </div>-->
 
             </form>
         </div>

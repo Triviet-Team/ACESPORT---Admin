@@ -69,13 +69,13 @@
                         <li>
                             <a href="<?= base_url('admincp/tournament/content_tournament_playing_category') ?>">
                                 <img src="<?= base_url() ?>public/admin/img/icon/danh-sach.png" alt="Danh sách vận động viên cho nội dung và vòng loại"/>
-                                Danh sách vận động viên cho nội dung và vòng loại
+                                Danh sách lịch thi đấu vòng loại
                             </a>
                         </li>
                         <li>
                             <a href="<?= base_url('admincp/tournament/content_tournament_playing_category/detail') ?>">
                                 <img src="<?= base_url() ?>public/admin/img/icon/them.png" alt=""/>
-                                Thêm vận động viên cho nội dung
+                                Thêm danh sách lịch thi đấu vòng loại
                             </a>
                         </li>
                     </ul>
