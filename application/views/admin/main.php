@@ -34,7 +34,9 @@
                 <?php 
                     if ($tour == 'tournament'){
                         $this->load->view('admin/left_tournament');
-                    }else {
+                    }else if($tour == 'noidung')
+                        $this->load->view('admin/left_noidung');
+                    else {
                         $this->load->view('admin/left');
                     }
                 ?>
