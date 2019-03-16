@@ -4,6 +4,7 @@ Class MY_Controller extends CI_Controller {
 
     //bien gui du lieu sang ben view
     public $data = array();
+    public $id_noidung;
 
     function __construct() {
         //ke thua tu CI_Controller
@@ -12,7 +13,14 @@ Class MY_Controller extends CI_Controller {
         $controller = $this->uri->segment(1);
         switch ($controller) {
             case 'admincp' : {
-                    $this->data['tour'] = $this->uri->segment(2);
+                    $tour = $this->uri->segment(2);
+                    $this->data['tour'] = $tour; 
+                    // truyền id noi dung qua module noidung
+                    if($tour == 'noidung') {
+                        $id_noidung = $this->uri->segment(5);
+                        if($id_noidung) $this->data['id_noidung'] = $id_noidung;
+                        $this->id_noidung = $id_noidung;
+                    }
                     $this->_check_login();
                     break;
                 }

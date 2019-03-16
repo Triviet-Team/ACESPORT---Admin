@@ -15,15 +15,15 @@
                 <div id="collapseThree" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <ul>
                         <li>
-                            <a href="<?= base_url('admincp/noidung') ?>">
+                            <a href="<?= base_url('admincp/noidung/home/index/') . ($id_noidung ? $id_noidung : 0) ?>">
                                 <img src="<?= base_url() ?>public/admin/img/icon/thu-muc.png" alt="Danh mục sản phẩm"/>
                                 Thông tin chung
                             </a>
                         </li>
                         <li>
-                            <a href="<?= base_url('admincp/tournament/tournament_category/detail') ?>">
+                            <a href="<?= base_url('admincp/noidung/home/manager_team/') . ($id_noidung ? $id_noidung : 0) ?>">
                                 <img src="<?= base_url() ?>public/admin/img/icon/them.png" alt="Thêm danh mục"/>
-                                Thêm người chơi
+                                Quản lí đội bóng
                             </a>
                         </li>
                         <li>

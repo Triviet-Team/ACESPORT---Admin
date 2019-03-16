@@ -707,6 +707,50 @@ $(document).ready(function() {
 		$fp2.val( dateObj.format( "DD-MM-YYYY hh:mm" ) );
 		$fp2.filthypillow( "hide" );
 	} );
+	
+	/////  update
+	
+	var data = [
+	            {
+	                id: 0,
+	                text: 'enhancement'
+	            },
+	            {
+	                id: 1,
+	                text: 'bug'
+	            },
+	            {
+	                id: 2,
+	                text: 'duplicate'
+	            },
+	            {
+	                id: 3,
+	                text: 'invalid'
+	            },
+	            {
+	                id: 4,
+	                text: 'wontfix'
+	            }
+	        ];
+
+	  $(".select-player").on("click", function(){
+		  $(this).select2({
+			  ajax: {
+				type: "GET",
+			    url:  url + 'admincp/tournament/fixture/getInfoUsers',
+			    dataType: 'json',
+			    processResults: function (data) {
+			      // Tranforms the top-level key of the response object from 'items' to 'results'
+			      return {
+			        results: data
+			      };
+			    }
+			  },
+			    placeholder: "Chọn người chơi",
+			    minimumInputLength: 0,
+			    templateResult: formatState
+		});
+	  });
 
 
 });
